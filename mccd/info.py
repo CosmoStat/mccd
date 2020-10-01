@@ -16,7 +16,6 @@ __email__ = 'tobiasliaudat@gmail.com'
 __year__ = '2020'
 __url__ = 'https://github.com/CosmoStat/mccd'
 __description__ = 'A non-parametric Multi-CCD Point Spread Function modelling'
-__requires__ = []  # Your package dependencies
 
 # Default package properties
 __license__ = 'MIT'
