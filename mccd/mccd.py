@@ -4,9 +4,9 @@ r"""MCCD CLASS
 
 This module contains the main MCCD class.
 
-:Authors: Tobias Liaudat <tobias.liaudat@cea.fr>,
-          Jerome Bonnin
-          Morgan Schmitz
+:Authors:   Tobias Liaudat <tobias.liaudat@cea.fr>,
+            Jerome Bonnin <github @jerome-bonnin>
+            Morgan Schmitz <github @MorganSchmitz>
 
 """
 
