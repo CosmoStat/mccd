@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
-""" MCCD UTILS
+r""" MCCD UTILS
 
 These functions include several functions needed by the MCCD.
+
+:Authors:   Tobias Liaudat <tobias.liaudat@cea.fr>
 
 """
 
