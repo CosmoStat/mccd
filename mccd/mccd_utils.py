@@ -16,7 +16,6 @@ from scipy.interpolate import Rbf
 import galsim.hsm as hsm
 from galsim import Image
 import mccd_rca.utils as utils
-from shapepipe.pipeline import file_io
 
 
 def find_ccd_idx(ccd_id, ccd_list):
@@ -607,7 +606,81 @@ def random_indexes(n_tot, train_per=0.8, min_n_train=20):
     return train_idx, test_idx
 
 
-def save_fits(dictionary, train_bool, cat_id, output_path, example_path=None):
+def _get_fits_col_type(col_data_type):
+    if col_data_type is None or len(col_data_type) == 0:
+        col_type = 'D'
+    elif col_data_type in [np.int16]:
+        col_type = 'I'
+    elif col_data_type in [np.int32]:
+        col_type = 'J'
+    elif col_data_type in [int, np.int64]:
+        col_type = 'K'
+    elif col_data_type in [float, np.float16, np.float32, np.float64]:
+        col_type = 'D'
+    elif col_data_type is bool:
+        col_type = 'L'
+    elif col_data_type in [str, np.str, np.str_, np.str0]:
+        col_type = 'A'
+    else:
+        col_type = 'D'
+
+    return col_type
+
+
+def save_to_fits(dictionary, output_path):
+    r""" Save dictionary of np.ndarray into a fits file.
+    output_path should be the path + new_name to save the fits and should
+    include ``.fits`` extension.
+
+    Parameters
+    ----------
+    dictionary: dict
+        Dictionary to be saved to the fits file.
+    output_path: str
+        Should be the concatenation of the path to the folder and the name of the new fits file
+        and should include ``.fits`` extension.
+
+    Notes
+    -----
+    It is important that all the np.ndarrays share the first dimension as we are saving a table.
+
+    """
+
+    # Define the header
+    hdr = fits.Header()
+    hdr['OWNER'] = 'MCCD package'
+    hdr['COMMENT'] = 'Generated internally by the MCCD package.'
+    empty_primary_hdu = fits.PrimaryHDU(header=hdr)
+
+    # Construct the table
+    dict_keys = list(dictionary.keys())
+    n_elem = len(dict_keys)
+    col_list = []
+
+    for it in range(n_elem):
+        data = dictionary.get(dict_keys[it])
+        key = dict_keys[it]
+
+        data_type = _get_fits_col_type(data.dtype)
+        data_shape = data.shape[1:]
+        fits_dim = str(tuple(data_shape))
+
+        mem_size = 1
+        if len(data_shape) != 0:
+            for k in data_shape:
+                mem_size *= k
+            data_format = '{0}{1}'.format(mem_size, data_type)
+            col_list.append(fits.Column(name=key, format=data_format, array=data, dim=fits_dim))
+        else:
+            data_format = '{0}{1}'.format(mem_size, data_type)
+            col_list.append(fits.Column(name=key, format=data_format, array=data))
+
+    table_hdu = fits.BinTableHDU.from_columns(col_list)
+    hdul = fits.HDUList([empty_primary_hdu, table_hdu])
+    hdul.writeto(output_path)
+
+
+def save_fits(dictionary, train_bool, cat_id, output_path):
     r""" fits file saving function.
     Save a dictionary into a fits file format.
 
@@ -618,39 +691,28 @@ def save_fits(dictionary, train_bool, cat_id, output_path, example_path=None):
     train_bool: bool
         Bool to determine if it will be a training catalog or a testing catalog.
         Changes the name pattern used for the file.
-    cat_id: int
+    cat_id: int or str
         Catalog id (exposure id) to be added in the file name.
     output_path: str
         Path to folder to save the new file.
-    example_path: str
-        Path to an existing fits file to copy the header and the meta information.
-
-    Notes
-    -----
-    Need to re-do this function in order to cut out the dependency with shapepipe's file_io function
 
     """
-    if example_path is None:
-        example_path = '/Users/tliaudat/Documents/PhD/codes/venv_p3/JB-data/CFIS-data/' +\
-                       'all_w3_star_cat/star_selection-2079614-13.fits'
+
     # Save data into the FITS format extension
     train_pattern = 'train_star_selection'
     test_pattern = 'test_star_selection'
     try:
-        number_scheme = "-%07d" % (cat_id)
+        number_scheme = "-%07d" % cat_id
     except Exception:
         number_scheme = '-' + cat_id
     ext = '.fits'
 
     if train_bool:
         saving_path = output_path + train_pattern + number_scheme + ext
-    elif not train_bool:
+    else:
         saving_path = output_path + test_pattern + number_scheme + ext
 
-    fits_file = file_io.FITSCatalog(saving_path,
-                                    open_mode=file_io.BaseCatalog.OpenMode.ReadWrite, SEx_catalog=True)
-    fits_file.save_as_fits(dictionary,
-                           sex_cat_path=example_path)
+    save_to_fits(dictionary, saving_path)
 
 
 def return_loc_neighbors(new_pos, obs_pos, vals, n_neighbors):
