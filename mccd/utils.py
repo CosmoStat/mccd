@@ -7,7 +7,6 @@ These functions include several functions needed by PSF modelling algorithms.
 :Authors:   Morgan Schmitz <github @MorganSchmitz>,
             Tobias Liaudat <tobias.liaudat@cea.fr>
 
-
 """
 
 from __future__ import absolute_import, print_function
