@@ -18,12 +18,6 @@ from galsim import Image
 import mccd_rca.utils as utils
 from shapepipe.pipeline import file_io
 
-# Optional
-try:
-    import matplotlib.pyplot as plt
-except ModuleNotFoundError:
-    pass
-
 
 def find_ccd_idx(ccd_id, ccd_list):
     """ Helper fucntion to find the index of an element in a list."""
@@ -489,21 +483,6 @@ class MccdInputs(object):
         # Return the inputs
         return self.prep_mccd_inputs(self.starcat_list[idx])
 
-    def plot_ccd_positions(self):
-        r""" Plot the star positions on the global coordinates for all CCDs.
-        """
-        try:
-            plt.figure()
-            try:
-
-                for it in range(len(self.position_list)):
-                    plt.scatter(self.position_list[it][:, 0], self.position_list[it][:, 1], s=2)
-                plt.show()
-            except Exception:
-                print('Try first to calculate the positions. Call get_inputs()..')
-        except NameError:
-            print('Matplotlib not imported.')
-
     @staticmethod
     def outlier_rejection(star_list, pos_list, mask_list, ccd_list,
                           SNR_list=None, RA_list=None, DEC_list=None, shape_std_max=5., print_fun=None):
@@ -595,7 +574,7 @@ class MccdInputs(object):
 
 
 def random_indexes(n_tot, train_per=0.8, min_n_train=20):
-    """ Generate random indexes to separate train and test sets following some criteria.
+    r""" Generate random indexes to separate train and test sets following some criteria.
 
     Parameters
     ----------
@@ -629,17 +608,31 @@ def random_indexes(n_tot, train_per=0.8, min_n_train=20):
 
 
 def save_fits(dictionary, train_bool, cat_id, output_path, example_path=None):
-    """ fits saving function
+    r""" fits file saving function.
+    Save a dictionary into a fits file format.
 
     Parameters
     ----------
+    dictionary: dict
+        Dictionary containing the data to be saved.
+    train_bool: bool
+        Bool to determine if it will be a training catalog or a testing catalog.
+        Changes the name pattern used for the file.
+    cat_id: int
+        Catalog id (exposure id) to be added in the file name.
+    output_path: str
+        Path to folder to save the new file.
+    example_path: str
+        Path to an existing fits file to copy the header and the meta information.
 
-    Returns
-    -------
+    Notes
+    -----
+    Need to re-do this function in order to cut out the dependency with shapepipe's file_io function
 
     """
     if example_path is None:
-        example_path = '/Users/tliaudat/Documents/PhD/codes/venv_p3/JB-data/CFIS-data/all_w3_star_cat/star_selection-2079614-13.fits'
+        example_path = '/Users/tliaudat/Documents/PhD/codes/venv_p3/JB-data/CFIS-data/' +\
+                       'all_w3_star_cat/star_selection-2079614-13.fits'
     # Save data into the FITS format extension
     train_pattern = 'train_star_selection'
     test_pattern = 'test_star_selection'
@@ -661,7 +654,7 @@ def save_fits(dictionary, train_bool, cat_id, output_path, example_path=None):
 
 
 def return_loc_neighbors(new_pos, obs_pos, vals, n_neighbors):
-    """ Find the local ''n_neighbors'' nearest neighbors locally in one CCD.
+    r""" Find the local ''n_neighbors'' nearest neighbors locally in one CCD.
 
     Parameters
     ----------
@@ -689,7 +682,7 @@ def return_loc_neighbors(new_pos, obs_pos, vals, n_neighbors):
 
 
 def return_glob_neighbors(new_pos, obs_pos_list, val_list, n_neighbors):
-    """ Find the global ''n_neighbors'' nearest neighbors in all the available CCDs.
+    r""" Find the global ''n_neighbors'' nearest neighbors in all the available CCDs.
 
     Parameters
     ----------
@@ -727,8 +720,9 @@ def return_glob_neighbors(new_pos, obs_pos_list, val_list, n_neighbors):
 
     return values, positions
 
+
 def interpolation_Pi(position_list, d_comp_glob):
-    """Create a Pi matrix list that will be used for the interpolation of the global model
+    r"""Create a Pi matrix list that will be used for the interpolation of the global model
 
     Parameters
     ----------
@@ -766,8 +760,12 @@ def interpolation_Pi(position_list, d_comp_glob):
 
 
 class MomentInterpolator(object):
-    """ Allows to interpolate moments from a bin image like the one
+    r""" Allows to interpolate moments from a bin image like the one
     from the MeanShapes function.
+
+    Notes
+    -----
+    Not used for the moment.
     """
 
     def __init__(self, moment_map, n_neighbors=1000, rbf_function='thin_plate'):
