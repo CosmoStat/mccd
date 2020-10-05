@@ -5,7 +5,6 @@ from mccd.mccd_utils import get_mr_filters
 
 
 class PysapWaveletTestCase(TestCase):
-
     def setUp(self):
         self.data_shape = (5, 5)
         self.opt = 'BsplineWaveletTransformATrousAlgorithm'
@@ -31,11 +30,24 @@ class PysapWaveletTestCase(TestCase):
                                           [0.01977539, 0.02526855, 0.02526855, 0.02526855, 0.01977539]]],
                                         dtype=np.float32)
 
+    def tearDown(self):
+        self.data_shape = None
+        self.opt = None
+        self.n_scales = None
+        self.new_filters = None
+        self.expected_filter = None
+
     def get_filters(self):
         self.new_filters = get_mr_filters(self.data_shape, self.opt, n_scales=self.n_scales,
-                                          coarse=False, trim=False)
+                                          coarse=True, trim=False)
 
     def test_pysap_wavelet(self):
-        self.get_filters(self)
+        self.get_filters()
         npt.assert_almost_equal(self.new_filters, self.expected_filter, decimal=7,
-                                err_msg='The filter output from Pysap is not thwe expected one.')
+                                err_msg='The filter output from Pysap is not the expected one.')
+
+
+if __name__ == '__main__':
+    test_instance = PysapWaveletTestCase()
+    test_instance.setUp()
+    test_instance.test_pysap_wavelet()
