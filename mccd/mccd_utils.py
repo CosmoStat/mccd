@@ -5,6 +5,14 @@ r""" MCCD UTILS
 These functions include several functions needed by the MCCD.
 
 :Authors:   Tobias Liaudat <tobias.liaudat@cea.fr>
+            Samuel Farrens <samuel.farrens@cea.fr>
+
+Notes
+-----
+I added two functions from Pysap astro plugin and from ModOpt.signal.wavelet so that I could replicate the function
+``get_mr_transform()`` from ModOpt without the need of having sparse2d installed as an exectubale by using
+Pysap python bindings of the aforementioned C++ package. Thanks Samuel Farrens (main developer of ModOpt and
+Pysap) for the help.
 
 """
 
@@ -15,7 +23,8 @@ from astropy.io import fits
 from scipy.interpolate import Rbf
 import galsim.hsm as hsm
 from galsim import Image
-import mccd_rca.utils as utils
+import mccd.utils as utils
+from pysap import load_transform
 
 
 def find_ccd_idx(ccd_id, ccd_list):
@@ -819,6 +828,86 @@ def interpolation_Pi(position_list, d_comp_glob):
         interp_Pi[it] /= norm_val
 
     return interp_Pi
+
+
+def trim_filter(filter_array):
+    r"""Trim the filters to the minimal size
+    This method will get rid of the extra zero coefficients in the filter.
+    Parameters
+    ----------
+    filter_array: numpy.ndarray
+        The filter to be trimmed
+    Returns
+    -------
+    numpy.ndarray
+        Trimmed filter
+
+    Notes
+    -----
+    Function copied from ModOpt.signal.wavelet as we need it to replicate ModOpt's ``get_mr_filters()`` but
+    using the wavelet transforms from Pysap.
+
+    """
+    non_zero_indices = np.array(np.where(filter_array != 0))
+    min_idx = np.min(non_zero_indices, axis=-1)
+    max_idx = np.max(non_zero_indices, axis=-1)
+    return filter_array[min_idx[0]:max_idx[0] + 1, min_idx[1]:max_idx[1] + 1]
+
+
+def get_mr_filters(data_shape, opt, n_scales=3, coarse=False, trim=False):
+    r"""Get cospy transform filters
+    This method obtains wavelet filters by calling cospy
+    Parameters
+    ----------
+    data_shape : tuple
+        2D data shape
+    opt : str
+        Name of wavelet transform (in Pysap convention, see Notes)
+    n_scales : int, optional
+        Number of transform scales (default is 4)
+    coarse : bool, optional
+        Option to keep coarse scale (default is 'False')
+    trim: bool, optional
+        Option to trim the filters down to their minimal size
+        (default is ``False``)
+
+    Returns
+    -------
+    np.ndarray 3D array of wavelet filters
+
+    Notes
+    -----
+    Function copied from Pysap package's astro plugin. Added the trim_filter() functionality from the
+    ModOpt package.
+    The name of the wavelet transform must be in Pysap convention that differs from the sparse2d input arguments.
+    To see the available transforms in Pysap, you need to import the python module (``import pysap``) and then call
+    ``pysap.AVAILABLE_TRANSFORMS``.
+
+    """
+
+    # Adjust the shape of the input data.
+    data_shape = np.array(data_shape)
+    data_shape += data_shape % 2 - 1
+
+    # Create fake data.
+    fake_data = np.zeros(data_shape)
+    fake_data[tuple(zip(data_shape // 2))] = 1
+
+    # Transform fake data
+    wavelet_transform = (load_transform(opt)(nb_scale=n_scales, verbose=True))
+    wavelet_transform.data = fake_data
+    wavelet_transform.analysis()
+    filters = np.array(wavelet_transform.analysis_data)
+
+    # Added function to replicate ModOpt's get_mr_transform()
+    if trim:
+        filters = np.array([trim_filter(f) for f in filters])
+
+    # Return filters
+    if coarse:
+        return filters
+    else:
+        return filters[:-1]
 
 
 class MomentInterpolator(object):
