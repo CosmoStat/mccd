@@ -128,11 +128,14 @@ class MCCD(object):
 
         if filters is None:
             # option strings for mr_transform
-            self.opt = ['-t2', '-n{}'.format(n_scales)]
+            # self.opt = ['-t2', '-n{}'.format(n_scales)]  # ModOpt sparse2d get_mr_filters() convention
+            self.opt = 'BsplineWaveletTransformATrousAlgorithm'  # Pysao sparse2d get_mr_filters() convention
+            self.n_scales = n_scales
             self.default_filters = True
         else:
             self.Phi_filters = filters
             self.default_filters = False
+            self.n_scales = n_scales
         self.verbose = verbose
         if self.verbose > 1:
             self.modopt_verb = True
@@ -489,7 +492,7 @@ class MCCD(object):
         """ Initialization tasks related to noise levels, shifts and flux. Note it includes
         renormalizing observed data, so needs to be ran even if all three are provided."""
         if self.default_filters:
-            init_filters = get_mr_filters(self.shap[0][:2], opt=self.opt, coarse=True)
+            init_filters = mccd_utils.get_mr_filters(self.shap[0][:2], opt=self.opt, coarse=True)
         else:
             init_filters = self.Phi_filters
 
@@ -635,8 +638,8 @@ class MCCD(object):
 
         # Starlet filters and associated spectral radius
         if self.default_filters:
-            self.Phi_filters = get_mr_filters(self.im_hr_shape[0][:2], opt=self.opt,
-                                              coarse=True, trim=False)
+            self.Phi_filters = mccd_utils.get_mr_filters(self.im_hr_shape[0][:2], opt=self.opt,
+                                                         coarse=True, trim=False)
         rho_phi = np.sqrt(np.sum(np.sum(np.abs(self.Phi_filters), axis=(1, 2)) ** 2))
 
         # Gradient objects
