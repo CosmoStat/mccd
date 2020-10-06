@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-r""" MCCD UTILS
+r"""MCCD UTILS.
 
 These functions include several functions needed by the MCCD.
 
@@ -9,10 +9,11 @@ These functions include several functions needed by the MCCD.
 
 Notes
 -----
-I added two functions from Pysap astro plugin and from ModOpt.signal.wavelet so that I could replicate the function
-``get_mr_transform()`` from ModOpt without the need of having sparse2d installed as an exectubale by using
-Pysap python bindings of the aforementioned C++ package. Thanks Samuel Farrens (main developer of ModOpt and
-Pysap) for the help.
+I added two functions from Pysap astro plugin and from ModOpt.signal.wavelet
+so that I could replicate the functionv``get_mr_transform()`` from ModOpt
+without the need of having sparse2d installed as an exectubale by using
+Pysap python bindings of the aforementioned C++ package.
+Thanks Samuel Farrens (main developer of ModOpt and Pysap) for the help.
 
 """
 
@@ -28,55 +29,66 @@ from pysap import load_transform
 
 
 def find_ccd_idx(ccd_id, ccd_list):
-    """ Helper fucntion to find the index of an element in a list."""
+    r"""Find the index of an element in a list."""
     idx = np.array([ccd_id == ccd_i for ccd_i in ccd_list])
     return np.argwhere(idx)[0][0]
 
 
 class Loc2Glob(object):
-    """ Class to pass from local coordinates to global coordinates under CFIS (CFHT) MegaCam instrument.
-        The geometrical informcation of the instrument is encoded in this function.
+    r"""Change from local to global coordinates.
 
-        Parameters
-        ----------
-        x_gap: int
-            Gap between the CCDs on the horizontal direction. Default to 70 (CFIS value).
-        y_gap: int
-            Gap between the CCDs on the vertical direction. Default to 425 (CFIS value).
-        x_npix: int
-            Number of pixels on one CCD on the horizontal direction. Default to 2048 (CFIS value).
-        y_npix: int
-            Number of pixels on one CCD on the vertical direction. Default to 4612 (CFIS value).
+    Class to pass from local coordinates to global coordinates under
+    CFIS (CFHT) MegaCam instrument. The geometrical informcation of the
+    instrument is encoded in this function.
 
-        Notes
-        -----
-        MegaCams geometry. Watch out with the conventions ba,ab that means where is the local coordinate system
-        origin for each CCD. For more info look MegaCam's instrument webpage.
+    Parameters
+    ----------
+    x_gap: int
+        Gap between the CCDs on the horizontal direction.
+        Default to 70 (CFIS value).
+    y_gap: int
+        Gap between the CCDs on the vertical direction.
+        Default to 425 (CFIS value).
+    x_npix: int
+        Number of pixels on one CCD on the horizontal direction.
+        Default to 2048 (CFIS value).
+    y_npix: int
+        Number of pixels on one CCD on the vertical direction.
+        Default to 4612 (CFIS value).
 
-           'COMMENT Unique detector IDs for MegaCam (North on top, East to the left)',
-           'COMMENT    --------------------------',
-           'COMMENT    ba ba ba ba ba ba ba ba ba',
-           'COMMENT    00 01 02 03 04 05 06 07 08',
-           'COMMENT --------------------------------',
-           'COMMENT ba ba ba ba ba ba ba ba ba ba ba',
-           'COMMENT 36 09 10 11 12 13 14 15 16 17 37',
-           'COMMENT --------------*-----------------',
-           'COMMENT 38 18 19 20 21 22 23 24 25 26 39',
-           'COMMENT ab ab ab ab ab ab ab ab ab ab ab',
-           'COMMENT --------------------------------',
-           'COMMENT    27 28 29 30 31 32 33 34 35',
-           'COMMENT    ab ab ab ab ab ab ab ab ab',
-           'COMMENT    __________________________'
+    Notes
+    -----
+    MegaCams geometry. Watch out with the conventions ba,ab that means where
+    is the local coordinate system origin for each CCD.
+    For more info look MegaCam's instrument webpage.
+
+       'COMMENT Unique detector IDs for MegaCam',
+       'COMMENT (North on top, East to the left)',
+       'COMMENT    --------------------------',
+       'COMMENT    ba ba ba ba ba ba ba ba ba',
+       'COMMENT    00 01 02 03 04 05 06 07 08',
+       'COMMENT --------------------------------',
+       'COMMENT ba ba ba ba ba ba ba ba ba ba ba',
+       'COMMENT 36 09 10 11 12 13 14 15 16 17 37',
+       'COMMENT --------------*-----------------',
+       'COMMENT 38 18 19 20 21 22 23 24 25 26 39',
+       'COMMENT ab ab ab ab ab ab ab ab ab ab ab',
+       'COMMENT --------------------------------',
+       'COMMENT    27 28 29 30 31 32 33 34 35',
+       'COMMENT    ab ab ab ab ab ab ab ab ab',
+       'COMMENT    __________________________'
     """
 
     def __init__(self, x_gap=70, y_gap=425, x_npix=2048, y_npix=4612):
+        r"""Initialize with instrument geometry."""
         self.x_gap = x_gap
         self.y_gap = y_gap
         self.x_npix = x_npix
         self.y_npix = y_npix
 
     def loc2glob_img_coord(self, ccd_n, x_coor, y_coor):
-        """ Go from the local to the global img (pixel) coordinate system.
+        r"""Go from the local to the global img (pixel) coordinate system.
+
         Global system with (0,0) in the intersection of ccds [12,13,21,22].
 
         Parameters
@@ -94,8 +106,8 @@ class Loc2Glob(object):
             Horizontal position in global coordinate system.
         glob_y_coor: float
             Vertical position in global coordinate system.
-        """
 
+        """
         # Flip axes
         x_coor, y_coor = self.flip_coord(ccd_n, x_coor, y_coor)
 
@@ -106,9 +118,12 @@ class Loc2Glob(object):
         return x_coor + x_shift, y_coor + y_shift
 
     def flip_coord(self, ccd_n, x_coor, y_coor):
-        """ Change of coordinate convention so that all of them are coherent on the global coordinate system.
-        So that the origin is on the south-west corner. Positive: South to North ; West to East. """
+        r"""Change of coordinate convention.
 
+        So that all of them are coherent on the global coordinate system.
+        So that the origin is on the south-west corner.
+        Positive: South to North ; West to East.
+        """
         if ccd_n < 18 or ccd_n in [36, 37]:
             x_coor = self.x_npix - x_coor + 1
             y_coor = self.y_npix - y_coor + 1
@@ -118,8 +133,10 @@ class Loc2Glob(object):
         return x_coor, y_coor
 
     def shift_coord(self, ccd_n):
-        """ Provides the shifting needed to go from the local coordinate system origin to the global
-        coordinate system origin.
+        r"""Provide the shifting.
+
+        It is needed to go from the local coordinate
+        system origin to the global coordinate system origin.
         """
         if ccd_n < 9:
             # first row
@@ -171,15 +188,20 @@ class Loc2Glob(object):
 
 
 class MccdInputs(object):
-    r""" Handle inputs for the MCCD algorithm.
-    This method was set up to work with a catalog outputed by SExtractor but it should not be restricted to that.
-    The input files are generally created one per exposure per CCD. Methods like PSFEx that build one model per
-    exposure per CCD do not have any preprocessing to do.
-    The MCCD method that uses all the stars in one exposure to build the model needs to have only one file that will
-    contain all the information gathered in one exposure.
-    This is the main reason of this class, to be able to handle the different CCD files from a particular exposure and
-    integrate them in a single file following the MCCD conventions, ie changing the local coordinate system to the
-    global one.
+    r"""Handle inputs for the MCCD algorithm.
+
+    This method was set up to work with a catalog outputed by SExtractor but
+    it should not be restricted to that.
+    The input files are generally created one per exposure per CCD.
+    Methods like PSFEx that build one model per exposure per CCD do not have
+    any preprocessing to do.
+    The MCCD method that uses all the stars in one exposure to build the
+    model needs to have only one file that will contain all the information
+    gathered in one exposure.
+    This is the main reason of this class, to be able to handle the
+    different CCD files from a particular exposure and integrate them in a
+    single file following the MCCD conventions, ie changing the local
+    coordinate system to the global one.
     The expected files are in fits format.
     An filename example would be: ``star_selection-1234567-04.fits``
         Where the exposure ID is: ``1234567``
@@ -188,23 +210,27 @@ class MccdInputs(object):
     Parameters
     ----------
     separator: str
-        String separating the file names. Between the file pattern, the exposure ID and the CCD ID.
+        String separating the file names. Between the file pattern,
+        the exposure ID and the CCD ID.
         Default is ``'-'``.
     coord_x_descriptor: str
-        Name of the fits column to be used as the horizontal position coordinate.
+        Name of the fits column to be used as the horizontal
+        position coordinate.
         Default is ``'XWIN_IMAGE'``.
     coord_y_descriptor: str
         Name of the fits column to be used as the vertical position coordinate.
         Default is ``'YWIN_IMAGE'``.
     mask_thresh: float
-        Threshold to be used when constructing the masks. SExtractor has the particular way of masking pixels by
-        setting pixels to the value -1e30. Values beneath the threshold will be considered masked.
+        Threshold to be used when constructing the masks.
+        SExtractor has the particular way of masking pixels by setting
+        pixels to the value -1e30.
+        Values beneath the threshold will be considered masked.
         Default is -1e5.
-
     """
 
-    def __init__(self, separator='-', coord_x_descriptor='XWIN_IMAGE', coord_y_descriptor='YWIN_IMAGE',
-                 mask_thresh=-1e5):
+    def __init__(self, separator='-', coord_x_descriptor='XWIN_IMAGE',
+                 coord_y_descriptor='YWIN_IMAGE', mask_thresh=-1e5):
+        r"""Initialize class attributes."""
         self.separator = separator
         self.coord_x_descriptor = coord_x_descriptor
         self.coord_y_descriptor = coord_y_descriptor
@@ -225,8 +251,11 @@ class MccdInputs(object):
 
     @staticmethod
     def handle_mask(stars, thresh, apply_to_stars=False):
-        r""" Reads SExtracted star stamps, generates MCCD-compatible masks (that is, binary weights),
-        and replaces bad pixels with 0s - they will not be used by MCCD, but the ridiculous numerical
+        r"""Handle and generate masks.
+
+        Reads SExtracted star stamps, generates MCCD-compatible masks
+        (that is, binary weights), and replaces bad pixels with 0s -
+        they will not be used by MCCD, but the ridiculous numerical
         values can otherwise still lead to problems because of convolutions.
 
         Parameters
@@ -234,11 +263,12 @@ class MccdInputs(object):
         stars: np.ndarray
             Stars to be masked.
         thresh: float
-            Threshold that will define the mask. Values below the threhsold will be considered masked.
+            Threshold that will define the mask.
+            Values below the threhsold will be considered masked.
             Default is -1e5.
         apply_to_stars: bool
-            Boolean to define if the stars should be thresholded with ``thresh`` on top of the mask construction.
-
+            Boolean to define if the stars should be thresholded
+            with ``thresh`` on top of the mask construction.
         """
         mask = np.ones(stars.shape)
         mask[stars < thresh] = 0
@@ -247,12 +277,13 @@ class MccdInputs(object):
         return mask
 
     def parse_path(self, path):
-        r""" Parse one path and extract info.
+        r"""Parse one path and extract info.
 
         Parameters
         ----------
         path: str
-            Path to the file to be parsed in order to extract the exposure ID and the CCD ID.
+            Path to the file to be parsed in order to extract the
+            exposure ID and the CCD ID.
 
         """
         # Remove the .fits or the extension
@@ -268,8 +299,11 @@ class MccdInputs(object):
         return starcat_id, ccd_n
 
     def parse_folder(self, folder_path, pattern):
-        r""" Parse a folder that match a specfic ``pattern``. Separate into a list of np.array each one for each
-        starcat_id present in the folder. Each np.array in the list contains (starcat_id, ccd_n, path).
+        r"""Parse a folder that match a specfic ``pattern``.
+
+        Separate into a list of np.array each one for each starcat_id
+        present in the folder.
+        Each np.array in the list contains (starcat_id, ccd_n, path).
 
         Parameters
         ----------
@@ -282,8 +316,9 @@ class MccdInputs(object):
         file_paths = glob.glob(folder_path + pattern)
         file_paths.sort()
 
-        complete_list = np.array([[self.parse_path(path)[0], self.parse_path(path)[1], path]
-                                  for path in file_paths])
+        complete_list = np.array(
+            [[self.parse_path(path)[0], self.parse_path(path)[1], path]
+             for path in file_paths])
 
         starcat_unique_ids = np.unique(complete_list[:, 0])
 
@@ -304,8 +339,10 @@ class MccdInputs(object):
         self.starcat_list = starcat_list
 
     def parse_pipeline_input_list(self, input_list, element_position=0):
-        r""" Parse a pipeline input file list. Separate into a list of np.array for each
-        starcat_id present in the folder.
+        r"""Parse a pipeline input file list.
+
+        Separate into a list of np.array for each starcat_id
+        present in the folder.
 
         Parameters
         ----------
@@ -313,14 +350,16 @@ class MccdInputs(object):
             List containing the path to all the files to be processed.
         element_position:
             The element to consider on the input list.
-            If there are multiple elements that share the name pattern and the CCD ID,
-            ie train/test, the element_position determines which one will be used.
+            If there are multiple elements that share the name pattern and
+            the CCD ID, ie train/test, the element_position determines
+            which one will be used.
             If there is only one element it should be 0.
             Default is 0.
 
         Notes
         -----
-        The ``starcat_list`` that is saved contains in each element (starcat_id, ccd_n, path).
+        The ``starcat_list`` that is saved contains in each
+        element (starcat_id, ccd_n, path).
 
         """
         complete_list = np.array([[self.parse_path(path[element_position])[0],
@@ -346,8 +385,11 @@ class MccdInputs(object):
         self.starcat_list = starcat_list
 
     def prep_mccd_inputs(self, starcat_array):
-        r""" Prepare the inputs for mccd algorithm:
-        - Correct the coordinates from the local coordinate system into the global coordinate system.
+        r"""Prepare the inputs for mccd algorithm.
+
+        Taks done:
+        - Correct the coordinates from the local coordinate system into
+            the global coordinate system.
         - Apply mask to stars.
         - Normalize star values.
         - Modify the star format.
@@ -355,7 +397,8 @@ class MccdInputs(object):
         Parameters
         ----------
         starcat_array: np.ndarray
-            Array with (starcat_id, ccd_n, path) for every file in one starcat_id (exposure ID).
+            Array with (starcat_id, ccd_n, path) for every file in one
+            starcat_id (exposure ID).
 
         Returns
         -------
@@ -368,14 +411,16 @@ class MccdInputs(object):
         ccd_list: list
             List containing the CCD ids for the stars.
         SNR_list: list
-            List containing the estimated SNR values for the stars. Will be None if there are no SNR values available.
+            List containing the estimated SNR values for the stars.
+            Will be None if there are no SNR values available.
         RA_list: list
-            List containing the RA coordinate for the stars. Will be None if there are no RA coordinates available.
+            List containing the RA coordinate for the stars.
+            Will be None if there are no RA coordinates available.
         DEC_list: list
-            List containing the DEC coordinate for the stars. Will be None if there are no DEC coordinates available.
+            List containing the DEC coordinate for the stars.
+            Will be None if there are no DEC coordinates available.
 
         """
-
         number_ccd = starcat_array.shape[0]
 
         star_list = []
@@ -390,9 +435,10 @@ class MccdInputs(object):
             starcat = fits.open(starcat_array[it, 2])
             ccd = starcat_array[it, 1].astype('int')
 
-            positions = np.array([self.loc2glob.loc2glob_img_coord(ccd, x, y) for x, y
-                                  in zip(starcat[2].data[self.coord_x_descriptor],
-                                         starcat[2].data[self.coord_y_descriptor])])
+            positions = np.array(
+                [self.loc2glob.loc2glob_img_coord(ccd, x, y) for x, y in
+                 zip(starcat[2].data[self.coord_x_descriptor],
+                     starcat[2].data[self.coord_y_descriptor])])
 
             stars = utils.rca_format(starcat[2].data['VIGNET'])
             masks = self.handle_mask(stars, thresh=self.mask_thresh,
@@ -424,10 +470,11 @@ class MccdInputs(object):
         self.RA_list = RA_list
         self.DEC_list = DEC_list
 
-        return star_list, position_list, mask_list, ccd_list, SNR_list, RA_list, DEC_list
+        return star_list, position_list, mask_list, ccd_list, SNR_list,\
+            RA_list, DEC_list
 
     def preprocess_data(self, folder_path, pattern):
-        r""" Preprocess the data.
+        r"""Preprocess the data.
 
         Parameters
         ----------
@@ -448,7 +495,9 @@ class MccdInputs(object):
         return self.catalog_ids
 
     def proprocess_pipeline_data(self, input_list, element_position):
-        r""" Preprocess Shapepipe pipeline's input file list and return the list of ids.
+        r"""Preprocess Shapepipe pipeline's input file list.
+
+        Also return the list of ids.
 
         Parameters
         ----------
@@ -456,8 +505,9 @@ class MccdInputs(object):
             List containing the path to all the files to be processed.
         element_position:
             The element to consider on the input list.
-            If there are multiple elements that share the name pattern and the CCD ID,
-            ie train/test, the element_position determines which one will be used.
+            If there are multiple elements that share the name
+            pattern and the CCD ID, ie train/test, the element_position
+            determines which one will be used.
             If there is only one element it should be 0.
             Default is 0.
 
@@ -473,7 +523,9 @@ class MccdInputs(object):
         return self.catalog_ids
 
     def get_inputs(self, catalog_id):
-        r""" Get the MCCD inputs from a specific exposure id. Returns several lists corresponding to the outputs of the
+        r"""Get the MCCD inputs from a specific exposure id.
+
+        Returns several lists corresponding to the outputs of the
         function ``prep_mccd_inputs``.
 
         Parameters
@@ -485,7 +537,8 @@ class MccdInputs(object):
         print('Extracting catalog_id %s ..' % catalog_id)
 
         # Look for the catalog_id in the list
-        idx = np.array([catalog_id == starcat[0, 0] for starcat in self.starcat_list])
+        idx = np.array(
+            [catalog_id == starcat[0, 0] for starcat in self.starcat_list])
         idx = np.argwhere(idx)[0][0]
 
         # Return the inputs
@@ -493,20 +546,26 @@ class MccdInputs(object):
 
     @staticmethod
     def outlier_rejection(star_list, pos_list, mask_list, ccd_list,
-                          SNR_list=None, RA_list=None, DEC_list=None, shape_std_max=5., print_fun=None):
-        r""" Outlier star rejection method based on the measurements from Galsim's HSM adaptive moments.
-        The method calculates the 2nd order moments from the stars in the exposure. If there are stars that have an
-        aberrant value in one of the stats, e1, e2 or R2 we discard the star.
-        An aberrant value is defined as a value that is more than ``shape_std_max`` sigmas away from the mean.
+                          SNR_list=None, RA_list=None, DEC_list=None,
+                          shape_std_max=5., print_fun=None):
+        r"""Outlier star rejection method.
 
-        It inputs all the lists that will be used as a method and returns the same lists without the stars that where
-        considered as outliers.
+        Notes
+        -----
+        It is based on the measurements from Galsim's HSM adaptive moments.
+        The method calculates the 2nd order moments from the stars
+        in the exposure. If there are stars that have an aberrant value in one
+        of the stats, e1, e2 or R2 we discard the star.
+        An aberrant value is defined as a value that is more
+        than ``shape_std_max`` sigmas away from the mean.
 
-        ``print_fun`` is a function that prints details about the stars being removed.
+        It inputs all the lists that will be used as a method and returns
+        the same lists without the stars that where considered as outliers.
+
+        ``print_fun`` is a function that prints details about the stars
+        being removed.
 
         """
-        # for the moment based on the e1,e2,R2 value
-
         # Define the printing function. Could be printing on a log file.
         if print_fun is None:
             def print_fun(msg):
@@ -517,9 +576,12 @@ class MccdInputs(object):
         all_stars = utils.reg_format(np.copy(all_stars))
         all_masks = np.concatenate(mask_list, axis=2)
         all_masks = utils.reg_format(np.copy(all_masks))
-        badpix_masks = np.rint(np.abs(all_masks - 1))  # hsm thinks 0 means good
+        # hsm thinks 0 means good
+        badpix_masks = np.rint(np.abs(all_masks - 1))
 
-        star_moms = [hsm.FindAdaptiveMom(Image(star), badpix=Image(bp), strict=False)
+        star_moms = [hsm.FindAdaptiveMom(Image(star),
+                                         badpix=Image(bp),
+                                         strict=False)
                      for star, bp in zip(all_stars, badpix_masks)]
         star_shapes = np.array([[moms.observed_shape.g1,
                                  moms.observed_shape.g2,
@@ -528,13 +590,16 @@ class MccdInputs(object):
                                 for moms in star_moms])
 
         # Outlier rejection based on e1, e2 and R2
-        R2_thresh = shape_std_max * np.std(star_shapes[:, 2]) + np.mean(star_shapes[:, 2])
+        R2_thresh = shape_std_max * np.std(star_shapes[:, 2]) + \
+            np.mean(star_shapes[:, 2])
         R2_bad_stars = (abs(star_shapes[:, 2]) > R2_thresh)
 
-        e2_thresh = shape_std_max * np.std(star_shapes[:, 1]) + np.mean(star_shapes[:, 1])
+        e2_thresh = shape_std_max * np.std(star_shapes[:, 1]) + \
+            np.mean(star_shapes[:, 1])
         e2_bad_stars = (abs(star_shapes[:, 1]) > e2_thresh)
 
-        e1_thresh = shape_std_max * np.std(star_shapes[:, 0]) + np.mean(star_shapes[:, 0])
+        e1_thresh = shape_std_max * np.std(star_shapes[:, 0]) + \
+            np.mean(star_shapes[:, 0])
         e1_bad_stars = (abs(star_shapes[:, 0]) > e1_thresh)
 
         bad_stars = np.logical_or(e1_bad_stars, e2_bad_stars)
@@ -545,18 +610,21 @@ class MccdInputs(object):
         print_fun(bad_stars_idx.shape)
 
         # Create masks
-        erase_masks = [np.zeros(star_list[i].shape[2], dtype=bool) for i in range(len(star_list))]
+        erase_masks = [np.zeros(star_list[i].shape[2], dtype=bool)
+                       for i in range(len(star_list))]
 
         if bad_stars_idx.size > 0:
-
             # We have to erase the outliers
-            # Create the reference ids (to match the global array to the list of arrays)
-            idx_ref = np.zeros((len(all_stars), 3), dtype=int)  # glob_id, star_id, ccd_id
+            # Create the reference ids (to match the global
+            # array to the list of arrays)
+            idx_ref = np.zeros((len(all_stars), 3), dtype=int)
             glob_id, star_id, ccd_id = 0, 0, 0
             for stars in star_list:
                 star_id = 0
-                for star in utils.reg_format(stars):
-                    idx_ref[glob_id, 0], idx_ref[glob_id, 1], idx_ref[glob_id, 2] = glob_id, star_id, ccd_id
+                for _star in utils.reg_format(stars):
+                    idx_ref[glob_id, 0] = glob_id
+                    idx_ref[glob_id, 1] = star_id
+                    idx_ref[glob_id, 2] = ccd_id
                     glob_id += 1
                     star_id += 1
                 ccd_id += 1
@@ -564,25 +632,31 @@ class MccdInputs(object):
             # select outlier stars
             for bad_id in bad_stars_idx:
                 print_fun('Outlier: Glob_id=%d , star_id=%d , ccd_id=%d' % (
-                    idx_ref[bad_id, 0], idx_ref[bad_id, 1], idx_ref[bad_id, 2]))
+                    idx_ref[bad_id, 0],
+                    idx_ref[bad_id, 1],
+                    idx_ref[bad_id, 2]))
                 erase_masks[idx_ref[bad_id, 2]][idx_ref[bad_id, 1]] = True
 
             for it_star in range(len(star_list)):
                 mask = ~erase_masks[it_star]
-                star_list[it_star] = star_list[it_star][:, :, mask]  # erase star and overwrite
-                mask_list[it_star] = mask_list[it_star][:, :, mask]  # erase mask and overwrite
-                pos_list[it_star] = pos_list[it_star][mask, :]  # erase position and overwrite
+                # erase elements and overwrite
+                star_list[it_star] = star_list[it_star][:, :, mask]
+                mask_list[it_star] = mask_list[it_star][:, :, mask]
+                pos_list[it_star] = pos_list[it_star][mask, :]
                 if SNR_list is not None:
                     SNR_list[it_star] = SNR_list[it_star][mask]
                 if RA_list is not None:
                     RA_list[it_star] = RA_list[it_star][mask]
                     DEC_list[it_star] = DEC_list[it_star][mask]
 
-        return star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list, DEC_list, erase_masks
+        return star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list,\
+            DEC_list, erase_masks
 
 
 def random_indexes(n_tot, train_per=0.8, min_n_train=20):
-    r""" Generate random indexes to separate train and test sets following some criteria.
+    r"""Generate random indexes to separate datasets.
+
+    Separate datasets into train and test sets following some criteria.
 
     Parameters
     ----------
@@ -604,7 +678,8 @@ def random_indexes(n_tot, train_per=0.8, min_n_train=20):
 
     """
     # Define number of stars
-    train_star_nb = np.max([np.floor(train_per * n_tot).astype(int), min_n_train])
+    train_star_nb = np.max([np.floor(train_per * n_tot).astype(int),
+                            min_n_train])
 
     # Generate the random test positions in the star field
     # The positions will be maintained throughout the star sets
@@ -637,8 +712,9 @@ def _get_fits_col_type(col_data_type):
 
 
 def save_to_fits(dictionary, output_path):
-    r""" Save dictionary of np.ndarray into a fits file.
-    output_path should be the path + new_name to save the fits and should
+    r"""Save dictionary of np.ndarray into a fits file.
+
+    ``output_path`` should be the path + new_name to save the fits and should
     include ``.fits`` extension.
 
     Parameters
@@ -646,15 +722,15 @@ def save_to_fits(dictionary, output_path):
     dictionary: dict
         Dictionary to be saved to the fits file.
     output_path: str
-        Should be the concatenation of the path to the folder and the name of the new fits file
-        and should include ``.fits`` extension.
+        Should be the concatenation of the path to the folder and the name
+        of the new fits file and should include ``.fits`` extension.
 
     Notes
     -----
-    It is important that all the np.ndarrays share the first dimension as we are saving a table.
+    It is important that all the np.ndarrays share the first dimension as
+    we are saving a table.
 
     """
-
     # Define the header
     hdr = fits.Header()
     hdr['OWNER'] = 'MCCD package'
@@ -679,10 +755,12 @@ def save_to_fits(dictionary, output_path):
             for k in data_shape:
                 mem_size *= k
             data_format = '{0}{1}'.format(mem_size, data_type)
-            col_list.append(fits.Column(name=key, format=data_format, array=data, dim=fits_dim))
+            col_list.append(fits.Column(name=key, format=data_format,
+                                        array=data, dim=fits_dim))
         else:
             data_format = '{0}{1}'.format(mem_size, data_type)
-            col_list.append(fits.Column(name=key, format=data_format, array=data))
+            col_list.append(fits.Column(name=key, format=data_format,
+                                        array=data))
 
     table_hdu = fits.BinTableHDU.from_columns(col_list)
     hdul = fits.HDUList([empty_primary_hdu, table_hdu])
@@ -690,7 +768,8 @@ def save_to_fits(dictionary, output_path):
 
 
 def save_fits(dictionary, train_bool, cat_id, output_path):
-    r""" fits file saving function.
+    r"""Save fits file.
+
     Save a dictionary into a fits file format.
 
     Parameters
@@ -698,7 +777,8 @@ def save_fits(dictionary, train_bool, cat_id, output_path):
     dictionary: dict
         Dictionary containing the data to be saved.
     train_bool: bool
-        Bool to determine if it will be a training catalog or a testing catalog.
+        Bool to determine if it will be a training catalog or a testing
+        catalog.
         Changes the name pattern used for the file.
     cat_id: int or str
         Catalog id (exposure id) to be added in the file name.
@@ -706,7 +786,6 @@ def save_fits(dictionary, train_bool, cat_id, output_path):
         Path to folder to save the new file.
 
     """
-
     # Save data into the FITS format extension
     train_pattern = 'train_star_selection'
     test_pattern = 'test_star_selection'
@@ -725,7 +804,7 @@ def save_fits(dictionary, train_bool, cat_id, output_path):
 
 
 def return_loc_neighbors(new_pos, obs_pos, vals, n_neighbors):
-    r""" Find the local ''n_neighbors'' nearest neighbors locally in one CCD.
+    r"""Find nearest neighbors locally in one CCD.
 
     Parameters
     ----------
@@ -753,7 +832,7 @@ def return_loc_neighbors(new_pos, obs_pos, vals, n_neighbors):
 
 
 def return_glob_neighbors(new_pos, obs_pos_list, val_list, n_neighbors):
-    r""" Find the global ''n_neighbors'' nearest neighbors in all the available CCDs.
+    r"""Find nearest neighbors locally in all the available CCDs.
 
     Parameters
     ----------
@@ -762,7 +841,8 @@ def return_glob_neighbors(new_pos, obs_pos_list, val_list, n_neighbors):
     obs_pos_list: list
         List containing the positions of the training stars from all the CCDs.
     val_list: list
-        List containing the values from all the CCDs that will be used to interpolate and need to be extracted.
+        List containing the values from all the CCDs that will be used to
+        interpolate and need to be extracted.
     n_neighbors: int
         Number of closest neighbors to return.
 
@@ -775,9 +855,11 @@ def return_glob_neighbors(new_pos, obs_pos_list, val_list, n_neighbors):
 
     """
     # Calculate all the distances
-    dist_list = [np.array([np.linalg.norm(obs_pos - new_pos, axis=1), (np.ones(obs_pos.shape[0]) * ccd_n),
+    dist_list = [np.array([np.linalg.norm(obs_pos - new_pos, axis=1),
+                           (np.ones(obs_pos.shape[0]) * ccd_n),
                            np.arange(obs_pos.shape[0])])
-                 for obs_pos, ccd_n in zip(obs_pos_list, np.arange(len(obs_pos_list)))]
+                 for obs_pos, ccd_n in
+                 zip(obs_pos_list, np.arange(len(obs_pos_list)))]
     # Sort the distances
     distances = np.concatenate(dist_list, axis=1)
     sort_idxs = np.argsort(distances[0, :])[:n_neighbors]
@@ -786,14 +868,19 @@ def return_glob_neighbors(new_pos, obs_pos_list, val_list, n_neighbors):
     ccd_idxs = distances[1, sort_idxs].astype(int)
     inter_ccd_idxs = distances[2, sort_idxs].astype(int)
 
-    values = np.array([val_list[ccd_idxs[it]].T[inter_ccd_idxs[it], :] for it in range(n_neighbors)])
-    positions = np.array([obs_pos_list[ccd_idxs[it]][inter_ccd_idxs[it], :] for it in range(n_neighbors)])
+    values = np.array([val_list[ccd_idxs[it]].T[inter_ccd_idxs[it], :]
+                       for it in range(n_neighbors)])
+    positions = np.array([obs_pos_list[ccd_idxs[it]][inter_ccd_idxs[it], :]
+                          for it in range(n_neighbors)])
 
     return values, positions
 
 
 def interpolation_Pi(position_list, d_comp_glob):
-    r"""Create a Pi matrix list that will be used for the interpolation of the global model
+    r"""Create polynomial interpolation Pi matrix.
+
+    Create a Pi matrix list that will be used for the interpolation
+    of the global model.
 
     Parameters
     ----------
@@ -805,13 +892,14 @@ def interpolation_Pi(position_list, d_comp_glob):
     Returns
     -------
     interp_Pi: list
-        List containing all the Pi polynomial matrices, one for each CCD (object in the position list).
+        List containing all the Pi polynomial matrices, one for each
+        CCD (object in the position list).
 
     """
-
     n_comp_glob = (d_comp_glob + 1) * (d_comp_glob + 2) // 2
 
-    interp_Pi = [utils.poly_pos(interp_pos, d_comp_glob, normalice=False, center=False)
+    interp_Pi = [utils.poly_pos(interp_pos, d_comp_glob,
+                                normalice=False, center=False)
                  for interp_pos in position_list]
 
     # Global position model
@@ -821,7 +909,8 @@ def interpolation_Pi(position_list, d_comp_glob):
         for it_ccd in range(len(position_list)):
             sum_vals[it] += np.sum(interp_Pi[it_ccd][it, :] ** 2)
         sum_vals[it] = np.sqrt(sum_vals[it])
-    interp_Pi = [interp_Pi[it] / sum_vals.reshape(-1, 1) for it in range(len(interp_Pi))]
+    interp_Pi = [interp_Pi[it] / sum_vals.reshape(-1, 1)
+                 for it in range(len(interp_Pi))]
     # Normalize wrt to the constant polynome
     norm_val = interp_Pi[0][0, 0]
     for it in range(len(interp_Pi)):
@@ -831,7 +920,8 @@ def interpolation_Pi(position_list, d_comp_glob):
 
 
 def trim_filter(filter_array):
-    r"""Trim the filters to the minimal size
+    r"""Trim the filters to the minimal size.
+
     This method will get rid of the extra zero coefficients in the filter.
     Parameters
     ----------
@@ -844,7 +934,8 @@ def trim_filter(filter_array):
 
     Notes
     -----
-    Function copied from ModOpt.signal.wavelet as we need it to replicate ModOpt's ``get_mr_filters()`` but
+    Function copied from ModOpt.signal.wavelet as we need it to
+    replicate ModOpt's ``get_mr_filters()`` but
     using the wavelet transforms from Pysap.
 
     """
@@ -855,7 +946,8 @@ def trim_filter(filter_array):
 
 
 def get_mr_filters(data_shape, opt, n_scales=3, coarse=False, trim=False):
-    r"""Get cospy transform filters
+    r"""Get transform filters.
+
     This method obtains wavelet filters by calling cospy
     Parameters
     ----------
@@ -877,14 +969,15 @@ def get_mr_filters(data_shape, opt, n_scales=3, coarse=False, trim=False):
 
     Notes
     -----
-    Function copied from Pysap package's astro plugin. Added the trim_filter() functionality from the
-    ModOpt package.
-    The name of the wavelet transform must be in Pysap convention that differs from the sparse2d input arguments.
-    To see the available transforms in Pysap, you need to import the python module (``import pysap``) and then call
+    Function copied from Pysap package's astro plugin.
+    Added the trim_filter() functionality from the ModOpt package.
+    The name of the wavelet transform must be in Pysap convention that
+    differs from the sparse2d input arguments.
+    To see the available transforms in Pysap, you need to import the
+    python module (``import pysap``) and then call
     ``pysap.AVAILABLE_TRANSFORMS``.
 
     """
-
     # Adjust the shape of the input data.
     data_shape = np.array(data_shape)
     data_shape += data_shape % 2 - 1
@@ -911,15 +1004,18 @@ def get_mr_filters(data_shape, opt, n_scales=3, coarse=False, trim=False):
 
 
 class MomentInterpolator(object):
-    r""" Allows to interpolate moments from a bin image like the one
-    from the MeanShapes function.
+    r"""Allow to interpolate moments from a bin image.
+
+    Bin image like the one from the MeanShapes function.
 
     Notes
     -----
     Not used for the moment.
     """
 
-    def __init__(self, moment_map, n_neighbors=1000, rbf_function='thin_plate'):
+    def __init__(self, moment_map, n_neighbors=1000,
+                 rbf_function='thin_plate'):
+        r"""Initialize class attributes."""
         # Save variables
         self.loc2glob = Loc2Glob()
         self.n_neighbors = n_neighbors
@@ -950,11 +1046,14 @@ class MomentInterpolator(object):
                         x = self.x_grid - it_x - 1
                         y = self.y_grid - it_y - 1
 
-                    self.moment_map[ccd_it, x, y] = moment_map[ccd_it, it_x, it_y]
+                    self.moment_map[ccd_it, x, y] = moment_map[ccd_it, it_x,
+                                                               it_y]
 
         # Generate local generic grid
-        x_lin = np.linspace(start=self.bin_x / 2, stop=self.x_pix - self.bin_x / 2, num=self.x_grid)
-        y_lin = np.linspace(start=self.bin_y / 2, stop=self.y_pix - self.bin_y / 2, num=self.y_grid)
+        x_lin = np.linspace(start=self.bin_x / 2,
+                            stop=self.x_pix - self.bin_x / 2, num=self.x_grid)
+        y_lin = np.linspace(start=self.bin_y / 2,
+                            stop=self.y_pix - self.bin_y / 2, num=self.y_grid)
         xv, yv = np.meshgrid(x_lin, y_lin, indexing='ij')
         self.xv = xv
         self.yv = yv
@@ -963,14 +1062,18 @@ class MomentInterpolator(object):
         self.x_pos = np.zeros(moment_map.shape)
         self.y_pos = np.zeros(moment_map.shape)
         for ccd_it in range(self.n_ccd):
-            x_glob, y_glob = self.loc2glob.loc2glob_img_coord(ccd_n=ccd_it,
-                                                              x_coor=np.copy(self.xv.flatten()),
-                                                              y_coor=np.copy(self.yv.flatten()))
+            x_glob, y_glob = self.loc2glob.loc2glob_img_coord(
+                ccd_n=ccd_it,
+                x_coor=np.copy(self.xv.flatten()),
+                y_coor=np.copy(self.yv.flatten()))
 
-            self.x_pos[ccd_it, :, :] = x_glob.reshape(self.x_grid, self.y_grid)
-            self.y_pos[ccd_it, :, :] = y_glob.reshape(self.x_grid, self.y_grid)
+            self.x_pos[ccd_it, :, :] = x_glob.reshape(self.x_grid,
+                                                      self.y_grid)
+            self.y_pos[ccd_it, :, :] = y_glob.reshape(self.x_grid,
+                                                      self.y_grid)
 
     def interpolate_position(self, target_x, target_y):
+        r"""Interpolate positions."""
         # Calculate distances
         res_x = self.x_pos.flatten() - target_x
         res_y = self.y_pos.flatten() - target_y
@@ -985,7 +1088,8 @@ class MomentInterpolator(object):
         val_interp = self.moment_map.flatten()[sort_idxs]
 
         # Generate the interpolation function
-        rbf = Rbf(x_pos_interp, y_pos_interp, val_interp, function=self.rbf_function)
+        rbf = Rbf(x_pos_interp, y_pos_interp,
+                  val_interp, function=self.rbf_function)
         output_val = rbf(target_x, target_y)
 
         return output_val

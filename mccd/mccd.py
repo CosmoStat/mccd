@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-r"""MCCD CLASS
+r"""MCCD CLASS.
 
 This module contains the main MCCD class.
 
@@ -25,22 +25,20 @@ import mccd.mccd_utils as mccd_utils
 
 
 def mccd_quickload(path):
-    r""" Load pre-fitted MCCD model (saved with
-    :func:`mccd.quicksave`).
+    r"""Load pre-fitted MCCD model.
+
+    (saved with :func:`mccd.quicksave`).
 
     Parameters
     ----------
     path : str
         Path to the npy file containing the saved MCCD model.
 
-
     Returns
     -------
     loaded_model : MCCD class
         The MCCD model.
-
     """
-
     if path[-4:] != '.npy':
         path += '.npy'
     mccd_params, fitted_model = np.load(path, allow_pickle=True)
@@ -65,7 +63,7 @@ def mccd_quickload(path):
 
 
 class MCCD(object):
-    r""" Multi-CCD Resolved Components Analysis.
+    r"""Multi-CCD Resolved Components Analysis.
 
     Parameters
     ----------
@@ -85,13 +83,15 @@ class MCCD(object):
         local eigenPSF :math:`S_{K}` update.
         Default is 1.
     ksig_glob: float
-        Value of :math:`K_{\\sigma}^{Globa}` for the thresholding in Starlet domain (taken to be
-        :math:`k\\sigma`, where :math:`\\sigma` is the estimated noise standard
-        deviation.). It is used for the thresholding of the
+        Value of :math:`K_{\\sigma}^{Globa}` for the thresholding in Starlet
+        domain (taken to be :math:`k\\sigma`, where :math:`\\sigma` is the
+        estimated noise standard deviation.).
+        It is used for the thresholding of the
         global eigenPSF :math:`\\tilde{S}` update.
         Default is 1.
     n_scales: int
-        Number of wavelet (Default Starlet) scales to use for the sparsity constraint.
+        Number of wavelet (Default Starlet) scales to use for the
+        sparsity constraint.
         Default is 3. Unused if ``filters`` are provided.
     ksig_init: float
         Similar to ``ksig``, for use when estimating shifts and noise levels,
@@ -108,15 +108,12 @@ class MCCD(object):
         If verbose is set to 2, will run ModOpt's optimization
         algorithms in verbose mode.
         Default to 2.
-
     """
 
     def __init__(self, n_comp_loc, d_comp_glob, upfact=1, ksig_loc=1.,
                  ksig_glob=1., n_scales=3, ksig_init=5., filters=None,
                  verbose=2):
-        r""" General parameter initialisations
-
-        """
+        r"""General parameter initialisations."""
         self.n_comp_loc = n_comp_loc
         self.d_comp_glob = d_comp_glob
         self.n_comp_glob = (self.d_comp_glob + 1) * (self.d_comp_glob + 2) // 2
@@ -128,8 +125,10 @@ class MCCD(object):
 
         if filters is None:
             # option strings for mr_transform
-            # self.opt = ['-t2', '-n{}'.format(n_scales)]  # ModOpt sparse2d get_mr_filters() convention
-            self.opt = 'BsplineWaveletTransformATrousAlgorithm'  # Pysao sparse2d get_mr_filters() convention
+            # ModOpt sparse2d get_mr_filters() convention
+            # self.opt = ['-t2', '-n{}'.format(n_scales)]
+            # Pysap sparse2d get_mr_filters() convention
+            self.opt = 'BsplineWaveletTransformATrousAlgorithm'
             self.n_scales = n_scales
             self.default_filters = True
         else:
@@ -143,7 +142,7 @@ class MCCD(object):
             self.modopt_verb = False
         self.is_fitted = False
 
-        # Define the class attributes even though they will be initialised later.
+        # Define the attributes that will be initialised later.
         self.d_comp_loc = None
         self.obs_data = None
         self.n_ccd = None
@@ -187,7 +186,7 @@ class MCCD(object):
             self.iters_loc_S = None
 
     def quicksave(self, path):
-        r""" Save fitted model
+        r"""Save fitted model.
 
         Save fitted MCCD model for later use. Ideally, you would probably
         want to store the whole MCCD instance, though this might mean
@@ -231,7 +230,7 @@ class MCCD(object):
             nb_subiter_S_loc=100, nb_reweight=0, nb_subiter_A_loc=500,
             nb_subiter_S_glob=30, nb_subiter_A_glob=200, n_eigenvects=5,
             loc_model='rca', pi_degree=2, graph_kwargs={}):
-        r""" Fits MCCD to observed star field
+        r"""Fits MCCD to observed star field.
 
         Parameters
         ----------
@@ -392,7 +391,8 @@ class MCCD(object):
 
         if self.loc_model == 'poly':
             self.d_comp_loc = self.n_comp_loc
-            self.n_comp_loc = (self.n_comp_loc + 1) * (self.n_comp_loc + 2) // 2
+            self.n_comp_loc = (self.n_comp_loc + 1) * (
+                    self.n_comp_loc + 2) // 2
 
         if self.loc_model == 'hybrid':
             # Hardcoded a poly deg 2 for the local polynome [TL] [improve]
@@ -400,8 +400,10 @@ class MCCD(object):
 
         if S is None:
             # global eigenPSFs are the last ones
-            self.S = [np.zeros(self.im_hr_shape[0][:2] + (self.n_comp_loc,)) for k in range(self.n_ccd)]
-            self.S.append(np.zeros(self.im_hr_shape[0][:2] + (self.n_comp_glob,)))
+            self.S = [np.zeros(self.im_hr_shape[0][:2] + (self.n_comp_loc,))
+                      for k in range(self.n_ccd)]
+            self.S.append(
+                np.zeros(self.im_hr_shape[0][:2] + (self.n_comp_glob,)))
         else:
             self.S = S
         self.VT = VT
@@ -451,11 +453,13 @@ class MCCD(object):
             elif self.loc_model == 'hybrid':
                 self._initialize_loc_hybrid_model()
             else:
-                raise ValueError('Local model not undersood. Should be <rca> or <poly>.')
+                raise ValueError(
+                    'Local model not undersood. Should be <rca> or <poly>.')
             if self.verbose:
                 print('... Done.')
         else:
-            self.A_loc = [self.alpha[k].dot(self.VT[k]) for k in range(self.n_ccd)]
+            self.A_loc = [self.alpha[k].dot(self.VT[k])
+                          for k in range(self.n_ccd)]
         if self.Pi is None or len(self.alpha) <= self.n_ccd:
             if self.verbose:
                 print('Building position polynomials...')
@@ -463,7 +467,8 @@ class MCCD(object):
             if self.verbose:
                 print('... Done.')
         else:
-            self.A_glob = [self.alpha[self.n_ccd].dot(self.Pi[k]) for k in range(self.n_ccd)]
+            self.A_glob = [self.alpha[self.n_ccd].dot(self.Pi[k])
+                           for k in range(self.n_ccd)]
 
         # Finally fit the model
         self._fit()
@@ -472,7 +477,7 @@ class MCCD(object):
 
     @staticmethod
     def _set_psf_size(psf_size, psf_size_type):
-        """ Handles different "size" conventions."""
+        r"""Handle different ``size`` conventions."""
         if psf_size is not None:
             if psf_size_type == 'fwhm':
                 return psf_size / (2 * np.sqrt(2 * np.log(2)))
@@ -481,38 +486,55 @@ class MCCD(object):
             elif psf_size_type == 'sigma':
                 return psf_size
             else:
-                raise ValueError('psf_size_type should be one of "fwhm", "R2" or "sigma"')
+                raise ValueError(
+                    'psf_size_type should be one of "fwhm", "R2" or "sigma"')
         else:
-            print('''WARNING: neither shifts nor an estimated PSF size were provided to RCA;
-                the shifts will be estimated from the data using the default Gaussian
-                window of 7.5 pixels.''')
+            print('''WARNING: neither shifts nor an estimated PSF size were
+            provided to RCA; the shifts will be estimated from the data using
+            the default Gaussian window of 7.5 pixels.''')
             return 7.5
 
     def _initialize(self):
-        """ Initialization tasks related to noise levels, shifts and flux. Note it includes
-        renormalizing observed data, so needs to be ran even if all three are provided."""
+        r"""Initialize internal tasks.
+
+        Tasks related to noise levels, shifts and flux.
+        Note it includes renormalizing observed data,
+        so needs to be ran even if all three are provided.
+        """
         if self.default_filters:
-            init_filters = mccd_utils.get_mr_filters(self.shap[0][:2], opt=self.opt, coarse=True)
+            init_filters = mccd_utils.get_mr_filters(
+                self.shap[0][:2], opt=self.opt, coarse=True)
         else:
             init_filters = self.Phi_filters
 
         # Initialize sizes with Galsim's HSM
         if self.sigmas is None:
-            star_moms = [[gs.hsm.FindAdaptiveMom(gs.Image(star), badpix=gs.Image(np.rint(np.abs(badpix - 1))),
-                                                 guess_sig=self.psf_size, strict=False) for star, badpix in
-                          zip(utils.reg_format(self.obs_data[k]), utils.reg_format(self.obs_weights[k]))]
-                         for k in range(self.n_ccd)]
+            star_moms = [[gs.hsm.FindAdaptiveMom(
+                gs.Image(star), badpix=gs.Image(np.rint(np.abs(badpix - 1))),
+                guess_sig=self.psf_size, strict=False)
+                for star, badpix in zip(utils.reg_format(self.obs_data[k]),
+                                        utils.reg_format(self.obs_weights[k]))]
+                for k in range(self.n_ccd)]
 
-            self.sigmas = [np.array([moms.moments_sigma for moms in star_moms[k]]) for k in range(self.n_ccd)]
+            self.sigmas = [np.array(
+                [moms.moments_sigma for moms in star_moms[k]])
+                for k in range(self.n_ccd)]
 
         # Initialize noise levels
         if self.sigs is None:
-            transf_data = [utils.apply_transform(self.obs_data[k], init_filters) for k in range(self.n_ccd)]
-            transf_mask = [utils.transform_mask(self.obs_weights[k], init_filters[0]) for k in range(self.n_ccd)]
-            sigmads = [np.array([1.4826 * utils.mad(fs[0], w) for fs, w in zip(transf_data[k],
-                                                                               utils.reg_format(transf_mask[k]))]) for k
-                       in range(self.n_ccd)]
-            self.sigs = [sigmads[k] / np.linalg.norm(init_filters[0]) for k in range(self.n_ccd)]
+            transf_data = [
+                utils.apply_transform(self.obs_data[k], init_filters)
+                for k in range(self.n_ccd)]
+            transf_mask = [
+                utils.transform_mask(self.obs_weights[k], init_filters[0])
+                for k in range(self.n_ccd)]
+            sigmads = [
+                np.array([1.4826 * utils.mad(fs[0], w)
+                          for fs, w in zip(transf_data[k],
+                                           utils.reg_format(transf_mask[k]))])
+                for k in range(self.n_ccd)]
+            self.sigs = [sigmads[k] / np.linalg.norm(init_filters[0])
+                         for k in range(self.n_ccd)]
         else:
             self.sigs = [np.copy(self.sigs[k]) for k in range(self.n_ccd)]
         self.sig_min = [np.min(self.sigs[k]) for k in range(self.n_ccd)]
@@ -520,25 +542,39 @@ class MCCD(object):
 
         # Initialize intra-pixel shifts
         if self.shifts is None:
-            thresh_data = [np.copy(self.obs_data[k]) for k in range(self.n_ccd)]
+            thresh_data = [np.copy(self.obs_data[k])
+                           for k in range(self.n_ccd)]
             cents = [[] for k in range(self.n_ccd)]
             for k in range(self.n_ccd):
                 for i in range(self.shap[k][2]):
-                    # don't allow thresholding to be over 80% of maximum observed pixel
-                    nsig_shifts = min(self.ksig_init, 0.8 * self.obs_data[k][:, :, i].max() / self.sigs[k][i])
-                    thresh_data[k][:, :, i] = utils.HardThresholding(thresh_data[k][:, :, i],
-                                                                     nsig_shifts * self.sigs[k][i])
-                    cents[k] += [utils.CentroidEstimator(thresh_data[k][:, :, i], sig=self.sigmas[k][i])]
-            self.shifts = [np.array([ce.return_shifts() for ce in cents[k]]) for k in range(self.n_ccd)]
-        lanc_rad = np.ceil(3. * np.max(np.array([np.max(_sigma) for _sigma in self.sigmas]))).astype(int)
-        self.shift_ker_stack, self.shift_ker_stack_adj = zip(*[utils.shift_ker_stack(self.shifts[k],
-                                                                                     self.upfact, lanc_rad=lanc_rad) for
-                                                               k in range(self.n_ccd)])
+                    # don't allow thresholding to be
+                    # over 80% of maximum observed pixel
+                    nsig_shifts = min(self.ksig_init,
+                                      0.8 * self.obs_data[k][:, :, i].max() /
+                                      self.sigs[k][i])
+                    thresh_data[k][:, :, i] = utils.HardThresholding(
+                        thresh_data[k][:, :, i],
+                        nsig_shifts * self.sigs[k][i])
+                    cents[k] += [
+                        utils.CentroidEstimator(thresh_data[k][:, :, i],
+                                                sig=self.sigmas[k][i])]
+            self.shifts = [np.array([ce.return_shifts() for ce in cents[k]])
+                           for k in range(self.n_ccd)]
+        lanc_rad = np.ceil(3. * np.max(
+            np.array([np.max(_sigma) for _sigma in self.sigmas]))).astype(int)
+        self.shift_ker_stack, self.shift_ker_stack_adj = zip(
+            *[utils.shift_ker_stack(self.shifts[k],
+                                    self.upfact, lanc_rad=lanc_rad) for
+              k in range(self.n_ccd)])
+
         # Flux levels
         if self.flux is None:
-            centroids = [np.array([[ce.xc, ce.yc] for ce in cents[k]]) for k in range(self.n_ccd)]
-            self.flux = [utils.flux_estimate_stack(self.obs_data[k], cent=centroids[k], sigmas=self.sigmas[k]) for k in
+            centroids = [np.array([[ce.xc, ce.yc] for ce in cents[k]]) for k in
                          range(self.n_ccd)]
+            self.flux = [
+                utils.flux_estimate_stack(self.obs_data[k], cent=centroids[k],
+                                          sigmas=self.sigmas[k]) for k in
+                range(self.n_ccd)]
         self.flux_ref = [np.median(self.flux[k]) for k in range(self.n_ccd)]
         self.flux_ref.append(np.median(np.concatenate(self.flux)))
 
@@ -548,22 +584,35 @@ class MCCD(object):
             self.obs_data[k] /= self.sigs[k].reshape(1, 1, -1)
 
     def _initialize_graph_constraint(self):
-        """ Initialization of the graph constraint. ``graph_kwards`` parameters used."""
-        gber = [utils.GraphBuilder(self.obs_data[k], self.obs_pos[k], self.obs_weights[k], self.n_comp_loc,
-                                   n_eigenvects=self.n_eigenvects, verbose=self.verbose,
-                                   **self.graph_kwargs) for k in range(self.n_ccd)]
-        self.VT, self.alpha, self.distances = ([gber[k].VT for k in range(self.n_ccd)],
-                                               [gber[k].alpha for k in range(self.n_ccd)],
-                                               [gber[k].distances for k in range(self.n_ccd)])
+        r"""Initialize of the graph constraint.
+
+        ``graph_kwards`` parameters used.
+        """
+        gber = [utils.GraphBuilder(self.obs_data[k], self.obs_pos[k],
+                                   self.obs_weights[k], self.n_comp_loc,
+                                   n_eigenvects=self.n_eigenvects,
+                                   verbose=self.verbose,
+                                   **self.graph_kwargs) for k in
+                range(self.n_ccd)]
+        self.VT, self.alpha, self.distances = (
+            [gber[k].VT for k in range(self.n_ccd)],
+            [gber[k].alpha for k in range(self.n_ccd)],
+            [gber[k].distances for k in range(self.n_ccd)])
         self.sel_e, self.sel_a = ([gber[k].sel_e for k in range(self.n_ccd)],
                                   [gber[k].sel_a for k in range(self.n_ccd)])
         self.A_loc = [self.alpha[k].dot(self.VT[k]) for k in range(self.n_ccd)]
 
     def _initialize_poly_model(self):
-        """ Initialization of the global polynomial model. The positions in the global coordinate system
-        are used. Normalization of teh polynomials is being done here."""
-        self.Pi = [utils.poly_pos(self.obs_pos[k], self.d_comp_glob, normalice=False, center=False)
-                   for k in range(self.n_ccd)]
+        r"""Initialize the global polynomial model.
+
+        The positions in the global coordinate system
+        are used.
+        Normalization of teh polynomials is being done here.
+        """
+        self.Pi = [
+            utils.poly_pos(self.obs_pos[k], self.d_comp_glob,
+                           normalice=False, center=False)
+            for k in range(self.n_ccd)]
         self.alpha.append(np.eye(self.n_comp_glob))
 
         # Global position model
@@ -573,22 +622,30 @@ class MCCD(object):
             for it_ccd in range(self.n_ccd):
                 sum_vals[it] += np.sum(self.Pi[it_ccd][it, :] ** 2)
             sum_vals[it] = np.sqrt(sum_vals[it])
-        self.Pi = [self.Pi[it] / sum_vals.reshape(-1, 1) for it in range(len(self.Pi))]
+
+        self.Pi = [self.Pi[it] / sum_vals.reshape(-1, 1)
+                   for it in range(len(self.Pi))]
         norm_val = self.Pi[0][0, 0]
         for it in range(len(self.Pi)):
             self.Pi[it] /= norm_val
 
-        self.A_glob = [self.alpha[self.n_ccd].dot(self.Pi[k]) for k in range(self.n_ccd)]
+        self.A_glob = [self.alpha[self.n_ccd].dot(self.Pi[k])
+                       for k in range(self.n_ccd)]
 
     def _initialize_loc_poly_model(self):
-        """ Initialization of the local polynomial model. """
-        self.VT = [utils.poly_pos(self.obs_pos[k], self.d_comp_loc, normalice=True, center=True)
-                   for k in range(self.n_ccd)]
+        r"""Initialize the local polynomial model."""
+        self.VT = [
+            utils.poly_pos(self.obs_pos[k], self.d_comp_loc, normalice=True,
+                           center=True)
+            for k in range(self.n_ccd)]
         self.alpha = [np.eye(self.n_comp_loc) for _it in range(self.n_ccd)]
         self.A_loc = [self.alpha[k].dot(self.VT[k]) for k in range(self.n_ccd)]
 
     def _initialize_loc_hybrid_model(self):
-        """ Initialization of the hybrid local model. Graphs + polynomials."""
+        r"""Initialize the hybrid local model.
+
+        Graphs + polynomials.
+        """
         # TODO Hardcoded to 2 the max_degree [TL] [improve]
         max_deg = 2
         n_poly_comp = 6
@@ -598,9 +655,11 @@ class MCCD(object):
         # First initialize the graph constraint
         self._initialize_graph_constraint()
 
-        # Calculate the local polynomial and add it to the graph-calculated values
+        # Calculate the local polynomial and add it to
+        # the graph-calculated values
         for k in range(self.n_ccd):
-            poly_VT = utils.poly_pos(self.obs_pos[k], max_degree=max_deg, normalice=True, center=True)
+            poly_VT = utils.poly_pos(self.obs_pos[k], max_degree=max_deg,
+                                     normalice=True, center=True)
             poly_alpha = np.eye(n_poly_comp)
 
             n_comp_hyb = poly_alpha.shape[0]
@@ -608,7 +667,8 @@ class MCCD(object):
 
             zero_concat_1 = np.zeros((self.n_comp_loc, n_vec_hyb))
             zero_concat_2 = np.zeros((n_comp_hyb, self.alpha[k].shape[1]))
-            tmp_alpha_1 = np.concatenate((self.alpha[k], zero_concat_1), axis=1)
+            tmp_alpha_1 = np.concatenate((self.alpha[k], zero_concat_1),
+                                         axis=1)
             tmp_alpha_2 = np.concatenate((zero_concat_2, poly_alpha), axis=1)
             self.alpha[k] = np.concatenate((tmp_alpha_1, tmp_alpha_2), axis=0)
             self.VT[k] = np.concatenate((self.VT[k], poly_VT), axis=0)
@@ -617,7 +677,7 @@ class MCCD(object):
         self.n_comp_loc += n_poly_comp
 
     def _fit(self):
-        """ Main function performing the construction of fit of the model."""
+        r"""Perform the main model fitting."""
         # Function variables
         comp = self.S
         alpha = self.alpha
@@ -629,92 +689,145 @@ class MCCD(object):
 
         # Estimated models (local and global for each CCD)
         H_loc = [comp[k].dot(weights_loc[k]) for k in range(self.n_ccd)]
-        H_glob = [comp[self.n_ccd].dot(weights_glob[k]) for k in range(self.n_ccd)]
+        H_glob = [comp[self.n_ccd].dot(weights_glob[k]) for k in
+                  range(self.n_ccd)]
 
         # Dual variables (for Condat algorithm)
-        dual_comp = [np.zeros((self.im_hr_shape[k])) for k in range(self.n_ccd)]
+        dual_comp = [np.zeros((self.im_hr_shape[k])) for k in
+                     range(self.n_ccd)]
         dual_alpha = [np.zeros(self.A_loc[k].shape) for k in range(self.n_ccd)]
         dual_alpha.append(np.zeros(conc(self.A_glob, axis=1).shape))
 
         # Starlet filters and associated spectral radius
         if self.default_filters:
-            self.Phi_filters = mccd_utils.get_mr_filters(self.im_hr_shape[0][:2], opt=self.opt,
-                                                         coarse=True, trim=False)
-        rho_phi = np.sqrt(np.sum(np.sum(np.abs(self.Phi_filters), axis=(1, 2)) ** 2))
+            self.Phi_filters = mccd_utils.get_mr_filters(
+                self.im_hr_shape[0][:2], opt=self.opt,
+                coarse=True, trim=False)
+        rho_phi = np.sqrt(
+            np.sum(np.sum(np.abs(self.Phi_filters), axis=(1, 2)) ** 2))
 
         # Gradient objects
-        source_loc_grad = [grads.SourceLocGrad(self.obs_data[k], self.obs_weights[k],
-                                               weights_loc[k], H_glob[k], self.flux[k], self.sigs[k],
-                                               self.shift_ker_stack[k],
-                                               self.shift_ker_stack_adj[k], self.SNR_weight_list[k],
-                                               self.upfact, self.Phi_filters, save_iter_cost=self.iter_outputs)
-                           for k in range(self.n_ccd)]
-        weight_loc_grad = [grads.CoeffLocGrad(self.obs_data[k], self.obs_weights[k],
-                                              comp[k], self.VT[k], H_glob[k], self.flux[k], self.sigs[k],
-                                              self.shift_ker_stack[k],
-                                              self.shift_ker_stack_adj[k], self.SNR_weight_list[k],
-                                              self.upfact, save_iter_cost=self.iter_outputs) for k in range(self.n_ccd)]
-        source_glob_grad = grads.SourceGlobGrad(conc(self.obs_data, axis=2),
-                                                conc(self.obs_weights, axis=2), conc(weights_glob, axis=1),
-                                                conc(H_loc, axis=2),
-                                                conc(self.flux), conc(self.sigs), conc(self.shift_ker_stack, axis=2),
-                                                conc(self.shift_ker_stack_adj, axis=2), conc(self.SNR_weight_list),
-                                                self.upfact,
-                                                self.Phi_filters, save_iter_cost=self.iter_outputs)
-        weight_glob_grad = grads.CoeffGlobGrad(conc(self.obs_data, axis=2),
-                                               conc(self.obs_weights, axis=2), comp[self.n_ccd], conc(self.Pi, axis=1),
-                                               conc(H_loc, axis=2), conc(self.flux), conc(self.sigs),
-                                               conc(self.shift_ker_stack, axis=2),
-                                               conc(self.shift_ker_stack_adj, axis=2), self.upfact,
-                                               conc(self.SNR_weight_list),
-                                               save_iter_cost=self.iter_outputs)
+        source_loc_grad = [grads.SourceLocGrad(
+            self.obs_data[k],
+            self.obs_weights[k],
+            weights_loc[k],
+            H_glob[k],
+            self.flux[k],
+            self.sigs[k],
+            self.shift_ker_stack[k],
+            self.shift_ker_stack_adj[k],
+            self.SNR_weight_list[k],
+            self.upfact,
+            self.Phi_filters,
+            save_iter_cost=self.iter_outputs) for k in range(self.n_ccd)]
+
+        weight_loc_grad = [grads.CoeffLocGrad(
+            self.obs_data[k],
+            self.obs_weights[k],
+            comp[k],
+            self.VT[k],
+            H_glob[k],
+            self.flux[k],
+            self.sigs[k],
+            self.shift_ker_stack[k],
+            self.shift_ker_stack_adj[k],
+            self.SNR_weight_list[k],
+            self.upfact,
+            save_iter_cost=self.iter_outputs) for k in range(self.n_ccd)]
+
+        source_glob_grad = grads.SourceGlobGrad(
+            conc(self.obs_data, axis=2),
+            conc(self.obs_weights, axis=2),
+            conc(weights_glob, axis=1),
+            conc(H_loc, axis=2),
+            conc(self.flux),
+            conc(self.sigs),
+            conc(self.shift_ker_stack, axis=2),
+            conc(self.shift_ker_stack_adj, axis=2),
+            conc(self.SNR_weight_list),
+            self.upfact,
+            self.Phi_filters,
+            save_iter_cost=self.iter_outputs)
+
+        weight_glob_grad = grads.CoeffGlobGrad(
+            conc(self.obs_data, axis=2),
+            conc(self.obs_weights, axis=2),
+            comp[self.n_ccd],
+            conc(self.Pi, axis=1),
+            conc(H_loc, axis=2),
+            conc(self.flux),
+            conc(self.sigs),
+            conc(self.shift_ker_stack, axis=2),
+            conc(self.shift_ker_stack_adj, axis=2),
+            self.upfact,
+            conc(self.SNR_weight_list),
+            save_iter_cost=self.iter_outputs)
 
         # Proxs for component optimization
         sparsity_prox = prox.StarletThreshold(0)
         pos_prox = [prox.PositityOff(H_k) for H_k in H_glob]
-        lin_recombine = [prox.LinRecombine(weights_loc[k], self.Phi_filters) for k in range(self.n_ccd)]
+        lin_recombine = [prox.LinRecombine(weights_loc[k], self.Phi_filters)
+                         for k in range(self.n_ccd)]
 
         # Proxs for weight optimization
         # Local model
-        # The last (1-steady_state_thresh_loc)*100% elements will have same threshold
-        # min_elements_loc: Minimum number of elements to maintain when threshold is the highest
+        # The last (1-steady_state_thresh_loc)*100% elements will have same
+        # threshold
+        # min_elements_loc: Minimum number of elements to maintain when
+        # threshold is the highest
         steady_state_thresh_loc = 0.8
         min_elements_loc = 5
 
         def iter_func_loc(x, elem_size):
-            return np.min([np.floor((elem_size / 2 - 1) * (1 / np.sqrt(self.nb_subiter_A_loc * steady_state_thresh_loc))
-                                    * np.sqrt(x)) + min_elements_loc, np.floor(elem_size / 2)])
+            return np.min(
+                [np.floor((elem_size / 2 - 1) * (1 / np.sqrt(
+                    self.nb_subiter_A_loc * steady_state_thresh_loc)) \
+                          * np.sqrt(x)) + min_elements_loc,
+                 np.floor(elem_size / 2)])
 
         coeff_prox_loc = prox.KThreshold(iter_func_loc)
 
         # Global model
-        # The last (1-steady_state_thresh_glob)*100% elements will have same threshold
-        # min_elements_glob: Minimum number of elements to maintain when threshold is the highest
+        # The last (1-steady_state_thresh_glob)*100% elements will have same
+        # threshold
+        # min_elements_glob: Minimum number of elements to maintain when
+        # threshold is the highest
         steady_state_thresh_glob = 0.8
         min_elements_glob = 5
 
         def iter_func_glob(x, elem_size):
             return np.min(
-                [np.floor((elem_size / 2 - 1) * (1 / np.sqrt(self.nb_subiter_A_glob * steady_state_thresh_glob))
-                          * np.sqrt(x)) + min_elements_glob, np.floor(elem_size / 2)])
+                [np.floor((elem_size / 2 - 1) * (1 / np.sqrt(
+                    self.nb_subiter_A_glob * steady_state_thresh_glob)) \
+                          * np.sqrt(x)) + min_elements_glob,
+                 np.floor(elem_size / 2)])
 
         coeff_prox_glob = prox.KThreshold(iter_func_glob)
 
         norm_prox = prox.proxNormalization(type='columns')
-        lin_recombine_alpha = [prox.LinRecombineAlpha(self.VT[k]) for k in range(self.n_ccd)]
-        lin_recombine_alpha.append(prox.LinRecombineAlpha(conc(self.Pi, axis=1)))
+        lin_recombine_alpha = [prox.LinRecombineAlpha(self.VT[k])
+                               for k in range(self.n_ccd)]
+        lin_recombine_alpha.append(
+            prox.LinRecombineAlpha(conc(self.Pi, axis=1)))
 
         # Cost functions
-        source_loc_cost = [costObj([source_loc_grad[k]], verbose=self.modopt_verb) for k in range(self.n_ccd)]
-        weight_loc_cost = [costObj([weight_loc_grad[k]], verbose=self.modopt_verb) for k in range(self.n_ccd)]
-        source_glob_cost = costObj([source_glob_grad], verbose=self.modopt_verb)
-        weight_glob_cost = costObj([weight_glob_grad], verbose=self.modopt_verb)
+        source_loc_cost = [
+            costObj([source_loc_grad[k]], verbose=self.modopt_verb)
+            for k in range(self.n_ccd)]
+        weight_loc_cost = [
+            costObj([weight_loc_grad[k]], verbose=self.modopt_verb)
+            for k in range(self.n_ccd)]
+        source_glob_cost = costObj([source_glob_grad],
+                                   verbose=self.modopt_verb)
+        weight_glob_cost = costObj([weight_glob_grad],
+                                   verbose=self.modopt_verb)
 
         # Transformed components in wavelet (default: Starlet) domain
-        transf_comp = [utils.apply_transform(comp[k], self.Phi_filters) for k in range(self.n_ccd + 1)]
+        transf_comp = [utils.apply_transform(comp[k], self.Phi_filters)
+                       for k in range(self.n_ccd + 1)]
 
         # Big loop: Main iteration
-        for l in range(self.nb_iter):
+        for main_it in range(self.nb_iter):
 
             # Global Optimization
             for l_glob in range(self.nb_iter_glob):
@@ -730,13 +843,22 @@ class MCCD(object):
 
                 # Sparsity prox thresholds update
                 thresh = utils.reg_format(
-                    utils.acc_sig_maps(self.shap[self.n_ccd], conc(self.shift_ker_stack_adj, axis=2),
-                                       conc(self.sigs), conc(self.flux), self.flux_ref[self.n_ccd], self.upfact,
-                                       conc(weights_glob, axis=1),
-                                       sig_data=np.ones((self.shap[self.n_ccd][2],)) * self.sig_min[self.n_ccd]))
-                thresholds = self.ksig_glob * np.sqrt(np.array([filter_convolve(Sigma_k ** 2,
-                                                                                self.Phi_filters ** 2)
-                                                                for Sigma_k in thresh]))
+                    utils.acc_sig_maps(
+                        self.shap[self.n_ccd],
+                        conc(self.shift_ker_stack_adj, axis=2),
+                        conc(self.sigs),
+                        conc(self.flux),
+                        self.flux_ref[self.n_ccd],
+                        self.upfact,
+                        conc(weights_glob, axis=1),
+                        sig_data=np.ones(
+                                (self.shap[self.n_ccd][2],)) \
+                        * self.sig_min[self.n_ccd]))
+
+                thresholds = self.ksig_glob * np.sqrt(
+                    np.array(
+                        [filter_convolve(Sigma_k ** 2, self.Phi_filters ** 2)
+                         for Sigma_k in thresh]))
                 sparsity_prox.update_threshold(tau * thresholds)
 
                 # Reweighting. Borrowed from original RCA code
@@ -744,30 +866,36 @@ class MCCD(object):
                     reweighter = cwbReweight(self.nb_reweight)
                     for _ in range(self.nb_reweight):
                         # Optimize!
-                        source_optim = optimalg.ForwardBackward(transf_comp[self.n_ccd],
-                                                                source_glob_grad, sparsity_prox, cost=source_glob_cost,
-                                                                beta_param=1. / beta, auto_iterate=False)
+                        source_optim = optimalg.ForwardBackward(
+                            transf_comp[self.n_ccd],
+                            source_glob_grad, sparsity_prox,
+                            cost=source_glob_cost,
+                            beta_param=1. / beta, auto_iterate=False)
                         source_optim.iterate(max_iter=self.nb_subiter_S_glob)
                         transf_comp[self.n_ccd] = source_optim.x_final
                         reweighter.reweight(transf_comp[self.n_ccd])
                         thresholds = reweighter.weights
                 else:
                     # Optimize!
-                    source_optim = optimalg.ForwardBackward(transf_comp[self.n_ccd],
-                                                            source_glob_grad, sparsity_prox, cost=source_glob_cost,
-                                                            beta_param=1. / beta, auto_iterate=False)
+                    source_optim = optimalg.ForwardBackward(
+                        transf_comp[self.n_ccd],
+                        source_glob_grad, sparsity_prox, cost=source_glob_cost,
+                        beta_param=1. / beta, auto_iterate=False)
                     source_optim.iterate(max_iter=self.nb_subiter_S_glob)
                     transf_comp[self.n_ccd] = source_optim.x_final
 
                     # Save iteration diagnostic data
                     if self.iter_outputs:
-                        self.iters_glob_S.append(source_glob_grad.get_iter_cost())
+                        self.iters_glob_S.append(
+                            source_glob_grad.get_iter_cost())
                         source_glob_grad.reset_iter_cost()
 
                 # Update pixel domain global components
-                comp[self.n_ccd] = utils.rca_format(np.array([filter_convolve(transf_Sj,
-                                                                              self.Phi_filters, filter_rot=True) for
-                                                              transf_Sj in transf_comp[self.n_ccd]]))
+                comp[self.n_ccd] = utils.rca_format(
+                    np.array([filter_convolve(transf_Sj,
+                                              self.Phi_filters,
+                                              filter_rot=True) for
+                              transf_Sj in transf_comp[self.n_ccd]]))
 
                 # Global Weights Optimization
 
@@ -778,24 +906,35 @@ class MCCD(object):
                 # Coefficient sparsity prox update
                 coeff_prox_glob.reset_iter()
 
-                # Conda's algorithm parameters (lipschitz of diff. part and operator norm of lin. part)
+                # Conda's algorithm parameters
+                # (lipschitz of diff. part and operator norm of lin. part)
                 # See Conda's paper for more details.
                 beta = weight_glob_grad.spec_rad * 1.5
                 tau = 1. / beta
-                sigma = (1. / lin_recombine_alpha[self.n_ccd].norm ** 2) * beta / 2
+                sigma = (1. / lin_recombine_alpha[
+                    self.n_ccd].norm ** 2) * beta / 2
 
                 try:
                     coeff_prox_glob.set_beta_param(beta)
                 except Exception:
-                    print('Exception catched')
+                    print('''Exception catched when:
+                    coeff_prox_glob.set_beta_param(beta)''')
 
                 # Optimize !
-                weight_optim = optimalg.Condat(alpha[self.n_ccd], dual_alpha[self.n_ccd],
-                                               weight_glob_grad, coeff_prox_glob, norm_prox,
-                                               linear=lin_recombine_alpha[self.n_ccd], cost=weight_glob_cost,
-                                               max_iter=self.nb_subiter_A_glob, tau=tau, sigma=sigma)
+                weight_optim = optimalg.Condat(alpha[self.n_ccd],
+                                               dual_alpha[self.n_ccd],
+                                               weight_glob_grad,
+                                               coeff_prox_glob,
+                                               norm_prox,
+                                               linear=lin_recombine_alpha[
+                                                   self.n_ccd],
+                                               cost=weight_glob_cost,
+                                               max_iter=self.nb_subiter_A_glob,
+                                               tau=tau,
+                                               sigma=sigma)
                 alpha[self.n_ccd] = weight_optim.x_final
-                weights_glob = [alpha[self.n_ccd].dot(self.Pi[k]) for k in range(self.n_ccd)]
+                weights_glob = [alpha[self.n_ccd].dot(self.Pi[k])
+                                for k in range(self.n_ccd)]
 
                 # Save iteration diagnostic data
                 if self.iter_outputs:
@@ -803,7 +942,8 @@ class MCCD(object):
                     weight_glob_grad.reset_iter_cost()
 
                 # Global model update
-                H_glob = [comp[self.n_ccd].dot(weights_glob[k]) for k in range(self.n_ccd)]
+                H_glob = [comp[self.n_ccd].dot(weights_glob[k])
+                          for k in range(self.n_ccd)]
 
             # Local models update
             for l_loc in range(self.nb_iter_loc):
@@ -819,20 +959,29 @@ class MCCD(object):
                     pos_prox[k].update_offset(H_glob[k])
                     lin_recombine[k].update_A(weights_loc[k])
 
-                    # Conda parameters (lipschitz of diff. part and operator norm of lin. part)
+                    # Conda parameters
+                    # (lipschitz of diff. part and operator norm of lin. part)
                     beta = source_loc_grad[k].spec_rad * 1.5 + rho_phi
                     tau = 1. / beta
                     sigma = (1. / lin_recombine[k].norm ** 2) * beta / 2
 
                     # Sparsity prox thresholds update
-                    thresh = utils.reg_format(utils.acc_sig_maps(self.shap[k], self.shift_ker_stack_adj[k],
-                                                                 self.sigs[k], self.flux[k], self.flux_ref[k],
-                                                                 self.upfact, weights_loc[k],
-                                                                 sig_data=np.ones((self.shap[k][2],)) * self.sig_min[
-                                                                     k]))
-                    thresholds = self.ksig_loc * np.sqrt(np.array([filter_convolve(Sigma_k ** 2,
-                                                                                   self.Phi_filters ** 2) for Sigma_k in
-                                                                   thresh]))
+                    thresh = utils.reg_format(
+                        utils.acc_sig_maps(
+                            self.shap[k],
+                            self.shift_ker_stack_adj[k],
+                            self.sigs[k],
+                            self.flux[k],
+                            self.flux_ref[k],
+                            self.upfact,
+                            weights_loc[k],
+                            sig_data=np.ones((self.shap[k][2],)) \
+                            * self.sig_min[k]))
+
+                    thresholds = self.ksig_loc * np.sqrt(
+                        np.array([filter_convolve(
+                            Sigma_k ** 2, self.Phi_filters ** 2)
+                            for Sigma_k in thresh]))
                     sparsity_prox.update_threshold(tau * thresholds)
 
                     # Reweighting
@@ -840,30 +989,46 @@ class MCCD(object):
                         reweighter = cwbReweight(self.nb_reweight)
                         for _ in range(self.nb_reweight):
                             # Optimize!
-                            source_optim = optimalg.Condat(transf_comp[k], dual_comp[k],
-                                                           source_loc_grad[k], sparsity_prox, pos_prox[k],
-                                                           linear=lin_recombine[k], cost=source_loc_cost[k],
-                                                           max_iter=self.nb_subiter_S_loc, tau=tau, sigma=sigma)
+                            source_optim = optimalg.Condat(
+                                transf_comp[k],
+                                dual_comp[k],
+                                source_loc_grad[k],
+                                sparsity_prox,
+                                pos_prox[k],
+                                linear=lin_recombine[k],
+                                cost=source_loc_cost[k],
+                                max_iter=self.nb_subiter_S_loc,
+                                tau=tau,
+                                sigma=sigma)
                             transf_comp[k] = source_optim.x_final
                             reweighter.reweight(transf_comp[k])
                             thresholds = reweighter.weights
                     else:
                         # Optimize!
-                        source_optim = optimalg.Condat(transf_comp[k], dual_comp[k],
-                                                       source_loc_grad[k], sparsity_prox, pos_prox[k],
-                                                       linear=lin_recombine[k], cost=source_loc_cost[k],
-                                                       max_iter=self.nb_subiter_S_loc, tau=tau, sigma=sigma)
+                        source_optim = optimalg.Condat(
+                            transf_comp[k],
+                            dual_comp[k],
+                            source_loc_grad[k],
+                            sparsity_prox,
+                            pos_prox[k],
+                            linear=lin_recombine[k],
+                            cost=source_loc_cost[k],
+                            max_iter=self.nb_subiter_S_loc,
+                            tau=tau, sigma=sigma)
                         transf_comp[k] = source_optim.x_final
 
                         # Save iteration diagnostic data
                         if self.iter_outputs:
-                            self.iters_loc_S[k].append(source_loc_grad[k].get_iter_cost())
+                            self.iters_loc_S[k].append(
+                                source_loc_grad[k].get_iter_cost())
                             source_loc_grad[k].reset_iter_cost()
 
                     # Update pixel domain local components
-                    comp[k] = utils.rca_format(np.array([filter_convolve(transf_Sj,
-                                                                         self.Phi_filters, filter_rot=True) for
-                                                         transf_Sj in transf_comp[k]]))
+                    comp[k] = utils.rca_format(
+                        np.array([filter_convolve(transf_Sj,
+                                                  self.Phi_filters,
+                                                  filter_rot=True) for
+                                  transf_Sj in transf_comp[k]]))
 
                     # Local weights Optimization
 
@@ -874,22 +1039,31 @@ class MCCD(object):
                     # Coeff sparsity prox update
                     coeff_prox_loc.reset_iter()
 
-                    # Conda parameters (lipschitz of diff. part and operator norm of lin. part)
+                    # Conda parameters
+                    # (lipschitz of diff. part and operator norm of lin. part)
                     beta = weight_loc_grad[k].spec_rad * 1.5
                     tau = 1. / beta
                     sigma = (1. / lin_recombine_alpha[k].norm ** 2) * beta / 2
 
                     # Optimize
-                    weight_optim = optimalg.Condat(alpha[k], dual_alpha[k],
-                                                   weight_loc_grad[k], coeff_prox_loc, norm_prox,
-                                                   linear=lin_recombine_alpha[k], cost=weight_loc_cost[k],
-                                                   max_iter=self.nb_subiter_A_loc, tau=tau, sigma=sigma)
+                    weight_optim = optimalg.Condat(
+                        alpha[k],
+                        dual_alpha[k],
+                        weight_loc_grad[k],
+                        coeff_prox_loc,
+                        norm_prox,
+                        linear=lin_recombine_alpha[k],
+                        cost=weight_loc_cost[k],
+                        max_iter=self.nb_subiter_A_loc,
+                        tau=tau,
+                        sigma=sigma)
                     alpha[k] = weight_optim.x_final
                     weights_loc[k] = alpha[k].dot(self.VT[k])
 
                     # Save iteration diagnostic data
                     if self.iter_outputs:
-                        self.iters_loc_A[k].append(weight_loc_grad[k].get_iter_cost())
+                        self.iters_loc_A[k].append(
+                            weight_loc_grad[k].get_iter_cost())
                         weight_loc_grad[k].reset_iter_cost()
 
                     # Local model update
@@ -901,61 +1075,71 @@ class MCCD(object):
         self.A_loc = weights_loc
         self.A_glob = weights_glob
 
-    def estimate_psf(self, test_pos, ccd_n, n_loc_neighbors=15, n_glob_neighbors=15,
-                     rbf_function='thin_plate', apply_degradation=False, shifts=None,
-                     flux=None, sigmas=None, upfact=None, rca_format=False,
-                     mccd_debug=False, global_pol_interp=None):
-        r""" Estimate and return PSF at desired positions. Returns the model in
-            "regular" format, (n_stars, n_pixels, n_pixels).
+    def estimate_psf(self, test_pos, ccd_n, n_loc_neighbors=15,
+                     n_glob_neighbors=15, rbf_function='thin_plate',
+                     apply_degradation=False, shifts=None, flux=None,
+                     sigmas=None, upfact=None, mccd_debug=False,
+                     global_pol_interp=None):
+        r"""Estimate and return PSF at desired positions.
+
+        Returns the model in "regular" format, (n_stars, n_pixels, n_pixels).
 
         Parameters
         ----------
         test_pos: np.ndarray
-            Positions where the PSF should be estimated. Should be in the same format (coordinate system, units,
-            etc.) as the ``obs_pos`` fed to :func:`MCCD.fit`.
+            Positions where the PSF should be estimated.
+            Should be in the same format (coordinate system, units, etc.) as
+            the ``obs_pos`` fed to :func:`MCCD.fit`.
         ccd_n: int
             ``ccd_id`` of the positions to be tested.
         n_loc_neighbors: int
-            Number of neighbors for the local model to use for RBF interpolation. Default is 15.
+            Number of neighbors for the local model to use for RBF
+            interpolation. Default is 15.
         n_glob_neighbors: int
-            Number of neighbors for the global model to use for RBF interpolation. Default is 15.
+            Number of neighbors for the global model to use for RBF
+            interpolation. Default is 15.
         rbf_function: str
             Type of RBF kernel to use. Default is ``'thin_plate'``.
             Check scipy RBF documentation for more models.
         apply_degradation: bool
-            Whether PSF model should be degraded (shifted and resampled on coarse grid),
-            for instance for comparison with stars. If True, expects shifts to be provided.
+            Whether PSF model should be degraded (shifted and
+            resampled on coarse grid), for instance for comparison with stars.
+            If True, expects shifts to be provided.
             Needed if pixel validation against stars will be required.
             Default is False.
         shifts: np.ndarray
-            Intra-pixel shifts to apply if ``apply_degradation`` is set to True.
+            Intra-pixel shifts to apply if ``apply_degradation`` is set
+            to True.
             Needed to match the observed stars in case of pixel validation.
         flux: np.ndarray
-            Flux levels by which reconstructed PSF will be multiplied if provided. For pixel validation with
-            stars if ``apply_degradation`` is set to True.
+            Flux levels by which reconstructed PSF will be multiplied if
+            provided. For pixel validation with stars if ``apply_degradation``
+            is set to True.
         sigmas: np.ndarray
-            Sigmas (shapes) are used to have a better estimate of the size of the lanczos interpolant that will be
-            used when performing the intra-pixel shift.
-            Default is None, where a predefined value is used for the interpolant size.
+            Sigmas (shapes) are used to have a better estimate of the size
+            of the lanczos interpolant that will be used when performing the
+            intra-pixel shift.
+            Default is None, where a predefined value is used for the
+            interpolant size.
         upfact: int
-            Upsampling factor; default is None, in which case that of the MCCD instance will be used.
-        rca_format: bool
-            If True, returns the PSF model in "rca" format, i.e. with axises
-            (n_pixels, n_pixels, n_stars). Otherwise, and by default, return them in
-            "regular" format, (n_stars, n_pixels, n_pixels).
+            Upsampling factor; default is None, in which case that of the
+            MCCD instance will be used.
         mccd_debug: bool
-            Debug option. It returns the model plus the local and the global reconstruction components.
+            Debug option. It returns the model plus the local and the global
+            reconstruction components.
             Default is False.
         global_pol_interp: np.ndarray
-            If is None, the global interpolation is done with th RBF interpolation as in the
-            local model.
-            If is not None, the global interpolation is done directly using position polynomials.
-            In this case, ``global_pol_interp`` should be the normalized Pi interpolation matrix.
+            If is None, the global interpolation is done with th RBF
+            interpolation as in the local model.
+            If is not None, the global interpolation is done directly using
+            position polynomials.
+            In this case, ``global_pol_interp`` should be the normalized Pi
+            interpolation matrix.
             Default is None.
         """
         if not self.is_fitted:
-            raise ValueError('MCCD instance has not yet been fitted to observations. Please run\
-            the fit method.')
+            raise ValueError('''MCCD instance has not yet been fitted to
+            observations. Please run the fit method.''')
         if upfact is None:
             upfact = self.upfact
 
@@ -968,12 +1152,13 @@ class MCCD(object):
         test_weights_glob = np.zeros((self.n_comp_glob, ntest))
         test_weights_loc = np.zeros((self.n_comp_loc, ntest))
 
-        # Turn ccd_n into list number. Select the correct indexes of the requested CCD.
+        # Turn ccd_n into list number.
+        # Select the correct indexes of the requested CCD.
         try:
             ccd_idx = np.where(np.array(self.ccd_list) == ccd_n)[0][0]
         except Exception:
-            # If the CCD was not used for training the output should be None and
-            # be handled by the wrapping function.
+            # If the CCD was not used for training the output should be
+            # None and be handled by the wrapping function.
             if mccd_debug:
                 return None, None, None
             else:
@@ -984,31 +1169,45 @@ class MCCD(object):
             # Local model
 
             # Determine neighbors
-            nbs_loc, pos_nbs_loc = mccd_utils.return_loc_neighbors(pos, self.obs_pos[ccd_idx],
-                                                                   self.A_loc[ccd_idx].T, n_loc_neighbors)
+            nbs_loc, pos_nbs_loc = mccd_utils.return_loc_neighbors(
+                pos,
+                self.obs_pos[ccd_idx],
+                self.A_loc[ccd_idx].T,
+                n_loc_neighbors)
             # Train RBF and interpolate for each component
             for i in range(self.n_comp_loc):
-                rbfi = Rbf(pos_nbs_loc[:, 0], pos_nbs_loc[:, 1], nbs_loc[:, i], function=rbf_function)
+                rbfi = Rbf(pos_nbs_loc[:, 0],
+                           pos_nbs_loc[:, 1],
+                           nbs_loc[:, i],
+                           function=rbf_function)
                 test_weights_loc[i, j] = rbfi(pos[0], pos[1])
 
             # Global model
             if global_pol_interp is None:
                 # Use RBF interpolation for the global component
-                # Depending on the problem one may want to use neighbors from the corresponding
-                # CCD (return_loc_neighbors) or from any CCD (return_glob_neighbors).
+                # Depending on the problem one may want to use neighbors
+                # from the corresponding CCD (return_loc_neighbors) or from
+                # any CCD (return_glob_neighbors).
 
                 # Using return_loc_neighbors()
                 nbs_glob, pos_nbs_glob = nbs_loc, pos_nbs_loc
 
                 # Using return_glob_neighbors()
-                # nbs_glob, pos_nbs_glob = mccd_utils.return_glob_neighbors(pos, self.obs_pos,
-                #                                                           self.A_glob, n_glob_neighbors)
+                # nbs_glob, pos_nbs_glob = mccd_utils.return_glob_neighbors(
+                #     pos,
+                #     self.obs_pos,
+                #     self.A_glob,
+                #     n_glob_neighbors)
 
                 for i in range(self.n_comp_glob):
-                    rbfi = Rbf(pos_nbs_glob[:, 0], pos_nbs_glob[:, 1], nbs_glob[:, i], function=rbf_function)
+                    rbfi = Rbf(pos_nbs_glob[:, 0],
+                               pos_nbs_glob[:, 1],
+                               nbs_glob[:, i],
+                               function=rbf_function)
                     test_weights_glob[i, j] = rbfi(pos[0], pos[1])
             else:
-                # Use classic PSFEx-like position polynomial interpolation for the global component
+                # Use classic PSFEx-like position polynomial interpolation
+                # for the global component
                 test_weights_glob = self.alpha[-1] @ global_pol_interp
 
         # Reconstruct the global and local PSF contributions
@@ -1017,21 +1216,30 @@ class MCCD(object):
         PSFs = PSFs_glob + PSFs_loc
 
         if apply_degradation:
-            shift_kernels, _ = utils.shift_ker_stack(shifts, self.upfact, lanc_rad=lanc_rad)
+            shift_kernels, _ = utils.shift_ker_stack(shifts, self.upfact,
+                                                     lanc_rad=lanc_rad)
             # PSFs changed into reg_format in the degradation process
-            deg_PSFs = np.array([utils.degradation_op(PSFs[:, :, j], shift_kernels[:, :, j], upfact)
-                                 for j in range(ntest)])
+            deg_PSFs = np.array(
+                [utils.degradation_op(PSFs[:, :, j],
+                                      shift_kernels[:, :, j],
+                                      upfact)
+                 for j in range(ntest)])
+
             if flux is not None:
                 deg_PSFs *= flux.reshape(-1, 1, 1) / self.flux_ref[ccd_idx]
 
             if mccd_debug:
-                deg_PSFs_glob = np.array([utils.degradation_op(PSFs_glob[:, :, j], shift_kernels[:, :, j], upfact)
-                                          for j in range(ntest)])
-                deg_PSFs_loc = np.array([utils.degradation_op(PSFs_loc[:, :, j], shift_kernels[:, :, j], upfact)
-                                         for j in range(ntest)])
+                deg_PSFs_glob = np.array([utils.degradation_op(
+                    PSFs_glob[:, :, j], shift_kernels[:, :, j], upfact)
+                    for j in range(ntest)])
+                deg_PSFs_loc = np.array([utils.degradation_op(
+                    PSFs_loc[:, :, j], shift_kernels[:, :, j], upfact)
+                    for j in range(ntest)])
                 if flux is not None:
-                    deg_PSFs_glob *= flux.reshape(-1, 1, 1) / self.flux_ref[ccd_idx]
-                    deg_PSFs_loc *= flux.reshape(-1, 1, 1) / self.flux_ref[ccd_idx]
+                    deg_PSFs_glob *= flux.reshape(-1, 1, 1) / self.flux_ref[
+                        ccd_idx]
+                    deg_PSFs_loc *= flux.reshape(-1, 1, 1) / self.flux_ref[
+                        ccd_idx]
 
             if mccd_debug:
                 return deg_PSFs, deg_PSFs_glob, deg_PSFs_loc
@@ -1039,47 +1247,60 @@ class MCCD(object):
                 return deg_PSFs
 
         else:
-            # If PSF are not degraded they come in rca_format from before so we change to regular_format.
-            # I should normalize the flux of the PSFs before the output when no degradation is done
-            PSFs = np.array([PSFs[:, :, j] / np.sum(PSFs[:, :, j]) for j in range(ntest)])
+            # If PSF are not degraded they come in rca_format from before so
+            # we change to regular_format.
+            # I should normalize the flux of the PSFs before the output when
+            # no degradation is done
+            PSFs = np.array(
+                [PSFs[:, :, j] / np.sum(PSFs[:, :, j]) for j in range(ntest)])
 
             if mccd_debug:
                 return PSFs, PSFs_glob, PSFs_loc
             else:
                 return PSFs
 
-    def validation_stars(self, test_stars, test_pos, test_masks=None, ccd_id=None, mccd_debug=False,
+    def validation_stars(self, test_stars, test_pos, test_masks=None,
+                         ccd_id=None, mccd_debug=False,
                          response_flag=False, global_pol_interp=None):
-        """ Match PSF model to stars - in flux, shift and pixel sampling - for validation tests.
+        r"""Match PSF model to stars.
+
+        The match is done in flux, shift and pixel sampling -
+        for validation tests.
         Returns the matched PSFs' stamps.
-        Returned matched PSFs will be None if there is no model on that specific CCD due to the lack of training stars.
+        Returned matched PSFs will be None if there is no model on that
+        specific CCD due to the lack of training stars.
 
         Parameters
         ----------
         test_stars: np.ndarray
-            Star stamps to be used for comparison with the PSF model. Should be in "rca" format,
+            Star stamps to be used for comparison with the PSF model.
+            Should be in "rca" format,
             i.e. with axises (n_pixels, n_pixels, n_stars).
         test_pos: np.ndarray
             Their corresponding positions in global coordinate system.
         test_masks: np.ndarray
-            Masks to be used on the star stamps. If None, all the pixels will be used.
+            Masks to be used on the star stamps.
+            If None, all the pixels will be used.
             Default is None.
         ccd_id: int
-            The corresponding ccd_id (ie ccd number corresponding to the megacam geometry).
+            The corresponding ccd_id
+            (ie ccd number corresponding to the megacam geometry).
             Do not mistake for ccd_idx (index).
         mccd_debug: bool
-            Debug option. It returns the local and the global reconstruction components.
+            Debug option. It returns the local and the global
+            reconstruction components.
         response_flag: bool
             Response option. True if in response mode.
         global_pol_interp: Position pols of np.ndarray or None
-            If is None, the global interpolation is done with th RBF interpolation as in the
-            local model.
-            If is not None, the global interpolation is done directly using position polynomials.
+            If is None, the global interpolation is done with th RBF
+            interpolation as in the local model.
+            If is not None, the global interpolation is done directly
+            using position polynomials.
             In this case, it should be the normalized Pi interpolation matrix.
         """
         if not self.is_fitted:
-            raise ValueError('MCCD instance has not yet been fitted to observations. Please run\
-            the fit method.')
+            raise ValueError('''MCCD instance has not yet been fitted to
+            observations. Please run the fit method.''')
 
         if response_flag:
             test_shifts = np.zeros((test_pos.shape[0], 2))
@@ -1090,33 +1311,44 @@ class MCCD(object):
             if test_masks is None:
                 test_masks = np.ones(test_stars.shape)
 
-            star_moms = [gs.hsm.FindAdaptiveMom(gs.Image(star), badpix=gs.Image(np.rint(np.abs(badpix - 1))),
-                                                guess_sig=self.psf_size, strict=False) for star, badpix in
-                         zip(utils.reg_format(test_stars), utils.reg_format(test_masks))]
+            star_moms = [gs.hsm.FindAdaptiveMom(gs.Image(star),
+                                                badpix=gs.Image(np.rint(
+                                                    np.abs(badpix - 1))),
+                                                guess_sig=self.psf_size,
+                                                strict=False)
+                         for star, badpix in zip(utils.reg_format(test_stars),
+                                                 utils.reg_format(test_masks))]
             sigmas = np.array([moms.moments_sigma for moms in star_moms])
-            cents = [utils.CentroidEstimator(test_stars[:, :, it], sig=sigmas[it]) for it in range(test_stars.shape[2])]
+            cents = [
+                utils.CentroidEstimator(test_stars[:, :, it], sig=sigmas[it])
+                for it in range(test_stars.shape[2])]
             test_shifts = np.array([ce.return_shifts() for ce in cents])
             test_fluxes = utils.flux_estimate_stack(test_stars, sigmas=sigmas)
 
-        matched_psfs = self.estimate_psf(test_pos, ccd_id, apply_degradation=True,
-                                         shifts=test_shifts, flux=test_fluxes, sigmas=sigmas,
-                                         mccd_debug=mccd_debug, global_pol_interp=global_pol_interp)
+        matched_psfs = self.estimate_psf(test_pos, ccd_id,
+                                         apply_degradation=True,
+                                         shifts=test_shifts,
+                                         flux=test_fluxes,
+                                         sigmas=sigmas,
+                                         mccd_debug=mccd_debug,
+                                         global_pol_interp=global_pol_interp)
 
         # Optimized flux matching
         if matched_psfs is not None:
-            # matched_psfs will be None if there is no model on that specific CCD due to the lack of training stars.
-            norm_factor = np.array([np.sum(_star * _psf) / np.sum(_psf * _psf) for _star, _psf in
-                                    zip(utils.reg_format(test_stars), matched_psfs)]).reshape(-1, 1, 1)
+            # matched_psfs will be None if there is no model on that
+            # specific CCD due to the lack of training stars.
+            norm_factor = np.array(
+                [np.sum(_star * _psf) / np.sum(_psf * _psf)
+                 for _star, _psf in zip(utils.reg_format(test_stars),
+                                        matched_psfs)]).reshape(-1, 1, 1)
             matched_psfs *= norm_factor
 
         return matched_psfs
 
     def _loc_transform(self, A_loc_weights, ccd_idx):
-        """ Transform the local weights into the local contribution of the PSFs
-        """
+        r"""Transform local weights to local contributions of the PSFs."""
         return self.S[ccd_idx].dot(A_loc_weights)
 
     def _glob_transform(self, A_glob_weights):
-        """ Transform the global weights into the global contribution of the PSFs
-        """
+        r"""Transform global weights to global contribution of the PSFs."""
         return self.S[-1].dot(A_glob_weights)

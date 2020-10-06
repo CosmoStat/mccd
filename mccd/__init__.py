@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""MCCD PACKAGE
+"""MCCD PACKAGE.
 
 MCCD is a non-parametric PSF modelling method.
 
@@ -15,4 +15,3 @@ from .info import __version__, __about__
 __all__ = []  # List of submodules
 __all__ += [MCCD, mccd_quickload]
 __all__ += [mccd_utils, utils, grads, proxs]
-
