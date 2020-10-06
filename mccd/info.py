@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""PACKAGE INFO
+"""PACKAGE INFO.
 
 This module provides some basic information about the package.
 
@@ -23,4 +23,4 @@ __about__ = ('{} \n\n Author: {} \n Email: {} \n Year: {} \n {} \n\n'
              ''.format(__name__, __author__, __email__, __year__,
                        __description__))
 __setup_requires__ = ['pytest-runner', ]
-__tests_require__ = ['pytest', 'pytest-cov', 'pytest-pep8']
+__tests_require__ = ['pytest', 'pytest-cov', 'pytest-pycodestyle']
