@@ -12,7 +12,6 @@ The non-parametric MCCD PSF modelling, or MCCD for short, is a Point Spread Func
 pure python package. 
 
 ## Contents
----
 
 1. [Dependencies](#Dependencies)
 1. [Installation](#Installation)
@@ -20,7 +19,6 @@ pure python package.
 
 
 ## Dependencies
----
 
 The following python packages should be installed with their specific dependencies:
 
@@ -35,7 +33,6 @@ It is of utmost importance that the PySAP package is correctly installed as we w
 the wavelet transforms provided by it.
 
 ## Installation
----
 
 After installing all the dependencies one can perform the MCCD package installation:
 
@@ -56,7 +53,6 @@ pip install mccd
 ```
 
 ## Recomendations
----
 
 A useful example notebook ``testing-simulated-data.ipynb`` can be found
 [here](https://github.com/CosmoStat/mccd/tree/master/notebooks).
