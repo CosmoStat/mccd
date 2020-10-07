@@ -28,7 +28,12 @@ before_install:
 # install dependencies
 install:
   - pip install coverage nose pytest pytest-cov pytest-pep8
-  - pip install astropy galsim
+  - pip install scikit-learn scikit-image
+  - pip install matplotlib
+  - pip install pybind11
+  - pip install astropy
+  - pip install termcolor
+  - pip install galsim
   - pip install modopt
   - pip install python-pysap
 
