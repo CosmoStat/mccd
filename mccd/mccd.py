@@ -121,7 +121,7 @@ class MCCD(object):
         self.ksig_loc = ksig_loc
         self.ksig_glob = ksig_glob
         self.ksig_init = ksig_init
-        self.iter_outputs = True
+        self.iter_outputs = False
 
         if filters is None:
             # option strings for mr_transform
@@ -238,7 +238,7 @@ class MCCD(object):
             Observed data (each element of the list being one CCD).
         obs_pos: list of np.ndarray
             Corresponding positions (global coordinate system).
-        ccd_list: list of int
+        ccd_list: list of np.ndarray
             List containing the ccd_ids of each set of observations,
             positions and weights.
             It is of utmost importance that the ccd_list contains the ccd_id
@@ -563,9 +563,9 @@ class MCCD(object):
         lanc_rad = np.ceil(3. * np.max(
             np.array([np.max(_sigma) for _sigma in self.sigmas]))).astype(int)
         self.shift_ker_stack, self.shift_ker_stack_adj = zip(
-            *[utils.shift_ker_stack(self.shifts[k],
-                                    self.upfact, lanc_rad=lanc_rad) for
-              k in range(self.n_ccd)])
+            *[utils.shift_ker_stack(self.shifts[k], self.upfact,
+                                    lanc_rad=lanc_rad)
+              for k in range(self.n_ccd)])
 
         # Flux levels
         if self.flux is None:
@@ -914,11 +914,11 @@ class MCCD(object):
                 sigma = (1. / lin_recombine_alpha[
                     self.n_ccd].norm ** 2) * beta / 2
 
-                try:
-                    coeff_prox_glob.set_beta_param(beta)
-                except Exception:
-                    print('''Exception catched when:
-                    coeff_prox_glob.set_beta_param(beta)''')
+                # try:
+                #     coeff_prox_glob.set_beta_param(beta)
+                # except Exception:
+                #     print('''Exception catched when:
+                #     coeff_prox_glob.set_beta_param(beta)''')
 
                 # Optimize !
                 weight_optim = optimalg.Condat(alpha[self.n_ccd],
@@ -1190,7 +1190,11 @@ class MCCD(object):
                 # any CCD (return_glob_neighbors).
 
                 # Using return_loc_neighbors()
-                nbs_glob, pos_nbs_glob = nbs_loc, pos_nbs_loc
+                nbs_glob, pos_nbs_glob = mccd_utils.return_loc_neighbors(
+                    pos,
+                    self.obs_pos[ccd_idx],
+                    self.A_glob[ccd_idx].T,
+                    n_glob_neighbors)
 
                 # Using return_glob_neighbors()
                 # nbs_glob, pos_nbs_glob = mccd_utils.return_glob_neighbors(
