@@ -15,3 +15,13 @@ build/
 
 # Ignore pypi config
 .pypirc
+
+# Ignore heavy data
+data/mccd_inputs/*
+
+# Ignore notebook checkpoints
+notebooks/.ipynb_checkpoints
+notebooks/hidden_notenooks/
+
+# Mac hidden file
+*.DS_Store
