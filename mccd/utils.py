@@ -346,7 +346,7 @@ def shift_ker_stack(shifts, upfact, lanc_rad=8):
 
     for i in range(0, shap[0]):
         uin = shifts[i, :].reshape((1, 2)) * upfact
-        shift_ker_stack[:, :, i] = lanczos(uin, n=lanc_rad)
+        var_shift_ker_stack[:, :, i] = lanczos(uin, n=lanc_rad)
         var_shift_ker_stack_adj[:, :, i] = np.rot90(
             var_shift_ker_stack[:, :, i], 2)
 
