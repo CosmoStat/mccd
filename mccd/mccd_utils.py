@@ -18,6 +18,7 @@ Thanks Samuel Farrens (main developer of ModOpt and Pysap) for the help.
 """
 
 from __future__ import absolute_import, print_function
+import os
 import numpy as np
 import glob
 from astropy.io import fits
@@ -764,6 +765,10 @@ def save_to_fits(dictionary, output_path):
 
     table_hdu = fits.BinTableHDU.from_columns(col_list)
     hdul = fits.HDUList([empty_primary_hdu, table_hdu])
+    # Check if file exists and in that case erase it before rewriting it
+    if os.path.isfile(output_path):
+        os.remove(output_path)
+    # Write file
     hdul.writeto(output_path)
 
 
