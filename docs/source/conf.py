@@ -142,6 +142,8 @@ html_theme_options = {
     'collapse_navigation': False,
     'display_version': True,
     'navigation_depth': 3,
+    'titles_only': True,
+    'includehidden': False,
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -184,7 +186,8 @@ html_static_path = []
 
 # Custom sidebar templates, maps document names to template names.
 #html_sidebars = {}
-html_sidebars = { '**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html'], }
+html_sidebars = { '**': ['globaltoc.html', 'relations.html',
+                         'sourcelink.html', 'searchbox.html'], }
 
 
 # Additional templates that should be rendered to pages, maps page names to
