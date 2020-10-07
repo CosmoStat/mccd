@@ -8,5 +8,4 @@ Provide some basic description of the example module.
 
 from . import *
 
-# __all__ = ['hello', 'math']
 __all__ = ['auxiliary_fun']  # List of submodules
