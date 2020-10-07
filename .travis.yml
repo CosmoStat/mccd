@@ -13,10 +13,10 @@ jobs:
     - python: 3.6
     - stage: deploy
       install:
-        - pip install numpy scipy progressbar2
+        - pip install numpy future scipy progressbar2
         - pip install sphinx sphinx-rtd-theme sphinxcontrib-bibtex numpydoc==0.9.2 travis-sphinx
       script:
-        - sphinx-apidoc -feo docs/source modopt
+        - sphinx-apidoc -feo docs/source mccd
         - travis-sphinx -v -o docs/build build -n -s docs/source
       after_success:
         - travis-sphinx -o docs/build deploy
@@ -27,7 +27,7 @@ before_install:
 
 # install dependencies
 install:
-  - pip install numpy scipy
+  - pip install coverage nose pytest pytest-cov pytest-pep8
   - pip install astropy galsim
   - pip install modopt
   - pip install python-pysap
