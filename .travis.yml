@@ -37,13 +37,30 @@ before_install:
   - pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
   - sudo -H apt-get -qq update
   - sudo updatedb
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
   - export CPLUS_INCLUDE_PATH=$(cd /opt/python/3.*/include/python3.*; pwd)
+  - chmod +x miniconda.sh
+  - ./miniconda.sh -b -p $HOME/miniconda
+  - export PATH=$HOME/miniconda/bin:$PATH
+  - hash -r
+  - conda update --all -y;
+  - conda info -a
   - sudo -H apt-get install -y python-dev libfftw3-dev libav-tools libeigen3-dev
 
 # install dependencies
 install:
+  - conda create -n testenv --yes pip python=$TRAVIS_PYTHON_VERSION
+  - source activate testenv
+  - pip install --upgrade pip
+  - python --version
+  - pip --version
+  - locate pyconfig.h
+  - pip install cython
+  - pip install git+https://github.com/ghisvail/pyNFFT.git
   - pip install setuptools
   - pip install numpy future scipy progressbar2
+  - pip install -b $TRAVIS_BUILD_DIR/build -t $TRAVIS_BUILD_DIR/install --no-clean --no-deps .
+  - ldd $TRAVIS_BUILD_DIR/install/pysparse.so
   - pip install coverage nose pytest pytest-cov pytest-pep8
   - pip install scikit-learn scikit-image
   - pip install matplotlib
