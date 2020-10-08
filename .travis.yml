@@ -58,8 +58,6 @@ install:
   - pip install numpy cython
   - pip install setuptools
   - pip install future scipy progressbar2
-  - pip install -b $TRAVIS_BUILD_DIR/build -t $TRAVIS_BUILD_DIR/install --no-clean --no-deps .
-  - ldd $TRAVIS_BUILD_DIR/install/pysparse.so
   - pip install coverage nose pytest pytest-cov pytest-pep8
   - pip install scikit-learn scikit-image
   - pip install matplotlib
