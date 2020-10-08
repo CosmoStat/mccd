@@ -5,11 +5,14 @@ Multi-CCD Point Spread Function Modelling.
 ---
 > Main contributor: <a href="https://tobias-liaudat.github.io" target="_blank" style="text-decoration:none; color: #F08080">Tobias Liaudat</a>  
 > Email: <a href="mailto:tobias.liaudat@cea.fr" style="text-decoration:none; color: #F08080">tobias.liaudat@cea.fr</a>  
-> Year: 2020
+> Documentation: <a href="https://cosmostat.github.io/mccd/" target="_blank" style="text-decoration:none; color: #F08080">https://cosmostat.github.io/mccd/</a>  
+> Release: 08/10/2020
 ---
 
 The non-parametric MCCD PSF modelling, or MCCD for short, is a Point Spread Function modelling
-pure python package. 
+pure python package.  
+It is used to generate a PSF model based on stars observations in the field of view.
+Once trained, the MCCD PSF model can then recover the PSF at any position in the field of view.
 
 ## Contents
 
@@ -57,4 +60,5 @@ pip install mccd
 A useful example notebook ``testing-simulated-data.ipynb`` can be found
 [here](https://github.com/CosmoStat/mccd/tree/master/notebooks).
 
-Quick tutorial will be written soon.
+Quick tutorial will be written soon as well as examples on how to run the MCCD PSF modelling
+on real images using as input SExtractor catalogs.
