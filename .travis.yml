@@ -55,10 +55,10 @@ install:
   - python --version
   - pip --version
   - locate pyconfig.h
-  - pip install cython
+  - pip install numpy cython
   - pip install git+https://github.com/ghisvail/pyNFFT.git
   - pip install setuptools
-  - pip install numpy future scipy progressbar2
+  - pip install future scipy progressbar2
   - pip install -b $TRAVIS_BUILD_DIR/build -t $TRAVIS_BUILD_DIR/install --no-clean --no-deps .
   - ldd $TRAVIS_BUILD_DIR/install/pysparse.so
   - pip install coverage nose pytest pytest-cov pytest-pep8
@@ -67,10 +67,10 @@ install:
   - pip install pybind11
   - pip install astropy
   - pip install termcolor
-  - pip install galsim
   - pip install modopt
   - pip install sf_tools
   - pip install python-pysap
+  - pip install galsim
 
 # run unit tests
 script:
