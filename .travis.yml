@@ -3,7 +3,8 @@ os: linux
 dist: xenial
 sudo: required
 
-compiler: gcc
+compiler:
+    - g++
 packages:
   - cmake
 
@@ -16,6 +17,13 @@ branches:
 jobs:
   include:
     - python: 3.6
+      env:
+        - COMPILER=clang
+        - CC=clang
+        - CXX=clang++
+        - LD_LIBRARY_PATH=/usr/local/clang/lib:$LD_LIBRARY_PATH
+      name: Linux clang (Python 3.6)
+
     - stage: deploy
       install:
         - pip install sphinx sphinx-rtd-theme sphinxcontrib-bibtex numpydoc==0.9.2 travis-sphinx
@@ -28,9 +36,12 @@ jobs:
 # update pre-installed packages
 before_install:
   - pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+  - sudo -H apt-get -qq update
+  - sudo -H apt-get install -y python-dev libfftw3-dev libav-tools libeigen3-dev
 
 # install dependencies
 install:
+  - pip install setuptools
   - pip install numpy future scipy progressbar2
   - pip install coverage nose pytest pytest-cov pytest-pep8
   - pip install scikit-learn scikit-image
