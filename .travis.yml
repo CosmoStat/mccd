@@ -37,6 +37,10 @@ before_install:
   - pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
   - sudo -H apt-get -qq update
   - sudo updatedb
+
+
+# install dependencies
+install:
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
   - export CPLUS_INCLUDE_PATH=$(cd /opt/python/3.*/include/python3.*; pwd)
   - chmod +x miniconda.sh
@@ -46,9 +50,6 @@ before_install:
   - conda update --all -y;
   - conda info -a
   - sudo -H apt-get install -y python-dev libfftw3-dev libav-tools libeigen3-dev
-
-# install dependencies
-install:
   - conda create -n testenv --yes pip python=$TRAVIS_PYTHON_VERSION
   - source activate testenv
   - pip install --upgrade pip
