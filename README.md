@@ -1,3 +1,9 @@
+
+
+[![Build Status](https://travis-ci.org/CosmoStat/mccd.svg?branch=master)](https://travis-ci.org/CosmoStat/mccd)
+[![PyPI version](https://badge.fury.io/py/mccd.svg)](https://badge.fury.io/py/mccd)
+[![PyPI pyversions](https://img.shields.io/badge/python-3.6-blue.svg)](https://python.org)
+
 # MCCD PSF Modelling
 
 Multi-CCD Point Spread Function Modelling.
