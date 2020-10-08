@@ -10,7 +10,7 @@ These functions include several functions needed by the MCCD.
 Notes
 -----
 I added two functions from Pysap astro plugin and from ModOpt.signal.wavelet
-so that I could replicate the functionv``get_mr_transform()`` from ModOpt
+so that I could replicate the functionv ``get_mr_transform()`` from ModOpt
 without the need of having sparse2d installed as an exectubale by using
 Pysap python bindings of the aforementioned C++ package.
 Thanks Samuel Farrens (main developer of ModOpt and Pysap) for the help.
@@ -46,16 +46,16 @@ class Loc2Glob(object):
     ----------
     x_gap: int
         Gap between the CCDs on the horizontal direction.
-        Default to 70 (CFIS value).
+        Default to ``70`` (CFIS value).
     y_gap: int
         Gap between the CCDs on the vertical direction.
-        Default to 425 (CFIS value).
+        Default to ``425`` (CFIS value).
     x_npix: int
         Number of pixels on one CCD on the horizontal direction.
-        Default to 2048 (CFIS value).
+        Default to ``2048`` (CFIS value).
     y_npix: int
         Number of pixels on one CCD on the vertical direction.
-        Default to 4612 (CFIS value).
+        Default to ``4612`` (CFIS value).
 
     Notes
     -----
@@ -63,21 +63,22 @@ class Loc2Glob(object):
     is the local coordinate system origin for each CCD.
     For more info look MegaCam's instrument webpage.
 
-       'COMMENT Unique detector IDs for MegaCam',
-       'COMMENT (North on top, East to the left)',
-       'COMMENT    --------------------------',
-       'COMMENT    ba ba ba ba ba ba ba ba ba',
-       'COMMENT    00 01 02 03 04 05 06 07 08',
-       'COMMENT --------------------------------',
-       'COMMENT ba ba ba ba ba ba ba ba ba ba ba',
-       'COMMENT 36 09 10 11 12 13 14 15 16 17 37',
-       'COMMENT --------------*-----------------',
-       'COMMENT 38 18 19 20 21 22 23 24 25 26 39',
-       'COMMENT ab ab ab ab ab ab ab ab ab ab ab',
-       'COMMENT --------------------------------',
-       'COMMENT    27 28 29 30 31 32 33 34 35',
-       'COMMENT    ab ab ab ab ab ab ab ab ab',
-       'COMMENT    __________________________'
+    Examples
+    --------
+    >>> 'COMMENT (North on top, East to the left)',
+        'COMMENT    --------------------------',
+        'COMMENT    ba ba ba ba ba ba ba ba ba',
+        'COMMENT    00 01 02 03 04 05 06 07 08',
+        'COMMENT --------------------------------',
+        'COMMENT ba ba ba ba ba ba ba ba ba ba ba',
+        'COMMENT 36 09 10 11 12 13 14 15 16 17 37',
+        'COMMENT --------------*-----------------',
+        'COMMENT 38 18 19 20 21 22 23 24 25 26 39',
+        'COMMENT ab ab ab ab ab ab ab ab ab ab ab',
+        'COMMENT --------------------------------',
+        'COMMENT    27 28 29 30 31 32 33 34 35',
+        'COMMENT    ab ab ab ab ab ab ab ab ab',
+        'COMMENT    __________________________'
     """
 
     def __init__(self, x_gap=70, y_gap=425, x_npix=2048, y_npix=4612):
@@ -226,7 +227,7 @@ class MccdInputs(object):
         SExtractor has the particular way of masking pixels by setting
         pixels to the value -1e30.
         Values beneath the threshold will be considered masked.
-        Default is -1e5.
+        Default is ``-1e5``.
     """
 
     def __init__(self, separator='-', coord_x_descriptor='XWIN_IMAGE',
@@ -261,7 +262,7 @@ class MccdInputs(object):
 
         Parameters
         ----------
-        stars: np.ndarray
+        stars: numpy.ndarray
             Stars to be masked.
         thresh: float
             Threshold that will define the mask.
@@ -389,15 +390,19 @@ class MccdInputs(object):
         r"""Prepare the inputs for mccd algorithm.
 
         Taks done:
-        - Correct the coordinates from the local coordinate system into
-            the global coordinate system.
+
+        - Translate from local to global coordinate system.
+
         - Apply mask to stars.
+
         - Normalize star values.
+
         - Modify the star format.
+
 
         Parameters
         ----------
-        starcat_array: np.ndarray
+        starcat_array: numpy.ndarray
             Array with (starcat_id, ccd_n, path) for every file in one
             starcat_id (exposure ID).
 
@@ -672,9 +677,9 @@ def random_indexes(n_tot, train_per=0.8, min_n_train=20):
 
     Returns
     -------
-    train_idx: np.ndarray
+    train_idx: numpy.ndarray
         Array of random indexes used for the training.
-    test_idx: np.ndarray
+    test_idx: numpy.ndarray
         Array of random indexes used for the testing.
 
     """
@@ -713,7 +718,7 @@ def _get_fits_col_type(col_data_type):
 
 
 def save_to_fits(dictionary, output_path):
-    r"""Save dictionary of np.ndarray into a fits file.
+    r"""Save dictionary of numpy.ndarray into a fits file.
 
     ``output_path`` should be the path + new_name to save the fits and should
     include ``.fits`` extension.
@@ -728,7 +733,7 @@ def save_to_fits(dictionary, output_path):
 
     Notes
     -----
-    It is important that all the np.ndarrays share the first dimension as
+    It is important that all the numpy.ndarrays share the first dimension as
     we are saving a table.
 
     """
@@ -813,20 +818,20 @@ def return_loc_neighbors(new_pos, obs_pos, vals, n_neighbors):
 
     Parameters
     ----------
-    new_pos: np.ndarray
+    new_pos: numpy.ndarray
         Array containing the new target position (x,y).
-    obs_pos: np.ndarray
+    obs_pos: numpy.ndarray
         Array containing the positions of the training stars.
-    vals: np.ndarray
+    vals: numpy.ndarray
         Values that will be used to interpolate and need to be extracted.
     n_neighbors: int
         Number of closest neighbors to return.
 
     Returns
     -------
-    nbs: np.ndarray
+    nbs: numpy.ndarray
         Values from ``vals`` of the closest ``n_neighbors`` from ``new_pos``.
-    pos: np.ndarray
+    pos: numpy.ndarray
         Positions of the closest ``n_neighbors`` from ``new_pos``.
 
     """
@@ -841,7 +846,7 @@ def return_glob_neighbors(new_pos, obs_pos_list, val_list, n_neighbors):
 
     Parameters
     ----------
-    new_pos: np.ndarray
+    new_pos: numpy.ndarray
         Array containing the new target position (x,y).
     obs_pos_list: list
         List containing the positions of the training stars from all the CCDs.
@@ -853,9 +858,9 @@ def return_glob_neighbors(new_pos, obs_pos_list, val_list, n_neighbors):
 
     Returns
     -------
-    values: np.ndarray
+    values: numpy.ndarray
         Values from ``vals`` of the closest ``n_neighbors`` from ``new_pos``.
-    positions: np.ndarray
+    positions: numpy.ndarray
         Positions of the closest ``n_neighbors`` from ``new_pos``.
 
     """
@@ -953,7 +958,8 @@ def trim_filter(filter_array):
 def get_mr_filters(data_shape, opt, n_scales=3, coarse=False, trim=False):
     r"""Get transform filters.
 
-    This method obtains wavelet filters by calling cospy
+    This method obtains wavelet filters.
+
     Parameters
     ----------
     data_shape : tuple
@@ -961,16 +967,18 @@ def get_mr_filters(data_shape, opt, n_scales=3, coarse=False, trim=False):
     opt : str
         Name of wavelet transform (in Pysap convention, see Notes)
     n_scales : int, optional
-        Number of transform scales (default is 4)
+        Number of transform scales.
+        Default is ``4``.
     coarse : bool, optional
-        Option to keep coarse scale (default is 'False')
+        Option to keep coarse scale.
+        Default is ``False``.
     trim: bool, optional
         Option to trim the filters down to their minimal size
-        (default is ``False``)
+        Default is ``False``.
 
     Returns
     -------
-    np.ndarray 3D array of wavelet filters
+    numpy.ndarray 3D array of wavelet filters.
 
     Notes
     -----

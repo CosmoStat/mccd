@@ -4,9 +4,11 @@ r"""MCCD CLASS.
 
 This module contains the main MCCD class.
 
-:Authors:   Tobias Liaudat <tobias.liaudat@cea.fr>,
-            Jerome Bonnin <github @jerome-bonnin>
-            Morgan Schmitz <github @MorganSchmitz>
+:Authors:   Tobias Liaudat <tobias.liaudat@cea.fr>
+
+            Jerome Bonnin <https://github.com/jerome-bonnin>
+
+            Morgan Schmitz <https://github.com/MorganSchmitz>
 
 """
 
@@ -70,44 +72,44 @@ class MCCD(object):
     n_comp_loc: int
         Number of components to learn for each CCD.
         The interpretation may depend on the ``loc_model``
-        parameter of the fit() function.
+        parameter of the :func:`fit()` function.
     d_comp_glob: int
         Degree of polynomial components for the global model.
     upfact: int
         Upsampling factor. Default is 1 (no superresolution).
     ksig_loc: float
-        Value of :math:`K_{\\sigma}^{Loc}` for the thresholding in
+        Value of :math:`K_{\sigma}^{Loc}` for the thresholding in
         wavelet (Starlet by default) domain (taken to be
-        :math:`K\\sigma`, where :math:`\\sigma` is the estimated noise standard
+        :math:`K\sigma`, where :math:`\sigma` is the estimated noise standard
         deviation.). It is used for the thresholding of the
         local eigenPSF :math:`S_{K}` update.
-        Default is 1.
+        Default is ``1``.
     ksig_glob: float
-        Value of :math:`K_{\\sigma}^{Globa}` for the thresholding in Starlet
-        domain (taken to be :math:`k\\sigma`, where :math:`\\sigma` is the
+        Value of :math:`K_{\sigma}^{Glob}` for the thresholding in Starlet
+        domain (taken to be :math:`k\sigma`, where :math:`\sigma` is the
         estimated noise standard deviation.).
         It is used for the thresholding of the
-        global eigenPSF :math:`\\tilde{S}` update.
-        Default is 1.
+        global eigenPSF :math:`\tilde{S}` update.
+        Default is ``1``.
     n_scales: int
         Number of wavelet (Default Starlet) scales to use for the
         sparsity constraint.
-        Default is 3. Unused if ``filters`` are provided.
+        Default is ``3``. Unused if ``filters`` are provided.
     ksig_init: float
         Similar to ``ksig``, for use when estimating shifts and noise levels,
         as it might be desirable to have it set higher than ``ksig``.
         Unused if ``shifts`` are provided when running :func:`RCA.fit`.
-        Default is 5.
-    filters: np.ndarray
+        Default is ``5``.
+    filters: numpy.ndarray
         Optional filters to the transform domain wherein eigenPSFs are
         assumed to be sparse; convolution by them should amount to
-        applying :math:`\\Phi`. Optional; if not provided, the
+        applying :math:`\Phi`. Optional; if not provided, the
         Starlet transform with `n_scales` scales will be used.
     verbose: bool or int
         If True, will only output RCA-specific lines to stdout.
         If verbose is set to 2, will run ModOpt's optimization
         algorithms in verbose mode.
-        Default to 2.
+        Default to ``2``.
     """
 
     def __init__(self, n_comp_loc, d_comp_glob, upfact=1, ksig_loc=1.,
@@ -225,7 +227,7 @@ class MCCD(object):
 
     def fit(self, obs_data, obs_pos, ccd_list, obs_weights=None,
             SNR_weight_list=None, S=None, VT=None, Pi=None, alpha=None,
-            shifts=None, sigs=None, psf_size=None, psf_size_type='fwhm',
+            shifts=None, sigs=None, psf_size=6, psf_size_type='R2',
             flux=None, nb_iter=1, nb_iter_glob=2, nb_iter_loc=2,
             nb_subiter_S_loc=100, nb_reweight=0, nb_subiter_A_loc=500,
             nb_subiter_S_glob=30, nb_subiter_A_glob=200, n_eigenvects=5,
@@ -234,17 +236,17 @@ class MCCD(object):
 
         Parameters
         ----------
-        obs_data: list of np.ndarray
+        obs_data: list of numpy.ndarray
             Observed data (each element of the list being one CCD).
-        obs_pos: list of np.ndarray
+        obs_pos: list of numpy.ndarray
             Corresponding positions (global coordinate system).
-        ccd_list: list of np.ndarray
+        ccd_list: list of numpy.ndarray
             List containing the ccd_ids of each set of observations,
             positions and weights.
             It is of utmost importance that the ccd_list contains the ccd_id
             in the same order as in the other lists.
             Ex:  obs_data[0] is the data from the ccd ccd_list[0].
-        obs_weights: list of np.ndarray
+        obs_weights: list of numpy.ndarray
             Corresponding weights. Can be either one per observed star,
             or contain pixel-wise values. Masks can be handled via binary
             weights. Default is None (in which case no weights are applied).
@@ -258,22 +260,22 @@ class MCCD(object):
             of significance we give to a specific star.
             The values should be around 1.
             Default is ``None`` meaning that no weights will be used.
-        S: list of np.ndarray
+        S: list of numpy.ndarray
             First guess (or warm start) eigenPSFs :math:`S`
             (last matrix is global). Default is ``None``.
-        VT: list of np.ndarray
+        VT: list of numpy.ndarray
             Matrices of concatenated eigenvectors of the different
             graph Laplacians. Default is ``None``.
-        Pi: list of np.ndarray
+        Pi: list of numpy.ndarray
             Matrices of polynomials in positions. Default is ``None``.
-        alpha: list np.ndarray
-            First guess (or warm start) weights :math:`\\alpha`,
+        alpha: list numpy.ndarray
+            First guess (or warm start) weights :math:`\alpha`,
             after factorization by ``VT`` (last matrix is global).
             Default is ``None``.
-        shifts: list of np.ndarray
+        shifts: list of numpy.ndarray
             Corresponding sub-pixel shifts. Default is ``None``;
             will be estimated from observed data if not provided.
-        sigs: np.ndarray
+        sigs: numpy.ndarray
             Estimated noise levels. Default is ``None``;
             will be estimated from data if not provided.
         psf_size: float
@@ -283,15 +285,15 @@ class MCCD(object):
             ``psf_size_type`` determines the convention used for
             this size (default is FWHM).
             Ignored if ``shifts`` are provided.
-            Default is Gaussian sigma of 7.5 pixels.
+            Default is ``'R2'`` of ``6``.
         psf_size_type: str
             Can be any of ``'R2'``, ``'fwhm'`` or ``'sigma'``, for the size
             defined from quadrupole moments, full width at half maximum
             (e.g. from SExtractor) or 1-sigma width of the best matching
             2D Gaussian. ``'sigma'`` is the value outputed from Galsim's
             HSM adaptive moment estimator.
-            Default is ``'fwhm'``.
-        flux: list of np.ndarray
+            Default is ``'R2'``.
+        flux: list of numpy.ndarray
             Flux levels. Default is ``None``;
             will be estimated from data if not provided.
         nb_iter: int
@@ -300,37 +302,37 @@ class MCCD(object):
             get updated the last time around, so they actually get
             ``nb_iter-1`` updates.
             Paramter :math:`l_{max}` on the MCCD article pseudo-algorithm.
-            Default is 1.
+            Default is ``1``.
         nb_iter_glob: int
             Number of iterations on the global model estimation.
             The times we go trough the global :math:`S,A` updates.
             Paramter :math:`n_G` on the MCCD article pseudo-algorithm.
-            Default value is 2.
+            Default value is ``2``.
         nb_iter_loc: int
             Number of iterations on the local model estimation.
             The times we go trough the local :math:`S,A` updates.
             Paramter :math:`n_L` on the MCCD article pseudo-algorithm.
-            Default value is 2.
+            Default value is ``2``.
         nb_subiter_S_loc: int
             Number of iterations when solving the optimization problem (III)
             concerning the local eigenPSFs :math:`S_{k}`.
-            Default is 100.
+            Default is ``100``.
         nb_subiter_A_loc: int
             Number of iterations when solving the optimization problem (IV)
-            concerning the local weights :math:`\\alpha_{k}`.
-            Default is 500.
+            concerning the local weights :math:`\alpha_{k}`.
+            Default is ``500``.
         nb_subiter_S_glob: int
             Number of iterations when solving the optimization problem (I)
-            concerning the global eigenPSFs :math:`\\tilde{S}`.
-            Default is 30.
+            concerning the global eigenPSFs :math:`\tilde{S}`.
+            Default is ``30``.
         nb_subiter_A_glob: int
             Number of iterations when solving the optimization problem (II)
-            concerning the global weights :math:`\\tilde{\\alpha}`.
-            Default is 200.
+            concerning the global weights :math:`\tilde{\alpha}`.
+            Default is ``200``.
         nb_reweight: int
             Number of reweightings to apply during :math:`S` updates.
             See equation (33) in RCA paper.
-            Default is 0.
+            Default is ``0``.
         n_eigenvects: int
             Maximum number of eigenvectors to consider per :math:`(e,a)`
             couple. Default is ``None``;
@@ -346,11 +348,11 @@ class MCCD(object):
             for the local model.
             When MCCD-HYB is used, ``n_comp_loc`` should be used
             as in MCCD-RCA, the number of graph-based eigenPSFs.
-            The max local polynomial degree is set to 2.
+            The max local polynomial degree is set to ``2``.
         pi_degree: int
-            Maximum degree of polynomials in Pi. Default is 2.
+            Maximum degree of polynomials in Pi. Default is ``2``.
             Ignored if Pi is provided.
-        graph_kwargs: dictionary
+        graph_kwargs: dict
             List of optional kwargs to be passed on
             to the :func:`utils.GraphBuilder`.
         """
@@ -1086,7 +1088,7 @@ class MCCD(object):
 
         Parameters
         ----------
-        test_pos: np.ndarray
+        test_pos: numpy.ndarray
             Positions where the PSF should be estimated.
             Should be in the same format (coordinate system, units, etc.) as
             the ``obs_pos`` fed to :func:`MCCD.fit`.
@@ -1107,15 +1109,15 @@ class MCCD(object):
             If True, expects shifts to be provided.
             Needed if pixel validation against stars will be required.
             Default is False.
-        shifts: np.ndarray
+        shifts: numpy.ndarray
             Intra-pixel shifts to apply if ``apply_degradation`` is set
             to True.
             Needed to match the observed stars in case of pixel validation.
-        flux: np.ndarray
+        flux: numpy.ndarray
             Flux levels by which reconstructed PSF will be multiplied if
             provided. For pixel validation with stars if ``apply_degradation``
             is set to True.
-        sigmas: np.ndarray
+        sigmas: numpy.ndarray
             Sigmas (shapes) are used to have a better estimate of the size
             of the lanczos interpolant that will be used when performing the
             intra-pixel shift.
@@ -1128,7 +1130,7 @@ class MCCD(object):
             Debug option. It returns the model plus the local and the global
             reconstruction components.
             Default is False.
-        global_pol_interp: np.ndarray
+        global_pol_interp: numpy.ndarray
             If is None, the global interpolation is done with th RBF
             interpolation as in the local model.
             If is not None, the global interpolation is done directly using
@@ -1276,13 +1278,13 @@ class MCCD(object):
 
         Parameters
         ----------
-        test_stars: np.ndarray
+        test_stars: numpy.ndarray
             Star stamps to be used for comparison with the PSF model.
             Should be in "rca" format,
             i.e. with axises (n_pixels, n_pixels, n_stars).
-        test_pos: np.ndarray
+        test_pos: numpy.ndarray
             Their corresponding positions in global coordinate system.
-        test_masks: np.ndarray
+        test_masks: numpy.ndarray
             Masks to be used on the star stamps.
             If None, all the pixels will be used.
             Default is None.
@@ -1295,7 +1297,7 @@ class MCCD(object):
             reconstruction components.
         response_flag: bool
             Response option. True if in response mode.
-        global_pol_interp: Position pols of np.ndarray or None
+        global_pol_interp: Position pols of numpy.ndarray or None
             If is None, the global interpolation is done with th RBF
             interpolation as in the local model.
             If is not None, the global interpolation is done directly

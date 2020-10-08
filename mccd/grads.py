@@ -5,9 +5,11 @@ r"""GRADIENTS.
 Defines the gradient classes that will be used in the optimization
 procedures from the ModOpt package.
 
-: Authors: Tobias Liaudat <tobiasliaudat@gmail.com>,
-           Morgan Schmitz <github @MorganSchmitz>,
-           Jerome Bonnin <github @jerome-bonnin>
+: Authors: Tobias Liaudat <tobiasliaudat@gmail.com>
+
+           Morgan Schmitz <https://github.com/MorganSchmitz>
+
+           Jerome Bonnin <https://github.com/jerome-bonnin>
 
 """
 
@@ -22,36 +24,36 @@ import mccd.utils as utils
 class CoeffLocGrad(GradParent, PowerMethod):
     r"""Gradient class for the local coefficient update.
 
-    Local Alpha, :math: `\\alpha_{k}`.
+    Local Alpha, :math:`\\alpha_{k}`.
 
     Parameters
     ----------
-    data: np.ndarray
+    data: numpy.ndarray
         Observed data.
-    weights: np.ndarray
+    weights: numpy.ndarray
         Corresponding pixel-wise weights.
-    S: np.ndarray
+    S: numpy.ndarray
         Current eigenPSFs :math:`S`.
-    VT: np.ndarray
+    VT: numpy.ndarray
         Matrix of spatial constraint enforcement (in the MCCD-RCA case will
         be the matrix of concatenated graph Laplacians.)
-    H_glob: np.ndarray
+    H_glob: numpy.ndarray
         Current estimation of the global model.
-    flux: np.ndarray
+    flux: numpy.ndarray
         Per-object flux value.
-    sig: np.ndarray
+    sig: numpy.ndarray
         Noise levels.
-    ker: np.ndarray
+    ker: numpy.ndarray
         Shifting kernels.
-    ker_rot: np.ndarray
+    ker_rot: numpy.ndarray
         Inverted shifting kernels.
-    SNR_weights: np.ndarray
+    SNR_weights: numpy.ndarray
         Array of per star weights.
     D: float
         Upsampling factor.
     save_iter_cost: bool
         To save iteration diagnostic data.
-        Default is False.
+        Default is ``False``.
     data_type: str
         Data type to be used.
         Default is ``float``.
@@ -122,8 +124,8 @@ class CoeffLocGrad(GradParent, PowerMethod):
 
         Parameters
         ----------
-        alpha: np.ndarray
-            Current coefficients (after factorization by :math:`V^\\top`).
+        alpha: numpy.ndarray
+            Current coefficients (after factorization by :math:`V^{\\top}`).
         """
         A = alpha.dot(self.VT)
         dec_rec = np.empty(self.obs_data.shape)
@@ -138,7 +140,7 @@ class CoeffLocGrad(GradParent, PowerMethod):
 
         Parameters
         ----------
-        x : np.ndarray
+        x : numpy.ndarray
             Set of finer-grid images.
         """
         x = utils.reg_format(x * self.SNR_weights)  # [TL] CHECK
@@ -148,8 +150,9 @@ class CoeffLocGrad(GradParent, PowerMethod):
     def cost(self, x, y=None, verbose=False):
         r"""Compute data fidelity term.
 
-        ``y`` is unused
-        (it's just so ``modopt.opt.algorithms.Condat``
+        Notes
+        -----
+        ``y`` is unused (it's just so ``modopt.opt.algorithms.Condat``
         can feed the dual variable.)
         """
         if isinstance(self._current_rec, type(None)):
@@ -170,35 +173,35 @@ class CoeffLocGrad(GradParent, PowerMethod):
 class CoeffGlobGrad(GradParent, PowerMethod):
     r"""Gradient class for the local coefficient update.
 
-    Global Alpha, :math: `\\tilde{\\alpha}`.
+    Global Alpha, :math: \\tilde{\\alpha}`.
 
     Parameters
     ----------
-    data: np.ndarray
+    data: numpy.ndarray
         Observed data.
-    weights: np.ndarray
+    weights: numpy.ndarray
         Corresponding pixel-wise weights.
-    S: np.ndarray
+    S: numpy.ndarray
         Current eigenPSFs :math:`S`.
-    Pi: np.ndarray
+    Pi: numpy.ndarray
         Matrix of positions polynomials.
-    H_loc: np.ndarray
+    H_loc: numpy.ndarray
         Current estimation of the local model
-    flux: np.ndarray
+    flux: numpy.ndarray
         Per-object flux value.
-    sig: np.ndarray
+    sig: numpy.ndarray
         Noise levels.
-    ker: np.ndarray
+    ker: numpy.ndarray
         Shifting kernels.
-    ker_rot: np.ndarray
+    ker_rot: numpy.ndarray
         Inverted shifting kernels.
-    SNR_weights: np.ndarray
+    SNR_weights: numpy.ndarray
         Array of per star weights.
     D: float
         Upsampling factor.
     save_iter_cost: bool
         To save iteration diagnostic data.
-        Default is False.
+        Default is ``False``.
     data_type: str
         Data type to be used.
         Default is ``float``.
@@ -267,8 +270,8 @@ class CoeffGlobGrad(GradParent, PowerMethod):
 
         Parameters
         ----------
-        alpha: np.ndarray
-            Current coefficients (after factorization by :math:`Pi`).
+        alpha: numpy.ndarray
+            Current coefficients (after factorization by :math:`\\Pi`).
         """
         A = alpha.dot(self.Pi)
         dec_rec = np.empty(self.obs_data.shape)
@@ -283,7 +286,7 @@ class CoeffGlobGrad(GradParent, PowerMethod):
 
         Parameters
         ----------
-        x : np.ndarray
+        x : numpy.ndarray
             Set of finer-grid images.
         """
         x = utils.reg_format(x * self.SNR_weights)  # [TL] CHECK
@@ -293,8 +296,9 @@ class CoeffGlobGrad(GradParent, PowerMethod):
     def cost(self, x, y=None, verbose=False):
         r"""Compute data fidelity term.
 
-        ``y`` is unused
-        (it's just so ``modopt.opt.algorithms.Condat``
+        Notes
+        -----
+        ``y`` is unused (it's just so ``modopt.opt.algorithms.Condat``
         can feed the dual variable.)
         """
         if isinstance(self._current_rec, type(None)):
@@ -315,33 +319,33 @@ class CoeffGlobGrad(GradParent, PowerMethod):
 class SourceLocGrad(GradParent, PowerMethod):
     r"""Gradient class for the local eigenPSF update.
 
-    Local S, :math: `S_{k}`.
+    Local S, :math:`S_{k}`.
 
     Parameters
     ----------
-    data: np.ndarray
+    data: numpy.ndarray
         Input data array, a array of 2D observed images (i.e. with noise).
-    weights: np.ndarray
+    weights: numpy.ndarray
         Corresponding pixel-wise weights.
-    A: np.ndarray
+    A: numpy.ndarray
         Current estimation of corresponding coefficients.
-    H_glob: np.ndarray
+    H_glob: numpy.ndarray
         Current estimation of the global model
-    flux: np.ndarray
+    flux: numpy.ndarray
         Per-object flux value.
-    sig: np.ndarray
+    sig: numpy.ndarray
         Noise levels.
-    ker: np.ndarray
+    ker: numpy.ndarray
         Shifting kernels.
-    ker_rot: np.ndarray
+    ker_rot: numpy.ndarray
         Inverted shifting kernels.
     D: float
         Upsampling factor.
-    filters: np.ndarray
+    filters: numpy.ndarray
         Set of filters.
     save_iter_cost: bool
         To save iteration diagnostic data.
-        Default is False.
+        Default is ``False``.
     data_type: str
         Data type to be used.
         Default is ``float``.
@@ -406,12 +410,12 @@ class SourceLocGrad(GradParent, PowerMethod):
 
         Parameters
         ----------
-        transf_S : np.ndarray
-            Current eigenPSFs in wavelet (by default Starle) space.
+        transf_S : numpy.ndarray
+            Current eigenPSFs in wavelet (by default Starlet) space.
 
         Returns
         -------
-        np.ndarray result
+        numpy.ndarray result
 
         """
         S = utils.rca_format(
@@ -439,8 +443,10 @@ class SourceLocGrad(GradParent, PowerMethod):
     def cost(self, x, y=None, verbose=False):
         r"""Compute data fidelity term.
 
-        ``y`` is unused (it's just so
-        ``modopt.opt.algorithms.Condat`` can feed the dual variable.)
+        Notes
+        -----
+        ``y`` is unused (it's just so ``modopt.opt.algorithms.Condat``
+        can feed the dual variable.)
         """
         if isinstance(self._current_rec, type(None)):
             self._current_rec = self.MX(x)
@@ -461,33 +467,33 @@ class SourceLocGrad(GradParent, PowerMethod):
 class SourceGlobGrad(GradParent, PowerMethod):
     r"""Gradient class for the global eigenPSF update.
 
-    Global S, :math: `\\tilde{S}`.
+    Global S, :math:`\\tilde{S}`.
 
     Parameters
     ----------
-    data: np.ndarray
+    data: numpy.ndarray
         Input data array, a array of 2D observed images (i.e. with noise).
-    weights: np.ndarray
+    weights: numpy.ndarray
         Corresponding pixel-wise weights.
-    A: np.ndarray
+    A: numpy.ndarray
         Current estimation of corresponding coefficients.
-    H_loc: np.ndarray
+    H_loc: numpy.ndarray
         Current estimation of the local models
-    flux: np.ndarray
+    flux: numpy.ndarray
         Per-object flux value.
-    sig: np.ndarray
+    sig: numpy.ndarray
         Noise levels.
-    ker: np.ndarray
+    ker: numpy.ndarray
         Shifting kernels.
-    ker_rot: np.ndarray
+    ker_rot: numpy.ndarray
         Inverted shifting kernels.
     D: float
         Upsampling factor.
-    filters: np.ndarray
+    filters: numpy.ndarray
         Set of filters.
     save_iter_cost: bool
         To save iteration diagnostic data.
-        Default is False.
+        Default is ``False``.
     data_type: str
         Data type to be used.
         Default is ``float``.
@@ -553,12 +559,12 @@ class SourceGlobGrad(GradParent, PowerMethod):
 
         Parameters
         ----------
-        transf_S : np.ndarray
+        transf_S : numpy.ndarray
             Current eigenPSFs in Starlet space.
 
         Returns
         -------
-        np.ndarray result
+        numpy.ndarray result
 
         """
         S = utils.rca_format(
@@ -585,8 +591,10 @@ class SourceGlobGrad(GradParent, PowerMethod):
     def cost(self, x, y=None, verbose=False):
         r"""Compute data fidelity term.
 
-        ``y`` is unused (it's just so
-        ``modopt.opt.algorithms.Condat`` can feed the dual variable.)
+        Notes
+        -----
+        ``y`` is unused (it's just so ``modopt.opt.algorithms.Condat``
+        can feed the dual variable.)
         """
         if isinstance(self._current_rec, type(None)):
             self._current_rec = self.MX(x)

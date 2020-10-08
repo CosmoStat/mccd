@@ -25,9 +25,9 @@ class LinRecombine(object):
 
     Parameters
     ----------
-    A: np.ndarray
+    A: numpy.ndarray
         Matrix defining the linear operator.
-    filters: np.ndarray
+    filters: numpy.ndarray
         Filters used by the wavelet transform.
     compute_norm: bool
         Computation of the matrix spectral radius in the initialization.
@@ -103,7 +103,7 @@ class StarletThreshold(object):
 
     Parameters
     ----------
-    threshold: np.ndarray
+    threshold: numpy.ndarray
         Threshold levels.
     thresh_type: str
         Whether soft- or hard-thresholding should be used.

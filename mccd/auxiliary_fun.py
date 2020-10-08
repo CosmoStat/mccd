@@ -91,25 +91,25 @@ class GenerateSimDataset(object):
         sigma: float
             Size of the PSF in sigma's. (Sigma from Galsim's HSM adaptive
             moments).
-            Default is 1.6
+            Default is ``1.6``.
         image_size: int
             Dimension of the squared image stamp. (image_size x image_size)
-            Default is 51
+            Default is ``51``.
         psf_flux: float
             Total PSF photometric flux.
-            Default is 1.
+            Default is ``1``.
         beta_psf: float
             Moffat beta parameter.
-            Default is 4.8
+            Default is ``4.8``.
         pix_scale: float
             Pixel scale.
-            Default is 0.187
+            Default is ``0.187``.
         desired_SNR: float
             Desired SNR
-            Default is 30
+            Default is ``30``.
         catalog_id: int
             Catalog identifier number.
-            Default is 2086592
+            Default is ``2086592``.
 
         """
         # Parameters
@@ -434,10 +434,10 @@ def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
         Path to the directory to save the fitted model.
     catalog_id: int
         Id of the catalog being trained.
-        Default is 1234567.
+        Default is ``1234567``.
     sex_thresh: float
         Masking threshold, specially for SExtractor catalogs.
-        Default is -1e5.
+        Default is ``-1e5``.
     use_SNR_weight: bool
         Boolean to decide to use the SNR weight strategy. The columns
         ``SNR_WIN_LIST`` should be available on the input fits table.
@@ -528,18 +528,18 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
         Boolean determining if the returned PSFs should be matched to the
         observed stars by the application of a degradation which consists of
         an intra-pixel shift, fulx matching, etc.
-        Default is True.
+        Default is ``True``.
     mccd_debug: bool
         Boolean to determine if the validation will be run in debug mode.
-        Default is False.
+        Default is ``False``.
     global_pol_interp: bool
         Boolean to determine if the global model interpolation is done with
         a new position matrix (True) or if it is done with the RBF kernel
         interpolation (False).
-        Default is False.
+        Default is ``False``.
     sex_thresh: float
         Masking threshold, specially for SExtractor catalogs.
-        Default is -1e5.
+        Default is ``-1e5``.
 
     Returns
     -------
@@ -547,7 +547,7 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
         Dictionary containing the data needed for validation purposes.
         Keys: ``PSF_VIGNET_LIST``, ``PSF_MOM_LIST``, ``STAR_MOM_LIST``,
         ``GLOB_POSITION_IMG_LIST``, ``VIGNET_LIST``,
-        ``MASK_LIST``,``CCD_ID_LIST``.
+        ``MASK_LIST``, ``CCD_ID_LIST``.
         Optional keys: ``RA_LIST``, ``DEC_LIST``,
         ``PSF_GLOB_VIGNET_LIST``, ``PSF_LOC_VIGNET_LIST``.
 

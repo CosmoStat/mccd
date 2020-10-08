@@ -4,7 +4,8 @@ r"""UTILS.
 
 These functions include several functions needed by PSF modelling algorithms.
 
-:Authors:   Morgan Schmitz <github @MorganSchmitz>,
+:Authors:   Morgan Schmitz <https://github.com/MorganSchmitz>
+
             Tobias Liaudat <tobias.liaudat@cea.fr>
 
 """
@@ -21,11 +22,11 @@ def apply_transform(data, filters):
 
     Parameters
     ----------
-    data: np.ndarray
+    data: numpy.ndarray
         Data to be transformed. Should be in rca_format, where the image
         index is contained
         on last/2nd axis, ie (n_pix,n_pix,n_images).
-    filters: np.ndarray
+    filters: numpy.ndarray
         Set of filters. Usually the wavelet transform filters.
 
     """
@@ -55,7 +56,7 @@ def acc_sig_map(shap_im, ker_stack, sig_est, flux_est, flux_ref, upfact,
     r"""Estimate the simga noise maps from the observed data.
 
     Computes the square root of
-    :math:`\mathcal{F}^{2*}(\hat\sigma^2)(A^\\top\odot A^\\top)`.
+    :math:`\mathcal{F}^{2*}(\hat\sigma^2)(A^\top\odot A^\top)`.
     See equation (27) in RCA paper (Ngole et al.).
 
     Notes
@@ -274,9 +275,9 @@ def flux_estimate(im, cent=None, sigma=4):
 
     Parameters
     ----------
-    im: np.ndarray
+    im: numpy.ndarray
         Image stamp containing the star.
-    cent: np.ndarray
+    cent: numpy.ndarray
         Centroid of the star. If not provided, the centroid is calculated.
         Default is None.
     sigma: float
@@ -358,7 +359,7 @@ def gen_Pea(distances, e, a):
 
     Parameters
     ----------
-    distances: np.ndarray
+    distances: numpy.ndarray
         Array of pairwise distances
     e: float
         Exponent to which the pairwise distances should be raised.
@@ -367,7 +368,7 @@ def gen_Pea(distances, e, a):
 
     Returns
     -------
-    Pea: np.ndarray
+    Pea: numpy.ndarray
         Graph laplacian.
 
     Notes
@@ -394,11 +395,11 @@ def select_vstar(eigenvects, R, weights):
 
     Parameters
     ----------
-    eigenvects: np.ndarray
+    eigenvects: numpy.ndarray
         Array of eigenvects to be tested over.
-    R: np.ndarray
+    R: numpy.ndarray
         :math:`R_i` matrix.
-    weights: np.ndarray
+    weights: numpy.ndarray
         Entry-wise weights for :math:`R_i`.
     """
     loss = np.sum((weights * R) ** 2)
@@ -423,11 +424,11 @@ class GraphBuilder(object):
 
     Parameters
     ----------
-    obs_data: np.ndarray
+    obs_data: numpy.ndarray
         Observed data.
-    obs_pos: np.ndarray
+    obs_pos: numpy.ndarray
         Corresponding positions.
-    obs_weights: np.ndarray
+    obs_weights: numpy.ndarray
         Corresponding per-pixel weights.
     n_comp: int
         Number of RCA components.
@@ -444,7 +445,7 @@ class GraphBuilder(object):
     ea_gridsize: int
         How fine should the logscale grid of :math:`(e,a)` values be.
         Default is 10.
-    distances: np.ndarray
+    distances: numpy.ndarray
         Pairwise distances for all positions. Default is ``None``;
         if not provided, will be computed from given positions.
     auto_run: bool
@@ -550,12 +551,12 @@ class GraphBuilder(object):
 
         Parameters
         ----------
-        R: np.ndarray
+        R: numpy.ndarray
             Current :math:`R_i` matrix
             (as defined in RCA paper (Ngole et al.), sect. 5.5.3.)
-        e_range: np.ndarray
+        e_range: numpy.ndarray
             List of :math:`e` values to be tested.
-        a_range: np.ndarray
+        a_range: numpy.ndarray
             List of :math:`a` values to be tested.
         """
         current_a = 0.5
@@ -627,7 +628,7 @@ class CentroidEstimator(object):
 
     Parameters
     ----------
-    im: np.ndarray
+    im: numpy.ndarray
         Star image stamp.
     sig: float
         Estimated shape of the star in sigma.
@@ -755,10 +756,18 @@ def match_psfs(test_stars, PSFs):
     matching the corresponding test stars.
     This allows to compute the pixel RMSE. Intended to be used with PSFEx
     validation functions.
-    Inputs:
-        test_stars & PSFs: np.array in reg format (n_stars,n_pix,n_pix)
-    Output:
-        deg_PSFs: np.array in reg format (n_stars,n_pix,n_pix)
+
+    Parameters
+    ----------
+    test_stars: numpy.ndarray
+        reg format (n_stars,n_pix,n_pix)
+    PSFs: numpy.ndarray
+        reg format (n_stars,n_pix,n_pix)
+
+    Returns
+    -------
+    deg_PSFs: numpy.ndarray
+        reg format (n_stars,n_pix,n_pix)
     """
     test_masks = handle_SExtractor_mask(test_stars, thresh=-1e5)
     psf_size_R2 = 6.
