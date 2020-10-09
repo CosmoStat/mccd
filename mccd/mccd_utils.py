@@ -289,7 +289,7 @@ class MccdInputs(object):
 
         """
         # Remove the .fits or the extension
-        my_path = path.split('.')[0]
+        my_path = path.split('.')[-2]
 
         # split the path to get the info
         splitted_str = my_path.split(self.separator)
