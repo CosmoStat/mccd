@@ -8,6 +8,7 @@ These functions are needed to run the tests.
 
 """
 
+import os
 import numpy as np
 import mccd
 import mccd.mccd_utils as mccd_utils
@@ -15,6 +16,8 @@ import mccd.utils as utils
 import scipy as sp
 import galsim as gs
 import gc
+from configparser import ConfigParser
+from astropy.io import fits
 
 
 class GenerateSimDataset(object):
@@ -796,6 +799,12 @@ def mccd_preprocessing(input_folder_path, output_path, min_n_stars=20,
     verbose: bool
         Verbose mode.
         Default is ``True``.
+
+    Returns
+    -------
+    mccd_inputs: class
+        An instance of ``MccdInputs`` class used for the input preprocessing.
+
     """
     mccd_star_nb = 0
 
@@ -908,3 +917,370 @@ def mccd_preprocessing(input_folder_path, output_path, min_n_stars=20,
 
     print_fun('Finished the training dataset processing.')
     print_fun('Total stars processed = %d' % mccd_star_nb)
+
+    return mccd_inputs
+
+
+class MCCDParamsParser(object):
+    r"""Parse MCCD config file.
+
+    Set up a parser for the MCCD parameters.
+
+    Parameters
+    ----------
+    file_path: str
+        Path to the config file.
+
+    Raises
+    ------
+    IOError
+        For non existent configuration file.
+
+    """
+
+    def __init__(self, file_path):
+        r"""Initialize class."""
+        if not os.path.exists(file_path):
+            raise IOError('Configuration file {} does not exist.'.format(
+                file_path))
+
+        self.file_name = file_path
+        self.config = ConfigParser()
+
+        self.processed_inputs = False
+        self.mccd_inst_kw = None
+        self.mccd_fit_kw = None
+        self.mccd_inputs_kw = None
+
+        self.mccd_extra_kw = {}
+
+    def _set_inputs_options(self):
+        """ Set Input Options
+
+        This method checks the ``INPUTS`` options in the configuration file.
+
+        Raises
+        ------
+        RuntimeError
+            For no input directory specified
+        OSError
+            For non-existent input directory
+        RuntimeError
+            For no output directory specified
+        OSError
+            For non-existent output directory
+
+        """
+        if not self.config.has_option('INPUTS', 'OUTPUT_DIR'):
+            raise RuntimeError('Not output directory specified.')
+        elif not os.path.isdir(self.config['INPUTS']['OUTPUT_DIR']):
+            raise OSError('Directory {} not found.'.format(
+                self.config.has_option('INPUTS', 'OUTPUT_DIR')))
+
+        if not self.config.has_option('INPUTS', 'INPUT_DIR'):
+            raise RuntimeError('Not output directory specified.')
+        elif not os.path.isdir(self.config['INPUTS']['INPUT_DIR']):
+            raise OSError('Directory {} not found.'.format(
+                self.config.has_option('INPUTS', 'INPUT_DIR')))
+
+        if not self.config.has_option('INPUTS', 'INPUT_REGEX_FILE_PATTERN'):
+            self.config.set('INPUTS', 'INPUT_REGEX_FILE_PATTERN',
+                            'sexcat-*-*.fits')
+        if not self.config.has_option('INPUTS', 'INPUT_SEPARATOR'):
+            self.config.set('INPUTS', 'INPUT_SEPARATOR', '-')
+        if not self.config.has_option('INPUTS', 'MIN_N_STARS'):
+            self.config.set('INPUTS', 'MIN_N_STARS', '20')
+        if not self.config.has_option('INPUTS', 'OUTLIER_STD_MAX'):
+            self.config.set('INPUTS', 'OUTLIER_STD_MAX', '100.')
+        if not self.config.has_option('INPUTS', 'USE_SNR_WEIGHTS'):
+            self.config.set('INPUTS', 'USE_SNR_WEIGHTS', 'False')
+
+    def _set_instance_options(self):
+        """ Set Instance Options
+
+        This method checks the ``INSTANCE`` options in the configuration file.
+
+        """
+        if not self.config.has_option('INSTANCE', 'N_COMP_LOC'):
+            self.config.set('INSTANCE', 'N_COMP_LOC', '8')
+
+        if not self.config.has_option('INSTANCE', 'D_COMP_GLOB'):
+            self.config.set('INSTANCE', 'D_COMP_GLOB', '3')
+
+        if not self.config.has_option('INSTANCE', 'KSIG_LOC'):
+            self.config.set('INSTANCE', 'KSIG_LOC', '1.0')
+
+        if not self.config.has_option('INSTANCE', 'KSIG_GLOB'):
+            self.config.set('INSTANCE', 'KSIG_GLOB', '1.0')
+
+        if not self.config.has_option('INSTANCE', 'FILTER_PATH'):
+            self.config.set('INSTANCE', 'FILTER_PATH', 'None')
+
+    def _set_fit_options(self):
+        """ Set Fit Options
+
+        This method checks the ``FIT`` options in the configuration file.
+
+        """
+        if not self.config.has_option('FIT', 'PSF_SIZE'):
+            self.config.set('FIT', 'PSF_SIZE', '6.15')
+
+        if not self.config.has_option('FIT', 'PSF_SIZE_TYPE'):
+            self.config.set('FIT', 'PSF_SIZE_TYPE', 'R2')
+
+        if not self.config.has_option('FIT', 'N_EIGENVECTS'):
+            self.config.set('FIT', 'N_EIGENVECTS', '5')
+
+        if not self.config.has_option('FIT', 'N_ITER_RCA'):
+            self.config.set('FIT', 'N_ITER_RCA', '1')
+
+        if not self.config.has_option('FIT', 'N_ITER_GLOB'):
+            self.config.set('FIT', 'N_ITER_GLOB', '2')
+
+        if not self.config.has_option('FIT', 'N_ITER_LOC'):
+            self.config.set('FIT', 'N_ITER_LOC', '2')
+
+        if not self.config.has_option('FIT', 'NB_SUBITER_S_LOC'):
+            self.config.set('FIT', 'NB_SUBITER_S_LOC', '100')
+
+        if not self.config.has_option('FIT', 'NB_SUBITER_A_LOC'):
+            self.config.set('FIT', 'NB_SUBITER_A_LOC', '500')
+
+        if not self.config.has_option('FIT', 'NB_SUBITER_S_GLOB'):
+            self.config.set('FIT', 'NB_SUBITER_S_GLOB', '30')
+
+        if not self.config.has_option('FIT', 'NB_SUBITER_A_GLOB'):
+            self.config.set('FIT', 'NB_SUBITER_A_GLOB', '200')
+
+        if not self.config.has_option('FIT', 'LOC_MODEL'):
+            self.config.set('FIT', 'LOC_MODEL', 'hybrid')
+
+    def _parse_document(self):
+        r"""Parse config file."""
+        if not self.processed_inputs:
+            self.config.read(self.file_name)
+            self._set_inputs_options()
+            self._set_instance_options()
+            self._set_fit_options()
+            self.processed_inputs = True
+
+    def _build_instance_kw(self):
+        r"""Build ``INSTANCE`` parameter dictionary."""
+        if not self.processed_inputs:
+            self._parse_document()
+
+        if self.mccd_inst_kw is None:
+            n_comp_loc = int(self.config['INSTANCE'].get('N_COMP_LOC'))
+            d_comp_glob = int(self.config['INSTANCE'].get('D_COMP_GLOB'))
+            ksig_loc = float(self.config['INSTANCE'].get('KSIG_LOC'))
+            ksig_glob = float(self.config['INSTANCE'].get('KSIG_GLOB'))
+            if self.config['INSTANCE'].get('FILTER_PATH') == 'None':
+                filters = None
+            else:
+                filters = self.config['INSTANCE'].get('FILTER_PATH')
+
+                # Build the parameter dictionaries
+            self.mccd_inst_kw = {'n_comp_loc': n_comp_loc,
+                                 'd_comp_glob': d_comp_glob,
+                                 'filters': filters, 'ksig_loc': ksig_loc,
+                                 'ksig_glob': ksig_glob}
+
+    def _build_fit_kw(self):
+        r"""Build ``FIT`` parameter dictionary."""
+        if not self.processed_inputs:
+            self._parse_document()
+
+        if self.mccd_fit_kw is None:
+            psf_size = float(self.config['FIT'].get('PSF_SIZE'))
+            psf_size_type = self.config['FIT'].get('PSF_SIZE_TYPE')
+            n_eigenvects = int(self.config['FIT'].get('N_EIGENVECTS'))
+            n_iter_rca = int(self.config['FIT'].get('N_ITER_RCA'))
+            nb_iter_glob = int(self.config['FIT'].get('N_ITER_GLOB'))
+            nb_iter_loc = int(self.config['FIT'].get('N_ITER_LOC'))
+            nb_subit_S_loc = int(self.config['FIT'].get('NB_SUBITER_S_LOC'))
+            nb_subit_A_loc = int(self.config['FIT'].get('NB_SUBITER_A_LOC'))
+            nb_subit_S_glob = int(self.config['FIT'].get('NB_SUBITER_S_GLOB'))
+            nb_subit_A_glob = int(self.config['FIT'].get('NB_SUBITER_A_GLOB'))
+            loc_model = self.config['FIT'].get('LOC_MODEL')
+
+            # Build the parameter dictionaries
+            self.mccd_fit_kw = {'psf_size': psf_size,
+                                'psf_size_type': psf_size_type,
+                                'n_eigenvects': n_eigenvects,
+                                'nb_iter': n_iter_rca,
+                                'nb_iter_glob': nb_iter_glob,
+                                'nb_iter_loc': nb_iter_loc,
+                                'nb_subiter_S_loc': nb_subit_S_loc,
+                                'nb_subiter_A_loc': nb_subit_A_loc,
+                                'nb_subiter_S_glob': nb_subit_S_glob,
+                                'nb_subiter_A_glob': nb_subit_A_glob,
+                                'loc_model': loc_model}
+
+    def _build_inputs_kw(self):
+        r"""Build ``INPUTS`` parameter dictionary."""
+        if not self.processed_inputs:
+            self._parse_document()
+
+        if self.mccd_inputs_kw is None:
+            input_folder_path = self.config['INPUTS'].get('INPUT_DIR')
+            output_path = self.config['INPUTS'].get('OUTPUT_DIR')
+            min_n_stars = int(self.config['INPUTS'].get('MIN_N_STARS'))
+            file_pattern = self.config['INPUTS'].get(
+                'INPUT_REGEX_FILE_PATTERN')
+            separator = self.config['INPUTS'].get('INPUT_SEPARATOR')
+            outlier_std_max = float(self.config['INPUTS'].get(
+                'OUTLIER_STD_MAX'))
+            if self.config['INPUTS'].get('USE_SNR_WEIGHTS') == 'True':
+                use_SNR_weight = True
+            elif self.config['INPUTS'].get('USE_SNR_WEIGHTS') == 'False':
+                use_SNR_weight = False
+            else:
+                raise RuntimeError('USE_SNR_WEIGHTS should be True or False.')
+
+            self.mccd_inputs_kw = {'input_folder_path': input_folder_path,
+                                   'output_path': output_path,
+                                   'min_n_stars': min_n_stars,
+                                   'file_pattern': file_pattern,
+                                   'separator': separator,
+                                   'outlier_std_max': outlier_std_max}
+
+            self.mccd_extra_kw['use_SNR_weight'] = use_SNR_weight
+
+    def get_extra_kw(self, param_name):
+        r"""Get parameter from extra arguments.
+
+        Returns
+        -------
+        param_name: str
+            Name of the parameter
+        """
+        return self.mccd_extra_kw[param_name]
+
+    def get_fit_kw(self):
+        r"""Get fit parameter dictionary.
+
+        Returns
+        -------
+        mccd_fit_kw: dict
+            MCCD fit parameter dictionary.
+        """
+        if self.mccd_fit_kw is None:
+            self._build_fit_kw()
+
+        return self.mccd_fit_kw
+
+    def get_instance_kw(self):
+        r"""Get instace parameter dictionary.
+
+        Returns
+        -------
+        mccd_inst_kw: dict
+            MCCD instance parameter dictionary.
+        """
+        if self.mccd_inst_kw is None:
+            self._build_instance_kw()
+
+        return self.mccd_inst_kw
+
+    def get_inputs_kw(self):
+        r"""Get paths parameter.
+
+        Returns
+        -------
+        mccd_paths: list
+            List of paths: [input_path, output_path]
+        """
+        if self.mccd_inputs_kw is None:
+            self._build_inputs_kw()
+
+        return self.mccd_inputs_kw
+
+
+class RunMCCD(object):
+    r"""Run the MCCD method.
+
+    This class allows to run the MCCD method using the paramters present on
+    the configuration file. Saves the fitted model on the output directory
+    found in the MCCD configuration file.
+
+    Parameters
+    ----------
+    config_file_path: str
+        Path to the configuration file.
+    fits_table_pos: int
+        Position of the Table in the fits file.
+        Default is ``2``.
+    verbose: bool
+        Verbose mode.
+        Default is ``True``.
+
+    Notes
+    -----
+    Missing:
+    - Method including the validation.
+    - Erase the preprocessed files (?)
+
+    """
+    def __init__(self, config_file_path, fits_table_pos=2, verbose=True):
+        r"""Initialize class."""
+        self.config_file_path = config_file_path
+
+        self.param_parser = None
+        self.mccd_inputs_kw = None
+        self.mccd_inst_kw = None
+        self.mccd_fit_kw = None
+
+        self.mccd_inputs = None
+        self.catalog_ids = None
+
+        self.preprocess_name = 'train_star_selection'
+        self.file_extension = '.fits'
+        self.fits_table_pos = fits_table_pos
+        self.separator = None
+
+        self.use_SNR_weight = None
+
+        self.verbose = verbose
+
+    def _parse_config_file(self):
+        r"""Parse configuration file and recover parameters."""
+        self.param_parser = MCCDParamsParser(self.config_file_path)
+        self.mccd_inputs_kw = self.param_parser.get_inputs_kw()
+        self.mccd_inst_kw = self.param_parser.get_instance_kw()
+        self.mccd_fit_kw = self.param_parser.get_fit_kw()
+
+        self.separator = self.mccd_inputs_kw['separator']
+        self.use_SNR_weight = self.param_parser.get_extra_kw('use_SNR_weight')
+
+    def _preprocess_inputs(self):
+        r"""Preprocess the input data."""
+        self.mccd_inputs = mccd_preprocessing(**self.mccd_inputs_kw)
+
+    def _fit_models(self):
+        r"""Build and save the models to the catalgos found."""
+        self.catalog_ids = self.mccd_inputs.get_catalog_ids()
+
+        for _cat_id in self.catalog_ids:
+            output_dir = self.mccd_inputs_kw['output_path']
+
+            if not isinstance(_cat_id, str):
+                cat_id = '%07d' % _cat_id
+            else:
+                cat_id = _cat_id
+
+            input_path = output_dir + self.preprocess_name + self.separator \
+                         + cat_id + self.file_extension
+
+            starcat = fits.open(input_path)[self.fits_table_pos]
+
+            mccd_fit(starcat, self.mccd_inst_kw, self.mccd_fit_kw,
+                     output_dir=output_dir, catalog_id=int(cat_id),
+                     sex_thresh=-1e5,
+                     use_SNR_weight=self.use_SNR_weight,
+                     verbose=self.verbose)
+
+    def run_MCCD(self):
+        r"""Run the MCCD routines."""
+        self._parse_config_file()
+        self._preprocess_inputs()
+        self._fit_models()
