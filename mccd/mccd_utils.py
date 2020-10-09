@@ -550,6 +550,10 @@ class MccdInputs(object):
         # Return the inputs
         return self.prep_mccd_inputs(self.starcat_list[idx])
 
+    def get_catalog_ids(self):
+        r"""Get preprocessed catalog ids."""
+        return self.catalog_ids
+
     @staticmethod
     def outlier_rejection(star_list, pos_list, mask_list, ccd_list,
                           SNR_list=None, RA_list=None, DEC_list=None,
