@@ -18,10 +18,16 @@ build/
 
 # Ignore heavy data
 data/mccd_inputs/*
+data/outputs/*
+data/sextractor_preprocessed/*
+data/sextractor_inputs/*
 
 # Ignore notebook checkpoints
 notebooks/.ipynb_checkpoints
 notebooks/hidden_notenooks/
+
+# Ignore hidden tests
+tests/hidden_tests/
 
 # Mac hidden file
 *.DS_Store
