@@ -412,7 +412,8 @@ class GenerateSimDataset(object):
 
 
 def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
-             catalog_id=1234567, sex_thresh=-1e5, use_SNR_weight=False):
+             catalog_id=1234567, sex_thresh=-1e5, use_SNR_weight=False,
+             verbose=False):
     r"""Fits (train) the MCCD model.
 
     Then saves it.
@@ -441,6 +442,9 @@ def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
     use_SNR_weight: bool
         Boolean to decide to use the SNR weight strategy. The columns
         ``SNR_WIN_LIST`` should be available on the input fits table.
+    verbose: bool
+        Verbose mode.
+        Default is ``False``.
 
     Notes
     -----
@@ -479,7 +483,8 @@ def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
             raise ValueError
     except ValueError:
         SNR_weight_list = None
-        print('No SNR weights are being used.')
+        if verbose:
+            print('No SNR weights are being used.')
 
     pos_list = [positions[ccds == ccd]
                 for ccd in ccds_unique]
@@ -493,14 +498,14 @@ def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
                 for _list in ccd_list]
 
     # Instantiate the method
-    mccd_instance = mccd.MCCD(**mccd_inst_kw, verbose=False)
+    mccd_instance = mccd.MCCD(**mccd_inst_kw, verbose=verbose)
     # Launch the training
     _, _, _, _, _ = mccd_instance.fit(
         star_list, pos_list, ccd_list, mask_list,
         SNR_weight_list, **mccd_fit_kw)
 
     fitted_model_path = output_dir + '/fitted_model' + \
-        str(catalog_id.astype(int))
+                        str(catalog_id.astype(int))
     mccd_instance.quicksave(fitted_model_path)
 
     # Memory management (for clusters)
@@ -740,3 +745,166 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
     gc.collect()
 
     return star_dict
+
+
+def mccd_preprocessing(input_folder_path, output_path, min_n_stars=20,
+                       file_pattern='sexcat-*-*.fits',
+                       separator='-',
+                       CCD_id_filter_list=None,
+                       outlier_std_max=100.,
+                       save_masks=True,
+                       save_name='train_star_selection',
+                       save_extension='.fits', verbose=True):
+    r"""Preprocess input catalog.
+
+    Parameters
+    ----------
+    input_folder_path: str
+        Path to the folder containing the files to preprocess.
+    output_path: str
+        Path to the folder where to save the preprocessed files.
+    min_n_stars: int
+        Minimum number of stars in order to preprocess the CCD.
+        Default is ``20``.
+    file_pattern: str
+        Input file pattern as a regex expression. Only the files matching
+        the ``file_pattern`` in ``input_folder_path`` will be treated.
+        Default is ``sexcat-*-*.fits``. Where the first `*` corresponds to
+        the catalog_id, the second `*` corresponds to the CCD id and they are
+        separated by the ``separator``.
+    separator: str
+        Separator string that separates the catalog id and the CCD id.
+        Default is ``'-'``.
+    CCD_id_filter_list: list of int or None
+        A list that correspond to the CCDs that should be preprocessed.
+        If it is None, all the CCDs are preprocessed.
+        (Current version: Hardcoded for the MegaCam scenario).
+        Default is ``None``.
+    outlier_std_max: float
+        Parameter regulating the shape outlier removal. Default is very high
+        so as it is not done at all. A decent number would be ``10``.
+        Default is ``100.``.
+    save_masks: bool
+        If masks should be saved in the new file.
+        Default is ``True``.
+    save_name: str
+        Name to save the preprocessed file.
+        Default is ``'train_star_selection'``.
+    save_extension: str
+        Extension of the saved file.
+        Default is ``.fits``.
+    verbose: bool
+        Verbose mode.
+        Default is ``True``.
+    """
+    mccd_star_nb = 0
+
+    if CCD_id_filter_list is None:
+        CCD_id_filter_list = np.arange(40)
+    else:
+        CCD_id_filter_list = np.array(CCD_id_filter_list)
+
+    if verbose:
+        def print_fun(x):
+            print(x)
+    else:
+        def print_fun(x):
+            pass
+
+    # Preprocess
+    mccd_inputs = mccd_utils.MccdInputs(separator=separator)
+    print_fun('Processing dataset..')
+    catalog_ids = mccd_inputs.preprocess_data(folder_path=input_folder_path,
+                                              pattern=file_pattern)
+
+    # Loop over the catalogs
+    for it in range(catalog_ids.shape[0]):
+        # For each observation position
+        catalog_id = catalog_ids[it]
+        star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list, \
+            DEC_list = mccd_inputs.get_inputs(catalog_id)
+
+        star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list, \
+            DEC_list, _ = mccd_inputs.outlier_rejection(
+                star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list,
+                DEC_list, shape_std_max=outlier_std_max, print_fun=print_fun)
+
+        mccd_star_list = []
+        mccd_pos_list = []
+        mccd_mask_list = []
+        mccd_ccd_list = []
+        mccd_SNR_list = []
+        mccd_RA_list = []
+        mccd_DEC_list = []
+
+        for j in range(len(star_list)):
+            # For each CCD
+            if ccd_list[j] in CCD_id_filter_list:
+                try:
+                    n_stars = star_list[j].shape[2]
+
+                    if n_stars >= min_n_stars:
+                        mccd_star_list.append(star_list[j])
+                        mccd_pos_list.append(pos_list[j])
+                        mccd_mask_list.append(mask_list[j])
+                        mccd_ccd_list.append(ccd_list[j] * np.ones(n_stars))
+                        if SNR_list is not None:
+                            mccd_SNR_list.append(SNR_list[j])
+                        if RA_list is not None:
+                            mccd_RA_list.append(RA_list[j])
+                            mccd_DEC_list.append(DEC_list[j])
+                    else:
+                        msg = '''Not enough stars in catalog_id %s
+                            ,ccd %d. Total stars = %d''' % (
+                            catalog_id, ccd_list[j], n_stars)
+                        print_fun(msg)
+
+                except Exception:
+                    msg = '''Warning! Problem detected in
+                        catalog_id %s ,ccd %d''' % (catalog_id, ccd_list[j])
+                    print_fun(msg)
+
+        if mccd_pos_list:
+            # If the list is not empty
+            # Concatenate, as fits can't handle list of numpy arrays and
+            # turn into reg format
+            mccd_stars = utils.reg_format(
+                np.concatenate(mccd_star_list, axis=2))
+            mccd_poss = np.concatenate(mccd_pos_list, axis=0)
+            mccd_ccds = np.concatenate(mccd_ccd_list, axis=0)
+
+            if save_masks is True:
+                mccd_masks = utils.reg_format(
+                    np.concatenate(mccd_mask_list, axis=2))
+            else:
+                # Send an array of False (None cannot be used in .fits)
+                mccd_masks = np.zeros((mccd_poss.shape[0]), dtype=bool)
+
+            if SNR_list is not None:
+                mccd_SNRs = np.concatenate(mccd_SNR_list, axis=0)
+            else:
+                # Send an array of False (None cannot be used in .fits)
+                mccd_SNRs = np.zeros((mccd_poss.shape[0]), dtype=bool)
+
+            if RA_list is not None:
+                mccd_RAs = np.concatenate(mccd_RA_list)
+                mccd_DECs = np.concatenate(mccd_DEC_list)
+            else:
+                mccd_RAs = np.zeros((mccd_poss.shape[0]), dtype=bool)
+                mccd_DECs = np.zeros((mccd_poss.shape[0]), dtype=bool)
+
+            mccd_star_nb += mccd_stars.shape[0]
+
+            # Save the fits file
+            train_dic = {'VIGNET_LIST': mccd_stars,
+                         'GLOB_POSITION_IMG_LIST': mccd_poss,
+                         'MASK_LIST': mccd_masks, 'CCD_ID_LIST': mccd_ccds,
+                         'SNR_WIN_LIST': mccd_SNRs,
+                         'RA_LIST': mccd_RAs, 'DEC_LIST': mccd_DECs}
+
+            saving_path = output_path + save_name + separator \
+                          + catalog_id + save_extension
+            mccd_utils.save_to_fits(train_dic, saving_path)
+
+    print_fun('Finished the training dataset processing.')
+    print_fun('Total stars processed = %d' % mccd_star_nb)
