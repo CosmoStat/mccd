@@ -24,7 +24,9 @@ Once trained, the MCCD PSF model can then recover the PSF at any position in the
 
 1. [Dependencies](#Dependencies)
 1. [Installation](#Installation)
+1. [Quick usage](#quick-usage)
 1. [Recomendations](#Recomendations)
+
 
 
 ## Dependencies
@@ -61,10 +63,79 @@ check that all the tests are passed.
 pip install mccd
 ```
 
-## Recomendations
 
-A useful example notebook ``testing-simulated-data.ipynb`` can be found
+## Quick usage
+
+The easiest usage of the method is to go through the configuration file ``config_MCCD.ini`` using the helper classes found 
+in [auxiliary_fun.py](https://github.com/CosmoStat/mccd/blob/master/mccd/auxiliary_fun.py)
+([documentation](https://cosmostat.github.io/mccd/mccd.auxiliary_fun.html#)).
+Description of the parameters can be found directly in the configuration file [config_MCCD.ini](https://github.com/CosmoStat/mccd/blob/master/config_MCCD.ini).
+The MCCD method can handle SExtractor dataset as input catalogs given that they follow an appropiate naming convention.
+
+The main MCCD model parameters are:
+
+- ``LOC_MODEL``:  Indicating the type of local model to be used (MCCD-HYB, MCCD-RCA, or MCCD-POL),
+- ``N_COMP_LOC``: Indicating the number of eigenPSFs to use in the local model.
+- ``D_COMP_GLOB``: Indicating the maximum polynomial degree for the global model.
+
+After setting up all the parameters from the configuration file there are three main functions, one to fit the model,
+one to validate the model and the last opne to fit and then validate the model. The usage is as follows:
+
+```python
+import mccd
+
+config_file_path = 'path_to_config_file.ini'
+
+run_mccd_instance = mccd.auxiliary_fun.RunMCCD(config_file_path,
+                                               fits_table_pos=1)
+
+run_mccd_instance.fit_MCCD_models()
+```
+
+For the validation one should replace the last line with:
+
+```python
+run_mccd_instance.validate_MCCD_models()
+```
+
+Finally for the fit and validation one should change the last line to:
+
+```python
+run_mccd_instance.run_MCCD()
+```
+
+All the output file will be saved on the directories specified on the configuration files.
+
+
+#### PSF recovery
+
+To recover PSFs fromt he model at specific positions ```test_pos``` from 
+the CCD ```ccd_id``` one could use the following example:
+
+```python
+import numpy as np
+import mccd
+
+config_file_path = 'path_to_config_file.ini'
+mccd_model_path = 'path_to_fitted_mccd_model.npy'
+test_pos = np.load(..)
+ccd_id = np.load(..)
+local_pos = True
+
+mccd_instance = mccd.auxiliary_fun.RunMCCD(config_file_path,
+                                           fits_table_pos=1)
+
+rec_PSFs = mccd_instance.recover_MCCD_PSFs(mccd_model_path,
+                                           positions=test_pos,
+                                           ccd_id=ccd_id,
+                                           local_pos=local_pos)
+```
+
+See the [documentation](https://cosmostat.github.io/mccd/mccd.auxiliary_fun.html)
+of the ```recover_MCCD_PSFs()``` function for more information.
+
+#### Recomendations
+
+Some notebook examples can be found
 [here](https://github.com/CosmoStat/mccd/tree/master/notebooks).
 
-Quick tutorial will be written soon as well as examples on how to run the MCCD PSF modelling
-on real images using as input SExtractor catalogs.
