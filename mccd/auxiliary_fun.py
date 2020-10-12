@@ -2,7 +2,15 @@
 
 r"""AUXILIARY FUNCTIONS.
 
-These functions are needed to run the tests.
+Essential MCCD helper functions. They are needed to:
+
+- Generate simulated datasets.
+
+- Preprocess, fit and validate MCCD PSF models.
+
+- Parse the configuration file.
+
+- Run automatically the MCCD algortithm from the config file parameters.
 
 :Authors:   Tobias Liaudat <tobias.liaudat@cea.fr>
 
@@ -416,7 +424,7 @@ class GenerateSimDataset(object):
 
 def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
              catalog_id=1234567, sex_thresh=-1e5, use_SNR_weight=False,
-             verbose=False):
+             verbose=False, saving_name='fitted_model'):
     r"""Fits (train) the MCCD model.
 
     Then saves it.
@@ -448,6 +456,8 @@ def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
     verbose: bool
         Verbose mode.
         Default is ``False``.
+    saving_name: str
+        Name of the fitted model file. Default is ``fitted_model``.
 
     Notes
     -----
@@ -507,8 +517,11 @@ def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
         star_list, pos_list, ccd_list, mask_list,
         SNR_weight_list, **mccd_fit_kw)
 
-    fitted_model_path = output_dir + '/fitted_model' + \
-                        str(catalog_id.astype(int))
+    if isinstance(catalog_id, int):
+        cat_id = catalog_id
+    else:
+        cat_id = catalog_id.astype(int)
+    fitted_model_path = output_dir + saving_name + str(cat_id)
     mccd_instance.quicksave(fitted_model_path)
 
     # Memory management (for clusters)
@@ -831,12 +844,12 @@ def mccd_preprocessing(input_folder_path, output_path, min_n_stars=20,
         # For each observation position
         catalog_id = catalog_ids[it]
         star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list, \
-            DEC_list = mccd_inputs.get_inputs(catalog_id)
+        DEC_list = mccd_inputs.get_inputs(catalog_id)
 
         star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list, \
-            DEC_list, _ = mccd_inputs.outlier_rejection(
-                star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list,
-                DEC_list, shape_std_max=outlier_std_max, print_fun=print_fun)
+        DEC_list, _ = mccd_inputs.outlier_rejection(
+            star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list,
+            DEC_list, shape_std_max=outlier_std_max, print_fun=print_fun)
 
         mccd_star_list = []
         mccd_pos_list = []
@@ -951,6 +964,8 @@ class MCCDParamsParser(object):
         self.mccd_inst_kw = None
         self.mccd_fit_kw = None
         self.mccd_inputs_kw = None
+        self.mccd_val_kw = None
+        self.mccd_val_prepro_kw = None
 
         self.mccd_extra_kw = {}
 
@@ -976,6 +991,13 @@ class MCCDParamsParser(object):
         elif not os.path.isdir(self.config['INPUTS']['OUTPUT_DIR']):
             raise OSError('Directory {} not found.'.format(
                 self.config.has_option('INPUTS', 'OUTPUT_DIR')))
+
+        if not self.config.has_option('INPUTS', 'PREPROCESSED_OUTPUT_DIR'):
+            raise RuntimeError('Not preprocessed output directory specified.')
+        elif not os.path.isdir(
+                self.config['INPUTS']['PREPROCESSED_OUTPUT_DIR']):
+            raise OSError('Directory {} not found.'.format(
+                self.config.has_option('INPUTS', 'PREPROCESSED_OUTPUT_DIR')))
 
         if not self.config.has_option('INPUTS', 'INPUT_DIR'):
             raise RuntimeError('Not output directory specified.')
@@ -1055,19 +1077,83 @@ class MCCDParamsParser(object):
         if not self.config.has_option('FIT', 'LOC_MODEL'):
             self.config.set('FIT', 'LOC_MODEL', 'hybrid')
 
-    def _parse_document(self):
+    def _set_val_options(self):
+        """ Set Validation Options
+
+        Method to check the ``VALIDATION`` options in the configuration file.
+
+        Raises
+        ------
+        RuntimeError
+            For no input directory specified
+        OSError
+            For non-existent input directory
+        RuntimeError
+            For no output directory specified
+        OSError
+            For non-existent output directory
+
+        """
+        if not self.config.has_option('VALIDATION', 'VAL_MODEL_INPUT_DIR'):
+            raise RuntimeError('Not input model directory specified.')
+        elif not os.path.isdir(self.config['VALIDATION'][
+                                   'VAL_MODEL_INPUT_DIR']):
+            raise OSError('Directory {} not found.'.format(
+                self.config.has_option('VALIDATION', 'VAL_MODEL_INPUT_DIR')))
+
+        if not self.config.has_option('VALIDATION', 'VAL_DATA_INPUT_DIR'):
+            raise RuntimeError('Not input dataset directory specified.')
+        elif not os.path.isdir(
+                self.config['VALIDATION']['VAL_DATA_INPUT_DIR']):
+            raise OSError('Directory {} not found.'.format(
+                self.config.has_option('VALIDATION', 'VAL_DATA_INPUT_DIR')))
+
+        if not self.config.has_option('VALIDATION', 'VAL_OUTPUT_DIR'):
+            raise RuntimeError('Not validation output directory specified.')
+        elif not os.path.isdir(self.config['VALIDATION']['VAL_OUTPUT_DIR']):
+            raise OSError('Directory {} not found.'.format(
+                self.config.has_option('VALIDATION', 'VAL_OUTPUT_DIR')))
+
+        if not self.config.has_option('VALIDATION',
+                                      'VAL_PREPROCESSED_OUTPUT_DIR'):
+            raise RuntimeError('''Not validation preprocessing output
+            directory specified.''')
+        elif not os.path.isdir(self.config['VALIDATION'][
+                                   'VAL_PREPROCESSED_OUTPUT_DIR']):
+            raise OSError('Directory {} not found.'.format(
+                self.config.has_option('VALIDATION',
+                                       'VAL_PREPROCESSED_OUTPUT_DIR')))
+
+        if not self.config.has_option('INPUTS', 'VAL_REGEX_FILE_PATTERN'):
+            self.config.set('INPUTS', 'VAL_REGEX_FILE_PATTERN',
+                            'test-star_selection-*-*.fits')
+
+        if not self.config.has_option('INPUTS', 'VAL_SEPARATOR'):
+            self.config.set('INPUTS', 'VAL_SEPARATOR', '-')
+
+        if not self.config.has_option('INPUTS', 'APPLY_DEGRADATION'):
+            self.config.set('INPUTS', 'APPLY_DEGRADATION', 'True')
+
+        if not self.config.has_option('INPUTS', 'MCCD_DEBUG'):
+            self.config.set('INPUTS', 'MCCD_DEBUG', 'False')
+
+        if not self.config.has_option('INPUTS', 'GLOBAL_POL_INTERP'):
+            self.config.set('INPUTS', 'GLOBAL_POL_INTERP', 'False')
+
+    def parse_document(self):
         r"""Parse config file."""
         if not self.processed_inputs:
             self.config.read(self.file_name)
             self._set_inputs_options()
             self._set_instance_options()
             self._set_fit_options()
+            self._set_val_options()
             self.processed_inputs = True
 
     def _build_instance_kw(self):
         r"""Build ``INSTANCE`` parameter dictionary."""
         if not self.processed_inputs:
-            self._parse_document()
+            self.parse_document()
 
         if self.mccd_inst_kw is None:
             n_comp_loc = int(self.config['INSTANCE'].get('N_COMP_LOC'))
@@ -1079,7 +1165,7 @@ class MCCDParamsParser(object):
             else:
                 filters = self.config['INSTANCE'].get('FILTER_PATH')
 
-                # Build the parameter dictionaries
+            # Build the parameter dictionaries
             self.mccd_inst_kw = {'n_comp_loc': n_comp_loc,
                                  'd_comp_glob': d_comp_glob,
                                  'filters': filters, 'ksig_loc': ksig_loc,
@@ -1088,7 +1174,7 @@ class MCCDParamsParser(object):
     def _build_fit_kw(self):
         r"""Build ``FIT`` parameter dictionary."""
         if not self.processed_inputs:
-            self._parse_document()
+            self.parse_document()
 
         if self.mccd_fit_kw is None:
             psf_size = float(self.config['FIT'].get('PSF_SIZE'))
@@ -1119,11 +1205,11 @@ class MCCDParamsParser(object):
     def _build_inputs_kw(self):
         r"""Build ``INPUTS`` parameter dictionary."""
         if not self.processed_inputs:
-            self._parse_document()
+            self.parse_document()
 
         if self.mccd_inputs_kw is None:
             input_folder_path = self.config['INPUTS'].get('INPUT_DIR')
-            output_path = self.config['INPUTS'].get('OUTPUT_DIR')
+            output_path = self.config['INPUTS'].get('PREPROCESSED_OUTPUT_DIR')
             min_n_stars = int(self.config['INPUTS'].get('MIN_N_STARS'))
             file_pattern = self.config['INPUTS'].get(
                 'INPUT_REGEX_FILE_PATTERN')
@@ -1142,9 +1228,71 @@ class MCCDParamsParser(object):
                                    'min_n_stars': min_n_stars,
                                    'file_pattern': file_pattern,
                                    'separator': separator,
-                                   'outlier_std_max': outlier_std_max}
+                                   'outlier_std_max': outlier_std_max,
+                                   'save_name': 'train_star_selection',
+                                   'save_extension': '.fits'}
 
             self.mccd_extra_kw['use_SNR_weight'] = use_SNR_weight
+            self.mccd_extra_kw['output_dir'] = self.config['INPUTS'].get(
+                'OUTPUT_DIR')
+
+    def _build_val_kw(self):
+        r"""Build ``VALIDATION`` parameter dictionary."""
+        if not self.processed_inputs:
+            self.parse_document()
+
+        if self.mccd_val_kw is None:
+            if self.config['VALIDATION'].get('APPLY_DEGRADATION') == 'True':
+                apply_degradation = True
+            elif self.config['VALIDATION'].get('APPLY_DEGRADATION') == 'False':
+                apply_degradation = False
+            else:
+                raise RuntimeError('APPLY_DEGRADATION must be True or False.')
+
+            if self.config['VALIDATION'].get('MCCD_DEBUG') == 'True':
+                mccd_debug = True
+            elif self.config['VALIDATION'].get('MCCD_DEBUG') == 'False':
+                mccd_debug = False
+            else:
+                raise RuntimeError('MCCD_DEBUG must be True or False.')
+
+            if self.config['VALIDATION'].get('GLOBAL_POL_INTERP') == 'True':
+                global_pol_interp = True
+            elif self.config['VALIDATION'].get('GLOBAL_POL_INTERP') == 'False':
+                global_pol_interp = False
+            else:
+                raise RuntimeError('GLOBAL_POL_INTERP must be True or False.')
+
+            # Build the parameter dictionaries
+            self.mccd_val_kw = {'apply_degradation': apply_degradation,
+                                'mccd_debug': mccd_debug,
+                                'global_pol_interp': global_pol_interp}
+
+            val_input_folder_path = self.config['VALIDATION'].get(
+                'VAL_DATA_INPUT_DIR')
+            val_output_path = self.config['VALIDATION'].get(
+                'VAL_PREPROCESSED_OUTPUT_DIR')
+            val_file_pattern = self.config['VALIDATION'].get(
+                'VAL_REGEX_FILE_PATTERN')
+            val_separator = self.config['VALIDATION'].get('VAL_SEPARATOR')
+            outlier_std_max = float(self.config['INPUTS'].get(
+                'OUTLIER_STD_MAX'))
+
+            # Build the preprocessing validatoin parameter dictionaries
+            self.mccd_val_prepro_kw = {'input_folder_path':
+                                           val_input_folder_path,
+                                       'output_path': val_output_path,
+                                       'min_n_stars': 1,
+                                       'file_pattern': val_file_pattern,
+                                       'separator': val_separator,
+                                       'outlier_std_max': outlier_std_max,
+                                       'save_name': 'test_star_selection',
+                                       'save_extension': '.fits'}
+
+            self.mccd_extra_kw['val_model_input_dir'] = self.config[
+                'VALIDATION'].get('VAL_MODEL_INPUT_DIR')
+            self.mccd_extra_kw['val_model_input_dir'] = self.config[
+                'VALIDATION'].get('VAL_OUTPUT_DIR')
 
     def get_extra_kw(self, param_name):
         r"""Get parameter from extra arguments.
@@ -1183,17 +1331,43 @@ class MCCDParamsParser(object):
         return self.mccd_inst_kw
 
     def get_inputs_kw(self):
-        r"""Get paths parameter.
+        r"""Get paths parameter dictionary.
 
         Returns
         -------
-        mccd_paths: list
-            List of paths: [input_path, output_path]
+        mccd_inputs_kw: dict
+             MCCD input parameter dictionary.
         """
         if self.mccd_inputs_kw is None:
             self._build_inputs_kw()
 
         return self.mccd_inputs_kw
+
+    def get_val_prepro_kw(self):
+        r"""Get preprocessing validation input dictionary.
+
+        Returns
+        -------
+        mccd_val_prepro_kw: dict
+             MCCD preprocessing validation input dictionary.
+        """
+        if self.mccd_val_prepro_kw is None:
+            self._build_val_kw()
+
+        return self.mccd_val_prepro_kw
+
+    def get_val_kw(self):
+        r"""Get validaiton parameter dictionary.
+
+        Returns
+        -------
+        mccd_val_kw: dict
+             MCCD validation dictionary.
+        """
+        if self.mccd_val_kw is None:
+            self._build_val_kw()
+
+        return self.mccd_val_kw
 
 
 class RunMCCD(object):
@@ -1209,7 +1383,7 @@ class RunMCCD(object):
         Path to the configuration file.
     fits_table_pos: int
         Position of the Table in the fits file.
-        Default is ``2``.
+        Default is ``1``.
     verbose: bool
         Verbose mode.
         Default is ``True``.
@@ -1221,7 +1395,8 @@ class RunMCCD(object):
     - Erase the preprocessed files (?)
 
     """
-    def __init__(self, config_file_path, fits_table_pos=2, verbose=True):
+
+    def __init__(self, config_file_path, fits_table_pos=1, verbose=True):
         r"""Initialize class."""
         self.config_file_path = config_file_path
 
@@ -1229,8 +1404,12 @@ class RunMCCD(object):
         self.mccd_inputs_kw = None
         self.mccd_inst_kw = None
         self.mccd_fit_kw = None
+        self.mccd_val_prepro_kw = None
+        self.mccd_val_kw = None
 
+        self.val_mccd_inputs = None
         self.mccd_inputs = None
+        self.val_catalog_ids = None
         self.catalog_ids = None
 
         self.preprocess_name = 'train_star_selection'
@@ -1238,49 +1417,208 @@ class RunMCCD(object):
         self.fits_table_pos = fits_table_pos
         self.separator = None
 
+        self.fitting_model_saving_name = 'fitted_model'
+
+        self.val_saving_name = 'validation_psf'
+
         self.use_SNR_weight = None
+        self.fit_output_dir = None
+
+        self.parsed_parameters = False
 
         self.verbose = verbose
 
-    def _parse_config_file(self):
+    def parse_config_file(self):
         r"""Parse configuration file and recover parameters."""
-        self.param_parser = MCCDParamsParser(self.config_file_path)
-        self.mccd_inputs_kw = self.param_parser.get_inputs_kw()
-        self.mccd_inst_kw = self.param_parser.get_instance_kw()
-        self.mccd_fit_kw = self.param_parser.get_fit_kw()
+        if not self.parsed_parameters:
+            self.param_parser = MCCDParamsParser(self.config_file_path)
+            self.mccd_inputs_kw = self.param_parser.get_inputs_kw()
+            self.mccd_inst_kw = self.param_parser.get_instance_kw()
+            self.mccd_fit_kw = self.param_parser.get_fit_kw()
+            self.mccd_val_prepro_kw = self.param_parser.get_val_prepro_kw()
+            self.mccd_val_kw = self.param_parser.get_val_kw()
 
-        self.separator = self.mccd_inputs_kw['separator']
-        self.use_SNR_weight = self.param_parser.get_extra_kw('use_SNR_weight')
+            self.separator = self.mccd_inputs_kw['separator']
+            self.use_SNR_weight = self.param_parser.get_extra_kw(
+                'use_SNR_weight')
+            self.fit_output_dir = self.param_parser.get_extra_kw('output_dir')
 
-    def _preprocess_inputs(self):
+            self.parsed_parameters = True
+
+    def preprocess_inputs(self):
         r"""Preprocess the input data."""
+        if not self.parsed_parameters:
+            self.parse_config_file()
         self.mccd_inputs = mccd_preprocessing(**self.mccd_inputs_kw)
-
-    def _fit_models(self):
-        r"""Build and save the models to the catalgos found."""
         self.catalog_ids = self.mccd_inputs.get_catalog_ids()
 
-        for _cat_id in self.catalog_ids:
-            output_dir = self.mccd_inputs_kw['output_path']
+    def preprocess_val_inputs(self):
+        r"""Preprocess validation input data."""
+        if not self.parsed_parameters:
+            self.parse_config_file()
+        self.val_mccd_inputs = mccd_preprocessing(**self.mccd_val_prepro_kw)
+        self.val_catalog_ids = self.val_mccd_inputs.get_catalog_ids()
 
+    def fit_models(self):
+        r"""Build and save the models to the catalgos found."""
+        if not self.parsed_parameters:
+            self.parse_config_file()
+        if self.mccd_inputs is None:
+            self.preprocess_inputs()
+
+        input_dir = self.mccd_inputs_kw['output_path']
+        output_dir = self.fit_output_dir
+
+        for _cat_id in self.catalog_ids:
             if not isinstance(_cat_id, str):
                 cat_id = '%07d' % _cat_id
             else:
                 cat_id = _cat_id
 
-            input_path = output_dir + self.preprocess_name + self.separator \
+            input_path = input_dir + self.preprocess_name + self.separator \
                          + cat_id + self.file_extension
 
-            starcat = fits.open(input_path)[self.fits_table_pos]
+            if os.path.isfile(input_path):
+                starcat = fits.open(input_path)[self.fits_table_pos]
+            else:
+                raise OSError('File {} not found.'.format(input_path))
 
             mccd_fit(starcat, self.mccd_inst_kw, self.mccd_fit_kw,
-                     output_dir=output_dir, catalog_id=int(cat_id),
+                     output_dir=output_dir,
+                     catalog_id=int(cat_id),
                      sex_thresh=-1e5,
                      use_SNR_weight=self.use_SNR_weight,
-                     verbose=self.verbose)
+                     verbose=self.verbose,
+                     saving_name=self.fitting_model_saving_name +
+                                 self.separator)
+
+    def validate_models(self):
+        r"""Validate MCCD models."""
+        if not self.parsed_parameters:
+            self.parse_config_file()
+        if self.val_mccd_inputs is None:
+            self.preprocess_val_inputs()
+
+        # Preprocessed validation dir
+        input_dir = self.mccd_val_prepro_kw['output_path']
+        # Fit model input dir
+        fit_model_input_dir = self.param_parser.get_extra_kw(
+            'val_model_input_dir')
+        # Validation output dir
+        val_output_dir = self.param_parser.get_extra_kw('val_model_input_dir')
+
+        for _cat_id in self.val_catalog_ids:
+            if not isinstance(_cat_id, str):
+                cat_id = '%07d' % _cat_id
+            else:
+                cat_id = _cat_id
+
+            if self.verbose:
+                print('Validating catalog %s..' % cat_id)
+
+            # Check if there is the fitted model
+            fit_model_path = fit_model_input_dir + \
+                             self.fitting_model_saving_name + \
+                             self.separator + cat_id + '.npy'
+
+            if os.path.isfile(fit_model_path):
+                prepro_name = self.mccd_val_prepro_kw['save_name']
+                separator = self.mccd_val_prepro_kw['separator']
+                save_extension = self.mccd_val_prepro_kw['save_extension']
+                input_val_path = input_dir + prepro_name + separator + \
+                                 cat_id + save_extension
+
+                testcat = fits.open(input_val_path)[self.fits_table_pos]
+
+                val_dict = mccd_validation(fit_model_path,
+                                           testcat,
+                                           **self.mccd_val_kw,
+                                           sex_thresh=-1e5)
+
+                saving_path = val_output_dir + self.val_saving_name + \
+                              separator + cat_id + save_extension
+                # Save validation dictionary to fits file
+                mccd_utils.save_to_fits(val_dict, saving_path)
+                if self.verbose:
+                    print('Validation catalog < %s > saved.' % (
+                            self.val_saving_name + separator + cat_id +
+                            save_extension))
+
+            else:
+                print('''Fitted model corresponding to catalog %d was not 
+                 found.''' % cat_id)
+
+    def fit_MCCD_models(self):
+        r"""Fit MCCD models."""
+        self.parse_config_file()
+        self.preprocess_inputs()
+        self.fit_models()
+
+    def validate_MCCD_models(self):
+        r"""Validate MCCD models."""
+        self.parse_config_file()
+        self.preprocess_val_inputs()
+        self.validate_models()
 
     def run_MCCD(self):
         r"""Run the MCCD routines."""
-        self._parse_config_file()
-        self._preprocess_inputs()
-        self._fit_models()
+        self.parse_config_file()
+        self.preprocess_inputs()
+        self.fit_models()
+        self.preprocess_val_inputs()
+        self.validate_models()
+
+    @staticmethod
+    def recover_MCCD_PSFs(mccd_model_path, positions, ccd_id, local_pos=False):
+        r"""Recover MCCD PSFs at required positions.
+
+        Parameters
+        ----------
+        mccd_model_path: str
+            Path pointing to the saved fitted MCCD model to be used.
+        positions: numpy.ndarray
+            Array containing the positions where the PSF should be recovered.
+            The shape of the array should be (n,2) [x,y].
+        ccd_id: int
+            Id of the CCD from where the positions where taken.
+        local_pos: bool
+            If the positions passed are local to the CCD. If False, the
+            positions are considered to be in the same format
+            (coordinate system, units, etc.) as the ``obs_pos`` fed
+            to :func:`MCCD.fit`.
+            Default is ``False``.
+
+        Returns
+        -------
+        rec_PSFs: numpy.ndarray
+            Array containing the recovered PSFs.
+            Array dimensions: (n_psf, n_im, n_im).
+
+        Raises
+        ------
+        OSError
+            For non-existent fitted model.
+        ValueError
+            For ccd_id not being an integer.
+
+        """
+        if not os.path.isfile(mccd_model_path):
+            raise OSError('Fitted model {} not found.'.format(mccd_model_path))
+
+        if not isinstance(ccd_id, int):
+            raise ValueError('Parameter ccd_id should be an integer.')
+
+        if local_pos:
+            loc2glob = mccd_utils.Loc2Glob()
+            glob_pos = np.array([
+                loc2glob.loc2glob_img_coord(ccd_id, _pos[0], _pos[1])
+                for _pos in positions])
+        else:
+            glob_pos = positions
+
+        # Import the model
+        mccd_model = mccd.mccd_quickload(mccd_model_path)
+
+        rec_PSFs = mccd_model.estimate_psf(glob_pos, ccd_id)
+
+        return rec_PSFs
