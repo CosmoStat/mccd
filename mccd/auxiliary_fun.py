@@ -844,12 +844,12 @@ def mccd_preprocessing(input_folder_path, output_path, min_n_stars=20,
         # For each observation position
         catalog_id = catalog_ids[it]
         star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list, \
-        DEC_list = mccd_inputs.get_inputs(catalog_id)
+            DEC_list = mccd_inputs.get_inputs(catalog_id)
 
         star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list, \
-        DEC_list, _ = mccd_inputs.outlier_rejection(
-            star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list,
-            DEC_list, shape_std_max=outlier_std_max, print_fun=print_fun)
+            DEC_list, _ = mccd_inputs.outlier_rejection(
+                star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list,
+                DEC_list, shape_std_max=outlier_std_max, print_fun=print_fun)
 
         mccd_star_list = []
         mccd_pos_list = []
@@ -925,7 +925,7 @@ def mccd_preprocessing(input_folder_path, output_path, min_n_stars=20,
                          'RA_LIST': mccd_RAs, 'DEC_LIST': mccd_DECs}
 
             saving_path = output_path + save_name + separator \
-                          + catalog_id + save_extension
+                + catalog_id + save_extension
             mccd_utils.save_to_fits(train_dic, saving_path)
 
     print_fun('Finished the training dataset processing.')
@@ -970,7 +970,7 @@ class MCCDParamsParser(object):
         self.mccd_extra_kw = {}
 
     def _set_inputs_options(self):
-        """ Set Input Options
+        """Set Input Options.
 
         This method checks the ``INPUTS`` options in the configuration file.
 
@@ -1018,7 +1018,7 @@ class MCCDParamsParser(object):
             self.config.set('INPUTS', 'USE_SNR_WEIGHTS', 'False')
 
     def _set_instance_options(self):
-        """ Set Instance Options
+        """Set Instance Options.
 
         This method checks the ``INSTANCE`` options in the configuration file.
 
@@ -1039,7 +1039,7 @@ class MCCDParamsParser(object):
             self.config.set('INSTANCE', 'FILTER_PATH', 'None')
 
     def _set_fit_options(self):
-        """ Set Fit Options
+        """Set Fit Options.
 
         This method checks the ``FIT`` options in the configuration file.
 
@@ -1078,7 +1078,7 @@ class MCCDParamsParser(object):
             self.config.set('FIT', 'LOC_MODEL', 'hybrid')
 
     def _set_val_options(self):
-        """ Set Validation Options
+        """Set Validation Options.
 
         Method to check the ``VALIDATION`` options in the configuration file.
 
@@ -1279,15 +1279,15 @@ class MCCDParamsParser(object):
                 'OUTLIER_STD_MAX'))
 
             # Build the preprocessing validatoin parameter dictionaries
-            self.mccd_val_prepro_kw = {'input_folder_path':
-                                           val_input_folder_path,
-                                       'output_path': val_output_path,
-                                       'min_n_stars': 1,
-                                       'file_pattern': val_file_pattern,
-                                       'separator': val_separator,
-                                       'outlier_std_max': outlier_std_max,
-                                       'save_name': 'test_star_selection',
-                                       'save_extension': '.fits'}
+            self.mccd_val_prepro_kw = {
+                'input_folder_path': val_input_folder_path,
+                'output_path': val_output_path,
+                'min_n_stars': 1,
+                'file_pattern': val_file_pattern,
+                'separator': val_separator,
+                'outlier_std_max': outlier_std_max,
+                'save_name': 'test_star_selection',
+                'save_extension': '.fits'}
 
             self.mccd_extra_kw['val_model_input_dir'] = self.config[
                 'VALIDATION'].get('VAL_MODEL_INPUT_DIR')
@@ -1476,21 +1476,23 @@ class RunMCCD(object):
                 cat_id = _cat_id
 
             input_path = input_dir + self.preprocess_name + self.separator \
-                         + cat_id + self.file_extension
+                + cat_id + self.file_extension
 
             if os.path.isfile(input_path):
                 starcat = fits.open(input_path)[self.fits_table_pos]
             else:
                 raise OSError('File {} not found.'.format(input_path))
 
-            mccd_fit(starcat, self.mccd_inst_kw, self.mccd_fit_kw,
+            mccd_fit(starcat,
+                     self.mccd_inst_kw,
+                     self.mccd_fit_kw,
                      output_dir=output_dir,
                      catalog_id=int(cat_id),
                      sex_thresh=-1e5,
                      use_SNR_weight=self.use_SNR_weight,
                      verbose=self.verbose,
                      saving_name=self.fitting_model_saving_name +
-                                 self.separator)
+                     self.separator)
 
     def validate_models(self):
         r"""Validate MCCD models."""
@@ -1518,15 +1520,15 @@ class RunMCCD(object):
 
             # Check if there is the fitted model
             fit_model_path = fit_model_input_dir + \
-                             self.fitting_model_saving_name + \
-                             self.separator + cat_id + '.npy'
+                self.fitting_model_saving_name + self.separator + \
+                cat_id + '.npy'
 
             if os.path.isfile(fit_model_path):
                 prepro_name = self.mccd_val_prepro_kw['save_name']
                 separator = self.mccd_val_prepro_kw['separator']
                 save_extension = self.mccd_val_prepro_kw['save_extension']
                 input_val_path = input_dir + prepro_name + separator + \
-                                 cat_id + save_extension
+                    cat_id + save_extension
 
                 testcat = fits.open(input_val_path)[self.fits_table_pos]
 
@@ -1536,7 +1538,7 @@ class RunMCCD(object):
                                            sex_thresh=-1e5)
 
                 saving_path = val_output_dir + self.val_saving_name + \
-                              separator + cat_id + save_extension
+                    separator + cat_id + save_extension
                 # Save validation dictionary to fits file
                 mccd_utils.save_to_fits(val_dict, saving_path)
                 if self.verbose:
@@ -1545,8 +1547,8 @@ class RunMCCD(object):
                             save_extension))
 
             else:
-                print('''Fitted model corresponding to catalog %d was not 
-                 found.''' % cat_id)
+                print('''Fitted model corresponding to catalog %d was not
+                    found.''' % cat_id)
 
     def fit_MCCD_models(self):
         r"""Fit MCCD models."""
