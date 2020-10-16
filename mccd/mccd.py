@@ -1138,6 +1138,12 @@ class MCCD(object):
             In this case, ``global_pol_interp`` should be the normalized Pi
             interpolation matrix.
             Default is None.
+
+        Returns
+        -------
+        PSFs: numpy.ndarray
+            Returns the interpolated PSFs in regular format.
+
         """
         if not self.is_fitted:
             raise ValueError('''MCCD instance has not yet been fitted to
