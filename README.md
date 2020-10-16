@@ -12,7 +12,7 @@ Multi-CCD Point Spread Function Modelling.
 > Main contributor: <a href="https://tobias-liaudat.github.io" target="_blank" style="text-decoration:none; color: #F08080">Tobias Liaudat</a>  
 > Email: <a href="mailto:tobias.liaudat@cea.fr" style="text-decoration:none; color: #F08080">tobias.liaudat@cea.fr</a>  
 > Documentation: <a href="https://cosmostat.github.io/mccd/" target="_blank" style="text-decoration:none; color: #F08080">https://cosmostat.github.io/mccd/</a>  
-> Release: 08/10/2020
+> Current release: 08/10/2020
 ---
 
 The non-parametric MCCD PSF modelling, or MCCD for short, is a Point Spread Function modelling
