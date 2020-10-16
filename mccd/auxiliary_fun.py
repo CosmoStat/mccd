@@ -518,10 +518,11 @@ def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
         SNR_weight_list, **mccd_fit_kw)
 
     if isinstance(catalog_id, int):
+        cat_id = str(catalog_id)
+    elif isinstance(catalog_id, str):
         cat_id = catalog_id
-    else:
-        cat_id = catalog_id.astype(int)
-    fitted_model_path = output_dir + saving_name + str(cat_id)
+
+    fitted_model_path = output_dir + saving_name + cat_id
     mccd_instance.quicksave(fitted_model_path)
 
     # Memory management (for clusters)
@@ -1302,6 +1303,11 @@ class MCCDParamsParser(object):
         param_name: str
             Name of the parameter
         """
+        if self.mccd_inputs_kw is None:
+            self._build_inputs_kw()
+        if self.mccd_val_prepro_kw is None:
+            self._build_val_kw()
+
         return self.mccd_extra_kw[param_name]
 
     def get_fit_kw(self):
