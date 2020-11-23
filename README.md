@@ -13,7 +13,7 @@ Multi-CCD Point Spread Function Modelling.
 > Main contributor: <a href="https://tobias-liaudat.github.io" target="_blank" style="text-decoration:none; color: #F08080">Tobias Liaudat</a>  
 > Email: <a href="mailto:tobias.liaudat@cea.fr" style="text-decoration:none; color: #F08080">tobias.liaudat@cea.fr</a>  
 > Documentation: <a href="https://cosmostat.github.io/mccd/" target="_blank" style="text-decoration:none; color: #F08080">https://cosmostat.github.io/mccd/</a>  
-> Article: <a href="https://arxiv.org/abs/2011.09835" style="text-decoration:none; color: #F08080">arXiv:2011.09835</a>
+> Article: <a href="https://arxiv.org/abs/2011.09835" style="text-decoration:none; color: #F08080">arXiv:2011.09835</a>  
 > Current release: 19/10/2020
 ---
 
