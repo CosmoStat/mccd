@@ -872,7 +872,8 @@ class MCCD(object):
                             transf_comp[self.n_ccd],
                             source_glob_grad, sparsity_prox,
                             cost=source_glob_cost,
-                            beta_param=1. / beta, auto_iterate=False)
+                            beta_param=1. / beta, auto_iterate=False,
+                            verbose=self.verbose, progress=self.verbose)
                         source_optim.iterate(max_iter=self.nb_subiter_S_glob)
                         transf_comp[self.n_ccd] = source_optim.x_final
                         reweighter.reweight(transf_comp[self.n_ccd])
@@ -882,7 +883,8 @@ class MCCD(object):
                     source_optim = optimalg.ForwardBackward(
                         transf_comp[self.n_ccd],
                         source_glob_grad, sparsity_prox, cost=source_glob_cost,
-                        beta_param=1. / beta, auto_iterate=False)
+                        beta_param=1. / beta, auto_iterate=False,
+                        verbose=self.verbose, progress=self.verbose)
                     source_optim.iterate(max_iter=self.nb_subiter_S_glob)
                     transf_comp[self.n_ccd] = source_optim.x_final
 
@@ -933,7 +935,9 @@ class MCCD(object):
                                                cost=weight_glob_cost,
                                                max_iter=self.nb_subiter_A_glob,
                                                tau=tau,
-                                               sigma=sigma)
+                                               sigma=sigma,
+                                               verbose=self.verbose,
+                                               progress=self.verbose)
                 alpha[self.n_ccd] = weight_optim.x_final
                 weights_glob = [alpha[self.n_ccd].dot(self.Pi[k])
                                 for k in range(self.n_ccd)]
@@ -1001,7 +1005,9 @@ class MCCD(object):
                                 cost=source_loc_cost[k],
                                 max_iter=self.nb_subiter_S_loc,
                                 tau=tau,
-                                sigma=sigma)
+                                sigma=sigma,
+                                verbose=self.verbose,
+                                progress=self.verbose)
                             transf_comp[k] = source_optim.x_final
                             reweighter.reweight(transf_comp[k])
                             thresholds = reweighter.weights
@@ -1016,7 +1022,9 @@ class MCCD(object):
                             linear=lin_recombine[k],
                             cost=source_loc_cost[k],
                             max_iter=self.nb_subiter_S_loc,
-                            tau=tau, sigma=sigma)
+                            tau=tau, sigma=sigma,
+                            verbose=self.verbose,
+                            progress=self.verbose)
                         transf_comp[k] = source_optim.x_final
 
                         # Save iteration diagnostic data
@@ -1058,7 +1066,9 @@ class MCCD(object):
                         cost=weight_loc_cost[k],
                         max_iter=self.nb_subiter_A_loc,
                         tau=tau,
-                        sigma=sigma)
+                        sigma=sigma,
+                        verbose=self.verbose,
+                        progress=self.verbose)
                     alpha[k] = weight_optim.x_final
                     weights_loc[k] = alpha[k].dot(self.VT[k])
 
