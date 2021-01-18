@@ -45,6 +45,8 @@ The following python packages should be installed with their specific dependenci
 It is of utmost importance that the PySAP package is correctly installed as we will be using
 the wavelet transforms provided by it.
 
+_Note: The GalSim package was removed from ``requirements.txt``, it is expected to be installed (with pip or conda) before installing the MCCD package._
+
 ## Installation
 
 After installing all the dependencies one can perform the MCCD package installation:
@@ -57,7 +59,7 @@ python setup.py install
 ```
 
 To verify that the PySAP package is correctly installed and that the MCCD package is
-accesing the needed wavelet transforms one can run: ``python setup.py test`` and 
+accesing the needed wavelet transforms one can run: ``python setup.py test`` and
 check that all the tests are passed.
 
 #### From Pypi
@@ -68,7 +70,7 @@ pip install mccd
 
 ## Quick usage
 
-The easiest usage of the method is to go through the configuration file ``config_MCCD.ini`` using the helper classes found 
+The easiest usage of the method is to go through the configuration file ``config_MCCD.ini`` using the helper classes found
 in [auxiliary_fun.py](https://github.com/CosmoStat/mccd/blob/master/mccd/auxiliary_fun.py)
 ([documentation](https://cosmostat.github.io/mccd/mccd.auxiliary_fun.html#)).
 Description of the parameters can be found directly in the configuration file [config_MCCD.ini](https://github.com/CosmoStat/mccd/blob/master/config_MCCD.ini).
@@ -111,7 +113,7 @@ All the output file will be saved on the directories specified on the configurat
 
 #### PSF recovery
 
-To recover PSFs fromt he model at specific positions ```test_pos``` from 
+To recover PSFs fromt he model at specific positions ```test_pos``` from
 the CCD ```ccd_id``` one could use the following example:
 
 ```python
@@ -140,4 +142,3 @@ of the ```recover_MCCD_PSFs()``` function for more information.
 
 Some notebook examples can be found
 [here](https://github.com/CosmoStat/mccd/tree/master/notebooks).
-
