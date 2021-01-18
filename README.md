@@ -27,7 +27,7 @@ Once trained, the MCCD PSF model can then recover the PSF at any position in the
 1. [Dependencies](#Dependencies)
 1. [Installation](#Installation)
 1. [Quick usage](#quick-usage)
-1. [Recomendations](#Recomendations)
+1. [Recommendations](#Recommendations)
 
 
 
@@ -42,10 +42,9 @@ The following python packages should be installed with their specific dependenci
 - [ModOpt](https://github.com/CEA-COSMIC/ModOpt)
 - [PySAP](https://github.com/CEA-COSMIC/pysap)
 
-It is of utmost importance that the PySAP package is correctly installed as we will be using
-the wavelet transforms provided by it.
+It is of utmost importance that the PySAP package is correctly installed as we will be using the wavelet transforms provided by it.
 
-_Note: The GalSim package was removed from ``requirements.txt``, it is expected to be installed (with pip or conda) before installing the MCCD package._
+_Note: The GalSim package was removed from ``requirements.txt``, it is expected to be installed (preferably with conda) before installing the MCCD package._
 
 ## Installation
 
@@ -59,7 +58,7 @@ python setup.py install
 ```
 
 To verify that the PySAP package is correctly installed and that the MCCD package is
-accesing the needed wavelet transforms one can run: ``python setup.py test`` and
+accessing the needed wavelet transforms one can run: ``python setup.py test`` and
 check that all the tests are passed.
 
 #### From Pypi
@@ -74,7 +73,7 @@ The easiest usage of the method is to go through the configuration file ``config
 in [auxiliary_fun.py](https://github.com/CosmoStat/mccd/blob/master/mccd/auxiliary_fun.py)
 ([documentation](https://cosmostat.github.io/mccd/mccd.auxiliary_fun.html#)).
 Description of the parameters can be found directly in the configuration file [config_MCCD.ini](https://github.com/CosmoStat/mccd/blob/master/config_MCCD.ini).
-The MCCD method can handle SExtractor dataset as input catalogs given that they follow an appropiate naming convention.
+The MCCD method can handle SExtractor dataset as input catalogs given that they follow an appropriate naming convention.
 
 The main MCCD model parameters are:
 
@@ -83,7 +82,7 @@ The main MCCD model parameters are:
 - ``D_COMP_GLOB``: Indicating the maximum polynomial degree for the global model.
 
 After setting up all the parameters from the configuration file there are three main functions, one to fit the model,
-one to validate the model and the last opne to fit and then validate the model. The usage is as follows:
+one to validate the model and the last one to fit and then validate the model. The usage is as follows:
 
 ```python
 import mccd
@@ -113,7 +112,7 @@ All the output file will be saved on the directories specified on the configurat
 
 #### PSF recovery
 
-To recover PSFs fromt he model at specific positions ```test_pos``` from
+To recover PSFs from the model at specific positions ```test_pos``` from
 the CCD ```ccd_id``` one could use the following example:
 
 ```python
@@ -138,7 +137,7 @@ rec_PSFs = mccd_instance.recover_MCCD_PSFs(mccd_model_path,
 See the [documentation](https://cosmostat.github.io/mccd/mccd.auxiliary_fun.html)
 of the ```recover_MCCD_PSFs()``` function for more information.
 
-#### Recomendations
+#### Recommendations
 
 Some notebook examples can be found
 [here](https://github.com/CosmoStat/mccd/tree/master/notebooks).
