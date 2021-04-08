@@ -61,8 +61,9 @@ class CoeffLocGrad(GradParent, PowerMethod):
 
     def __init__(self, data, weights, S, VT, H_glob, flux, sig, ker,
                  ker_rot, SNR_weights, D, save_iter_cost=False,
-                 data_type='float'):
+                 data_type='float', verbose=True):
         r"""Initialize class attributes."""
+        self.verbose = verbose
         self._grad_data_type = data_type
         self.obs_data = data
         self.obs_weights = weights
@@ -209,8 +210,9 @@ class CoeffGlobGrad(GradParent, PowerMethod):
 
     def __init__(self, data, weights, S, Pi, H_loc, flux, sig, ker,
                  ker_rot, D, SNR_weights, save_iter_cost=False,
-                 data_type='float'):
+                 data_type='float', verbose=True):
         r"""Initialize class attributes."""
+        self.verbose = verbose
         self._grad_data_type = data_type
         self.obs_data = data
         self.obs_weights = weights
@@ -353,8 +355,9 @@ class SourceLocGrad(GradParent, PowerMethod):
 
     def __init__(self, data, weights, A, H_glob, flux, sig, ker, ker_rot,
                  SNR_weights, D, filters, save_iter_cost=False,
-                 data_type='float'):
+                 data_type='float', verbose=True):
         r"""Initialize class attributes."""
+        self.verbose = verbose
         self._grad_data_type = data_type
         self.obs_data = data
         self.obs_weights = weights
@@ -373,6 +376,7 @@ class SourceLocGrad(GradParent, PowerMethod):
         self.iter_cost = []
         self.save_iter_cost = save_iter_cost
         self.FdH_glob = None
+
 
         hr_shape = np.array(data.shape[:2]) * D
         PowerMethod.__init__(self, self.trans_op_op,
@@ -501,8 +505,9 @@ class SourceGlobGrad(GradParent, PowerMethod):
 
     def __init__(self, data, weights, A, H_loc, flux, sig,
                  ker, ker_rot, SNR_weights, D, filters, save_iter_cost=False,
-                 data_type='float'):
+                 data_type='float', verbose=True):
         r"""Initialize class attributes."""
+        self.verbose = verbose
         self._grad_data_type = data_type
         self.obs_data = data
         self.obs_weights = weights

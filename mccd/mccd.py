@@ -721,7 +721,8 @@ class MCCD(object):
             self.SNR_weight_list[k],
             self.upfact,
             self.Phi_filters,
-            save_iter_cost=self.iter_outputs) for k in range(self.n_ccd)]
+            save_iter_cost=self.iter_outputs,
+            verbose=self.verbose) for k in range(self.n_ccd)]
 
         weight_loc_grad = [grads.CoeffLocGrad(
             self.obs_data[k],
@@ -735,7 +736,8 @@ class MCCD(object):
             self.shift_ker_stack_adj[k],
             self.SNR_weight_list[k],
             self.upfact,
-            save_iter_cost=self.iter_outputs) for k in range(self.n_ccd)]
+            save_iter_cost=self.iter_outputs,
+            verbose=self.verbose) for k in range(self.n_ccd)]
 
         source_glob_grad = grads.SourceGlobGrad(
             conc(self.obs_data, axis=2),
@@ -749,7 +751,8 @@ class MCCD(object):
             conc(self.SNR_weight_list),
             self.upfact,
             self.Phi_filters,
-            save_iter_cost=self.iter_outputs)
+            save_iter_cost=self.iter_outputs,
+            verbose=self.verbose)
 
         weight_glob_grad = grads.CoeffGlobGrad(
             conc(self.obs_data, axis=2),
@@ -763,7 +766,8 @@ class MCCD(object):
             conc(self.shift_ker_stack_adj, axis=2),
             self.upfact,
             conc(self.SNR_weight_list),
-            save_iter_cost=self.iter_outputs)
+            save_iter_cost=self.iter_outputs,
+            verbose=self.verbose)
 
         # Proxs for component optimization
         sparsity_prox = prox.StarletThreshold(0)
