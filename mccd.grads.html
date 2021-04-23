@@ -1,0 +1,597 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>1.1.2. mccd.grads module &mdash; mccd 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1.1.3. mccd.info module" href="mccd.info.html" />
+    <link rel="prev" title="1.1.1. mccd.auxiliary_fun module" href="mccd.auxiliary_fun.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> mccd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="mccd.html">1. mccd package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="mccd.auxiliary_fun.html">1.1.1. mccd.auxiliary_fun module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1.1.2. mccd.grads module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mccd.info.html">1.1.3. mccd.info module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mccd.mccd.html">1.1.4. mccd.mccd module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mccd.mccd_utils.html">1.1.5. mccd.mccd_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mccd.proxs.html">1.1.6. mccd.proxs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mccd.utils.html">1.1.7. mccd.utils module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">mccd</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="mccd.html"><span class="section-number">1. </span>mccd package</a> &raquo;</li>
+        
+      <li><span class="section-number">1.1.2. </span>mccd.grads module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/mccd.grads.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-mccd.grads">
+<span id="mccd-grads-module"></span><h1><span class="section-number">1.1.2. </span>mccd.grads module<a class="headerlink" href="#module-mccd.grads" title="Permalink to this headline">¶</a></h1>
+<p>GRADIENTS.</p>
+<p>Defines the gradient classes that will be used in the optimization
+procedures from the ModOpt package.</p>
+<p>: Authors: Tobias Liaudat &lt;<a class="reference external" href="mailto:tobiasliaudat&#37;&#52;&#48;gmail&#46;com">tobiasliaudat<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</p>
+<blockquote>
+<div><p>Morgan Schmitz &lt;<a class="reference external" href="https://github.com/MorganSchmitz">https://github.com/MorganSchmitz</a>&gt;</p>
+<p>Jerome Bonnin &lt;<a class="reference external" href="https://github.com/jerome-bonnin">https://github.com/jerome-bonnin</a>&gt;</p>
+</div></blockquote>
+<dl class="py class">
+<dt id="mccd.grads.CoeffLocGrad">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">mccd.grads.</span></code><code class="sig-name descname"><span class="pre">CoeffLocGrad</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H_glob</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ker_rot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SNR_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_iter_cost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'float'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffLocGrad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffLocGrad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">modopt.opt.gradient.GradParent</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">modopt.math.matrix.PowerMethod</span></code></p>
+<p>Gradient class for the local coefficient update.</p>
+<p>Local Alpha, <span class="math notranslate nohighlight">\(\\alpha_{k}\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>numpy.ndarray</em>) – Observed data.</p></li>
+<li><p><strong>weights</strong> (<em>numpy.ndarray</em>) – Corresponding pixel-wise weights.</p></li>
+<li><p><strong>S</strong> (<em>numpy.ndarray</em>) – Current eigenPSFs <span class="math notranslate nohighlight">\(S\)</span>.</p></li>
+<li><p><strong>VT</strong> (<em>numpy.ndarray</em>) – Matrix of spatial constraint enforcement (in the MCCD-RCA case will
+be the matrix of concatenated graph Laplacians.)</p></li>
+<li><p><strong>H_glob</strong> (<em>numpy.ndarray</em>) – Current estimation of the global model.</p></li>
+<li><p><strong>flux</strong> (<em>numpy.ndarray</em>) – Per-object flux value.</p></li>
+<li><p><strong>sig</strong> (<em>numpy.ndarray</em>) – Noise levels.</p></li>
+<li><p><strong>ker</strong> (<em>numpy.ndarray</em>) – Shifting kernels.</p></li>
+<li><p><strong>ker_rot</strong> (<em>numpy.ndarray</em>) – Inverted shifting kernels.</p></li>
+<li><p><strong>SNR_weights</strong> (<em>numpy.ndarray</em>) – Array of per star weights.</p></li>
+<li><p><strong>D</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Upsampling factor.</p></li>
+<li><p><strong>save_iter_cost</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – To save iteration diagnostic data.
+Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>data_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Data type to be used.
+Default is <code class="docutils literal notranslate"><span class="pre">float</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Initialize class attributes.</p>
+<dl class="py method">
+<dt id="mccd.grads.CoeffLocGrad.reset_iter_cost">
+<code class="sig-name descname"><span class="pre">reset_iter_cost</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffLocGrad.reset_iter_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffLocGrad.reset_iter_cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset iteration cost.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.CoeffLocGrad.get_iter_cost">
+<code class="sig-name descname"><span class="pre">get_iter_cost</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffLocGrad.get_iter_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffLocGrad.get_iter_cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get current iteration cost.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.CoeffLocGrad.update_S">
+<code class="sig-name descname"><span class="pre">update_S</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_S</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_spectral_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffLocGrad.update_S"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffLocGrad.update_S" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update current eigenPSFs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.CoeffLocGrad.update_H_glob">
+<code class="sig-name descname"><span class="pre">update_H_glob</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_H_glob</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffLocGrad.update_H_glob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffLocGrad.update_H_glob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update current global model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.CoeffLocGrad.MX">
+<code class="sig-name descname"><span class="pre">MX</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffLocGrad.MX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffLocGrad.MX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply degradation operator and renormalize.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>alpha</strong> (<em>numpy.ndarray</em>) – Current coefficients (after factorization by <span class="math notranslate nohighlight">\(V^{\\top}\)</span>).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.CoeffLocGrad.MtX">
+<code class="sig-name descname"><span class="pre">MtX</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffLocGrad.MtX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffLocGrad.MtX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adjoint to degradation operator <a class="reference internal" href="#mccd.grads.CoeffLocGrad.MX" title="mccd.grads.CoeffLocGrad.MX"><code class="xref py py-func docutils literal notranslate"><span class="pre">MX()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>numpy.ndarray</em>) – Set of finer-grid images.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.CoeffLocGrad.cost">
+<code class="sig-name descname"><span class="pre">cost</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffLocGrad.cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffLocGrad.cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute data fidelity term.</p>
+<p class="rubric">Notes</p>
+<p><code class="docutils literal notranslate"><span class="pre">y</span></code> is unused (it’s just so <code class="docutils literal notranslate"><span class="pre">modopt.opt.algorithms.Condat</span></code>
+can feed the dual variable.)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.CoeffLocGrad.get_grad">
+<code class="sig-name descname"><span class="pre">get_grad</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffLocGrad.get_grad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffLocGrad.get_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute current iteration’s gradient.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="mccd.grads.CoeffGlobGrad">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">mccd.grads.</span></code><code class="sig-name descname"><span class="pre">CoeffGlobGrad</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H_loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ker_rot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SNR_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_iter_cost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'float'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffGlobGrad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffGlobGrad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">modopt.opt.gradient.GradParent</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">modopt.math.matrix.PowerMethod</span></code></p>
+<p>Gradient class for the local coefficient update.</p>
+<p>Global Alpha, :math: \tilde{\alpha}`.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>numpy.ndarray</em>) – Observed data.</p></li>
+<li><p><strong>weights</strong> (<em>numpy.ndarray</em>) – Corresponding pixel-wise weights.</p></li>
+<li><p><strong>S</strong> (<em>numpy.ndarray</em>) – Current eigenPSFs <span class="math notranslate nohighlight">\(S\)</span>.</p></li>
+<li><p><strong>Pi</strong> (<em>numpy.ndarray</em>) – Matrix of positions polynomials.</p></li>
+<li><p><strong>H_loc</strong> (<em>numpy.ndarray</em>) – Current estimation of the local model</p></li>
+<li><p><strong>flux</strong> (<em>numpy.ndarray</em>) – Per-object flux value.</p></li>
+<li><p><strong>sig</strong> (<em>numpy.ndarray</em>) – Noise levels.</p></li>
+<li><p><strong>ker</strong> (<em>numpy.ndarray</em>) – Shifting kernels.</p></li>
+<li><p><strong>ker_rot</strong> (<em>numpy.ndarray</em>) – Inverted shifting kernels.</p></li>
+<li><p><strong>SNR_weights</strong> (<em>numpy.ndarray</em>) – Array of per star weights.</p></li>
+<li><p><strong>D</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Upsampling factor.</p></li>
+<li><p><strong>save_iter_cost</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – To save iteration diagnostic data.
+Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>data_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Data type to be used.
+Default is <code class="docutils literal notranslate"><span class="pre">float</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Initialize class attributes.</p>
+<dl class="py method">
+<dt id="mccd.grads.CoeffGlobGrad.reset_iter_cost">
+<code class="sig-name descname"><span class="pre">reset_iter_cost</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffGlobGrad.reset_iter_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffGlobGrad.reset_iter_cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset iteration cost.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.CoeffGlobGrad.get_iter_cost">
+<code class="sig-name descname"><span class="pre">get_iter_cost</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffGlobGrad.get_iter_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffGlobGrad.get_iter_cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get current iteration cost.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.CoeffGlobGrad.update_S">
+<code class="sig-name descname"><span class="pre">update_S</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_S</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_spectral_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffGlobGrad.update_S"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffGlobGrad.update_S" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update current eigenPSFs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.CoeffGlobGrad.update_H_loc">
+<code class="sig-name descname"><span class="pre">update_H_loc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_H_loc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffGlobGrad.update_H_loc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffGlobGrad.update_H_loc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update current local models.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.CoeffGlobGrad.MX">
+<code class="sig-name descname"><span class="pre">MX</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffGlobGrad.MX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffGlobGrad.MX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply degradation operator and renormalize.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>alpha</strong> (<em>numpy.ndarray</em>) – Current coefficients (after factorization by <span class="math notranslate nohighlight">\(\\Pi\)</span>).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.CoeffGlobGrad.MtX">
+<code class="sig-name descname"><span class="pre">MtX</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffGlobGrad.MtX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffGlobGrad.MtX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adjoint to degradation operator <a class="reference internal" href="#mccd.grads.CoeffGlobGrad.MX" title="mccd.grads.CoeffGlobGrad.MX"><code class="xref py py-func docutils literal notranslate"><span class="pre">MX()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>numpy.ndarray</em>) – Set of finer-grid images.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.CoeffGlobGrad.cost">
+<code class="sig-name descname"><span class="pre">cost</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffGlobGrad.cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffGlobGrad.cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute data fidelity term.</p>
+<p class="rubric">Notes</p>
+<p><code class="docutils literal notranslate"><span class="pre">y</span></code> is unused (it’s just so <code class="docutils literal notranslate"><span class="pre">modopt.opt.algorithms.Condat</span></code>
+can feed the dual variable.)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.CoeffGlobGrad.get_grad">
+<code class="sig-name descname"><span class="pre">get_grad</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#CoeffGlobGrad.get_grad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.CoeffGlobGrad.get_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute current iteration’s gradient.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="mccd.grads.SourceLocGrad">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">mccd.grads.</span></code><code class="sig-name descname"><span class="pre">SourceLocGrad</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H_glob</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ker_rot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SNR_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_iter_cost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'float'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceLocGrad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceLocGrad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">modopt.opt.gradient.GradParent</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">modopt.math.matrix.PowerMethod</span></code></p>
+<p>Gradient class for the local eigenPSF update.</p>
+<p>Local S, <span class="math notranslate nohighlight">\(S_{k}\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>numpy.ndarray</em>) – Input data array, a array of 2D observed images (i.e. with noise).</p></li>
+<li><p><strong>weights</strong> (<em>numpy.ndarray</em>) – Corresponding pixel-wise weights.</p></li>
+<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Current estimation of corresponding coefficients.</p></li>
+<li><p><strong>H_glob</strong> (<em>numpy.ndarray</em>) – Current estimation of the global model</p></li>
+<li><p><strong>flux</strong> (<em>numpy.ndarray</em>) – Per-object flux value.</p></li>
+<li><p><strong>sig</strong> (<em>numpy.ndarray</em>) – Noise levels.</p></li>
+<li><p><strong>ker</strong> (<em>numpy.ndarray</em>) – Shifting kernels.</p></li>
+<li><p><strong>ker_rot</strong> (<em>numpy.ndarray</em>) – Inverted shifting kernels.</p></li>
+<li><p><strong>D</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Upsampling factor.</p></li>
+<li><p><strong>filters</strong> (<em>numpy.ndarray</em>) – Set of filters.</p></li>
+<li><p><strong>save_iter_cost</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – To save iteration diagnostic data.
+Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>data_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Data type to be used.
+Default is <code class="docutils literal notranslate"><span class="pre">float</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Initialize class attributes.</p>
+<dl class="py method">
+<dt id="mccd.grads.SourceLocGrad.reset_iter_cost">
+<code class="sig-name descname"><span class="pre">reset_iter_cost</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceLocGrad.reset_iter_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceLocGrad.reset_iter_cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset iteration cost.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.SourceLocGrad.get_iter_cost">
+<code class="sig-name descname"><span class="pre">get_iter_cost</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceLocGrad.get_iter_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceLocGrad.get_iter_cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get current iteration cost.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.SourceLocGrad.update_A">
+<code class="sig-name descname"><span class="pre">update_A</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_spectral_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceLocGrad.update_A"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceLocGrad.update_A" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update current coefficients.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.SourceLocGrad.update_H_glob">
+<code class="sig-name descname"><span class="pre">update_H_glob</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_H_glob</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceLocGrad.update_H_glob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceLocGrad.update_H_glob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update current global model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.SourceLocGrad.MX">
+<code class="sig-name descname"><span class="pre">MX</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transf_S</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceLocGrad.MX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceLocGrad.MX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply degradation operator and renormalize.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>transf_S</strong> (<em>numpy.ndarray</em>) – Current eigenPSFs in wavelet (by default Starlet) space.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray result</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.SourceLocGrad.MtX">
+<code class="sig-name descname"><span class="pre">MtX</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceLocGrad.MtX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceLocGrad.MtX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adjoint to degradation operator <a class="reference internal" href="#mccd.grads.SourceLocGrad.MX" title="mccd.grads.SourceLocGrad.MX"><code class="xref py py-func docutils literal notranslate"><span class="pre">MX()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.SourceLocGrad.cost">
+<code class="sig-name descname"><span class="pre">cost</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceLocGrad.cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceLocGrad.cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute data fidelity term.</p>
+<p class="rubric">Notes</p>
+<p><code class="docutils literal notranslate"><span class="pre">y</span></code> is unused (it’s just so <code class="docutils literal notranslate"><span class="pre">modopt.opt.algorithms.Condat</span></code>
+can feed the dual variable.)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.SourceLocGrad.get_grad">
+<code class="sig-name descname"><span class="pre">get_grad</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceLocGrad.get_grad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceLocGrad.get_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute current iteration’s gradient.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="mccd.grads.SourceGlobGrad">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">mccd.grads.</span></code><code class="sig-name descname"><span class="pre">SourceGlobGrad</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H_loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ker_rot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SNR_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_iter_cost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'float'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceGlobGrad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceGlobGrad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">modopt.opt.gradient.GradParent</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">modopt.math.matrix.PowerMethod</span></code></p>
+<p>Gradient class for the global eigenPSF update.</p>
+<p>Global S, <span class="math notranslate nohighlight">\(\\tilde{S}\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>numpy.ndarray</em>) – Input data array, a array of 2D observed images (i.e. with noise).</p></li>
+<li><p><strong>weights</strong> (<em>numpy.ndarray</em>) – Corresponding pixel-wise weights.</p></li>
+<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Current estimation of corresponding coefficients.</p></li>
+<li><p><strong>H_loc</strong> (<em>numpy.ndarray</em>) – Current estimation of the local models</p></li>
+<li><p><strong>flux</strong> (<em>numpy.ndarray</em>) – Per-object flux value.</p></li>
+<li><p><strong>sig</strong> (<em>numpy.ndarray</em>) – Noise levels.</p></li>
+<li><p><strong>ker</strong> (<em>numpy.ndarray</em>) – Shifting kernels.</p></li>
+<li><p><strong>ker_rot</strong> (<em>numpy.ndarray</em>) – Inverted shifting kernels.</p></li>
+<li><p><strong>D</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Upsampling factor.</p></li>
+<li><p><strong>filters</strong> (<em>numpy.ndarray</em>) – Set of filters.</p></li>
+<li><p><strong>save_iter_cost</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – To save iteration diagnostic data.
+Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>data_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Data type to be used.
+Default is <code class="docutils literal notranslate"><span class="pre">float</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Initialize class attributes.</p>
+<dl class="py method">
+<dt id="mccd.grads.SourceGlobGrad.reset_iter_cost">
+<code class="sig-name descname"><span class="pre">reset_iter_cost</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceGlobGrad.reset_iter_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceGlobGrad.reset_iter_cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset iteration cost.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.SourceGlobGrad.get_iter_cost">
+<code class="sig-name descname"><span class="pre">get_iter_cost</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceGlobGrad.get_iter_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceGlobGrad.get_iter_cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get current iteration cost.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.SourceGlobGrad.update_A">
+<code class="sig-name descname"><span class="pre">update_A</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_spectral_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceGlobGrad.update_A"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceGlobGrad.update_A" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update current coefficients.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.SourceGlobGrad.update_H_loc">
+<code class="sig-name descname"><span class="pre">update_H_loc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_H_loc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceGlobGrad.update_H_loc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceGlobGrad.update_H_loc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update current local models.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.SourceGlobGrad.MX">
+<code class="sig-name descname"><span class="pre">MX</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transf_S</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceGlobGrad.MX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceGlobGrad.MX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply degradation operator and renormalize.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>transf_S</strong> (<em>numpy.ndarray</em>) – Current eigenPSFs in Starlet space.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray result</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.SourceGlobGrad.MtX">
+<code class="sig-name descname"><span class="pre">MtX</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceGlobGrad.MtX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceGlobGrad.MtX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adjoint to degradation operator <a class="reference internal" href="#mccd.grads.SourceGlobGrad.MX" title="mccd.grads.SourceGlobGrad.MX"><code class="xref py py-func docutils literal notranslate"><span class="pre">MX()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.SourceGlobGrad.cost">
+<code class="sig-name descname"><span class="pre">cost</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceGlobGrad.cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceGlobGrad.cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute data fidelity term.</p>
+<p class="rubric">Notes</p>
+<p><code class="docutils literal notranslate"><span class="pre">y</span></code> is unused (it’s just so <code class="docutils literal notranslate"><span class="pre">modopt.opt.algorithms.Condat</span></code>
+can feed the dual variable.)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.grads.SourceGlobGrad.get_grad">
+<code class="sig-name descname"><span class="pre">get_grad</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/grads.html#SourceGlobGrad.get_grad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.grads.SourceGlobGrad.get_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute current iteration’s gradient.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="mccd.info.html" class="btn btn-neutral float-right" title="1.1.3. mccd.info module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="mccd.auxiliary_fun.html" class="btn btn-neutral float-left" title="1.1.1. mccd.auxiliary_fun module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Tobias Liaudat.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

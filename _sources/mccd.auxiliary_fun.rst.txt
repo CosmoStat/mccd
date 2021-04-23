@@ -1,0 +1,7 @@
+mccd.auxiliary\_fun module
+==========================
+
+.. automodule:: mccd.auxiliary_fun
+   :members:
+   :undoc-members:
+   :show-inheritance:

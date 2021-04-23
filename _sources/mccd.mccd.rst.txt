@@ -1,0 +1,7 @@
+mccd.mccd module
+================
+
+.. automodule:: mccd.mccd
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+mccd.proxs module
+=================
+
+.. automodule:: mccd.proxs
+   :members:
+   :undoc-members:
+   :show-inheritance:

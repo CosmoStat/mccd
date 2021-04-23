@@ -1,0 +1,689 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>1.1.1. mccd.auxiliary_fun module &mdash; mccd 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1.1.2. mccd.grads module" href="mccd.grads.html" />
+    <link rel="prev" title="1. mccd package" href="mccd.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> mccd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="mccd.html">1. mccd package</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1.1.1. mccd.auxiliary_fun module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mccd.grads.html">1.1.2. mccd.grads module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mccd.info.html">1.1.3. mccd.info module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mccd.mccd.html">1.1.4. mccd.mccd module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mccd.mccd_utils.html">1.1.5. mccd.mccd_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mccd.proxs.html">1.1.6. mccd.proxs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mccd.utils.html">1.1.7. mccd.utils module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">mccd</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="mccd.html"><span class="section-number">1. </span>mccd package</a> &raquo;</li>
+        
+      <li><span class="section-number">1.1.1. </span>mccd.auxiliary_fun module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/mccd.auxiliary_fun.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-mccd.auxiliary_fun">
+<span id="mccd-auxiliary-fun-module"></span><h1><span class="section-number">1.1.1. </span>mccd.auxiliary_fun module<a class="headerlink" href="#module-mccd.auxiliary_fun" title="Permalink to this headline">¶</a></h1>
+<p>AUXILIARY FUNCTIONS.</p>
+<p>Essential MCCD helper functions. They are needed to:</p>
+<ul class="simple">
+<li><p>Generate simulated datasets.</p></li>
+<li><p>Preprocess, fit and validate MCCD PSF models.</p></li>
+<li><p>Parse the configuration file.</p></li>
+<li><p>Run automatically the MCCD algortithm from the config file parameters.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Authors</dt>
+<dd class="field-odd"><p>Tobias Liaudat &lt;<a class="reference external" href="mailto:tobias&#46;liaudat&#37;&#52;&#48;cea&#46;fr">tobias<span>&#46;</span>liaudat<span>&#64;</span>cea<span>&#46;</span>fr</a>&gt;</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="mccd.auxiliary_fun.GenerateSimDataset">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">mccd.auxiliary_fun.</span></code><code class="sig-name descname"><span class="pre">GenerateSimDataset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_pos_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_ccd_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e1_analytic_fun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e2_analytic_fun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#GenerateSimDataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.GenerateSimDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Generate simulated dataset for training and validating PSF models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_pos_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Path to the global positions of the PSF that will be used for the
+training.</p></li>
+<li><p><strong>input_ccd_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Path to the corresponding CCDs of the global positions.</p></li>
+<li><p><strong>output_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Path to the folder to save the simulated datasets.</p></li>
+<li><p><strong>e1_analytic_fun</strong> (<em>function</em>) – The analytic e1 ellipticity function that will define an ellipticity
+e1 for each position in the focal plane.</p></li>
+<li><p><strong>e2_analytic_fun</strong> (<em>function</em>) – The analytic e2 ellipticity function that will define an ellipticity
+e2 for each position in the focal plane.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The simulated PSFs are based on the Moffat profile and we are using Galsim
+to generate them.
+We base ourselves on two analytic functions that have to output an
+ellipticity for each position in the focal plane.</p>
+<p>Initialize the class.</p>
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.GenerateSimDataset.load_data">
+<code class="sig-name descname"><span class="pre">load_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#GenerateSimDataset.load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.GenerateSimDataset.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load data from input paths.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.GenerateSimDataset.generate_train_data">
+<code class="sig-name descname"><span class="pre">generate_train_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">51</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psf_flux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta_psf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pix_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.187</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desired_SNR</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catalog_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2086592</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#GenerateSimDataset.generate_train_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.GenerateSimDataset.generate_train_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the training dataset and saves it in fits format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Size of the PSF in sigma’s. (Sigma from Galsim’s HSM adaptive
+moments).
+Default is <code class="docutils literal notranslate"><span class="pre">1.6</span></code>.</p></li>
+<li><p><strong>image_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Dimension of the squared image stamp. (image_size x image_size)
+Default is <code class="docutils literal notranslate"><span class="pre">51</span></code>.</p></li>
+<li><p><strong>psf_flux</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Total PSF photometric flux.
+Default is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>beta_psf</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Moffat beta parameter.
+Default is <code class="docutils literal notranslate"><span class="pre">4.8</span></code>.</p></li>
+<li><p><strong>pix_scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Pixel scale.
+Default is <code class="docutils literal notranslate"><span class="pre">0.187</span></code>.</p></li>
+<li><p><strong>desired_SNR</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Desired SNR
+Default is <code class="docutils literal notranslate"><span class="pre">30</span></code>.</p></li>
+<li><p><strong>catalog_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Catalog identifier number.
+Default is <code class="docutils literal notranslate"><span class="pre">2086592</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.GenerateSimDataset.generate_test_data">
+<code class="sig-name descname"><span class="pre">generate_test_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_ccd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#GenerateSimDataset.generate_test_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.GenerateSimDataset.generate_test_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the test dataset and save it into a fits file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Horizontal number of elements of the testing grid in one CCD.</p></li>
+<li><p><strong>y_grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Vertical number of elements of the testing grid in one CCD.</p></li>
+<li><p><strong>n_ccd</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of CCDs in the instrument.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><code class="docutils literal notranslate"><span class="pre">n_ccd</span></code> should be coherent with the corresponding functions on
+<code class="docutils literal notranslate"><span class="pre">mccd.mccd_utils</span></code> that do the change of coordiante system.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.GenerateSimDataset.e1_catalog_fun">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">e1_catalog_fun</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#GenerateSimDataset.e1_catalog_fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.GenerateSimDataset.e1_catalog_fun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define an e1 ellipticity per position.</p>
+<p>Analytic function for defining the e1 ellipticity as a function
+of the global position (MegaCam).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.GenerateSimDataset.e2_catalog_fun">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">e2_catalog_fun</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#GenerateSimDataset.e2_catalog_fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.GenerateSimDataset.e2_catalog_fun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define an e2 ellipticity per position.</p>
+<p>Analytic function for defining the e2 ellipticity as a function
+of the global position (MegaCam).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.GenerateSimDataset.scale_coordinates">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">scale_coordinates</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coor_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coor_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#GenerateSimDataset.scale_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.GenerateSimDataset.scale_coordinates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale global coordinates.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.GenerateSimDataset.bessel_generator">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">bessel_generator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coor_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coor_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_order</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_factor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circular_symetry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp_decay_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#GenerateSimDataset.bessel_generator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.GenerateSimDataset.bessel_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a type of Bessel function response.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.GenerateSimDataset.handle_SExtractor_mask">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">handle_SExtractor_mask</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#GenerateSimDataset.handle_SExtractor_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.GenerateSimDataset.handle_SExtractor_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle SExtractor masks.</p>
+<p>Reads SExtracted star stamps, generates MCCD-compatible masks
+(that is, binary weights), and replaces bad pixels with 0s - they will
+not be used by MCCD, but the ridiculous numerical values can
+otherwise still lead to problems because of convolutions.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="mccd.auxiliary_fun.mccd_fit">
+<code class="sig-prename descclassname"><span class="pre">mccd.auxiliary_fun.</span></code><code class="sig-name descname"><span class="pre">mccd_fit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">starcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mccd_inst_kw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mccd_fit_kw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catalog_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1234567</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sex_thresh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">100000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_SNR_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saving_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fitted_model'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#mccd_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.mccd_fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fits (train) the MCCD model.</p>
+<p>Then saves it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>starcat</strong> (<em>fits table</em>) – Opened fits file containing a fits table,
+ie <code class="docutils literal notranslate"><span class="pre">astropy.io.fits(path)[1]</span></code>.
+Should contain the training dataset with the columns:
+Mandatory: <code class="docutils literal notranslate"><span class="pre">CCD_ID_LIST</span></code>, <code class="docutils literal notranslate"><span class="pre">VIGNET_LIST</span></code>,
+<code class="docutils literal notranslate"><span class="pre">GLOB_POSITION_IMG_LIST</span></code>, <code class="docutils literal notranslate"><span class="pre">MASK_LIST</span></code>.
+Optional: <code class="docutils literal notranslate"><span class="pre">SNR_WIN_LIST</span></code>.</p></li>
+<li><p><strong>mccd_inst_kw</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Parameters for the MCCD class initialization.</p></li>
+<li><p><strong>mccd_fit_kw</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Parameters for the MCCD class fit() function.</p></li>
+<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Path to the directory to save the fitted model.</p></li>
+<li><p><strong>catalog_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Id of the catalog being trained.
+Default is <code class="docutils literal notranslate"><span class="pre">1234567</span></code>.</p></li>
+<li><p><strong>sex_thresh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Masking threshold, specially for SExtractor catalogs.
+Default is <code class="docutils literal notranslate"><span class="pre">-1e5</span></code>.</p></li>
+<li><p><strong>use_SNR_weight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Boolean to decide to use the SNR weight strategy. The columns
+<code class="docutils literal notranslate"><span class="pre">SNR_WIN_LIST</span></code> should be available on the input fits table.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Verbose mode.
+Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>saving_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name of the fitted model file. Default is <code class="docutils literal notranslate"><span class="pre">fitted_model</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Saves the fitted model intro a <code class="docutils literal notranslate"><span class="pre">.npy</span></code> element on <code class="docutils literal notranslate"><span class="pre">output_dir</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mccd.auxiliary_fun.mccd_validation">
+<code class="sig-prename descclassname"><span class="pre">mccd.auxiliary_fun.</span></code><code class="sig-name descname"><span class="pre">mccd_validation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mccd_model_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">testcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_degradation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mccd_debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_pol_interp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sex_thresh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">100000.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#mccd_validation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.mccd_validation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate a MCCD model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mccd_model_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Path to the saved trained MCCD model.</p></li>
+<li><p><strong>testcat</strong> (<em>fits table</em>) – Opened fits file containing a fits table,
+ie <code class="docutils literal notranslate"><span class="pre">astropy.io.fits(path)[1]</span></code>.
+Should contain the testing dataset with the columns:
+Mandatory: <code class="docutils literal notranslate"><span class="pre">CCD_ID_LIST</span></code>, <code class="docutils literal notranslate"><span class="pre">VIGNET_LIST</span></code>,
+<code class="docutils literal notranslate"><span class="pre">GLOB_POSITION_IMG_LIST</span></code>, <code class="docutils literal notranslate"><span class="pre">MASK_LIST</span></code>.
+Optional: <code class="docutils literal notranslate"><span class="pre">RA_LIST</span></code>, <code class="docutils literal notranslate"><span class="pre">DEC_LIST</span></code>.</p></li>
+<li><p><strong>apply_degradation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Boolean determining if the returned PSFs should be matched to the
+observed stars by the application of a degradation which consists of
+an intra-pixel shift, fulx matching, etc.
+Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p><strong>mccd_debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Boolean to determine if the validation will be run in debug mode.
+Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>global_pol_interp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Boolean to determine if the global model interpolation is done with
+a new position matrix (True) or if it is done with the RBF kernel
+interpolation (False).
+Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>sex_thresh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Masking threshold, specially for SExtractor catalogs.
+Default is <code class="docutils literal notranslate"><span class="pre">-1e5</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>star_dict</strong> – Dictionary containing the data needed for validation purposes.
+Keys: <code class="docutils literal notranslate"><span class="pre">PSF_VIGNET_LIST</span></code>, <code class="docutils literal notranslate"><span class="pre">PSF_MOM_LIST</span></code>, <code class="docutils literal notranslate"><span class="pre">STAR_MOM_LIST</span></code>,
+<code class="docutils literal notranslate"><span class="pre">GLOB_POSITION_IMG_LIST</span></code>, <code class="docutils literal notranslate"><span class="pre">VIGNET_LIST</span></code>,
+<code class="docutils literal notranslate"><span class="pre">MASK_LIST</span></code>, <code class="docutils literal notranslate"><span class="pre">CCD_ID_LIST</span></code>.
+Optional keys: <code class="docutils literal notranslate"><span class="pre">RA_LIST</span></code>, <code class="docutils literal notranslate"><span class="pre">DEC_LIST</span></code>,
+<code class="docutils literal notranslate"><span class="pre">PSF_GLOB_VIGNET_LIST</span></code>, <code class="docutils literal notranslate"><span class="pre">PSF_LOC_VIGNET_LIST</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The parameter <code class="docutils literal notranslate"><span class="pre">apply_degradation</span></code> needs to be set to True if a pixel
+validation of the model is going to be done.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mccd.auxiliary_fun.mccd_preprocessing">
+<code class="sig-prename descclassname"><span class="pre">mccd.auxiliary_fun.</span></code><code class="sig-name descname"><span class="pre">mccd_preprocessing</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_folder_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_n_stars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sexcat-\\*-\\*.fits'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'-'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CCD_id_filter_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outlier_std_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_masks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'train_star_selection'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_extension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.fits'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#mccd_preprocessing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.mccd_preprocessing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preprocess input catalog.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_folder_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Path to the folder containing the files to preprocess.</p></li>
+<li><p><strong>output_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Path to the folder where to save the preprocessed files.</p></li>
+<li><p><strong>min_n_stars</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Minimum number of stars in order to preprocess the CCD.
+Default is <code class="docutils literal notranslate"><span class="pre">20</span></code>.</p></li>
+<li><p><strong>file_pattern</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Input file pattern as a regex expression. Only the files matching
+the <code class="docutils literal notranslate"><span class="pre">file_pattern</span></code> in <code class="docutils literal notranslate"><span class="pre">input_folder_path</span></code> will be treated.
+Default is <code class="docutils literal notranslate"><span class="pre">sexcat-*-*.fits</span></code>. Where the first <cite>*</cite> corresponds to
+the catalog_id, the second <cite>*</cite> corresponds to the CCD id and they are
+separated by the <code class="docutils literal notranslate"><span class="pre">separator</span></code>.</p></li>
+<li><p><strong>separator</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Separator string that separates the catalog id and the CCD id.
+Default is <code class="docutils literal notranslate"><span class="pre">'-'</span></code>.</p></li>
+<li><p><strong>CCD_id_filter_list</strong> (<em>list of int</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – A list that correspond to the CCDs that should be preprocessed.
+If it is None, all the CCDs are preprocessed.
+(Current version: Hardcoded for the MegaCam scenario).
+Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>outlier_std_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Parameter regulating the shape outlier removal. Default is very high
+so as it is not done at all. A decent number would be <code class="docutils literal notranslate"><span class="pre">10</span></code>.
+Default is <code class="docutils literal notranslate"><span class="pre">100.</span></code>.</p></li>
+<li><p><strong>save_masks</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If masks should be saved in the new file.
+Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p><strong>save_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name to save the preprocessed file.
+Default is <code class="docutils literal notranslate"><span class="pre">'train_star_selection'</span></code>.</p></li>
+<li><p><strong>save_extension</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Extension of the saved file.
+Default is <code class="docutils literal notranslate"><span class="pre">.fits</span></code>.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Verbose mode.
+Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>mccd_inputs</strong> – An instance of <code class="docutils literal notranslate"><span class="pre">MccdInputs</span></code> class used for the input preprocessing.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>class</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="mccd.auxiliary_fun.MCCDParamsParser">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">mccd.auxiliary_fun.</span></code><code class="sig-name descname"><span class="pre">MCCDParamsParser</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#MCCDParamsParser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.MCCDParamsParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Parse MCCD config file.</p>
+<p>Set up a parser for the MCCD parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Path to the config file.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IOError" title="(in Python v3.9)"><strong>IOError</strong></a> – For non existent configuration file.</p>
+</dd>
+</dl>
+<p>Initialize class.</p>
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.MCCDParamsParser.parse_document">
+<code class="sig-name descname"><span class="pre">parse_document</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#MCCDParamsParser.parse_document"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.MCCDParamsParser.parse_document" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse config file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.MCCDParamsParser.get_extra_kw">
+<code class="sig-name descname"><span class="pre">get_extra_kw</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#MCCDParamsParser.get_extra_kw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.MCCDParamsParser.get_extra_kw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get parameter from extra arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>param_name</strong> – Name of the parameter</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.MCCDParamsParser.get_fit_kw">
+<code class="sig-name descname"><span class="pre">get_fit_kw</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#MCCDParamsParser.get_fit_kw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.MCCDParamsParser.get_fit_kw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get fit parameter dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>mccd_fit_kw</strong> – MCCD fit parameter dictionary.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.MCCDParamsParser.get_instance_kw">
+<code class="sig-name descname"><span class="pre">get_instance_kw</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#MCCDParamsParser.get_instance_kw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.MCCDParamsParser.get_instance_kw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get instace parameter dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>mccd_inst_kw</strong> – MCCD instance parameter dictionary.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.MCCDParamsParser.get_inputs_kw">
+<code class="sig-name descname"><span class="pre">get_inputs_kw</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#MCCDParamsParser.get_inputs_kw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.MCCDParamsParser.get_inputs_kw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get paths parameter dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>mccd_inputs_kw</strong> – MCCD input parameter dictionary.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.MCCDParamsParser.get_val_prepro_kw">
+<code class="sig-name descname"><span class="pre">get_val_prepro_kw</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#MCCDParamsParser.get_val_prepro_kw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.MCCDParamsParser.get_val_prepro_kw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get preprocessing validation input dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>mccd_val_prepro_kw</strong> – MCCD preprocessing validation input dictionary.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.MCCDParamsParser.get_val_kw">
+<code class="sig-name descname"><span class="pre">get_val_kw</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#MCCDParamsParser.get_val_kw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.MCCDParamsParser.get_val_kw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get validaiton parameter dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>mccd_val_kw</strong> – MCCD validation dictionary.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="mccd.auxiliary_fun.RunMCCD">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">mccd.auxiliary_fun.</span></code><code class="sig-name descname"><span class="pre">RunMCCD</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fits_table_pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#RunMCCD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.RunMCCD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Run the MCCD method.</p>
+<p>This class allows to run the MCCD method using the paramters present on
+the configuration file. Saves the fitted model on the output directory
+found in the MCCD configuration file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config_file_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Path to the configuration file.</p></li>
+<li><p><strong>fits_table_pos</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Position of the Table in the fits file.
+Default is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Verbose mode.
+Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Missing:
+- Method including the validation.
+- Erase the preprocessed files (?)</p>
+<p>Initialize class.</p>
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.RunMCCD.parse_config_file">
+<code class="sig-name descname"><span class="pre">parse_config_file</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#RunMCCD.parse_config_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.RunMCCD.parse_config_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse configuration file and recover parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.RunMCCD.preprocess_inputs">
+<code class="sig-name descname"><span class="pre">preprocess_inputs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#RunMCCD.preprocess_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.RunMCCD.preprocess_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preprocess the input data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.RunMCCD.preprocess_val_inputs">
+<code class="sig-name descname"><span class="pre">preprocess_val_inputs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#RunMCCD.preprocess_val_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.RunMCCD.preprocess_val_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preprocess validation input data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.RunMCCD.fit_models">
+<code class="sig-name descname"><span class="pre">fit_models</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#RunMCCD.fit_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.RunMCCD.fit_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build and save the models to the catalgos found.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.RunMCCD.validate_models">
+<code class="sig-name descname"><span class="pre">validate_models</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#RunMCCD.validate_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.RunMCCD.validate_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate MCCD models.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.RunMCCD.fit_MCCD_models">
+<code class="sig-name descname"><span class="pre">fit_MCCD_models</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#RunMCCD.fit_MCCD_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.RunMCCD.fit_MCCD_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit MCCD models.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.RunMCCD.validate_MCCD_models">
+<code class="sig-name descname"><span class="pre">validate_MCCD_models</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#RunMCCD.validate_MCCD_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.RunMCCD.validate_MCCD_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate MCCD models.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.RunMCCD.run_MCCD">
+<code class="sig-name descname"><span class="pre">run_MCCD</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#RunMCCD.run_MCCD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.RunMCCD.run_MCCD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the MCCD routines.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mccd.auxiliary_fun.RunMCCD.recover_MCCD_PSFs">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">recover_MCCD_PSFs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mccd_model_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ccd_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/auxiliary_fun.html#RunMCCD.recover_MCCD_PSFs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mccd.auxiliary_fun.RunMCCD.recover_MCCD_PSFs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recover MCCD PSFs at required positions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mccd_model_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Path pointing to the saved fitted MCCD model to be used.</p></li>
+<li><p><strong>positions</strong> (<em>numpy.ndarray</em>) – Array containing the positions where the PSF should be recovered.
+The shape of the array should be (n,2) [x,y].</p></li>
+<li><p><strong>ccd_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Id of the CCD from where the positions where taken.</p></li>
+<li><p><strong>local_pos</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If the positions passed are local to the CCD. If False, the
+positions are considered to be in the same format
+(coordinate system, units, etc.) as the <code class="docutils literal notranslate"><span class="pre">obs_pos</span></code> fed
+to <code class="xref py py-func docutils literal notranslate"><span class="pre">MCCD.fit()</span></code>.
+Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>rec_PSFs</strong> – Array containing the recovered PSFs.
+Array dimensions: (n_psf, n_im, n_im).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#OSError" title="(in Python v3.9)"><strong>OSError</strong></a> – For non-existent fitted model.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – For ccd_id not being an integer.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="mccd.grads.html" class="btn btn-neutral float-right" title="1.1.2. mccd.grads module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="mccd.html" class="btn btn-neutral float-left" title="1. mccd package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Tobias Liaudat.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

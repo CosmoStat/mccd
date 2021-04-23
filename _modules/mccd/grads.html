@@ -1,0 +1,827 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>mccd.grads &mdash; mccd 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mccd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../mccd.html">1. mccd package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../mccd.auxiliary_fun.html">1.1.1. mccd.auxiliary_fun module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mccd.grads.html">1.1.2. mccd.grads module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mccd.info.html">1.1.3. mccd.info module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mccd.mccd.html">1.1.4. mccd.mccd module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mccd.mccd_utils.html">1.1.5. mccd.mccd_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mccd.proxs.html">1.1.6. mccd.proxs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mccd.utils.html">1.1.7. mccd.utils module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mccd</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>mccd.grads</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for mccd.grads</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sa">r</span><span class="sd">&quot;&quot;&quot;GRADIENTS.</span>
+
+<span class="sd">Defines the gradient classes that will be used in the optimization</span>
+<span class="sd">procedures from the ModOpt package.</span>
+
+<span class="sd">: Authors: Tobias Liaudat &lt;tobiasliaudat@gmail.com&gt;</span>
+
+<span class="sd">           Morgan Schmitz &lt;https://github.com/MorganSchmitz&gt;</span>
+
+<span class="sd">           Jerome Bonnin &lt;https://github.com/jerome-bonnin&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">modopt.opt.gradient</span> <span class="kn">import</span> <span class="n">GradParent</span>
+<span class="kn">from</span> <span class="nn">modopt.math.matrix</span> <span class="kn">import</span> <span class="n">PowerMethod</span>
+<span class="kn">from</span> <span class="nn">modopt.signal.wavelet</span> <span class="kn">import</span> <span class="n">filter_convolve</span>
+<span class="kn">import</span> <span class="nn">mccd.utils</span> <span class="k">as</span> <span class="nn">utils</span>
+
+
+<div class="viewcode-block" id="CoeffLocGrad"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad">[docs]</a><span class="k">class</span> <span class="nc">CoeffLocGrad</span><span class="p">(</span><span class="n">GradParent</span><span class="p">,</span> <span class="n">PowerMethod</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Gradient class for the local coefficient update.</span>
+
+<span class="sd">    Local Alpha, :math:`\\alpha_{k}`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data: numpy.ndarray</span>
+<span class="sd">        Observed data.</span>
+<span class="sd">    weights: numpy.ndarray</span>
+<span class="sd">        Corresponding pixel-wise weights.</span>
+<span class="sd">    S: numpy.ndarray</span>
+<span class="sd">        Current eigenPSFs :math:`S`.</span>
+<span class="sd">    VT: numpy.ndarray</span>
+<span class="sd">        Matrix of spatial constraint enforcement (in the MCCD-RCA case will</span>
+<span class="sd">        be the matrix of concatenated graph Laplacians.)</span>
+<span class="sd">    H_glob: numpy.ndarray</span>
+<span class="sd">        Current estimation of the global model.</span>
+<span class="sd">    flux: numpy.ndarray</span>
+<span class="sd">        Per-object flux value.</span>
+<span class="sd">    sig: numpy.ndarray</span>
+<span class="sd">        Noise levels.</span>
+<span class="sd">    ker: numpy.ndarray</span>
+<span class="sd">        Shifting kernels.</span>
+<span class="sd">    ker_rot: numpy.ndarray</span>
+<span class="sd">        Inverted shifting kernels.</span>
+<span class="sd">    SNR_weights: numpy.ndarray</span>
+<span class="sd">        Array of per star weights.</span>
+<span class="sd">    D: float</span>
+<span class="sd">        Upsampling factor.</span>
+<span class="sd">    save_iter_cost: bool</span>
+<span class="sd">        To save iteration diagnostic data.</span>
+<span class="sd">        Default is ``False``.</span>
+<span class="sd">    data_type: str</span>
+<span class="sd">        Data type to be used.</span>
+<span class="sd">        Default is ``float``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">H_glob</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">ker</span><span class="p">,</span>
+                 <span class="n">ker_rot</span><span class="p">,</span> <span class="n">SNR_weights</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">save_iter_cost</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Initialize class attributes.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_grad_data_type</span> <span class="o">=</span> <span class="n">data_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">=</span> <span class="n">weights</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MX</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trans_op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MtX</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">VT</span> <span class="o">=</span> <span class="n">VT</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H_glob</span> <span class="o">=</span> <span class="n">H_glob</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flux</span> <span class="o">=</span> <span class="n">flux</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sig</span> <span class="o">=</span> <span class="n">sig</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normfacs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flux</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flux</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">sig</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ker</span> <span class="o">=</span> <span class="n">ker</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ker_rot</span> <span class="o">=</span> <span class="n">ker_rot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="n">D</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">SNR_weights</span> <span class="o">=</span> <span class="n">SNR_weights</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_iter_cost</span> <span class="o">=</span> <span class="n">save_iter_cost</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">FdS</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">FdH_glob</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">PowerMethod</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">trans_op_op</span><span class="p">,</span>
+                             <span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">VT</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">auto_run</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_S</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">S</span><span class="p">),</span> <span class="n">update_spectral_radius</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="CoeffLocGrad.reset_iter_cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad.reset_iter_cost">[docs]</a>    <span class="k">def</span> <span class="nf">reset_iter_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Reset iteration cost.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="CoeffLocGrad.get_iter_cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad.get_iter_cost">[docs]</a>    <span class="k">def</span> <span class="nf">get_iter_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get current iteration cost.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span></div>
+
+<div class="viewcode-block" id="CoeffLocGrad.update_S"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad.update_S">[docs]</a>    <span class="k">def</span> <span class="nf">update_S</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_S</span><span class="p">,</span> <span class="n">update_spectral_radius</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Update current eigenPSFs.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="n">new_S</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">FdS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">degradation_op</span><span class="p">(</span><span class="n">S_j</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+                              <span class="k">for</span> <span class="n">nf</span><span class="p">,</span> <span class="n">shift_ker</span> <span class="ow">in</span>
+                              <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normfacs</span><span class="p">,</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ker</span><span class="p">))]</span>
+                             <span class="k">for</span> <span class="n">S_j</span> <span class="ow">in</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="p">)])</span>
+        <span class="k">if</span> <span class="n">update_spectral_radius</span><span class="p">:</span>
+            <span class="n">PowerMethod</span><span class="o">.</span><span class="n">get_spec_rad</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CoeffLocGrad.update_H_glob"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad.update_H_glob">[docs]</a>    <span class="k">def</span> <span class="nf">update_H_glob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_H_glob</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Update current global model.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H_glob</span> <span class="o">=</span> <span class="n">new_H_glob</span>
+        <span class="n">dec_H_glob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">degradation_op</span><span class="p">(</span><span class="n">H_i</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+             <span class="k">for</span> <span class="n">nf</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="n">H_i</span> <span class="ow">in</span>
+             <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normfacs</span><span class="p">,</span>
+                 <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ker</span><span class="p">),</span>
+                 <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_glob</span><span class="p">))])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">FdH_glob</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">dec_H_glob</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CoeffLocGrad.MX"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad.MX">[docs]</a>    <span class="k">def</span> <span class="nf">MX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Apply degradation operator and renormalize.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        alpha: numpy.ndarray</span>
+<span class="sd">            Current coefficients (after factorization by :math:`V^{\\top}`).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">alpha</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="p">)</span>
+        <span class="n">dec_rec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dec_rec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">dec_rec</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">A</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span>
+                                      <span class="bp">self</span><span class="o">.</span><span class="n">FdS</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">=</span> <span class="n">dec_rec</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span></div>
+
+<div class="viewcode-block" id="CoeffLocGrad.MtX"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad.MtX">[docs]</a>    <span class="k">def</span> <span class="nf">MtX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Adjoint to degradation operator :func:`MX`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : numpy.ndarray</span>
+<span class="sd">            Set of finer-grid images.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">SNR_weights</span><span class="p">)</span>  <span class="c1"># [TL] CHECK</span>
+        <span class="n">STx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">FdS_i</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">FdS_i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">FdS</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">STx</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="o">.</span><span class="n">T</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CoeffLocGrad.cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad.cost">[docs]</a>    <span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute data fidelity term.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        ``y`` is unused (it&#39;s just so ``modopt.opt.algorithms.Condat``</span>
+<span class="sd">        can feed the dual variable.)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MX</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">cost_val</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FdH_glob</span> <span class="o">-</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">SNR_weights</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="n">cost_val</span></div>
+
+<div class="viewcode-block" id="CoeffLocGrad.get_grad"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad.get_grad">[docs]</a>    <span class="k">def</span> <span class="nf">get_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute current iteration&#39;s gradient.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MtX</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span>
+                             <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MX</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FdH_glob</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_iter_cost</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cost</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="CoeffGlobGrad"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad">[docs]</a><span class="k">class</span> <span class="nc">CoeffGlobGrad</span><span class="p">(</span><span class="n">GradParent</span><span class="p">,</span> <span class="n">PowerMethod</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Gradient class for the local coefficient update.</span>
+
+<span class="sd">    Global Alpha, :math: \\tilde{\\alpha}`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data: numpy.ndarray</span>
+<span class="sd">        Observed data.</span>
+<span class="sd">    weights: numpy.ndarray</span>
+<span class="sd">        Corresponding pixel-wise weights.</span>
+<span class="sd">    S: numpy.ndarray</span>
+<span class="sd">        Current eigenPSFs :math:`S`.</span>
+<span class="sd">    Pi: numpy.ndarray</span>
+<span class="sd">        Matrix of positions polynomials.</span>
+<span class="sd">    H_loc: numpy.ndarray</span>
+<span class="sd">        Current estimation of the local model</span>
+<span class="sd">    flux: numpy.ndarray</span>
+<span class="sd">        Per-object flux value.</span>
+<span class="sd">    sig: numpy.ndarray</span>
+<span class="sd">        Noise levels.</span>
+<span class="sd">    ker: numpy.ndarray</span>
+<span class="sd">        Shifting kernels.</span>
+<span class="sd">    ker_rot: numpy.ndarray</span>
+<span class="sd">        Inverted shifting kernels.</span>
+<span class="sd">    SNR_weights: numpy.ndarray</span>
+<span class="sd">        Array of per star weights.</span>
+<span class="sd">    D: float</span>
+<span class="sd">        Upsampling factor.</span>
+<span class="sd">    save_iter_cost: bool</span>
+<span class="sd">        To save iteration diagnostic data.</span>
+<span class="sd">        Default is ``False``.</span>
+<span class="sd">    data_type: str</span>
+<span class="sd">        Data type to be used.</span>
+<span class="sd">        Default is ``float``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Pi</span><span class="p">,</span> <span class="n">H_loc</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">ker</span><span class="p">,</span>
+                 <span class="n">ker_rot</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">SNR_weights</span><span class="p">,</span> <span class="n">save_iter_cost</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Initialize class attributes.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_grad_data_type</span> <span class="o">=</span> <span class="n">data_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">=</span> <span class="n">weights</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MX</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trans_op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MtX</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Pi</span> <span class="o">=</span> <span class="n">Pi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H_loc</span> <span class="o">=</span> <span class="n">H_loc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flux</span> <span class="o">=</span> <span class="n">flux</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sig</span> <span class="o">=</span> <span class="n">sig</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normfacs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flux</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flux</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">sig</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ker</span> <span class="o">=</span> <span class="n">ker</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ker_rot</span> <span class="o">=</span> <span class="n">ker_rot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="n">D</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">SNR_weights</span> <span class="o">=</span> <span class="n">SNR_weights</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_iter_cost</span> <span class="o">=</span> <span class="n">save_iter_cost</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">FdS</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">FdH_loc</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">PowerMethod</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">trans_op_op</span><span class="p">,</span>
+                             <span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">Pi</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">auto_run</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_S</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">S</span><span class="p">),</span> <span class="n">update_spectral_radius</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="CoeffGlobGrad.reset_iter_cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad.reset_iter_cost">[docs]</a>    <span class="k">def</span> <span class="nf">reset_iter_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Reset iteration cost.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="CoeffGlobGrad.get_iter_cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad.get_iter_cost">[docs]</a>    <span class="k">def</span> <span class="nf">get_iter_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get current iteration cost.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span></div>
+
+<div class="viewcode-block" id="CoeffGlobGrad.update_S"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad.update_S">[docs]</a>    <span class="k">def</span> <span class="nf">update_S</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_S</span><span class="p">,</span> <span class="n">update_spectral_radius</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Update current eigenPSFs.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="n">new_S</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">FdS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">degradation_op</span><span class="p">(</span><span class="n">S_j</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+                              <span class="k">for</span> <span class="n">nf</span><span class="p">,</span> <span class="n">shift_ker</span> <span class="ow">in</span>
+                              <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normfacs</span><span class="p">,</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ker</span><span class="p">))]</span>
+                             <span class="k">for</span> <span class="n">S_j</span> <span class="ow">in</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="p">)])</span>
+        <span class="k">if</span> <span class="n">update_spectral_radius</span><span class="p">:</span>
+            <span class="n">PowerMethod</span><span class="o">.</span><span class="n">get_spec_rad</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CoeffGlobGrad.update_H_loc"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad.update_H_loc">[docs]</a>    <span class="k">def</span> <span class="nf">update_H_loc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_H_loc</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Update current local models.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H_loc</span> <span class="o">=</span> <span class="n">new_H_loc</span>
+        <span class="n">dec_H_loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">degradation_op</span><span class="p">(</span><span class="n">H_i</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+                              <span class="k">for</span> <span class="n">nf</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="n">H_i</span> <span class="ow">in</span>
+                              <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normfacs</span><span class="p">,</span>
+                                  <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ker</span><span class="p">),</span>
+                                  <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_loc</span><span class="p">))])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">FdH_loc</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">dec_H_loc</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CoeffGlobGrad.MX"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad.MX">[docs]</a>    <span class="k">def</span> <span class="nf">MX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Apply degradation operator and renormalize.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        alpha: numpy.ndarray</span>
+<span class="sd">            Current coefficients (after factorization by :math:`\\Pi`).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">alpha</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="p">)</span>
+        <span class="n">dec_rec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dec_rec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">dec_rec</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">A</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span>
+                                      <span class="bp">self</span><span class="o">.</span><span class="n">FdS</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">=</span> <span class="n">dec_rec</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span></div>
+
+<div class="viewcode-block" id="CoeffGlobGrad.MtX"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad.MtX">[docs]</a>    <span class="k">def</span> <span class="nf">MtX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Adjoint to degradation operator :func:`MX`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : numpy.ndarray</span>
+<span class="sd">            Set of finer-grid images.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">SNR_weights</span><span class="p">)</span>  <span class="c1"># [TL] CHECK</span>
+        <span class="n">STx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">FdS_i</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">FdS_i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">FdS</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">STx</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="o">.</span><span class="n">T</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CoeffGlobGrad.cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad.cost">[docs]</a>    <span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute data fidelity term.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        ``y`` is unused (it&#39;s just so ``modopt.opt.algorithms.Condat``</span>
+<span class="sd">        can feed the dual variable.)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MX</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">cost_val</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FdH_loc</span> <span class="o">-</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">SNR_weights</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="n">cost_val</span></div>
+
+<div class="viewcode-block" id="CoeffGlobGrad.get_grad"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad.get_grad">[docs]</a>    <span class="k">def</span> <span class="nf">get_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute current iteration&#39;s gradient.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MtX</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span>
+                             <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MX</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FdH_loc</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_iter_cost</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cost</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="SourceLocGrad"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad">[docs]</a><span class="k">class</span> <span class="nc">SourceLocGrad</span><span class="p">(</span><span class="n">GradParent</span><span class="p">,</span> <span class="n">PowerMethod</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Gradient class for the local eigenPSF update.</span>
+
+<span class="sd">    Local S, :math:`S_{k}`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data: numpy.ndarray</span>
+<span class="sd">        Input data array, a array of 2D observed images (i.e. with noise).</span>
+<span class="sd">    weights: numpy.ndarray</span>
+<span class="sd">        Corresponding pixel-wise weights.</span>
+<span class="sd">    A: numpy.ndarray</span>
+<span class="sd">        Current estimation of corresponding coefficients.</span>
+<span class="sd">    H_glob: numpy.ndarray</span>
+<span class="sd">        Current estimation of the global model</span>
+<span class="sd">    flux: numpy.ndarray</span>
+<span class="sd">        Per-object flux value.</span>
+<span class="sd">    sig: numpy.ndarray</span>
+<span class="sd">        Noise levels.</span>
+<span class="sd">    ker: numpy.ndarray</span>
+<span class="sd">        Shifting kernels.</span>
+<span class="sd">    ker_rot: numpy.ndarray</span>
+<span class="sd">        Inverted shifting kernels.</span>
+<span class="sd">    D: float</span>
+<span class="sd">        Upsampling factor.</span>
+<span class="sd">    filters: numpy.ndarray</span>
+<span class="sd">        Set of filters.</span>
+<span class="sd">    save_iter_cost: bool</span>
+<span class="sd">        To save iteration diagnostic data.</span>
+<span class="sd">        Default is ``False``.</span>
+<span class="sd">    data_type: str</span>
+<span class="sd">        Data type to be used.</span>
+<span class="sd">        Default is ``float``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">H_glob</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">ker</span><span class="p">,</span> <span class="n">ker_rot</span><span class="p">,</span>
+                 <span class="n">SNR_weights</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">filters</span><span class="p">,</span> <span class="n">save_iter_cost</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Initialize class attributes.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_grad_data_type</span> <span class="o">=</span> <span class="n">data_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">=</span> <span class="n">weights</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MX</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trans_op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MtX</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H_glob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">H_glob</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flux</span> <span class="o">=</span> <span class="n">flux</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sig</span> <span class="o">=</span> <span class="n">sig</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normfacs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flux</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flux</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">sig</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ker</span> <span class="o">=</span> <span class="n">ker</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ker_rot</span> <span class="o">=</span> <span class="n">ker_rot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="n">D</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="n">filters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">SNR_weights</span> <span class="o">=</span> <span class="n">SNR_weights</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_iter_cost</span> <span class="o">=</span> <span class="n">save_iter_cost</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">FdH_glob</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">hr_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">D</span>
+        <span class="n">PowerMethod</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">trans_op_op</span><span class="p">,</span>
+                             <span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">filters</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">hr_shape</span><span class="p">),</span>
+                             <span class="n">auto_run</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="SourceLocGrad.reset_iter_cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad.reset_iter_cost">[docs]</a>    <span class="k">def</span> <span class="nf">reset_iter_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Reset iteration cost.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="SourceLocGrad.get_iter_cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad.get_iter_cost">[docs]</a>    <span class="k">def</span> <span class="nf">get_iter_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get current iteration cost.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span></div>
+
+<div class="viewcode-block" id="SourceLocGrad.update_A"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad.update_A">[docs]</a>    <span class="k">def</span> <span class="nf">update_A</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_A</span><span class="p">,</span> <span class="n">update_spectral_radius</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Update current coefficients.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">=</span> <span class="n">new_A</span>
+        <span class="k">if</span> <span class="n">update_spectral_radius</span><span class="p">:</span>
+            <span class="n">PowerMethod</span><span class="o">.</span><span class="n">get_spec_rad</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SourceLocGrad.update_H_glob"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad.update_H_glob">[docs]</a>    <span class="k">def</span> <span class="nf">update_H_glob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_H_glob</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Update current global model.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H_glob</span> <span class="o">=</span> <span class="n">new_H_glob</span>
+        <span class="n">dec_H_glob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">degradation_op</span><span class="p">(</span><span class="n">H_i</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+             <span class="k">for</span> <span class="n">nf</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="n">H_i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normfacs</span><span class="p">,</span>
+                                           <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ker</span><span class="p">),</span>
+                                           <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_glob</span><span class="p">))])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">FdH_glob</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">dec_H_glob</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SourceLocGrad.MX"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad.MX">[docs]</a>    <span class="k">def</span> <span class="nf">MX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transf_S</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Apply degradation operator and renormalize.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        transf_S : numpy.ndarray</span>
+<span class="sd">            Current eigenPSFs in wavelet (by default Starlet) space.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray result</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">filter_convolve</span><span class="p">(</span><span class="n">transf_Sj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">,</span> <span class="n">filter_rot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                      <span class="k">for</span> <span class="n">transf_Sj</span> <span class="ow">in</span> <span class="n">transf_S</span><span class="p">]))</span>
+        <span class="n">dec_rec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">degradation_op</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A_i</span><span class="p">),</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+             <span class="k">for</span> <span class="n">nf</span><span class="p">,</span> <span class="n">A_i</span><span class="p">,</span> <span class="n">shift_ker</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normfacs</span><span class="p">,</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+                                           <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ker</span><span class="p">))])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">dec_rec</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span></div>
+
+<div class="viewcode-block" id="SourceLocGrad.MtX"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad.MtX">[docs]</a>    <span class="k">def</span> <span class="nf">MtX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Adjoint to degradation operator :func:`MX`.&quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">SNR_weights</span><span class="p">)</span>
+        <span class="n">upsamp_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">adjoint_degradation_op</span><span class="p">(</span><span class="n">x_i</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+             <span class="k">for</span> <span class="n">nf</span><span class="p">,</span> <span class="n">x_i</span><span class="p">,</span> <span class="n">shift_ker</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normfacs</span><span class="p">,</span>
+                                           <span class="n">x</span><span class="p">,</span>
+                                           <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ker_rot</span><span class="p">))])</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">upsamp_x</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">upsamp_x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">apply_transform</span><span class="p">(</span><span class="n">upsamp_x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SourceLocGrad.cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad.cost">[docs]</a>    <span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute data fidelity term.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        ``y`` is unused (it&#39;s just so ``modopt.opt.algorithms.Condat``</span>
+<span class="sd">        can feed the dual variable.)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MX</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">cost_val</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FdH_glob</span> <span class="o">-</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">SNR_weights</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+
+        <span class="k">return</span> <span class="n">cost_val</span></div>
+
+<div class="viewcode-block" id="SourceLocGrad.get_grad"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad.get_grad">[docs]</a>    <span class="k">def</span> <span class="nf">get_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute current iteration&#39;s gradient.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MtX</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span>
+                             <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MX</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FdH_glob</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_iter_cost</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cost</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="SourceGlobGrad"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad">[docs]</a><span class="k">class</span> <span class="nc">SourceGlobGrad</span><span class="p">(</span><span class="n">GradParent</span><span class="p">,</span> <span class="n">PowerMethod</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Gradient class for the global eigenPSF update.</span>
+
+<span class="sd">    Global S, :math:`\\tilde{S}`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data: numpy.ndarray</span>
+<span class="sd">        Input data array, a array of 2D observed images (i.e. with noise).</span>
+<span class="sd">    weights: numpy.ndarray</span>
+<span class="sd">        Corresponding pixel-wise weights.</span>
+<span class="sd">    A: numpy.ndarray</span>
+<span class="sd">        Current estimation of corresponding coefficients.</span>
+<span class="sd">    H_loc: numpy.ndarray</span>
+<span class="sd">        Current estimation of the local models</span>
+<span class="sd">    flux: numpy.ndarray</span>
+<span class="sd">        Per-object flux value.</span>
+<span class="sd">    sig: numpy.ndarray</span>
+<span class="sd">        Noise levels.</span>
+<span class="sd">    ker: numpy.ndarray</span>
+<span class="sd">        Shifting kernels.</span>
+<span class="sd">    ker_rot: numpy.ndarray</span>
+<span class="sd">        Inverted shifting kernels.</span>
+<span class="sd">    D: float</span>
+<span class="sd">        Upsampling factor.</span>
+<span class="sd">    filters: numpy.ndarray</span>
+<span class="sd">        Set of filters.</span>
+<span class="sd">    save_iter_cost: bool</span>
+<span class="sd">        To save iteration diagnostic data.</span>
+<span class="sd">        Default is ``False``.</span>
+<span class="sd">    data_type: str</span>
+<span class="sd">        Data type to be used.</span>
+<span class="sd">        Default is ``float``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">H_loc</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span>
+                 <span class="n">ker</span><span class="p">,</span> <span class="n">ker_rot</span><span class="p">,</span> <span class="n">SNR_weights</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">filters</span><span class="p">,</span> <span class="n">save_iter_cost</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Initialize class attributes.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_grad_data_type</span> <span class="o">=</span> <span class="n">data_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">=</span> <span class="n">weights</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MX</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trans_op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MtX</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H_loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">H_loc</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flux</span> <span class="o">=</span> <span class="n">flux</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sig</span> <span class="o">=</span> <span class="n">sig</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normfacs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flux</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flux</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">sig</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ker</span> <span class="o">=</span> <span class="n">ker</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ker_rot</span> <span class="o">=</span> <span class="n">ker_rot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="n">D</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="n">filters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">SNR_weights</span> <span class="o">=</span> <span class="n">SNR_weights</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_iter_cost</span> <span class="o">=</span> <span class="n">save_iter_cost</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">FdH_loc</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">hr_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">D</span>
+        <span class="n">PowerMethod</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">trans_op_op</span><span class="p">,</span>
+                             <span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">filters</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">hr_shape</span><span class="p">),</span>
+                             <span class="n">auto_run</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="SourceGlobGrad.reset_iter_cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad.reset_iter_cost">[docs]</a>    <span class="k">def</span> <span class="nf">reset_iter_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Reset iteration cost.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="SourceGlobGrad.get_iter_cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad.get_iter_cost">[docs]</a>    <span class="k">def</span> <span class="nf">get_iter_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get current iteration cost.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span></div>
+
+<div class="viewcode-block" id="SourceGlobGrad.update_A"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad.update_A">[docs]</a>    <span class="k">def</span> <span class="nf">update_A</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_A</span><span class="p">,</span> <span class="n">update_spectral_radius</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Update current coefficients.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">=</span> <span class="n">new_A</span>
+        <span class="k">if</span> <span class="n">update_spectral_radius</span><span class="p">:</span>
+            <span class="n">PowerMethod</span><span class="o">.</span><span class="n">get_spec_rad</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SourceGlobGrad.update_H_loc"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad.update_H_loc">[docs]</a>    <span class="k">def</span> <span class="nf">update_H_loc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_H_loc</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Update current local models.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H_loc</span> <span class="o">=</span> <span class="n">new_H_loc</span>
+        <span class="n">dec_H_loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">degradation_op</span><span class="p">(</span><span class="n">H_i</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+             <span class="k">for</span> <span class="n">nf</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="n">H_i</span> <span class="ow">in</span>
+             <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normfacs</span><span class="p">,</span>
+                 <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ker</span><span class="p">),</span>
+                 <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_loc</span><span class="p">))])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">FdH_loc</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">dec_H_loc</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SourceGlobGrad.MX"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad.MX">[docs]</a>    <span class="k">def</span> <span class="nf">MX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transf_S</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Apply degradation operator and renormalize.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        transf_S : numpy.ndarray</span>
+<span class="sd">            Current eigenPSFs in Starlet space.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray result</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">filter_convolve</span><span class="p">(</span><span class="n">transf_Sj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">,</span> <span class="n">filter_rot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                      <span class="k">for</span> <span class="n">transf_Sj</span> <span class="ow">in</span> <span class="n">transf_S</span><span class="p">]))</span>
+        <span class="n">dec_rec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">degradation_op</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A_i</span><span class="p">),</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+             <span class="k">for</span> <span class="n">nf</span><span class="p">,</span> <span class="n">A_i</span><span class="p">,</span> <span class="n">shift_ker</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normfacs</span><span class="p">,</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+                                           <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ker</span><span class="p">))])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">dec_rec</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span></div>
+
+<div class="viewcode-block" id="SourceGlobGrad.MtX"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad.MtX">[docs]</a>    <span class="k">def</span> <span class="nf">MtX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Adjoint to degradation operator :func:`MX`.&quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">SNR_weights</span><span class="p">)</span>
+        <span class="n">upsamp_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">adjoint_degradation_op</span><span class="p">(</span><span class="n">x_i</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span> <span class="k">for</span>
+             <span class="n">nf</span><span class="p">,</span> <span class="n">x_i</span><span class="p">,</span> <span class="n">shift_ker</span>
+             <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normfacs</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ker_rot</span><span class="p">))])</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">upsamp_x</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">upsamp_x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">apply_transform</span><span class="p">(</span><span class="n">upsamp_x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SourceGlobGrad.cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad.cost">[docs]</a>    <span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute data fidelity term.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        ``y`` is unused (it&#39;s just so ``modopt.opt.algorithms.Condat``</span>
+<span class="sd">        can feed the dual variable.)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MX</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">cost_val</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">*</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FdH_loc</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">)</span> <span class="o">*</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">SNR_weights</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="n">cost_val</span></div>
+
+<div class="viewcode-block" id="SourceGlobGrad.get_grad"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad.get_grad">[docs]</a>    <span class="k">def</span> <span class="nf">get_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute current iteration&#39;s gradient.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MtX</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">MX</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FdH_loc</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_iter_cost</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cost</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Tobias Liaudat.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

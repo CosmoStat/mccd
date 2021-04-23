@@ -1,0 +1,24 @@
+mccd package
+============
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   mccd.auxiliary_fun
+   mccd.grads
+   mccd.info
+   mccd.mccd
+   mccd.mccd_utils
+   mccd.proxs
+   mccd.utils
+
+Module contents
+---------------
+
+.. automodule:: mccd
+   :members:
+   :undoc-members:
+   :show-inheritance:
