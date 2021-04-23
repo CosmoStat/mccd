@@ -377,7 +377,6 @@ class SourceLocGrad(GradParent, PowerMethod):
         self.save_iter_cost = save_iter_cost
         self.FdH_glob = None
 
-
         hr_shape = np.array(data.shape[:2]) * D
         PowerMethod.__init__(self, self.trans_op_op,
                              (A.shape[0], filters.shape[0]) + tuple(hr_shape),
