@@ -112,13 +112,22 @@ class MCCD(object):
         Default to ``2``.
     """
 
-    def __init__(self, n_comp_loc, d_comp_glob, upfact=1, ksig_loc=1.,
-                 ksig_glob=1., n_scales=3, ksig_init=5., filters=None,
-                 verbose=2):
+    def __init__(self, n_comp_loc, d_comp_glob, d_hyb_loc=2, min_d_comp_glob=None,
+                 upfact=1, ksig_loc=1., ksig_glob=1., n_scales=3, ksig_init=1.,
+                 filters=None, verbose=2):
         r"""General parameter initialisations."""
+        # [TL] TODO Propagate parameters `d_hyb_loc` and `min_d_comp_glob` into config_file.
         self.n_comp_loc = n_comp_loc
         self.d_comp_glob = d_comp_glob
+        self.min_d_comp_glob = min_d_comp_glob
         self.n_comp_glob = (self.d_comp_glob + 1) * (self.d_comp_glob + 2) // 2
+        if self.min_d_comp_glob is not None:
+            if self.min_d_comp_glob>self.d_comp_glob:
+                raise ValueError('The total global degree must be bigger than the minimum degree.')
+            print('Reducing the global polynomial degree with d_min = ', self.min_d_comp_glob)
+            self.n_comp_glob -= (self.min_d_comp_glob+1)*(self.min_d_comp_glob+2)//2
+
+        self.d_hyb_loc = d_hyb_loc
         self.upfact = upfact
         self.ksig_loc = ksig_loc
         self.ksig_glob = ksig_glob
@@ -398,7 +407,7 @@ class MCCD(object):
 
         if self.loc_model == 'hybrid':
             # Hardcoded a poly deg 2 for the local polynome [TL] [improve]
-            self.n_comp_loc += 6
+            self.n_comp_loc += ((self.d_hyb_loc + 1) * (self.d_hyb_loc + 2) // 2)
 
         if S is None:
             # global eigenPSFs are the last ones
@@ -609,27 +618,46 @@ class MCCD(object):
 
         The positions in the global coordinate system
         are used.
-        Normalization of teh polynomials is being done here.
+        Normalization of the polynomials is being done here.
         """
+        # Calculate max and min values of global coordinate system
+        # This configuration is specific for CFIS MegaCam configuration
+        loc2glob = mccd_utils.Loc2Glob()
+        max_x = loc2glob.x_npix*6 + loc2glob.x_gap*5
+        min_x = loc2glob.x_npix*(-5) + loc2glob.x_gap*(-5)
+        max_y = loc2glob.y_npix*2 + loc2glob.y_gap*1
+        min_y = loc2glob.y_npix*(-2) + loc2glob.y_gap*(-2)
+
         self.Pi = [
-            utils.poly_pos(self.obs_pos[k], self.d_comp_glob,
-                           normalice=False, center=False)
+            utils.poly_pos(pos=self.obs_pos[k], max_degree=self.d_comp_glob,
+                           center_normalice = True,
+                           x_lims = [min_x, max_x], y_lims = [min_y, max_y],
+                           normalice_Pi=False, min_degree=self.min_d_comp_glob)
             for k in range(self.n_ccd)]
+
+
         self.alpha.append(np.eye(self.n_comp_glob))
 
-        # Global position model
-        # Normalization is not done on poly_pos() but globaly here
-        sum_vals = np.zeros(self.n_comp_glob)
-        for it in range(self.n_comp_glob):
-            for it_ccd in range(self.n_ccd):
-                sum_vals[it] += np.sum(self.Pi[it_ccd][it, :] ** 2)
-            sum_vals[it] = np.sqrt(sum_vals[it])
+        # Global position model normalisation
+        # Start with the list Pi
+        print('New global normalisation!')
+        conc_Pi = np.concatenate((self.Pi), axis=1)
+        Pi_norms = np.sqrt(np.sum(conc_Pi**2,axis=1)).reshape(-1,1)
+        self.Pi = [self.Pi[k]/Pi_norms for k in range(self.n_ccd)]
 
-        self.Pi = [self.Pi[it] / sum_vals.reshape(-1, 1)
-                   for it in range(len(self.Pi))]
-        norm_val = self.Pi[0][0, 0]
-        for it in range(len(self.Pi)):
-            self.Pi[it] /= norm_val
+        # # Global position model
+        # # Normalization is not done on poly_pos() but globaly here
+        # sum_vals = np.zeros(self.n_comp_glob)
+        # for it in range(self.n_comp_glob):
+        #     for it_ccd in range(self.n_ccd):
+        #         sum_vals[it] += np.sum(self.Pi[it_ccd][it, :] ** 2)
+        #     sum_vals[it] = np.sqrt(sum_vals[it])
+
+        # self.Pi = [self.Pi[it] / sum_vals.reshape(-1, 1)
+        #            for it in range(len(self.Pi))]
+        # norm_val = self.Pi[0][0, 0]
+        # for it in range(len(self.Pi)):
+        #     self.Pi[it] /= norm_val
 
         self.A_glob = [self.alpha[self.n_ccd].dot(self.Pi[k])
                        for k in range(self.n_ccd)]
@@ -637,8 +665,9 @@ class MCCD(object):
     def _initialize_loc_poly_model(self):
         r"""Initialize the local polynomial model."""
         self.VT = [
-            utils.poly_pos(self.obs_pos[k], self.d_comp_loc, normalice=True,
-                           center=True)
+            utils.poly_pos(pos=self.obs_pos[k], max_degree=self.d_comp_loc,
+                           center_normalice = True,
+                           x_lims = None, y_lims = None)
             for k in range(self.n_ccd)]
         self.alpha = [np.eye(self.n_comp_loc) for _it in range(self.n_ccd)]
         self.A_loc = [self.alpha[k].dot(self.VT[k]) for k in range(self.n_ccd)]
@@ -649,8 +678,8 @@ class MCCD(object):
         Graphs + polynomials.
         """
         # TODO Hardcoded to 2 the max_degree [TL] [improve]
-        max_deg = 2
-        n_poly_comp = 6
+        max_deg = self.d_hyb_loc
+        n_poly_comp = (max_deg + 1) * (max_deg + 2) // 2
         # Take the number of local component top the graph value
         self.n_comp_loc -= n_poly_comp
 
@@ -660,8 +689,9 @@ class MCCD(object):
         # Calculate the local polynomial and add it to
         # the graph-calculated values
         for k in range(self.n_ccd):
-            poly_VT = utils.poly_pos(self.obs_pos[k], max_degree=max_deg,
-                                     normalice=True, center=True)
+            poly_VT = utils.poly_pos(pos=self.obs_pos[k], max_degree=max_deg,
+                                     center_normalice = True,
+                                     x_lims = None, y_lims = None)
             poly_alpha = np.eye(n_poly_comp)
 
             n_comp_hyb = poly_alpha.shape[0]
@@ -791,6 +821,9 @@ class MCCD(object):
                           * np.sqrt(x)) + min_elements_loc,
                  np.floor(elem_size / 2)])
 
+        # [TL-test] Trying other function
+        # print('Using Tobi prox for local alpha sparsity.')
+        iter_func_loc = lambda x, elem_size: np.floor(np.sqrt(x))+1
         coeff_prox_loc = prox.KThreshold(iter_func_loc)
 
         # Global model
@@ -808,7 +841,11 @@ class MCCD(object):
                           * np.sqrt(x)) + min_elements_glob,
                  np.floor(elem_size / 2)])
 
-        coeff_prox_glob = prox.KThreshold(iter_func_glob)
+        # [TL-test] Trying other function
+        # print('Using Tobi prox for global alpha sparsity.')
+        iter_func_glob_v2 = lambda x, elem_size: np.floor(np.sqrt(x))+1
+        coeff_prox_glob = prox.KThreshold(iter_func_glob_v2)
+        # coeff_prox_glob = prox.KThreshold(iter_func_glob)
 
         norm_prox = prox.proxNormalization(type='columns')
         lin_recombine_alpha = [prox.LinRecombineAlpha(self.VT[k])
@@ -914,42 +951,38 @@ class MCCD(object):
                 # Coefficient sparsity prox update
                 coeff_prox_glob.reset_iter()
 
-                # Conda's algorithm parameters
-                # (lipschitz of diff. part and operator norm of lin. part)
-                # See Conda's paper for more details.
-                beta = weight_glob_grad.spec_rad * 1.5
-                tau = 1. / beta
-                sigma = (1. / lin_recombine_alpha[
-                    self.n_ccd].norm ** 2) * beta / 2
 
-                # try:
-                #     coeff_prox_glob.set_beta_param(beta)
-                # except Exception:
-                #     print('''Exception catched when:
-                #     coeff_prox_glob.set_beta_param(beta)''')
+                if l_glob < self.nb_iter_glob-1 or l_glob==0:
+                    # Conda's algorithm parameters
+                    # (lipschitz of diff. part and operator norm of lin. part)
+                    # See Conda's paper for more details.
+                    beta = weight_glob_grad.spec_rad * 1.5
+                    tau = 1. / beta
+                    sigma = (1. / lin_recombine_alpha[
+                        self.n_ccd].norm ** 2) * beta / 2
 
-                # Optimize !
-                weight_optim = optimalg.Condat(alpha[self.n_ccd],
-                                               dual_alpha[self.n_ccd],
-                                               weight_glob_grad,
-                                               coeff_prox_glob,
-                                               norm_prox,
-                                               linear=lin_recombine_alpha[
-                                                   self.n_ccd],
-                                               cost=weight_glob_cost,
-                                               max_iter=self.nb_subiter_A_glob,
-                                               tau=tau,
-                                               sigma=sigma,
-                                               verbose=self.verbose,
-                                               progress=self.verbose)
-                alpha[self.n_ccd] = weight_optim.x_final
-                weights_glob = [alpha[self.n_ccd].dot(self.Pi[k])
-                                for k in range(self.n_ccd)]
+                    # Optimize !
+                    weight_optim = optimalg.Condat(alpha[self.n_ccd],
+                                                   dual_alpha[self.n_ccd],
+                                                   weight_glob_grad,
+                                                   coeff_prox_glob,
+                                                   norm_prox,
+                                                   linear=lin_recombine_alpha[
+                                                       self.n_ccd],
+                                                   cost=weight_glob_cost,
+                                                   max_iter=self.nb_subiter_A_glob,
+                                                   tau=tau,
+                                                   sigma=sigma,
+                                                   verbose=self.verbose,
+                                                   progress=self.verbose)
+                    alpha[self.n_ccd] = weight_optim.x_final
+                    weights_glob = [alpha[self.n_ccd].dot(self.Pi[k])
+                                    for k in range(self.n_ccd)]
 
-                # Save iteration diagnostic data
-                if self.iter_outputs:
-                    self.iters_glob_A.append(weight_glob_grad.get_iter_cost())
-                    weight_glob_grad.reset_iter_cost()
+                    # Save iteration diagnostic data
+                    if self.iter_outputs:
+                        self.iters_glob_A.append(weight_glob_grad.get_iter_cost())
+                        weight_glob_grad.reset_iter_cost()
 
                 # Global model update
                 H_glob = [comp[self.n_ccd].dot(weights_glob[k])
@@ -1053,34 +1086,37 @@ class MCCD(object):
                     # Coeff sparsity prox update
                     coeff_prox_loc.reset_iter()
 
-                    # Conda parameters
-                    # (lipschitz of diff. part and operator norm of lin. part)
-                    beta = weight_loc_grad[k].spec_rad * 1.5
-                    tau = 1. / beta
-                    sigma = (1. / lin_recombine_alpha[k].norm ** 2) * beta / 2
+                    # Skip alpha updates for the last iterations
+                    if l_loc < self.nb_iter_loc-1 or l_loc==0:
 
-                    # Optimize
-                    weight_optim = optimalg.Condat(
-                        alpha[k],
-                        dual_alpha[k],
-                        weight_loc_grad[k],
-                        coeff_prox_loc,
-                        norm_prox,
-                        linear=lin_recombine_alpha[k],
-                        cost=weight_loc_cost[k],
-                        max_iter=self.nb_subiter_A_loc,
-                        tau=tau,
-                        sigma=sigma,
-                        verbose=self.verbose,
-                        progress=self.verbose)
-                    alpha[k] = weight_optim.x_final
-                    weights_loc[k] = alpha[k].dot(self.VT[k])
+                        # Conda parameters
+                        # (lipschitz of diff. part and operator norm of lin. part)
+                        beta = weight_loc_grad[k].spec_rad * 1.5
+                        tau = 1. / beta
+                        sigma = (1. / lin_recombine_alpha[k].norm ** 2) * beta / 2
 
-                    # Save iteration diagnostic data
-                    if self.iter_outputs:
-                        self.iters_loc_A[k].append(
-                            weight_loc_grad[k].get_iter_cost())
-                        weight_loc_grad[k].reset_iter_cost()
+                        # Optimize
+                        weight_optim = optimalg.Condat(
+                            alpha[k],
+                            dual_alpha[k],
+                            weight_loc_grad[k],
+                            coeff_prox_loc,
+                            norm_prox,
+                            linear=lin_recombine_alpha[k],
+                            cost=weight_loc_cost[k],
+                            max_iter=self.nb_subiter_A_loc,
+                            tau=tau,
+                            sigma=sigma,
+                            verbose=self.verbose,
+                            progress=self.verbose)
+                        alpha[k] = weight_optim.x_final
+                        weights_loc[k] = alpha[k].dot(self.VT[k])
+
+                        # Save iteration diagnostic data
+                        if self.iter_outputs:
+                            self.iters_loc_A[k].append(
+                                weight_loc_grad[k].get_iter_cost())
+                            weight_loc_grad[k].reset_iter_cost()
 
                     # Local model update
                     H_loc[k] = comp[k].dot(weights_loc[k])
