@@ -153,12 +153,13 @@ class proxNormalization(object):
 
         Following the prefered type.
         """
-        if self.type == 'lines':
-            x_norm = np.linalg.norm(x, axis=1).reshape(-1, 1)
-        else:
-            x_norm = np.linalg.norm(x, axis=0).reshape(1, -1)
+        # if self.type == 'lines':
+        #     x_norm = np.linalg.norm(x, axis=1).reshape(-1, 1)
+        # else:
+        #     x_norm = np.linalg.norm(x, axis=0).reshape(1, -1)
 
-        return x / x_norm
+        # return x / x_norm
+        return x
 
     def cost(self, x):
         r"""Return cost."""
@@ -179,12 +180,13 @@ class PositityOff(object):
 
     def off_positive_part(self, x, extra_factor=1.0):
         r"""Perform the projection accounting for the offset."""
-        prox_x = np.zeros(x.shape)
-        pos_idx = (x > - self.offset)
-        neg_idx = np.array(1 - pos_idx).astype(bool)
-        prox_x[pos_idx] = x[pos_idx]
-        prox_x[neg_idx] = - self.offset[neg_idx]
-        return prox_x
+        # prox_x = np.zeros(x.shape)
+        # pos_idx = (x > - self.offset)
+        # neg_idx = np.array(1 - pos_idx).astype(bool)
+        # prox_x[pos_idx] = x[pos_idx]
+        # prox_x[neg_idx] = - self.offset[neg_idx]
+        # return prox_x
+        return x
 
     def cost(self, x):
         r"""Return cost."""
