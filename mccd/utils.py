@@ -592,7 +592,7 @@ class GraphBuilder(object):
         return vT
 
 
-ddef poly_pos(pos, max_degree, center_normalice=True,
+def poly_pos(pos, max_degree, center_normalice=True,
              x_lims = None, y_lims = None,
              normalice_Pi=True, min_degree=None):
     r"""Construct polynomial matrix.
