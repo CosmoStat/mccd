@@ -640,7 +640,7 @@ class MCCD(object):
 
         # Global position model normalisation
         # Start with the list Pi
-        print('New global normalisation!')
+        # print('New global normalisation!')
         conc_Pi = np.concatenate((self.Pi), axis=1)
         Pi_norms = np.sqrt(np.sum(conc_Pi**2,axis=1)).reshape(-1,1)
         self.Pi = [self.Pi[k]/Pi_norms for k in range(self.n_ccd)]
