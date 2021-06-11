@@ -177,17 +177,18 @@ class PositityOff(ProximityParent):
 
     def update_offset(self, new_offset):
         r"""Update the offset value."""
+        print('Using positivy constraint.')
         self.offset = new_offset
 
     def off_positive_part(self, x, extra_factor=1.0):
         r"""Perform the projection accounting for the offset."""
-        # prox_x = np.zeros(x.shape)
-        # pos_idx = (x > - self.offset)
-        # neg_idx = np.array(1 - pos_idx).astype(bool)
-        # prox_x[pos_idx] = x[pos_idx]
-        # prox_x[neg_idx] = - self.offset[neg_idx]
-        # return prox_x
-        return x
+        prox_x = np.zeros(x.shape)
+        pos_idx = (x > - self.offset)
+        neg_idx = np.array(1 - pos_idx).astype(bool)
+        prox_x[pos_idx] = x[pos_idx]
+        prox_x[neg_idx] = - self.offset[neg_idx]
+        return prox_x
+        # return x
 
     def cost(self, x):
         r"""Return cost."""
