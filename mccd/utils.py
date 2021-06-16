@@ -593,7 +593,7 @@ class GraphBuilder(object):
 
 
 def poly_pos(pos, max_degree, center_normalice=True,
-             x_lims = None, y_lims = None,
+             x_lims=None, y_lims=None,
              normalice_Pi=True, min_degree=None):
     r"""Construct polynomial matrix.
 
@@ -627,8 +627,8 @@ def poly_pos(pos, max_degree, center_normalice=True,
 
     # Center and normalise positions
     if center_normalice:
-        _pos[:, 0] = (_pos[:, 0] - x_lims[0])/(x_lims[1] - x_lims[0]) - 1/2
-        _pos[:, 1] = (_pos[:, 1] - y_lims[0])/(y_lims[1] - y_lims[0]) - 1/2
+        _pos[:, 0] = (_pos[:, 0] - x_lims[0]) / (x_lims[1] - x_lims[0]) - 0.5
+        _pos[:, 1] = (_pos[:, 1] - y_lims[0]) / (y_lims[1] - y_lims[0]) - 0.5
 
     # Build position polynomials
     for d in range(max_degree + 1):
@@ -640,12 +640,12 @@ def poly_pos(pos, max_degree, center_normalice=True,
         # Erase the polynomial degrees up to `min_degree`
         # Monomials to erase
         del_n_mono = (min_degree + 1) * (min_degree + 2) // 2
-        Pi = Pi[del_n_mono:,:]
+        Pi = Pi[del_n_mono:, :]
 
     if normalice_Pi:
         # Normalize polynomial lines
-        Pi_norms = np.sqrt(np.sum(Pi**2,axis=1))
-        Pi /= Pi_norms.reshape(-1,1)
+        Pi_norms = np.sqrt(np.sum(Pi**2, axis=1))
+        Pi /= Pi_norms.reshape(-1, 1)
 
     return Pi
 

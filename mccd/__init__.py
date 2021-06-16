@@ -17,4 +17,3 @@ __all__ = []  # List of submodules
 __all__ += [MCCD, mccd_quickload]
 __all__ += [mccd_utils, utils, grads, proxs]
 __all__ += [auxiliary_fun]
-
