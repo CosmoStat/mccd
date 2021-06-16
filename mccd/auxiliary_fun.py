@@ -649,6 +649,9 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
             star_dict['PSF_LOC_VIGNET_LIST'] = np.copy(
                 np.concatenate(PSF_loc_list, axis=0))
         else:
+
+            global_pol_interp = False
+
             if global_pol_interp:
                 interp_Pi = mccd_utils.interpolation_Pi(
                     val_pos_list, mccd_model.d_comp_glob)

@@ -13,10 +13,11 @@ specific to MCCD(or rather, not currently in ``modopt.opt.proximity``).
 from __future__ import absolute_import, print_function
 import numpy as np
 from modopt.signal.wavelet import filter_convolve
+from modopt.opt.proximity import ProximityParent
 import mccd.utils as utils
 
 
-class LinRecombine(object):
+class LinRecombine(ProximityParent):
     r"""Multiply eigenvectors ``S`` and (factorized) weights ``A``.
 
     Maintain the knowledge about the linear operator norm which is calculated
@@ -64,7 +65,7 @@ class LinRecombine(object):
             self.norm = np.sqrt(s[0])
 
 
-class KThreshold(object):
+class KThreshold(ProximityParent):
     r"""Define linewise hard-thresholding operator with variable thresholds.
 
     Parameters
@@ -98,7 +99,7 @@ class KThreshold(object):
         return 0
 
 
-class StarletThreshold(object):
+class StarletThreshold(ProximityParent):
     r"""Apply soft thresholding in wavelet(default Starlet) domain.
 
     Parameters
@@ -133,7 +134,7 @@ class StarletThreshold(object):
         return 0
 
 
-class proxNormalization(object):
+class proxNormalization(ProximityParent):
     r"""Normalize rows or columns of :math:`x` relatively to L2 norm.
 
     Parameters
@@ -153,19 +154,23 @@ class proxNormalization(object):
 
         Following the prefered type.
         """
-        if self.type == 'lines':
-            x_norm = np.linalg.norm(x, axis=1).reshape(-1, 1)
-        else:
-            x_norm = np.linalg.norm(x, axis=0).reshape(1, -1)
+        # if self.type == 'lines':
+        #     x_norm = np.linalg.norm(x, axis=1).reshape(-1, 1)
+        # else:
+        #     x_norm = np.linalg.norm(x, axis=0).reshape(1, -1)
 
-        return x / x_norm
+        # return x / x_norm
+
+        # Not using a prox normalization as it is constraining the model
+        # too strong.
+        return x
 
     def cost(self, x):
         r"""Return cost."""
         return 0
 
 
-class PositityOff(object):
+class PositityOff(ProximityParent):
     r"""Project to the positive subset, taking into acount an offset."""
 
     def __init__(self, offset):
@@ -191,7 +196,7 @@ class PositityOff(object):
         return 0
 
 
-class LinRecombineAlpha(object):
+class LinRecombineAlpha(ProximityParent):
     r"""Compute alpha recombination.
 
     Multiply alpha and VT/Pi matrices (in this function named M) and
@@ -216,7 +221,7 @@ class LinRecombineAlpha(object):
         return y.dot(self.M.T)
 
 
-class GMCAlikeProxL1(object):
+class GMCAlikeProxL1(ProximityParent):
     """Classic l1 prox with GMCA-like decreasing weighting values.
 
     GMCA stand for Generalized Morphological Component Analysis.
@@ -276,7 +281,7 @@ class GMCAlikeProxL1(object):
         return 0
 
 
-class ClassicProxL2(object):
+class ClassicProxL2(ProximityParent):
     r"""This class defines the classic l2 prox.
 
     Notes
