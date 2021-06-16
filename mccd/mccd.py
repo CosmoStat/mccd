@@ -640,24 +640,9 @@ class MCCD(object):
 
         # Global position model normalisation
         # Start with the list Pi
-        # print('New global normalisation!')
         conc_Pi = np.concatenate((self.Pi), axis=1)
         Pi_norms = np.sqrt(np.sum(conc_Pi**2,axis=1)).reshape(-1,1)
         self.Pi = [self.Pi[k]/Pi_norms for k in range(self.n_ccd)]
-
-        # # Global position model
-        # # Normalization is not done on poly_pos() but globaly here
-        # sum_vals = np.zeros(self.n_comp_glob)
-        # for it in range(self.n_comp_glob):
-        #     for it_ccd in range(self.n_ccd):
-        #         sum_vals[it] += np.sum(self.Pi[it_ccd][it, :] ** 2)
-        #     sum_vals[it] = np.sqrt(sum_vals[it])
-
-        # self.Pi = [self.Pi[it] / sum_vals.reshape(-1, 1)
-        #            for it in range(len(self.Pi))]
-        # norm_val = self.Pi[0][0, 0]
-        # for it in range(len(self.Pi)):
-        #     self.Pi[it] /= norm_val
 
         self.A_glob = [self.alpha[self.n_ccd].dot(self.Pi[k])
                        for k in range(self.n_ccd)]
@@ -677,7 +662,6 @@ class MCCD(object):
 
         Graphs + polynomials.
         """
-        # TODO Hardcoded to 2 the max_degree [TL] [improve]
         max_deg = self.d_hyb_loc
         n_poly_comp = (max_deg + 1) * (max_deg + 2) // 2
         # Take the number of local component top the graph value
@@ -821,8 +805,7 @@ class MCCD(object):
                           * np.sqrt(x)) + min_elements_loc,
                  np.floor(elem_size / 2)])
 
-        # [TL-test] Trying other function
-        # print('Using Tobi prox for local alpha sparsity.')
+        # [TL] Using strong sparsity inducing function
         iter_func_loc = lambda x, elem_size: np.floor(np.sqrt(x))+1
         coeff_prox_loc = prox.KThreshold(iter_func_loc)
 
@@ -841,11 +824,9 @@ class MCCD(object):
                           * np.sqrt(x)) + min_elements_glob,
                  np.floor(elem_size / 2)])
 
-        # [TL-test] Trying other function
-        # print('Using Tobi prox for global alpha sparsity.')
+        # [TL] Using strong sparsity inducing function
         iter_func_glob_v2 = lambda x, elem_size: np.floor(np.sqrt(x))+1
         coeff_prox_glob = prox.KThreshold(iter_func_glob_v2)
-        # coeff_prox_glob = prox.KThreshold(iter_func_glob)
 
         norm_prox = prox.proxNormalization(type='columns')
         lin_recombine_alpha = [prox.LinRecombineAlpha(self.VT[k])
