@@ -928,24 +928,9 @@ def interpolation_Pi(position_list, d_comp_glob):
 
     # Global position model normalisation
     # Start with the list Pi
-    print('New global normalisation! WARNING! Should be modified in this case.')
     conc_Pi = np.concatenate((interp_Pi), axis=1)
     Pi_norms = np.sqrt(np.sum(conc_Pi**2,axis=1)).reshape(-1,1)
     interp_Pi = [interp_Pi[k]/Pi_norms for k in range(len(interp_Pi))]
-
-    # # Global position model
-    # # Normalization is not done on poly_pos() but globaly here
-    # sum_vals = np.zeros(n_comp_glob)
-    # for it in range(n_comp_glob):
-    #     for it_ccd in range(len(position_list)):
-    #         sum_vals[it] += np.sum(interp_Pi[it_ccd][it, :] ** 2)
-    #     sum_vals[it] = np.sqrt(sum_vals[it])
-    # interp_Pi = [interp_Pi[it] / sum_vals.reshape(-1, 1)
-    #              for it in range(len(interp_Pi))]
-    # # Normalize wrt to the constant polynome
-    # norm_val = interp_Pi[0][0, 0]
-    # for it in range(len(interp_Pi)):
-    #     interp_Pi[it] /= norm_val
 
     return interp_Pi
 
