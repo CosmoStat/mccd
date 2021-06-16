@@ -915,22 +915,22 @@ def interpolation_Pi(position_list, d_comp_glob):
     # Calculate max and min values of global coordinate system
     # This configuration is specific for CFIS MegaCam configuration
     loc2glob = Loc2Glob()
-    max_x = loc2glob.x_npix*6 + loc2glob.x_gap*5
-    min_x = loc2glob.x_npix*(-5) + loc2glob.x_gap*(-5)
-    max_y = loc2glob.y_npix*2 + loc2glob.y_gap*1
-    min_y = loc2glob.y_npix*(-2) + loc2glob.y_gap*(-2)
+    max_x = loc2glob.x_npix * 6 + loc2glob.x_gap * 5
+    min_x = loc2glob.x_npix * (-5) + loc2glob.x_gap * (-5)
+    max_y = loc2glob.y_npix * 2 + loc2glob.y_gap * 1
+    min_y = loc2glob.y_npix * (-2) + loc2glob.y_gap * (-2)
 
     interp_Pi = [utils.poly_pos(pos=interp_pos, max_degree=d_comp_glob,
                                 center_normalice=True,
-                                x_lims = [min_x, max_x], y_lims = [min_y, max_y],
+                                x_lims=[min_x, max_x], y_lims=[min_y, max_y],
                                 normalice_Pi=False)
                  for interp_pos in position_list]
 
     # Global position model normalisation
     # Start with the list Pi
     conc_Pi = np.concatenate((interp_Pi), axis=1)
-    Pi_norms = np.sqrt(np.sum(conc_Pi**2,axis=1)).reshape(-1,1)
-    interp_Pi = [interp_Pi[k]/Pi_norms for k in range(len(interp_Pi))]
+    Pi_norms = np.sqrt(np.sum(conc_Pi**2, axis=1)).reshape(-1, 1)
+    interp_Pi = [interp_Pi[k] / Pi_norms for k in range(len(interp_Pi))]
 
     return interp_Pi
 
