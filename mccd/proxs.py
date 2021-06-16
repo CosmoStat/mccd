@@ -160,6 +160,9 @@ class proxNormalization(ProximityParent):
         #     x_norm = np.linalg.norm(x, axis=0).reshape(1, -1)
 
         # return x / x_norm
+
+        # Not using a prox normalization as it is constraining the model
+        # too strong.
         return x
 
     def cost(self, x):
@@ -177,7 +180,6 @@ class PositityOff(ProximityParent):
 
     def update_offset(self, new_offset):
         r"""Update the offset value."""
-        print('Using positivy constraint.')
         self.offset = new_offset
 
     def off_positive_part(self, x, extra_factor=1.0):
@@ -188,7 +190,6 @@ class PositityOff(ProximityParent):
         prox_x[pos_idx] = x[pos_idx]
         prox_x[neg_idx] = - self.offset[neg_idx]
         return prox_x
-        # return x
 
     def cost(self, x):
         r"""Return cost."""
