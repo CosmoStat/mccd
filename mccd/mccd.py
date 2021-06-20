@@ -138,6 +138,11 @@ class MCCD(object):
         self.ksig_init = ksig_init
         self.iter_outputs = False
 
+        # Hard-coded variables for outlier rejection
+        # [TL]TODO Propagate`ccd_star_thresh` & `rmse_thresh` into config_file
+        self.ccd_star_thresh = 0.1
+        self.rmse_thresh = 1.25
+
         if filters is None:
             # option strings for mr_transform
             # ModOpt sparse2d get_mr_filters() convention
@@ -244,7 +249,7 @@ class MCCD(object):
             flux=None, nb_iter=1, nb_iter_glob=2, nb_iter_loc=2,
             nb_subiter_S_loc=100, nb_reweight=0, nb_subiter_A_loc=500,
             nb_subiter_S_glob=30, nb_subiter_A_glob=200, n_eigenvects=5,
-            loc_model='rca', pi_degree=2, graph_kwargs={}):
+            loc_model='hybrid', pi_degree=2, graph_kwargs={}):
         r"""Fits MCCD to observed star field.
 
         Parameters
@@ -489,6 +494,10 @@ class MCCD(object):
         # Finally fit the model
         self._fit()
         self.is_fitted = True
+
+        # Remove outliers
+        self.remove_outlier_ccds()
+
         return self.S, self.A_loc, self.A_glob, self.alpha, self.Pi
 
     @staticmethod
@@ -509,6 +518,86 @@ class MCCD(object):
             provided to RCA; the shifts will be estimated from the data using
             the default Gaussian window of 7.5 pixels.''')
             return 7.5
+
+    def remove_ccd_from_model(self, ccd_idx):
+        """ Remove ccd from the trained model. """
+        self.n_ccd -= 1
+        _ = self.obs_pos.pop(ccd_idx)
+        _ = self.A_loc.pop(ccd_idx)
+        _ = self.A_glob.pop(ccd_idx)
+        _ = self.S.pop(ccd_idx)
+        _ = self.flux_ref.pop(ccd_idx)
+        _ = self.VT.pop(ccd_idx)
+        _ = self.Pi.pop(ccd_idx)
+        _ = self.alpha.pop(ccd_idx)
+        _ = self.ccd_list.pop(ccd_idx)
+
+    def remove_outlier_ccds(self):
+        """ Remove all CCDs with outliers.
+
+        Reminder: the outlier rejection is done on the train stars.
+        We will reject a CCD if the percentage of outlier stars in
+        a single CCD is bigger than `self.ccd_star_thresh`.
+
+        They outlier threshold is based in `self.rmse_thresh`.
+        A perfect reconstruction would have `self.rmse_thresh` equal to 1.
+
+        """
+        dim_x = self.obs_data[0].shape[0]
+        dim_y = self.obs_data[0].shape[1]
+        win_rad = np.floor(np.max([dim_x, dim_y]) / 3)
+
+        # Calculate the observation noise
+        noise_estimator = utils.NoiseEstimator((dim_x, dim_y), win_rad)
+
+        ccd_outliers = []
+
+        for k in range(len(self.obs_data)):
+            # Extract observations and reconstructions from the CCD
+            stars = utils.reg_format(self.obs_data[k])
+
+            # Reconstruct the PSFs
+            psfs = self.validation_stars(
+                    self.obs_data[k],
+                    self.obs_pos[k],
+                    self.obs_weights[k],
+                    self.ccd_list[k],
+                    mccd_debug=False)
+
+            # Estimate noise
+            sigmas_obs = np.array([noise_estimator.estimate_noise(star)
+                            for star in stars])
+
+            # Window to consider the central PSF only
+            window = ~noise_estimator.window
+
+            # Calculate the windowed RMSE normalized by the noise level
+            rmse_sig = np.array([
+                np.sqrt(np.mean(((_mod - _obs)**2)[window])) / _sig
+                for _mod, _obs, _sig in zip(psfs, stars, sigmas_obs)
+                                ])
+
+            # Select outlier stars
+            outlier_ids = rmse_sig >= self.rmse_thresh
+            num_outliers = np.sum(outlier_ids)
+
+            # Check if the number of outliers depasses the star threshold
+            num_stars = stars.shape[0]
+            star_thresh_num = np.ceil(self.ccd_star_thresh * num_stars)
+
+            print("CCD num %02d, \t %d outliers, \t%d stars,"
+                  " \t%d star threshold number." % (
+                    self.ccd_list[k], num_outliers, num_stars,
+                    star_thresh_num))
+
+            if num_outliers >= star_thresh_num:
+                # We have to reject the CCD
+                ccd_outliers.append(k)
+                print('Removing CCD %d.' % (self.ccd_list[k]))
+
+        # Remove all the outliers
+        for index in sorted(ccd_outliers, reverse=True):
+            self.remove_ccd_from_model(index)
 
     def _initialize(self):
         r"""Initialize internal tasks.
