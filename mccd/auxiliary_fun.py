@@ -721,6 +721,17 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
             print('\n**\nOutlier! CCD %d, \t%d outliers, \t%d total stars.' % (
                 val_ccd_list[k], num_outliers, num_stars))
 
+    # Remove all the outliers
+    for idx in sorted(ccd_outliers, reverse=True):
+        del PSF_list[idx]
+        del val_pos_list[idx]
+        del val_star_list[idx]
+        del val_mask_list[idx]
+        del val_ccd_list[idx]
+        if val_RA_list is not None:
+            del val_RA_list[idx]
+            del val_DEC_list[idx]
+
     # [TL] finish testing
 
     # Remove the CCDs not used for training from ALL the lists
