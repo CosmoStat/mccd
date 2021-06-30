@@ -140,7 +140,7 @@ class MCCD(object):
 
         # Hard-coded variables for outlier rejection
         # [TL]TODO Propagate`ccd_star_thresh` & `rmse_thresh` into config_file
-        self.ccd_star_thresh = 0.1
+        self.ccd_star_thresh = 0.15
         self.rmse_thresh = 1.25
 
         if filters is None:
@@ -590,7 +590,7 @@ class MCCD(object):
                     self.ccd_list[k], num_outliers, num_stars,
                     star_thresh_num))
 
-            if num_outliers >= star_thresh_num:
+            if num_outliers > star_thresh_num:
                 # We have to reject the CCD
                 ccd_outliers.append(k)
                 print('Removing CCD %d.' % (self.ccd_list[k]))
