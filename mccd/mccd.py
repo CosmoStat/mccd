@@ -14,6 +14,7 @@ This module contains the main MCCD class.
 
 from __future__ import absolute_import, print_function
 import numpy as np
+from numpy.core.defchararray import join
 from scipy.interpolate import Rbf
 from modopt.signal.wavelet import get_mr_filters, filter_convolve
 from modopt.opt.cost import costObj
@@ -1202,6 +1203,138 @@ class MCCD(object):
         self.alpha = alpha
         self.A_loc = weights_loc
         self.A_glob = weights_glob
+
+    def interpolate_psf_pipeline(self, test_pos, ccd_n, centroid=None):
+        r""" Estimate PSF at desired position with the required centroid.
+
+        This function is a consequence of following the requirements
+        needed to use the MCCD model in a pipeline.
+        (ShapePipe now but could be adapted)
+
+        The returned PSFs should be normalized with unitary flux and with
+        the required centroid.
+
+        Please note the differences between the pixel conventions between
+        this package and Galsim. In the first one the position of a pixel is
+        in its lower left corner and the indexing starts at zero (numpy style).
+        Galsim's convention is that the position is in the center of the pixel
+        and the indexation starts at one.
+
+        Returns the model in "regular" format, (n_stars, n_pixels, n_pixels).
+
+        Parameters
+        ----------
+        test_pos: numpy.ndarray
+            Positions where the PSF should be estimated.
+            Should be in the same format (coordinate system, units, etc.) as
+            the ``obs_pos`` fed to :func:`MCCD.fit`.
+        ccd_n: int
+            ``ccd_id`` of the positions to be tested.
+        centroid: list of floats, [xc, yc]
+            Required centroid for the output PSF. It has to be specified
+            following the MCCD pixel convention.
+            Default will be the vignet centroid.
+
+        Returns
+        -------
+        PSFs: numpy.ndarray
+            Returns the interpolated PSFs in regular format.
+
+        """
+        if not self.is_fitted:
+            raise ValueError('''MCCD instance has not yet been fitted to
+            observations. Please run the fit method.''')
+
+        # Default values for interpolation
+        n_loc_neighbors = 15
+        n_glob_neighbors = 15
+        rbf_function = 'thin_plate'
+
+        ntest = test_pos.shape[0]
+        test_weights_glob = np.zeros((self.n_comp_glob, ntest))
+        test_weights_loc = np.zeros((self.n_comp_loc, ntest))
+
+        # Turn ccd_n into list number.
+        # Select the correct indexes of the requested CCD.
+        try:
+            ccd_idx = np.where(np.array(self.ccd_list) == ccd_n)[0][0]
+        except Exception:
+            # If the CCD was not used for training the output should be
+            # None and be handled by the wrapping function.
+            return None
+
+        # PSF recovery
+        for j, pos in enumerate(test_pos):
+            # Local model
+            # Determine neighbors
+            nbs_loc, pos_nbs_loc = mccd_utils.return_loc_neighbors(
+                pos,
+                self.obs_pos[ccd_idx],
+                self.A_loc[ccd_idx].T,
+                n_loc_neighbors)
+            # Train RBF and interpolate for each component
+            for i in range(self.n_comp_loc):
+                rbfi = Rbf(pos_nbs_loc[:, 0],
+                           pos_nbs_loc[:, 1],
+                           nbs_loc[:, i],
+                           function=rbf_function)
+                test_weights_loc[i, j] = rbfi(pos[0], pos[1])
+
+            # Global model
+            # Using return_loc_neighbors()
+            nbs_glob, pos_nbs_glob = mccd_utils.return_loc_neighbors(
+                pos,
+                self.obs_pos[ccd_idx],
+                self.A_glob[ccd_idx].T,
+                n_glob_neighbors)
+
+            for i in range(self.n_comp_glob):
+                rbfi = Rbf(pos_nbs_glob[:, 0],
+                            pos_nbs_glob[:, 1],
+                            nbs_glob[:, i],
+                            function=rbf_function)
+                test_weights_glob[i, j] = rbfi(pos[0], pos[1])
+
+        # Reconstruct the global and local PSF contributions
+        PSFs_loc = self._loc_transform(test_weights_loc, ccd_idx)
+        PSFs_glob = self._glob_transform(test_weights_glob)
+        # PSFs is in reg format: batch dim is the first one
+        PSFs = utils.reg_format(PSFs_glob + PSFs_loc)
+
+        # Let's handle the shifts
+        if centroid is None:
+            centroid = [PSFs.shape[1] / 2., PSFs.shape[2] / 2.]
+
+        psf_moms = [gs.hsm.FindAdaptiveMom(gs.Image(psf), strict=False)
+                    for psf in PSFs]
+        sigmas = np.array([moms.moments_sigma for moms in psf_moms])
+        # This centroids are with MCCD's pixel convention
+        cents = np.array([[moms.moments_centroid.x - 0.5,
+                           moms.moments_centroid.y - 0.5]
+                           for moms in psf_moms])
+
+        shifts = np.array([[centroid[0] - ce[0], centroid[1] - ce[1]]
+                           for ce in cents])
+
+        if sigmas is None:
+            lanc_rad = 8
+        else:
+            lanc_rad = np.ceil(3. * np.max(sigmas)).astype(int)
+
+        shift_kernels, _ = utils.shift_ker_stack(shifts, self.upfact,
+                                            lanc_rad=lanc_rad)
+        # PSFs changed into reg_format in the degradation process
+        PSFs = np.array(
+            [utils.degradation_op(PSFs[j, :, :],
+                                    shift_kernels[:, :, j],
+                                    self.upfact)
+                for j in range(ntest)])
+
+        # Normalize the PSFs flux
+        PSFs = np.array(
+                [PSFs[j, :, :] / np.sum(PSFs[j, :, :]) for j in range(ntest)])
+
+        return PSFs
 
     def estimate_psf(self, test_pos, ccd_n, n_loc_neighbors=15,
                      n_glob_neighbors=15, rbf_function='thin_plate',
