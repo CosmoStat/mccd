@@ -9,11 +9,11 @@ MCCD is a non-parametric PSF modelling method.
 """
 
 from .mccd import MCCD, mccd_quickload
-from . import mccd_utils, utils, grads, proxs
+from . import mccd_utils, utils, grads, proxs, dataset_generation
 from . import auxiliary_fun
 from .info import __version__, __about__
 
 __all__ = []  # List of submodules
 __all__ += [MCCD, mccd_quickload]
 __all__ += [mccd_utils, utils, grads, proxs]
-__all__ += [auxiliary_fun]
+__all__ += [auxiliary_fun, dataset_generation]
