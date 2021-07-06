@@ -645,7 +645,8 @@ class AtmosphereGenerator(object):
 
         return interp_g1, interp_g2, interp_mu
 
-    def plot_realisation(self, ccd_corner=None, save_path=None):
+    def plot_realisation(self, ccd_corner=None, save_path=None,
+                         save_fig=False):
         """ Plot atmospheric realisation.
 
         Plot the entire focal plane and the dimensions of a CCD.
@@ -673,8 +674,9 @@ class AtmosphereGenerator(object):
         plt.colorbar()
         plt.gca().set_title('kappa', fontsize='18')
 
-        plt.savefig(save_path + 'focal_plane_atmosphere.pdf',
-            bbox_inches='tight')
+        if save_fig:
+            plt.savefig(save_path + 'focal_plane_atmosphere.pdf',
+                bbox_inches='tight')
         plt.show()
 
         # Plot only one CCD
@@ -708,11 +710,13 @@ class AtmosphereGenerator(object):
         plt.colorbar()
         plt.gca().set_title('kappa', fontsize='18')
 
-        plt.savefig(save_path + 'one_ccd_atmosphere.pdf', bbox_inches='tight')
+        if save_fig:
+            plt.savefig(save_path + 'one_ccd_atmosphere.pdf',
+                        bbox_inches='tight')
         plt.show()
 
     def plot_correlation(self, save_path=None, n_points=100, kmin_factor=10.,
-                         kmax_factor=10.):
+                         kmax_factor=10., save_fig=False):
         """ Plot correlation functions. """
         if save_path is None:
             save_path = './'
@@ -743,6 +747,7 @@ class AtmosphereGenerator(object):
         plt.xlabel(r'$\theta$ [arcmin]', fontsize=18)
         plt.ylabel(r'$\xi_{\pm}$', fontsize=18)
         plt.legend(fontsize=12)
-        plt.savefig(save_path + 'correlation_atmosphere.pdf',
-            bbox_inches='tight')
+        if save_fig:
+            plt.savefig(save_path + 'correlation_atmosphere.pdf',
+                bbox_inches='tight')
         plt.show()
