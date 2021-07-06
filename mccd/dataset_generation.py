@@ -608,6 +608,10 @@ class AtmosphereGenerator(object):
                                             bandlimit='soft',
                                             variance=self.map_std**2)
 
+    def regenerate_atmosphere(self):
+        """ Generate a new random atmosphere."""
+        self.init_powerspectrum()
+
     def interpolate_position(self, target_x, target_y):
         """ Get the ellipticity and size factor for a target position.
 
