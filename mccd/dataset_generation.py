@@ -676,14 +676,18 @@ class GenerateRealisticDataset(object):
                      'GLOB_POSITION_IMG_LIST': self.positions,
                      'MASK_LIST': new_masks, 'CCD_ID_LIST': self.ccd_id,
                      'TRUE_E1_HSM': new_e1_HSM, 'TRUE_E2_HSM': new_e2_HSM,
-                     'TRUE_SIG_HSM': new_sig_HSM,
-                     'EXPOSURE_SIM': self.exposure_sim}
+                     'TRUE_SIG_HSM': new_sig_HSM}
 
         # Save the fits file
         mccd.mccd_utils.save_fits(train_dic,
                                   train_bool=True,
                                   cat_id=self.catalog_id,
                                   output_path=self.output_path)
+
+        # Save the exposure object realisation
+        save_str = self.output_path + 'exposure_sim' + '-' + \
+            self.catalog_id + '.npy'
+        np.save(save_str, self.exposure_sim)
 
     def generate_test_data(self, grid_pos_bool=False, x_grid=5, y_grid=10):
         r"""Generate the test dataset and save it into a fits file.
