@@ -461,6 +461,12 @@ class GenerateRealisticDataset(object):
         sample the deviation of star number for each with
         respect to the mean star number.
         Default is ``[-10, 10]``.
+    max_fwhm_var: float
+        Maximum FWHM variation with respect to the mean allowed
+        in one exposure. Units are in arcsec.
+        As many times the star selection is done in size cuts,
+        the maximum FWHM variations are known.
+        Default is ``0.04``.
     Notes
     -----
     The simulated PSFs are based on the Moffat profile and we are using Galsim
@@ -469,7 +475,7 @@ class GenerateRealisticDataset(object):
     def __init__(self, e1_path, e2_path, size_path, output_path,
                  image_size=51, psf_flux=1., beta_psf=4.765, pix_scale=0.187,
                  catalog_id=2086592, n_ccd=40, range_mean_star_qt=[40, 100],
-                 range_dev_star_nb=[-10, 10]):
+                 range_dev_star_nb=[-10, 10], max_fwhm_var=0.04):
         # Load the paths
         self.output_path = output_path
         self.e1_path = e1_path
@@ -485,6 +491,7 @@ class GenerateRealisticDataset(object):
         self.n_ccd = n_ccd
         self.range_mean_star_qt = range_mean_star_qt
         self.range_dev_star_nb = range_dev_star_nb
+        self.max_fwhm_var = max_fwhm_var
 
         # To initialise
         self.test_grid_xy = None
@@ -592,6 +599,18 @@ class GenerateRealisticDataset(object):
         self.positions = np.concatenate(position_list, axis=0)
         self.ccd_list = np.concatenate(ccd_list, axis=0)
 
+    def scale_fwhms(self, fwhms):
+        r""" Scale the FWHM values so that they are in the desired range."""
+        # Substract the mean
+        scaled_fwhms = fwhms - self.exposure_sim.mean_fwhm
+        # Divide the total range
+        scaled_fwhms = scaled_fwhms / (
+            np.max(scaled_fwhms) - np.min(scaled_fwhms))
+        # Multiply by the desired total range and restore the mean
+        scaled_fwhms = scaled_fwhms * 2 * self.max_fwhm_var + \
+            self.exposure_sim.mean_fwhm
+        return scaled_fwhms
+
     def generate_train_data(self):
         r"""Generate the training dataset and saves it in fits format.
 
@@ -603,6 +622,10 @@ class GenerateRealisticDataset(object):
         # Define the ellipticities for each stars
         e1s, e2s, fwhms = self.exposure_sim.interpolate_values(
             self.positions[:, 0], self.positions[:, 1])
+
+        # Verify the max fwhm variations
+        # We need to scale the variation range
+        fwhms = self.scale_fwhms(fwhms)
 
         # Generate the vignets
         new_vignets = np.zeros((e1s.shape[0],
@@ -678,6 +701,10 @@ class GenerateRealisticDataset(object):
         # Calculate the ellipticities on the testing positions
         test_e1s, test_e2s, test_fwhms = self.exposure_sim.interpolate_values(
             self.positions[:, 0], self.positions[:, 1])
+
+        # Verify the max fwhm variations
+        # We need to scale the variation range
+        test_fwhms = self.scale_fwhms(test_fwhms)
 
         # Define the constant shape of the stars (before the shearing)
         # sigma_vect = np.sqrt(test_r2s/2)
