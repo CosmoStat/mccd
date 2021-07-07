@@ -475,7 +475,9 @@ class GenerateRealisticDataset(object):
     def __init__(self, e1_path, e2_path, size_path, output_path,
                  image_size=51, psf_flux=1., beta_psf=4.765, pix_scale=0.187,
                  catalog_id=2086592, n_ccd=40, range_mean_star_qt=[40, 100],
-                 range_dev_star_nb=[-10, 10], max_fwhm_var=0.04):
+                 range_dev_star_nb=[-10, 10], max_fwhm_var=0.04,
+                 atmos_kwargs={'ngrid': 8192}, e1_kwargs={},
+                 e2_kwargs={}):
         # Load the paths
         self.output_path = output_path
         self.e1_path = e1_path
@@ -511,7 +513,9 @@ class GenerateRealisticDataset(object):
                               e1_bin_path=self.e1_path,
                               e2_bin_path=self.e2_path,
                               fwhm_dist_path=self.size_path,
-                              atmos_kwargs={'ngrid': 8192})
+                              atmos_kwargs=atmos_kwargs,
+                              e1_kwargs=e1_kwargs,
+                              e2_kwargs=e2_kwargs)
 
     def init_random_positions(self):
         r""" Initialise random positions."""
