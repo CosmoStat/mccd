@@ -419,6 +419,326 @@ class GenerateSimDataset(object):
         return mask
 
 
+class GenerateRealisticDataset(object):
+    r"""Generate realistic dataset for training and validating PSF models.
+
+    Model description.. TODO
+
+    Parameters
+    ----------
+    e1_path: str
+        Path to the binned e1 data.
+    e2_path: str
+        Path to the binned e2 data.
+    size_path: str
+        Path to the size distribution. FWHM in arcsec.
+    output_path: str
+        Path to the folder to save the simulated datasets.
+    image_size: int
+        Dimension of the squared image stamp. (image_size x image_size)
+        Default is ``51``.
+    psf_flux: float
+        Total PSF photometric flux.
+        Default is ``1``.
+    beta_psf: float
+        Moffat beta parameter.
+        Default is ``4.765``.
+    pix_scale: float
+        Pixel scale.
+        Default is ``0.187``.
+    catalog_id: int
+        Catalog identifier number.
+        Default is ``2086592``.
+    n_ccd: int
+        Total number of CCDs.
+        Default is ``40``.
+    range_mean_star_qt: [float, float]
+        Range of the uniform distribution from where to
+        sample the mean star number per exposure.
+        Default is ``[40, 90]``.
+    range_dev_star_nb: [float, float]
+        Range of the uniform distribution from where to
+        sample the deviation of star number for each with
+        respect to the mean star number.
+        Default is ``[-10, 10]``.
+    Notes
+    -----
+    The simulated PSFs are based on the Moffat profile and we are using Galsim
+    to generate them.
+    """
+    def __init__(self, e1_path, e2_path, size_path, output_path,
+                 image_size=51, psf_flux=1., beta_psf=4.765, pix_scale=0.187,
+                 catalog_id=2086592, n_ccd=40, range_mean_star_qt=[40, 100],
+                 range_dev_star_nb=[-10, 10]):
+        # Load the paths
+        self.output_path = output_path
+        self.e1_path = e1_path
+        self.e2_path = e2_path
+        self.size_path = size_path
+
+        # Train/Test data params
+        self.image_size = image_size
+        self.psf_flux = psf_flux
+        self.beta_psf = beta_psf
+        self.pix_scale = pix_scale
+        self.catalog_id = catalog_id
+        self.n_ccd = n_ccd
+        self.range_mean_star_qt = range_mean_star_qt
+        self.range_dev_star_nb = range_dev_star_nb
+
+        # To initialise
+        self.test_grid_xy = None
+        self.mean_star_qt = None
+        self.positions = None
+        self.ccd_id = None
+
+        # Define camera geometry
+        self.loc2glob = mccd.mccd_utils.Loc2Glob()
+        self.max_x = self.loc2glob.x_npix * 6 + self.loc2glob.x_gap * 5
+        self.min_x = self.loc2glob.x_npix * (-5) + self.loc2glob.x_gap * (-5)
+        self.max_y = self.loc2glob.y_npix * 2 + self.loc2glob.y_gap * 1
+        self.min_y = self.loc2glob.y_npix * (-2) + self.loc2glob.y_gap * (-2)
+
+        # Generate exposure instance
+        self.exposure_sim = mccd.dataset_generation.ExposureSimulation(
+                              e1_bin_path=self.e1_path,
+                              e2_bin_path=self.e2_path,
+                              fwhm_dist_path=self.size_path,
+                              atmos_kwargs={'ngrid': 8192})
+
+    def init_random_positions(self):
+        r""" Initialise random positions."""
+
+        # Draw a random mean star quantity per ccd
+        self.mean_star_qt = int(np.ceil(
+            np.random.uniform(self.range_mean_star_qt[0],
+                              self.range_mean_star_qt[1])))
+
+        # Re-initialise values
+        self.positions = None
+        self.ccd_list = None
+
+        for ccd_it in range(self.n_ccd):
+            # Draw random deviation of stars from the previous mean
+            star_dev_nb = np.ceil(
+                np.random.uniform(self.range_dev_star_nb[0],
+                                  self.range_dev_star_nb[1]))
+            # Calculate current CCD star number
+            current_star_nb = int(self.mean_star_qt + star_dev_nb)
+
+            # Simulate random positions
+            x = np.random.uniform(0,
+                                  self.loc2glob.x_npix,
+                                  size=(current_star_nb))
+            y = np.random.uniform(0,
+                                  self.loc2glob.y_npix,
+                                  size=(current_star_nb))
+            # Shift them to the corresponding CCD
+            current_pos = np.array([
+                self.loc2glob.loc2glob_img_coord(ccd_it, _x, _y)
+                for _x, _y in zip(x, y)])
+
+            # Generate current CCD ids
+            current_ccd = np.ones(current_star_nb) * ccd_it
+
+            # Concatenate
+            if self.positions is not None:
+                self.positions = np.concatenate(
+                    (self.positions, current_pos), axis=0)
+                self.ccd_list = np.concatenate(
+                    (self.ccd_list, current_ccd), axis=0)
+            else:
+                self.positions = current_pos
+                self.ccd_list = current_ccd
+
+    def init_grid_positions(self, x_grid=5, y_grid=10):
+        r""" Initialise positions in a regular grid."""
+        # Re-initialise values
+        self.positions = None
+        self.ccd_list = None
+
+        # Parameters
+        self.test_grid_xy = [x_grid,
+                             y_grid]  # Grid size for the PSF generation
+
+        # Generation of the test positions
+        ccd_unique_list = np.arange(self.n_ccd)
+
+        # Generate local generic grid
+        x_lin = np.linspace(start=self.image_size,
+                            stop=self.loc2glob.x_npix - self.image_size,
+                            num=self.test_grid_xy[0])
+        y_lin = np.linspace(start=self.image_size,
+                            stop=self.loc2glob.y_npix - self.image_size,
+                            num=self.test_grid_xy[1])
+
+        xv, yv = np.meshgrid(x_lin, y_lin)
+        x_coor = xv.flatten()
+        y_coor = yv.flatten()
+
+        position_list = []
+        ccd_list = []
+
+        for it in range(len(ccd_unique_list)):
+            x_glob, y_glob = self.loc2glob.loc2glob_img_coord(
+                ccd_n=ccd_unique_list[it],
+                x_coor=np.copy(x_coor), y_coor=np.copy(y_coor))
+            position_list.append(np.array([x_glob, y_glob]).T)
+            ccd_list.append(
+                (np.ones(len(x_glob), dtype=int) * ccd_unique_list[it]).astype(
+                    int))
+
+        # Obtain final positions and ccd_id list
+        self.positions = np.concatenate(position_list, axis=0)
+        self.ccd_list = np.concatenate(ccd_list, axis=0)
+
+    def generate_train_data(self):
+        r"""Generate the training dataset and saves it in fits format.
+
+        The positions are drawn randomly.
+        """
+        # Initialise positions
+        self.init_random_positions()
+
+        # Define the ellipticities for each stars
+        e1s, e2s, fwhms = self.exposure_sim.interpolate_values(
+            self.positions[:, 0], self.positions[:, 1])
+
+        # Generate the vignets
+        new_vignets = np.zeros((e1s.shape[0],
+                                self.image_size,
+                                self.image_size))
+        new_e1_HSM = np.zeros(e1s.shape)
+        new_e2_HSM = np.zeros(e1s.shape)
+        new_sig_HSM = np.zeros(e1s.shape)
+
+        for it in range(e1s.shape[0]):
+            # PSF generation. Define size
+            psf = gs.Moffat(fwhm=fwhms[it], beta=self.beta_psf)
+
+            # Define the Flux
+            psf = psf.withFlux(self.psf_flux)
+            # Define the shear
+            psf = psf.shear(g1=e1s[it], g2=e2s[it])
+            # Draw the PSF on a vignet
+            image_epsf = gs.ImageF(self.image_size, self.image_size)
+            # Define intrapixel shift (uniform distribution in [-0.5,0.5])
+            rand_shift = np.random.rand(2) - 0.5
+            psf.drawImage(image=image_epsf, offset=rand_shift,
+                          scale=self.pix_scale)
+
+            # Generate Gaussian noise for the PSF
+            # sigma_noise = 0
+            # gaussian_noise = gs.GaussianNoise(sigma=sigma_noise)
+
+            # Before adding the noise, we measure the ellipticity components
+            my_moments = gs.hsm.FindAdaptiveMom(image_epsf)
+            new_e1_HSM[it] = my_moments.observed_shape.g1
+            new_e2_HSM[it] = my_moments.observed_shape.g2
+            new_sig_HSM[it] = my_moments.moments_sigma
+
+            # Add Gaussian noise to the PSF
+            # image_epsf.addNoise(gaussian_noise)
+
+            new_vignets[it, :, :] = image_epsf.array
+
+        new_masks = self.handle_SExtractor_mask(new_vignets, thresh=-1e5)
+
+        # Build the dictionary
+        train_dic = {'VIGNET_LIST': new_vignets,
+                     'GLOB_POSITION_IMG_LIST': self.positions,
+                     'MASK_LIST': new_masks, 'CCD_ID_LIST': self.ccd_id,
+                     'TRUE_E1_HSM': new_e1_HSM, 'TRUE_E2_HSM': new_e2_HSM,
+                     'TRUE_SIG_HSM': new_sig_HSM,
+                     'EXPOSURE_SIM': self.exposure_sim}
+
+        # Save the fits file
+        mccd.mccd_utils.save_fits(train_dic,
+                                  train_bool=True,
+                                  cat_id=self.catalog_id,
+                                  output_path=self.output_path)
+
+    def generate_test_data(self, grid_pos_bool=False, x_grid=5, y_grid=10):
+        r"""Generate the test dataset and save it into a fits file.
+
+        Parameters
+        ----------
+        x_grid: int
+            Horizontal number of elements of the testing grid in one CCD.
+        y_grid: int
+            Vertical number of elements of the testing grid in one CCD.
+
+        """
+        # Generate positions (on the grid or at random places)
+        if grid_pos_bool:
+            self.init_grid_positions(x_grid, y_grid)
+        else:
+            self.init_random_positions()
+
+        # Calculate the ellipticities on the testing positions
+        test_e1s, test_e2s, test_fwhms = self.exposure_sim.interpolate_values(
+            self.positions[:, 0], self.positions[:, 1])
+
+        # Define the constant shape of the stars (before the shearing)
+        # sigma_vect = np.sqrt(test_r2s/2)
+        # test_fwhms = (2 * np.sqrt(2 * np.log(2))) * sigma_vect
+
+        # Generate the vignets
+        test_vignets = np.zeros(
+            (test_e1s.shape[0], self.image_size, self.image_size))
+        test_e1_HSM = np.zeros(test_e1s.shape)
+        test_e2_HSM = np.zeros(test_e1s.shape)
+        test_sig_HSM = np.zeros(test_e1s.shape)
+        for it in range(test_e1s.shape[0]):
+            # PSF generation. Define size
+            psf = gs.Moffat(fwhm=test_fwhms[it],
+                            beta=self.beta_psf)
+            # Define the Flux
+            psf = psf.withFlux(self.psf_flux)
+            # Define the shear
+            psf = psf.shear(g1=test_e1s[it], g2=test_e2s[it])
+            # Draw the PSF on a vignet
+            image_epsf = gs.ImageF(self.image_size, self.image_size)
+            psf.drawImage(image=image_epsf, scale=self.pix_scale)
+
+            # Before adding the noise, we measure the ellipticity components
+            my_moments = gs.hsm.FindAdaptiveMom(image_epsf)
+            test_e1_HSM[it] = my_moments.observed_shape.g1
+            test_e2_HSM[it] = my_moments.observed_shape.g2
+            test_sig_HSM[it] = my_moments.moments_sigma
+
+            test_vignets[it, :, :] = image_epsf.array
+
+        # Build the masks
+        test_masks = self.handle_SExtractor_mask(test_vignets, thresh=-1e5)
+
+        # Build the dictionary
+        test_dic = {'VIGNET_LIST': test_vignets,
+                    'GLOB_POSITION_IMG_LIST': self.positions,
+                    'MASK_LIST': test_masks, 'CCD_ID_LIST': self.ccd_id,
+                    'TRUE_E1_HSM': test_e1_HSM, 'TRUE_E2_HSM': test_e2_HSM,
+                    'TRUE_SIG_HSM': test_sig_HSM}
+
+        # Save the fits file
+        mccd.mccd_utils.save_fits(test_dic,
+                                  train_bool=False,
+                                  cat_id=self.catalog_id,
+                                  output_path=self.output_path)
+
+    @staticmethod
+    def handle_SExtractor_mask(stars, thresh):
+        r"""Handle SExtractor masks.
+        Reads SExtracted star stamps, generates MCCD-compatible masks
+        (that is, binary weights), and replaces bad pixels with 0s - they will
+        not be used by MCCD, but the ridiculous numerical values can
+        otherwise still lead to problems because of convolutions.
+        """
+        mask = np.ones(stars.shape)
+        mask[stars < thresh] = 0
+        stars[stars < thresh] = 0
+        return mask
+
+
 class MomentInterpolator(object):
     r"""Allow to interpolate moments from a bin image.
 
