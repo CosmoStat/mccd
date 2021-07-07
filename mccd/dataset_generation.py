@@ -751,3 +751,147 @@ class AtmosphereGenerator(object):
             plt.savefig(save_path + 'correlation_atmosphere.pdf',
                 bbox_inches='tight')
         plt.show()
+
+
+class ExposureSimulation(object):
+    """ Simulate one exposure.
+
+    Generate a random exposure and the give the ellipticities and size
+    of the PSF for any position in the focal plane.
+
+    Parameters
+    ----------
+    e1_bin_path: str
+        e1 data path.
+    e2_bin_path: str
+        e2 data path.
+    fwhm_dist_path: str
+        fwhm distribution path.
+    fwhm_range: [float, float]
+        The range for the possible fwhm. Units in arcsec.
+        Default for CFIS data.
+    atmos_kwargs: dict
+        Atmosphere arguments.
+    e1_kwargs: dict
+        e1 interpolator arguments.
+    e2_kwargs: dict
+        e2 interpolator arguments.
+
+    """
+    def __init__(self, e1_bin_path=None, e2_bin_path=None, fwhm_dist_path=None,
+                 fwhm_range=[0.45, 1.], atmos_kwargs={}, e1_kwargs={},
+                 e2_kwargs={}):
+        # Variables
+        self.atmos_kwargs = atmos_kwargs
+        self.e1_kwargs = e1_kwargs
+        self.e2_kwargs = e2_kwargs
+        self.e1_bin_path = e1_bin_path
+        self.e2_bin_path = e2_bin_path
+        self.fwhm_dist_path = fwhm_dist_path
+        self.fwhm_range = fwhm_range
+
+        # Variables to init
+        self.atmosphere = None
+        self.e1_bins = None
+        self.e1_interp = None
+        self.e2_bins = None
+        self.e2_interp = None
+        self.mean_fwhm = None
+
+        self.current_e1 = None
+        self.current_e2 = None
+        self.current_fwhm = None
+        self.current_pos = None
+
+        # Initialize exposure
+        self.init_exposure()
+
+    def init_exposure(self):
+        """ Initialise exposure variables. """
+        # Generate atmosphere
+        self.atmosphere = mccd.dataset_generation.AtmosphereGenerator(
+            **self.atmos_kwargs)
+
+        # Generate e1 interpolator
+        self.e1_bins = np.load(self.e1_bin_path, allow_pickle=True)
+        self.e1_interp = mccd.dataset_generation.MomentInterpolator(
+            moment_map=self.e1_bins, **self.e1_kwargs)
+
+        # Generate e2 interpolator
+        self.e2_bins = np.load(self.e2_bin_path, allow_pickle=True)
+        self.e2_interp = mccd.dataset_generation.MomentInterpolator(
+            moment_map=self.e2_bins, **self.e2_kwargs)
+
+        # Sample the mean size from the size distribution
+        self.fwhm_dist = np.load(self.fwhm_dist_path, allow_pickle=True)[()]
+        # Draw a sample from the distribution
+        self.mean_fwhm = self.fwhm_dist.ppf(np.random.rand(1))
+        # Check that it is inside the limits and draw again if is not
+        while self.mean_fwhm < self.fwhm_range[0] or \
+                self.mean_fwhm > self.fwhm_range[1]:
+            self.mean_fwhm = self.fwhm_dist.ppf(np.random.rand(1))
+
+    def regenerate_exposure(self):
+        """ Regenerate a random exposure. """
+        # Regenerate atmosphere
+        self.atmosphere.regenerate_atmosphere()
+        # Regenerate mean size
+        # Draw a sample from the distribution
+        self.mean_fwhm = self.fwhm_dist.ppf(np.random.rand(1))
+        # Check that it is inside the limits and draw again if is not
+        while self.mean_fwhm < self.fwhm_range[0] or \
+                self.mean_fwhm > self.fwhm_range[1]:
+            self.mean_fwhm = self.fwhm_dist.ppf(np.random.rand(1))
+
+    def interpolate_values(self, target_x, target_y):
+        """ Interpolate exposure values.
+
+        For some target positions interpolate the values (e1, e2, fwhm).
+        The input positions are in global MCCD coordinates.
+        Faster if the several positions are passed as a np.ndarray.
+
+        Parameters
+        ----------
+        target_x: float or np.ndarray
+            Target positions x coordinate from the global MCCD coordinate
+            system.
+        target_y: float or np.ndarray
+            Target positions y coordinate from the global MCCD coordinate
+            system.
+
+        Returns
+        -------
+        current_e1: float or np.ndarray
+            Interpolated e1 values at target positions.
+        current_e2: float or np.ndarray
+            Interpolated e2 values at target positions.
+        current_fwhm: float or np.ndarray
+            Interpolated fwhm values at target positions.
+            Units in arcsec.
+        """
+        # Save current positions
+        self.current_pos = [target_x, target_y]
+        # First calculate the mean variations
+        if np.isscalar(target_x):
+            self.current_e1 = self.e1_interp.interpolate_position(target_x,
+                                                                  target_y)
+            self.current_e2 = self.e2_interp.interpolate_position(target_x,
+                                                                  target_y)
+        else:
+            self.current_e1 = np.array([
+                self.e1_interp.interpolate_position(_x, _y)
+                for _x, _y in zip(target_x, target_y)])
+            self.current_e2 = np.array([
+                self.e2_interp.interpolate_position(_x, _y)
+                for _x, _y in zip(target_x, target_y)])
+
+        self.current_fwhm = np.ones_like(self.current_e1) * self.mean_fwhm
+
+        # Calculate and add the atmospheric part
+        atm_contribution = self.atmosphere.interpolate_position(target_x,
+                                                                target_y)
+        self.current_e1 += atm_contribution[0]
+        self.current_e2 += atm_contribution[1]
+        self.current_fwhm = self.current_fwhm * atm_contribution[2]
+
+        return self.current_e1, self.current_e2, self.current_fwhm
