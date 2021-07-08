@@ -422,7 +422,52 @@ class GenerateSimDataset(object):
 class GenerateRealisticDataset(object):
     r"""Generate realistic dataset for training and validating PSF models.
 
-    Model description.. TODO
+    **General considerations**:
+
+    The PSF will have a Moffat profile with a specific beta parameter that
+    by default is fixed for the CFIS observations.
+
+    *Optical contributions*:
+    This realistic simulation is based on the CFIS survey of CFHT. The idea is
+    to use the mean star ellipticity measurements to characterise the optical
+    aberrations in terms of ellipticity contribution. We use the mean
+    measurements and we interpolate from those images to get the e1, e2
+    contribution at the target positions. For the size, we draw a random
+    sample from the size distribution of the observed CFIS mean exposure FWHM.
+
+    *Atmospheric contribution*:
+    In this case we will be using the Von Karman power function as it has been
+    proposed in the Heymans et al. 2012 paper. We use Galsim's PowerSpectrum
+    class to generate an atmospheric realisation. We use the same Von Karman
+    power law for the E-mode and the B-mode. The outer scale parameter, also
+    known as ``theta_zero`` is set with the value measured in Heymans paper.
+    Then we simulate a grid of points that correspond to our focal plane, and
+    then we interpolate that grid to the target positions. This gives us the
+    ellipticity contribution of the atmosphere to our PSF. We adjust the
+    variance of the variations to a range that makes sense with our optical
+    contributions. We use the magnification of the lensing field to multiply
+    the constant exposure size.
+
+    *Total contribution*:
+    We need to add the ellipticity contributions of the optical and the
+    atmospheric part to get the overall ellipticity distribution of the
+    exposure. Concerning the size, as many star selection methods for PSF
+    modelling consist in making cuts on the star sizes, we know that the
+    observed stars in our exposure have limited size variations. That is
+    why we add the ``max_fwhm_var`` parameter that scales the size variations
+    so that the maximal variations are within the required range.
+
+    *Star quantity and positions*:
+    For the number of stars we draw a random number of stars per CCD that will
+    be our mean number of stars per CCD for this particular exposure.
+    The distribution is uniform within the range ``range_mean_star_qt``.
+    Then for each CCD we draw a random uniform sample from the range
+    ``range_dev_star_nb`` that will deviate the star number from the exposure
+    mean. However, this deviation shuold have a zero mean,ex [-10, 10].
+    Once we have set the number of stars a CCD will have, we draw random
+    positions in the corresponding CCD.
+
+    The test dataset can be generated at random positions or at a regular grid.
 
     Parameters
     ----------
@@ -467,10 +512,7 @@ class GenerateRealisticDataset(object):
         As many times the star selection is done in size cuts,
         the maximum FWHM variations are known.
         Default is ``0.04``.
-    Notes
-    -----
-    The simulated PSFs are based on the Moffat profile and we are using Galsim
-    to generate them.
+
     """
     def __init__(self, e1_path, e2_path, size_path, output_path,
                  image_size=51, psf_flux=1., beta_psf=4.765, pix_scale=0.187,
