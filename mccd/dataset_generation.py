@@ -916,8 +916,7 @@ class AtmosphereGenerator(object):
         # Initialise powerspectrum (might be slow)
         self.init_powerspectrum()
 
-    @staticmethod
-    def power_fun(freq, theta_zero, r_trunc):
+    def power_fun(self, freq):
         """ Von Karman power function.
 
         Parameters should be in arcsec.
@@ -926,8 +925,8 @@ class AtmosphereGenerator(object):
         """
         # theta = self.theta_zero
         # r = self.r_trunc
-        return (freq**2 + 1 / (theta_zero**2))**(- 11 / 6) * \
-            np.exp(-freq**2 * (r_trunc**2))
+        return (freq**2 + 1 / (self.theta_zero**2))**(- 11 / 6) * \
+            np.exp(-freq**2 * (self.r_trunc**2))
 
     def init_powerspectrum(self):
         """ Initialise the powerspectrum. """
@@ -951,10 +950,8 @@ class AtmosphereGenerator(object):
 
         # Create the powerspectrum instance
         self.my_ps = gs.PowerSpectrum(
-            e_power_function=lambda l: self.power_fun(
-                l, self.theta_zero, self.r_trunc),
-            b_power_function=lambda l: self.power_fun(
-                l, self.theta_zero, self.r_trunc))
+            e_power_function=self.power_fun,
+            b_power_function=self.power_fun)
 
         # Generate grid points of the powerspectrum
         self.g1, self.g2, self.kappa = self.my_ps.buildGrid(
