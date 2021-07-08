@@ -499,7 +499,7 @@ class GenerateRealisticDataset(object):
         self.test_grid_xy = None
         self.mean_star_qt = None
         self.positions = None
-        self.ccd_id = None
+        self.ccd_list = None
 
         # Define camera geometry
         self.loc2glob = mccd.mccd_utils.Loc2Glob()
@@ -674,7 +674,7 @@ class GenerateRealisticDataset(object):
         # Build the dictionary
         train_dic = {'VIGNET_LIST': new_vignets,
                      'GLOB_POSITION_IMG_LIST': self.positions,
-                     'MASK_LIST': new_masks, 'CCD_ID_LIST': self.ccd_id,
+                     'MASK_LIST': new_masks, 'CCD_ID_LIST': self.ccd_list,
                      'TRUE_E1_HSM': new_e1_HSM, 'TRUE_E2_HSM': new_e2_HSM,
                      'TRUE_SIG_HSM': new_sig_HSM}
 
@@ -685,8 +685,9 @@ class GenerateRealisticDataset(object):
                                   output_path=self.output_path)
 
         # Save the exposure object realisation
+        cat_id_str = "%07d" % self.catalog_id
         save_str = self.output_path + 'exposure_sim' + '-' + \
-            self.catalog_id + '.npy'
+            cat_id_str + '.npy'
         np.save(save_str, self.exposure_sim)
 
     def generate_test_data(self, grid_pos_bool=False, x_grid=5, y_grid=10):
@@ -750,7 +751,7 @@ class GenerateRealisticDataset(object):
         # Build the dictionary
         test_dic = {'VIGNET_LIST': test_vignets,
                     'GLOB_POSITION_IMG_LIST': self.positions,
-                    'MASK_LIST': test_masks, 'CCD_ID_LIST': self.ccd_id,
+                    'MASK_LIST': test_masks, 'CCD_ID_LIST': self.ccd_list,
                     'TRUE_E1_HSM': test_e1_HSM, 'TRUE_E2_HSM': test_e2_HSM,
                     'TRUE_SIG_HSM': test_sig_HSM}
 
