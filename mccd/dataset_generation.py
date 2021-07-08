@@ -516,7 +516,7 @@ class MomentInterpolator(object):
 
 
 class AtmosphereGenerator(object):
-    """ Generate atmospheric variations.
+    r""" Generate atmospheric variations.
 
     This class generates a random atmospheric contributition in terms of
     elloipticity and size.
@@ -566,7 +566,7 @@ class AtmosphereGenerator(object):
         self.init_powerspectrum()
 
     def power_fun(self, freq):
-        """ Von Karman power function.
+        r""" Von Karman power function.
 
         Parameters should be in arcsec.
         Heymans' parameter for the CFHT telescope is in the range
@@ -578,7 +578,7 @@ class AtmosphereGenerator(object):
             np.exp(-freq**2 * (self.r_trunc**2))
 
     def init_powerspectrum(self):
-        """ Initialise the powerspectrum. """
+        r""" Initialise the powerspectrum. """
         # We need to have the hole area of the focal plane expressed in arcsec.
         # Get the maximum values for the global positions (in pixels])
         max_x = self.loc2glob.x_npix * 6 + self.loc2glob.x_gap * 5
@@ -611,11 +611,11 @@ class AtmosphereGenerator(object):
                                             variance=self.map_std**2)
 
     def regenerate_atmosphere(self):
-        """ Generate a new random atmosphere."""
+        r""" Generate a new random atmosphere."""
         self.init_powerspectrum()
 
     def interpolate_position(self, target_x, target_y):
-        """ Get the ellipticity and size factor for a target position.
+        r""" Get the ellipticity and size factor for a target position.
 
         It is recommended to calculate with 1D arrays as it is much faster.
 
@@ -649,7 +649,7 @@ class AtmosphereGenerator(object):
 
     def plot_realisation(self, ccd_corner=None, save_path=None,
                          save_fig=False):
-        """ Plot atmospheric realisation.
+        r""" Plot atmospheric realisation.
 
         Plot the entire focal plane and the dimensions of a CCD.
         """
@@ -719,7 +719,7 @@ class AtmosphereGenerator(object):
 
     def plot_correlation(self, save_path=None, n_points=100, kmin_factor=10.,
                          kmax_factor=10., save_fig=False):
-        """ Plot correlation functions. """
+        r""" Plot correlation functions. """
         if save_path is None:
             save_path = './'
 
@@ -756,7 +756,7 @@ class AtmosphereGenerator(object):
 
 
 class ExposureSimulation(object):
-    """ Simulate one exposure.
+    r""" Simulate one exposure.
 
     Generate a random exposure and the give the ellipticities and size
     of the PSF for any position in the focal plane.
@@ -809,7 +809,7 @@ class ExposureSimulation(object):
         self.init_exposure()
 
     def init_exposure(self):
-        """ Initialise exposure variables. """
+        r""" Initialise exposure variables. """
         # Generate atmosphere
         self.atmosphere = mccd.dataset_generation.AtmosphereGenerator(
             **self.atmos_kwargs)
@@ -834,7 +834,7 @@ class ExposureSimulation(object):
             self.mean_fwhm = self.fwhm_dist.ppf(np.random.rand(1))
 
     def regenerate_exposure(self):
-        """ Regenerate a random exposure. """
+        r""" Regenerate a random exposure. """
         # Regenerate atmosphere
         self.atmosphere.regenerate_atmosphere()
         # Regenerate mean size
@@ -846,7 +846,7 @@ class ExposureSimulation(object):
             self.mean_fwhm = self.fwhm_dist.ppf(np.random.rand(1))
 
     def interpolate_values(self, target_x, target_y):
-        """ Interpolate exposure values.
+        r""" Interpolate exposure values.
 
         For some target positions interpolate the values (e1, e2, fwhm).
         The input positions are in global MCCD coordinates.
