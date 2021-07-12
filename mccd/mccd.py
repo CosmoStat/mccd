@@ -591,7 +591,7 @@ class MCCD(object):
                     self.ccd_list[k], num_outliers, num_stars,
                     star_thresh_num))
 
-            if num_outliers >= star_thresh_num:
+            if num_outliers > star_thresh_num:
                 # We have to reject the CCD
                 ccd_outliers.append(k)
                 print('Removing CCD %d.' % (self.ccd_list[k]))
