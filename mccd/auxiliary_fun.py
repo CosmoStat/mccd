@@ -1109,6 +1109,18 @@ class MCCDParamsParser(object):
         if not self.config.has_option('INSTANCE', 'FILTER_PATH'):
             self.config.set('INSTANCE', 'FILTER_PATH', 'None')
 
+        if not self.config.has_option('INSTANCE', 'D_HYB_LOC'):
+            self.config.set('INSTANCE', 'D_HYB_LOC', '2')
+
+        if not self.config.has_option('INSTANCE', 'MIN_D_COMP_GLOB'):
+            self.config.set('INSTANCE', 'MIN_D_COMP_GLOB', 'None')
+
+        if not self.config.has_option('INSTANCE', 'CCD_STAR_THRESH'):
+            self.config.set('INSTANCE', 'CCD_STAR_THRESH', '0.15')
+
+        if not self.config.has_option('INSTANCE', 'RMSE_THRESH'):
+            self.config.set('INSTANCE', 'RMSE_THRESH', '1.25')
+
     def _set_fit_options(self):
         """Set Fit Options.
 
@@ -1235,12 +1247,27 @@ class MCCDParamsParser(object):
                 filters = None
             else:
                 filters = self.config['INSTANCE'].get('FILTER_PATH')
+            d_hyb_loc = int(self.config['INSTANCE'].get('D_HYB_LOC'))
+            ccd_star_thresh = float(
+                self.config['INSTANCE'].get('CCD_STAR_THRESH'))
+            rmse_thresh = float(self.config['INSTANCE'].get('RMSE_THRESH'))
+            if self.config['INSTANCE'].get('MIN_D_COMP_GLOB') == 'None':
+                min_d_comp_glob = None
+            else:
+                min_d_comp_glob = int(
+                    self.config['INSTANCE'].get('MIN_D_COMP_GLOB'))
 
             # Build the parameter dictionaries
             self.mccd_inst_kw = {'n_comp_loc': n_comp_loc,
                                  'd_comp_glob': d_comp_glob,
-                                 'filters': filters, 'ksig_loc': ksig_loc,
-                                 'ksig_glob': ksig_glob}
+                                 'd_hyb_loc': d_hyb_loc,
+                                 'min_d_comp_glob': min_d_comp_glob,
+                                 'filters': filters,
+                                 'ksig_loc': ksig_loc,
+                                 'ksig_glob': ksig_glob,
+                                 'rmse_thresh': rmse_thresh,
+                                 'ccd_star_thresh': ccd_star_thresh
+                                 }
 
     def _build_fit_kw(self):
         r"""Build ``FIT`` parameter dictionary."""
