@@ -1095,16 +1095,16 @@ class MCCDParamsParser(object):
 
         """
         if not self.config.has_option('INSTANCE', 'N_COMP_LOC'):
-            self.config.set('INSTANCE', 'N_COMP_LOC', '8')
+            self.config.set('INSTANCE', 'N_COMP_LOC', '6')
 
         if not self.config.has_option('INSTANCE', 'D_COMP_GLOB'):
-            self.config.set('INSTANCE', 'D_COMP_GLOB', '3')
+            self.config.set('INSTANCE', 'D_COMP_GLOB', '8')
 
         if not self.config.has_option('INSTANCE', 'KSIG_LOC'):
-            self.config.set('INSTANCE', 'KSIG_LOC', '1.0')
+            self.config.set('INSTANCE', 'KSIG_LOC', '0.0')
 
         if not self.config.has_option('INSTANCE', 'KSIG_GLOB'):
-            self.config.set('INSTANCE', 'KSIG_GLOB', '1.0')
+            self.config.set('INSTANCE', 'KSIG_GLOB', '0.0')
 
         if not self.config.has_option('INSTANCE', 'FILTER_PATH'):
             self.config.set('INSTANCE', 'FILTER_PATH', 'None')
