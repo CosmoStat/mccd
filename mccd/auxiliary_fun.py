@@ -917,10 +917,12 @@ def mccd_preprocessing(input_folder_path, output_path, min_n_stars=20,
         star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list, \
             DEC_list = mccd_inputs.get_inputs(catalog_id)
 
-        star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list, \
-            DEC_list, _ = mccd_inputs.outlier_rejection(
-                star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list,
-                DEC_list, shape_std_max=outlier_std_max, print_fun=print_fun)
+        if outlier_std_max < 99:
+            star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list, \
+                DEC_list, _ = mccd_inputs.outlier_rejection(
+                    star_list, pos_list, mask_list, ccd_list, SNR_list,
+                    RA_list, DEC_list, shape_std_max=outlier_std_max,
+                    print_fun=print_fun)
 
         mccd_star_list = []
         mccd_pos_list = []
