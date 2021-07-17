@@ -118,7 +118,8 @@ class MCCD(object):
         Parameter concerning the CCD outlier rejection. If the percentage
         of outlier stars in a single CCD is bigger than ``ccd_star_thresh``,
         he CCD is considered to be an outlier. In this case, the CCD is
-        rejected from the PSF model.
+        rejected from the PSF model. A value lower than 0 means that no
+        outlier rejection will be done.
         Default is ``0.15``.
     n_scales: int
         Number of wavelet (Default Starlet) scales to use for the
@@ -524,7 +525,8 @@ class MCCD(object):
         self.is_fitted = True
 
         # Remove outliers
-        self.remove_outlier_ccds()
+        if self.ccd_star_thresh > 0:
+            self.remove_outlier_ccds()
 
         return self.S, self.A_loc, self.A_glob, self.alpha, self.Pi
 
