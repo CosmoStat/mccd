@@ -76,6 +76,17 @@ class GenerateRealisticDataset(object):
     ``plot_realisation`` and ``plot_correlation`` of the
     ``AtmosphereGenerator`` allows to see the atmospheric realisations.
 
+    **Usage example**::
+
+    sim_dataset_gen = mccd.dataset_generation.GenerateRealisticDataset(
+        e1_path=e1_path,
+        e2_path=e2_path,
+        size_path=fwhm_path,
+        output_path=output_path,
+        catalog_id=cat_id)
+    sim_dataset_gen.generate_train_data()
+    sim_dataset_gen.generate_test_data()
+
     Parameters
     ----------
     e1_path: str
@@ -119,12 +130,16 @@ class GenerateRealisticDataset(object):
         As many times the star selection is done in size cuts,
         the maximum FWHM variations are known.
         Default is ``0.04``.
+    save_realisation: bool
+        If we need to save the exposure realisation in order to be able to
+        reproduce the simulation.
 
     """
     def __init__(self, e1_path, e2_path, size_path, output_path,
                  image_size=51, psf_flux=1., beta_psf=4.765, pix_scale=0.187,
                  catalog_id=2086592, n_ccd=40, range_mean_star_qt=[40, 100],
                  range_dev_star_nb=[-10, 10], max_fwhm_var=0.04,
+                 save_realisation=False,
                  atmos_kwargs={'ngrid': 8192}, e1_kwargs={},
                  e2_kwargs={}):
         # Load the paths
@@ -143,6 +158,7 @@ class GenerateRealisticDataset(object):
         self.range_mean_star_qt = range_mean_star_qt
         self.range_dev_star_nb = range_dev_star_nb
         self.max_fwhm_var = max_fwhm_var
+        self.save_realisation = save_realisation
 
         # To initialise
         self.test_grid_xy = None
@@ -333,11 +349,12 @@ class GenerateRealisticDataset(object):
                                   cat_id=self.catalog_id,
                                   output_path=self.output_path)
 
-        # Save the exposure object realisation
-        cat_id_str = "%07d" % self.catalog_id
-        save_str = self.output_path + 'exposure_sim' + '-' + \
-            cat_id_str + '.npy'
-        np.save(save_str, self.exposure_sim)
+        if self.save_realisation:
+            # Save the exposure object realisation
+            cat_id_str = "%07d" % self.catalog_id
+            save_str = self.output_path + 'exposure_sim' + '-' + \
+                cat_id_str + '.npy'
+            np.save(save_str, self.exposure_sim)
 
     def generate_test_data(self, grid_pos_bool=False, x_grid=5, y_grid=10):
         r"""Generate the test dataset and save it into a fits file.
