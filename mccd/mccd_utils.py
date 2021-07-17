@@ -438,7 +438,7 @@ class MccdInputs(object):
         DEC_list = []
 
         for it in range(number_ccd):
-            starcat = fits.open(starcat_array[it, 2])
+            starcat = fits.open(starcat_array[it, 2], memmap=False)
             ccd = starcat_array[it, 1].astype('int')
 
             positions = np.array(

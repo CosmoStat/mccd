@@ -76,6 +76,17 @@ class GenerateRealisticDataset(object):
     ``plot_realisation`` and ``plot_correlation`` of the
     ``AtmosphereGenerator`` allows to see the atmospheric realisations.
 
+    **Usage example**::
+
+    sim_dataset_gen = mccd.dataset_generation.GenerateRealisticDataset(
+        e1_path=e1_path,
+        e2_path=e2_path,
+        size_path=fwhm_path,
+        output_path=output_path,
+        catalog_id=cat_id)
+    sim_dataset_gen.generate_train_data()
+    sim_dataset_gen.generate_test_data()
+
     Parameters
     ----------
     e1_path: str
@@ -119,12 +130,16 @@ class GenerateRealisticDataset(object):
         As many times the star selection is done in size cuts,
         the maximum FWHM variations are known.
         Default is ``0.04``.
+    save_realisation: bool
+        If we need to save the exposure realisation in order to be able to
+        reproduce the simulation.
 
     """
     def __init__(self, e1_path, e2_path, size_path, output_path,
                  image_size=51, psf_flux=1., beta_psf=4.765, pix_scale=0.187,
                  catalog_id=2086592, n_ccd=40, range_mean_star_qt=[40, 100],
                  range_dev_star_nb=[-10, 10], max_fwhm_var=0.04,
+                 save_realisation=False,
                  atmos_kwargs={'ngrid': 8192}, e1_kwargs={},
                  e2_kwargs={}):
         # Load the paths
@@ -143,6 +158,7 @@ class GenerateRealisticDataset(object):
         self.range_mean_star_qt = range_mean_star_qt
         self.range_dev_star_nb = range_dev_star_nb
         self.max_fwhm_var = max_fwhm_var
+        self.save_realisation = save_realisation
 
         # To initialise
         self.test_grid_xy = None
@@ -333,11 +349,12 @@ class GenerateRealisticDataset(object):
                                   cat_id=self.catalog_id,
                                   output_path=self.output_path)
 
-        # Save the exposure object realisation
-        cat_id_str = "%07d" % self.catalog_id
-        save_str = self.output_path + 'exposure_sim' + '-' + \
-            cat_id_str + '.npy'
-        np.save(save_str, self.exposure_sim)
+        if self.save_realisation:
+            # Save the exposure object realisation
+            cat_id_str = "%07d" % self.catalog_id
+            save_str = self.output_path + 'exposure_sim' + '-' + \
+                cat_id_str + '.npy'
+            np.save(save_str, self.exposure_sim)
 
     def generate_test_data(self, grid_pos_bool=False, x_grid=5, y_grid=10):
         r"""Generate the test dataset and save it into a fits file.
@@ -516,7 +533,7 @@ class MomentInterpolator(object):
 
 
 class AtmosphereGenerator(object):
-    """ Generate atmospheric variations.
+    r""" Generate atmospheric variations.
 
     This class generates a random atmospheric contributition in terms of
     elloipticity and size.
@@ -566,7 +583,7 @@ class AtmosphereGenerator(object):
         self.init_powerspectrum()
 
     def power_fun(self, freq):
-        """ Von Karman power function.
+        r""" Von Karman power function.
 
         Parameters should be in arcsec.
         Heymans' parameter for the CFHT telescope is in the range
@@ -578,7 +595,7 @@ class AtmosphereGenerator(object):
             np.exp(-freq**2 * (self.r_trunc**2))
 
     def init_powerspectrum(self):
-        """ Initialise the powerspectrum. """
+        r""" Initialise the powerspectrum. """
         # We need to have the hole area of the focal plane expressed in arcsec.
         # Get the maximum values for the global positions (in pixels])
         max_x = self.loc2glob.x_npix * 6 + self.loc2glob.x_gap * 5
@@ -611,11 +628,11 @@ class AtmosphereGenerator(object):
                                             variance=self.map_std**2)
 
     def regenerate_atmosphere(self):
-        """ Generate a new random atmosphere."""
+        r""" Generate a new random atmosphere."""
         self.init_powerspectrum()
 
     def interpolate_position(self, target_x, target_y):
-        """ Get the ellipticity and size factor for a target position.
+        r""" Get the ellipticity and size factor for a target position.
 
         It is recommended to calculate with 1D arrays as it is much faster.
 
@@ -649,7 +666,7 @@ class AtmosphereGenerator(object):
 
     def plot_realisation(self, ccd_corner=None, save_path=None,
                          save_fig=False):
-        """ Plot atmospheric realisation.
+        r""" Plot atmospheric realisation.
 
         Plot the entire focal plane and the dimensions of a CCD.
         """
@@ -719,7 +736,7 @@ class AtmosphereGenerator(object):
 
     def plot_correlation(self, save_path=None, n_points=100, kmin_factor=10.,
                          kmax_factor=10., save_fig=False):
-        """ Plot correlation functions. """
+        r""" Plot correlation functions. """
         if save_path is None:
             save_path = './'
 
@@ -756,7 +773,7 @@ class AtmosphereGenerator(object):
 
 
 class ExposureSimulation(object):
-    """ Simulate one exposure.
+    r""" Simulate one exposure.
 
     Generate a random exposure and the give the ellipticities and size
     of the PSF for any position in the focal plane.
@@ -809,7 +826,7 @@ class ExposureSimulation(object):
         self.init_exposure()
 
     def init_exposure(self):
-        """ Initialise exposure variables. """
+        r""" Initialise exposure variables. """
         # Generate atmosphere
         self.atmosphere = mccd.dataset_generation.AtmosphereGenerator(
             **self.atmos_kwargs)
@@ -834,7 +851,7 @@ class ExposureSimulation(object):
             self.mean_fwhm = self.fwhm_dist.ppf(np.random.rand(1))
 
     def regenerate_exposure(self):
-        """ Regenerate a random exposure. """
+        r""" Regenerate a random exposure. """
         # Regenerate atmosphere
         self.atmosphere.regenerate_atmosphere()
         # Regenerate mean size
@@ -846,7 +863,7 @@ class ExposureSimulation(object):
             self.mean_fwhm = self.fwhm_dist.ppf(np.random.rand(1))
 
     def interpolate_values(self, target_x, target_y):
-        """ Interpolate exposure values.
+        r""" Interpolate exposure values.
 
         For some target positions interpolate the values (e1, e2, fwhm).
         The input positions are in global MCCD coordinates.

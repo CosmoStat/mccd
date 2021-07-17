@@ -76,6 +76,16 @@ class MCCD(object):
         parameter of the :func:`fit()` function.
     d_comp_glob: int
         Degree of polynomial components for the global model.
+    d_hyb_loc: int
+        Degree of the polynomial component for the local part in case the
+        local model used is ``hybrid``.
+        Default is ``2``.
+    min_d_comp_glob: int or None
+        The minimum degree of the polynomial for the global component.
+        For example, if the paramter is set to 1, the polynomials of degree
+        0 and 1 will be excluded from the global polynomial variations.
+        ``None`` means that we are not excluding any degree.
+        Default is ``None``.
     upfact: int
         Upsampling factor. Default is 1 (no superresolution).
     ksig_loc: float
@@ -92,6 +102,25 @@ class MCCD(object):
         It is used for the thresholding of the
         global eigenPSF :math:`\tilde{S}` update.
         Default is ``1``.
+    rmse_thresh: float
+        Parameter concerning the CCD outlier rejection. Once the PSF model is
+        calculated we perform an outlier check on the training stars.
+        We divide each star in two parts with a given circle. The inner part
+        corresponds to the most of the PSF/star energy while the outer part
+        corresponds to the observation background. The outer part is used to
+        calculate the noise level and the inner part to calculate the model
+        residual (star observation - PSF model reconstruction). If the RMSE
+        error of the residual divided by the noise level is over the
+        ``rmse_thresh`` the star will be considered an outlier.
+        A perfect reconstruction would have ``rmse_thresh`` equal to 1.
+        Default is ``1.25``.
+    ccd_star_thresh: float
+        Parameter concerning the CCD outlier rejection. If the percentage
+        of outlier stars in a single CCD is bigger than ``ccd_star_thresh``,
+        the CCD is considered to be an outlier. In this case, the CCD is
+        rejected from the PSF model. A value lower than 0 means that no
+        outlier rejection will be done.
+        Default is ``0.15``.
     n_scales: int
         Number of wavelet (Default Starlet) scales to use for the
         sparsity constraint.
@@ -115,10 +144,10 @@ class MCCD(object):
 
     def __init__(self, n_comp_loc, d_comp_glob, d_hyb_loc=2,
                  min_d_comp_glob=None, upfact=1, ksig_loc=1.,
-                 ksig_glob=1., n_scales=3, ksig_init=1.,
-                 filters=None, verbose=2):
+                 ksig_glob=1., rmse_thresh=1.25, ccd_star_thresh=0.15,
+                 n_scales=3, ksig_init=1., filters=None, verbose=2):
         r"""General parameter initialisations."""
-        # [TL] TODO Propagate `d_hyb_loc` & `min_d_comp_glob` into config_file
+        # Main model paramters
         self.n_comp_loc = n_comp_loc
         self.d_comp_glob = d_comp_glob
         self.min_d_comp_glob = min_d_comp_glob
@@ -139,10 +168,9 @@ class MCCD(object):
         self.ksig_init = ksig_init
         self.iter_outputs = False
 
-        # Hard-coded variables for outlier rejection
-        # [TL]TODO Propagate`ccd_star_thresh` & `rmse_thresh` into config_file
-        self.ccd_star_thresh = 0.15
-        self.rmse_thresh = 1.25
+        # Outlier rejection parameters
+        self.ccd_star_thresh = ccd_star_thresh
+        self.rmse_thresh = rmse_thresh
 
         if filters is None:
             # option strings for mr_transform
@@ -497,7 +525,8 @@ class MCCD(object):
         self.is_fitted = True
 
         # Remove outliers
-        self.remove_outlier_ccds()
+        if self.ccd_star_thresh > 0:
+            self.remove_outlier_ccds()
 
         return self.S, self.A_loc, self.A_glob, self.alpha, self.Pi
 
@@ -521,7 +550,7 @@ class MCCD(object):
             return 7.5
 
     def remove_ccd_from_model(self, ccd_idx):
-        """ Remove ccd from the trained model. """
+        r""" Remove ccd from the trained model. """
         self.n_ccd -= 1
         _ = self.obs_pos.pop(ccd_idx)
         _ = self.A_loc.pop(ccd_idx)
@@ -534,14 +563,14 @@ class MCCD(object):
         _ = self.ccd_list.pop(ccd_idx)
 
     def remove_outlier_ccds(self):
-        """ Remove all CCDs with outliers.
+        r""" Remove all CCDs with outliers.
 
         Reminder: the outlier rejection is done on the train stars.
         We will reject a CCD if the percentage of outlier stars in
-        a single CCD is bigger than `self.ccd_star_thresh`.
+        a single CCD is bigger than ``ccd_star_thresh``.
 
-        They outlier threshold is based in `self.rmse_thresh`.
-        A perfect reconstruction would have `self.rmse_thresh` equal to 1.
+        They outlier threshold is based in ``rmse_thresh``.
+        A perfect reconstruction would have ``rmse_thresh`` equal to 1.
 
         """
         dim_x = self.obs_data[0].shape[0]
@@ -591,7 +620,7 @@ class MCCD(object):
                     self.ccd_list[k], num_outliers, num_stars,
                     star_thresh_num))
 
-            if num_outliers >= star_thresh_num:
+            if num_outliers > star_thresh_num:
                 # We have to reject the CCD
                 ccd_outliers.append(k)
                 print('Removing CCD %d.' % (self.ccd_list[k]))
