@@ -112,12 +112,12 @@ class MCCD(object):
         residual (star observation - PSF model reconstruction). If the RMSE
         error of the residual divided by the noise level is over the
         ``rmse_thresh`` the star will be considered an outlier.
-        A perfect reconstruction would have ``rmse_thresh`` equal to 1.\
+        A perfect reconstruction would have ``rmse_thresh`` equal to 1.
         Default is ``1.25``.
     ccd_star_thresh: float
         Parameter concerning the CCD outlier rejection. If the percentage
         of outlier stars in a single CCD is bigger than ``ccd_star_thresh``,
-        he CCD is considered to be an outlier. In this case, the CCD is
+        the CCD is considered to be an outlier. In this case, the CCD is
         rejected from the PSF model. A value lower than 0 means that no
         outlier rejection will be done.
         Default is ``0.15``.
