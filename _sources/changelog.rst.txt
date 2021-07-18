@@ -1,6 +1,10 @@
 Changelog
 =========
 
+- Changed from travis deployment to github actions. 
+    Changed the github pages template. Now using the one from
+    |link-to-pyralid-template| from |link-to-sfarrens|.
+
 - Added new module for realisitic simulations ```dataset_generation.py```.
     It is capable of simulating realistic simulations from the UNIONS/CFIS survey,
     including realistic atmospherical simulations following a realisation of a Von Kármán model.
@@ -38,3 +42,11 @@ Changelog
     Set default denoising to zero as wavelet denoising (using starlets) introduce an
     important bias in the ellipticity estimates of the model.
 
+
+.. |link-to-pyralid-template| raw:: html
+
+  <a href="https://github.com/sfarrens/pyralid-template" target="_blank">pyralid-template</a>
+
+.. |link-to-sfarrens| raw:: html
+
+  <a href="https://github.com/sfarrens" target="_blank">sfarrens</a>
