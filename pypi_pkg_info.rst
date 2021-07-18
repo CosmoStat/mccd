@@ -4,7 +4,7 @@ MCCD Point Spread Function modelling
 
 :Author: `Tobias Liaudat <https://tobias-liaudat.github.io>`_
 
-:Version: 1.0.0
+:Version: 1.1.0
 
 :Repository: `https://github.com/CosmoStat/mccd <https://github.com/CosmoStat/mccd>`_
 
