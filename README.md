@@ -144,6 +144,8 @@ Some notebook examples can be found
 
 ## Changelog
 
+- Changed from travis deployment to github actions. Changed the github pages template. Now using the one from [pyralid-template](https://github.com/sfarrens/pyralid-template) from [sfarrens](https://github.com/sfarrens).
+
 - Added new module for realisitic simulations ```dataset_generation.py```. It is capable of simulating realistic simulations from the UNIONS/CFIS survey, including realistic atmospherical simulations following a realisation of a Von Kármán model. See the above-mentioned module documentation for more information. See also the ```testing-realistic-data.ipynb``` in the notebook folder for an example. 
 
 - Added outlier rejection based on a pixel residual criterion. The main parameters, ```RMSE_THRESH``` and ```CCD_STAR_THRESH``` can be found in the MCCD config file. See then parameter documentation for more information.  
