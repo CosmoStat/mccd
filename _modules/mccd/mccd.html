@@ -1,171 +1,69 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>mccd.mccd &mdash; mccd 1.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+<meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<title>
+      mccd.mccd | mccd v1.1.0
+    </title>
+<link href="../../_static/pygments.css" rel="stylesheet"/>
+<link href="../../_static/theme.css" rel="stylesheet"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
 </head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="../../index.html" class="icon icon-home"> mccd
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                1.0
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../mccd.html">1. mccd package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../mccd.auxiliary_fun.html">1.1.1. mccd.auxiliary_fun module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../mccd.grads.html">1.1.2. mccd.grads module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../mccd.info.html">1.1.3. mccd.info module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../mccd.mccd.html">1.1.4. mccd.mccd module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../mccd.mccd_utils.html">1.1.5. mccd.mccd_utils module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../mccd.proxs.html">1.1.6. mccd.proxs module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../mccd.utils.html">1.1.7. mccd.utils module</a></li>
+<body class="text-gray-900 antialiased min-h-screen md:h-screen flex flex-col">
+<a class="block text-xl bg-white px-8 py-4 z-20 absolute top-0 left-0 transform -translate-x-full focus:translate-x-0 transition-transform duration-75" href="#mccd-mccd" title="Skip navigation links">Skip to content</a>
+<header class="md:sticky top-0 bg-gray-900 shadow-md flex md:flex-row justify-between items-center z-10"><a aria-label="Back to homepage" class="hover:bg-gray-700 focus:bg-gray-700 tooltipped tooltipped-se" href="../../index.html">
+<h2 class="text-xl text-gray-100 mx-5 py-4">mccd v1.1.0</h2>
+</a><form action="../../search.html" class="hidden md:flex my-auto mx-5 justify-between items-center print:hidden" id="searchbox" method="get">
+<input aria-label="Search the docs" class="p-2 flex-1 focus:bg-yellow-200" id="search-input" name="q" placeholder="Search the docs" style="width: 300px;" type="search"/>
+<button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+</button>
+</form>
+</header>
+<div class="md:overflow-hidden flex flex-col md:flex-row flex-1"><nav class="h-full fixed md:relative inset-y-0 left-0 z-20 md:z-0 bg-white text-gray-700 border-r overflow-x-hidden pt-16 print:hidden flex flex-col" data-menu="closed" role="navigation" style="width: 270px;">
+<div class="nav-toc"><p class="caption">Getting Started</p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../about.html">About</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../installation.html">Installation</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../quickstart.html">Quickstart Tutorial</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../changelog.html">Changelog</a></div></li>
+</ul>
+<p class="caption">API Documentation</p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><svg aria-hidden="true" class="expand" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" href="../../mccd.html">mccd</a></div><ul>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.auxiliary_fun.html">mccd.auxiliary_fun</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.dataset_generation.html">mccd.dataset_generation</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.grads.html">mccd.grads</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.info.html">mccd.info</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.mccd.html">mccd.mccd</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.mccd_utils.html">mccd.mccd_utils</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.proxs.html">mccd.proxs</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.utils.html">mccd.utils</a></div></li>
 </ul>
 </li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../z_ref.html">References</a></div></li>
 </ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">mccd</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-        
-      <li>mccd.mccd</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
+<p class="caption">Guidelines</p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../contributing.html">Contributing</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../citing.html">Citing this Package</a></div></li>
+</ul>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-            
-  <h1>Source code for mccd.mccd</h1><div class="highlight"><pre>
-<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<button aria-label="Close menu" class="text-4xl text-gray-800 p-4 bottom-0 hover:text-pink-500 md:hidden focus:text-pink-500 self-center" id="closeNavBtn" title="Close menu">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="overflow-y-auto md:w-full flex flex-col flex-1" id="main-wrapper">
+<main class="px-5 md:ml-fluid flex-1" role="main">
+<h1>Source code for mccd.mccd</h1><pre>
+<code><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="sa">r</span><span class="sd">&quot;&quot;&quot;MCCD CLASS.</span>
+<span class="sa">r</span><span class="sd">"""MCCD CLASS.</span>
 
 <span class="sd">This module contains the main MCCD class.</span>
 
@@ -175,10 +73,11 @@
 
 <span class="sd">            Morgan Schmitz &lt;https://github.com/MorganSchmitz&gt;</span>
 
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy.core.defchararray</span> <span class="kn">import</span> <span class="n">join</span>
 <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">Rbf</span>
 <span class="kn">from</span> <span class="nn">modopt.signal.wavelet</span> <span class="kn">import</span> <span class="n">get_mr_filters</span><span class="p">,</span> <span class="n">filter_convolve</span>
 <span class="kn">from</span> <span class="nn">modopt.opt.cost</span> <span class="kn">import</span> <span class="n">costObj</span>
@@ -192,7 +91,7 @@
 
 
 <div class="viewcode-block" id="mccd_quickload"><a class="viewcode-back" href="../../mccd.mccd.html#mccd.mccd.mccd_quickload">[docs]</a><span class="k">def</span> <span class="nf">mccd_quickload</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Load pre-fitted MCCD model.</span>
+    <span class="sa">r</span><span class="sd">"""Load pre-fitted MCCD model.</span>
 
 <span class="sd">    (saved with :func:`mccd.quicksave`).</span>
 
@@ -205,24 +104,24 @@
 <span class="sd">    -------</span>
 <span class="sd">    loaded_model : MCCD class</span>
 <span class="sd">        The MCCD model.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span> <span class="o">!=</span> <span class="s1">&#39;.npy&#39;</span><span class="p">:</span>
-        <span class="n">path</span> <span class="o">+=</span> <span class="s1">&#39;.npy&#39;</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span> <span class="o">!=</span> <span class="s1">'.npy'</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">+=</span> <span class="s1">'.npy'</span>
     <span class="n">mccd_params</span><span class="p">,</span> <span class="n">fitted_model</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">loaded_model</span> <span class="o">=</span> <span class="n">MCCD</span><span class="p">(</span><span class="o">**</span><span class="n">mccd_params</span><span class="p">)</span>
-    <span class="n">loaded_model</span><span class="o">.</span><span class="n">n_ccd</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">&#39;n_ccd&#39;</span><span class="p">]</span>
-    <span class="n">loaded_model</span><span class="o">.</span><span class="n">obs_pos</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">&#39;obs_pos&#39;</span><span class="p">]</span>
-    <span class="n">loaded_model</span><span class="o">.</span><span class="n">A_loc</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">&#39;A_loc&#39;</span><span class="p">]</span>
-    <span class="n">loaded_model</span><span class="o">.</span><span class="n">A_glob</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">&#39;A_glob&#39;</span><span class="p">]</span>
-    <span class="n">loaded_model</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">]</span>
-    <span class="n">loaded_model</span><span class="o">.</span><span class="n">flux_ref</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">&#39;flux_ref&#39;</span><span class="p">]</span>
-    <span class="n">loaded_model</span><span class="o">.</span><span class="n">psf_size</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">&#39;psf_size&#39;</span><span class="p">]</span>
-    <span class="n">loaded_model</span><span class="o">.</span><span class="n">VT</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">&#39;VT&#39;</span><span class="p">]</span>
-    <span class="n">loaded_model</span><span class="o">.</span><span class="n">Pi</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">&#39;Pi&#39;</span><span class="p">]</span>
-    <span class="n">loaded_model</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span>
+    <span class="n">loaded_model</span><span class="o">.</span><span class="n">n_ccd</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">'n_ccd'</span><span class="p">]</span>
+    <span class="n">loaded_model</span><span class="o">.</span><span class="n">obs_pos</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">'obs_pos'</span><span class="p">]</span>
+    <span class="n">loaded_model</span><span class="o">.</span><span class="n">A_loc</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">'A_loc'</span><span class="p">]</span>
+    <span class="n">loaded_model</span><span class="o">.</span><span class="n">A_glob</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">'A_glob'</span><span class="p">]</span>
+    <span class="n">loaded_model</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">'S'</span><span class="p">]</span>
+    <span class="n">loaded_model</span><span class="o">.</span><span class="n">flux_ref</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">'flux_ref'</span><span class="p">]</span>
+    <span class="n">loaded_model</span><span class="o">.</span><span class="n">psf_size</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">'psf_size'</span><span class="p">]</span>
+    <span class="n">loaded_model</span><span class="o">.</span><span class="n">VT</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">'VT'</span><span class="p">]</span>
+    <span class="n">loaded_model</span><span class="o">.</span><span class="n">Pi</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">'Pi'</span><span class="p">]</span>
+    <span class="n">loaded_model</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">'alpha'</span><span class="p">]</span>
     <span class="n">loaded_model</span><span class="o">.</span><span class="n">is_fitted</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">loaded_model</span><span class="o">.</span><span class="n">ccd_list</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">&#39;ccd_list&#39;</span><span class="p">]</span>
+        <span class="n">loaded_model</span><span class="o">.</span><span class="n">ccd_list</span> <span class="o">=</span> <span class="n">fitted_model</span><span class="p">[</span><span class="s1">'ccd_list'</span><span class="p">]</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="n">loaded_model</span><span class="o">.</span><span class="n">ccd_list</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -230,7 +129,7 @@
 
 
 <div class="viewcode-block" id="MCCD"><a class="viewcode-back" href="../../mccd.mccd.html#mccd.mccd.MCCD">[docs]</a><span class="k">class</span> <span class="nc">MCCD</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Multi-CCD Resolved Components Analysis.</span>
+    <span class="sa">r</span><span class="sd">"""Multi-CCD Resolved Components Analysis.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -240,6 +139,16 @@
 <span class="sd">        parameter of the :func:`fit()` function.</span>
 <span class="sd">    d_comp_glob: int</span>
 <span class="sd">        Degree of polynomial components for the global model.</span>
+<span class="sd">    d_hyb_loc: int</span>
+<span class="sd">        Degree of the polynomial component for the local part in case the</span>
+<span class="sd">        local model used is ``hybrid``.</span>
+<span class="sd">        Default is ``2``.</span>
+<span class="sd">    min_d_comp_glob: int or None</span>
+<span class="sd">        The minimum degree of the polynomial for the global component.</span>
+<span class="sd">        For example, if the paramter is set to 1, the polynomials of degree</span>
+<span class="sd">        0 and 1 will be excluded from the global polynomial variations.</span>
+<span class="sd">        ``None`` means that we are not excluding any degree.</span>
+<span class="sd">        Default is ``None``.</span>
 <span class="sd">    upfact: int</span>
 <span class="sd">        Upsampling factor. Default is 1 (no superresolution).</span>
 <span class="sd">    ksig_loc: float</span>
@@ -256,6 +165,25 @@
 <span class="sd">        It is used for the thresholding of the</span>
 <span class="sd">        global eigenPSF :math:`\tilde{S}` update.</span>
 <span class="sd">        Default is ``1``.</span>
+<span class="sd">    rmse_thresh: float</span>
+<span class="sd">        Parameter concerning the CCD outlier rejection. Once the PSF model is</span>
+<span class="sd">        calculated we perform an outlier check on the training stars.</span>
+<span class="sd">        We divide each star in two parts with a given circle. The inner part</span>
+<span class="sd">        corresponds to the most of the PSF/star energy while the outer part</span>
+<span class="sd">        corresponds to the observation background. The outer part is used to</span>
+<span class="sd">        calculate the noise level and the inner part to calculate the model</span>
+<span class="sd">        residual (star observation - PSF model reconstruction). If the RMSE</span>
+<span class="sd">        error of the residual divided by the noise level is over the</span>
+<span class="sd">        ``rmse_thresh`` the star will be considered an outlier.</span>
+<span class="sd">        A perfect reconstruction would have ``rmse_thresh`` equal to 1.</span>
+<span class="sd">        Default is ``1.25``.</span>
+<span class="sd">    ccd_star_thresh: float</span>
+<span class="sd">        Parameter concerning the CCD outlier rejection. If the percentage</span>
+<span class="sd">        of outlier stars in a single CCD is bigger than ``ccd_star_thresh``,</span>
+<span class="sd">        the CCD is considered to be an outlier. In this case, the CCD is</span>
+<span class="sd">        rejected from the PSF model. A value lower than 0 means that no</span>
+<span class="sd">        outlier rejection will be done.</span>
+<span class="sd">        Default is ``0.15``.</span>
 <span class="sd">    n_scales: int</span>
 <span class="sd">        Number of wavelet (Default Starlet) scales to use for the</span>
 <span class="sd">        sparsity constraint.</span>
@@ -272,30 +200,47 @@
 <span class="sd">        Starlet transform with `n_scales` scales will be used.</span>
 <span class="sd">    verbose: bool or int</span>
 <span class="sd">        If True, will only output RCA-specific lines to stdout.</span>
-<span class="sd">        If verbose is set to 2, will run ModOpt&#39;s optimization</span>
+<span class="sd">        If verbose is set to 2, will run ModOpt's optimization</span>
 <span class="sd">        algorithms in verbose mode.</span>
 <span class="sd">        Default to ``2``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_comp_loc</span><span class="p">,</span> <span class="n">d_comp_glob</span><span class="p">,</span> <span class="n">upfact</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ksig_loc</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
-                 <span class="n">ksig_glob</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">n_scales</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ksig_init</span><span class="o">=</span><span class="mf">5.</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;General parameter initialisations.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_comp_loc</span><span class="p">,</span> <span class="n">d_comp_glob</span><span class="p">,</span> <span class="n">d_hyb_loc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="n">min_d_comp_glob</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upfact</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ksig_loc</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+                 <span class="n">ksig_glob</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">rmse_thresh</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span> <span class="n">ccd_star_thresh</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span>
+                 <span class="n">n_scales</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ksig_init</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">"""General parameter initialisations."""</span>
+        <span class="c1"># Main model paramters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span> <span class="o">=</span> <span class="n">n_comp_loc</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">d_comp_glob</span> <span class="o">=</span> <span class="n">d_comp_glob</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_d_comp_glob</span> <span class="o">=</span> <span class="n">min_d_comp_glob</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_comp_glob</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d_comp_glob</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d_comp_glob</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_d_comp_glob</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_d_comp_glob</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_comp_glob</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"The total global degree must be"</span> <span class="o">+</span>\
+                    <span class="s2">" bigger than the minimum degree."</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">'Reducing the global polynomial degree with d_min = '</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">min_d_comp_glob</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_comp_glob</span> <span class="o">-=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_d_comp_glob</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">min_d_comp_glob</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">d_hyb_loc</span> <span class="o">=</span> <span class="n">d_hyb_loc</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">upfact</span> <span class="o">=</span> <span class="n">upfact</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ksig_loc</span> <span class="o">=</span> <span class="n">ksig_loc</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ksig_glob</span> <span class="o">=</span> <span class="n">ksig_glob</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ksig_init</span> <span class="o">=</span> <span class="n">ksig_init</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iter_outputs</span> <span class="o">=</span> <span class="kc">False</span>
 
+        <span class="c1"># Outlier rejection parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ccd_star_thresh</span> <span class="o">=</span> <span class="n">ccd_star_thresh</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rmse_thresh</span> <span class="o">=</span> <span class="n">rmse_thresh</span>
+
         <span class="k">if</span> <span class="n">filters</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># option strings for mr_transform</span>
             <span class="c1"># ModOpt sparse2d get_mr_filters() convention</span>
-            <span class="c1"># self.opt = [&#39;-t2&#39;, &#39;-n{}&#39;.format(n_scales)]</span>
+            <span class="c1"># self.opt = ['-t2', '-n{}'.format(n_scales)]</span>
             <span class="c1"># Pysap sparse2d get_mr_filters() convention</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">opt</span> <span class="o">=</span> <span class="s1">&#39;BsplineWaveletTransformATrousAlgorithm&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">opt</span> <span class="o">=</span> <span class="s1">'BsplineWaveletTransformATrousAlgorithm'</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">n_scales</span> <span class="o">=</span> <span class="n">n_scales</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">default_filters</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
@@ -353,7 +298,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">iters_loc_S</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="MCCD.quicksave"><a class="viewcode-back" href="../../mccd.mccd.html#mccd.mccd.MCCD.quicksave">[docs]</a>    <span class="k">def</span> <span class="nf">quicksave</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Save fitted model.</span>
+        <span class="sa">r</span><span class="sd">"""Save fitted model.</span>
 
 <span class="sd">        Save fitted MCCD model for later use. Ideally, you would probably</span>
 <span class="sd">        want to store the whole MCCD instance, though this might mean</span>
@@ -366,38 +311,38 @@
 <span class="sd">        path: str</span>
 <span class="sd">            Path to where the fitted MCCDF model should be saved.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_fitted</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;MCCD instance has not yet been fitted to</span><span class="se">\</span>
-<span class="s1">                observations. Please run the fit method.&#39;</span><span class="p">)</span>
-        <span class="n">mccd_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_comp_loc&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span><span class="p">,</span>
-                       <span class="s1">&#39;d_comp_glob&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_comp_glob</span><span class="p">,</span> <span class="s1">&#39;upfact&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">upfact</span><span class="p">}</span>
-        <span class="n">fitted_model</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_ccd&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">,</span> <span class="s1">&#39;obs_pos&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="p">,</span>
-                        <span class="s1">&#39;A_loc&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">A_loc</span><span class="p">,</span> <span class="s1">&#39;A_glob&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">A_glob</span><span class="p">,</span>
-                        <span class="s1">&#39;S&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="p">,</span> <span class="s1">&#39;flux_ref&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">flux_ref</span><span class="p">,</span>
-                        <span class="s1">&#39;psf_size&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">psf_size</span><span class="p">,</span> <span class="s1">&#39;VT&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="p">,</span>
-                        <span class="s1">&#39;Pi&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span>
-                        <span class="s1">&#39;ccd_list&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span><span class="p">}</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'MCCD instance has not yet been fitted to</span><span class="se">\</span>
+<span class="s1">                observations. Please run the fit method.'</span><span class="p">)</span>
+        <span class="n">mccd_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'n_comp_loc'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span><span class="p">,</span>
+                       <span class="s1">'d_comp_glob'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_comp_glob</span><span class="p">,</span> <span class="s1">'upfact'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">upfact</span><span class="p">}</span>
+        <span class="n">fitted_model</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'n_ccd'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">,</span> <span class="s1">'obs_pos'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="p">,</span>
+                        <span class="s1">'A_loc'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">A_loc</span><span class="p">,</span> <span class="s1">'A_glob'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">A_glob</span><span class="p">,</span>
+                        <span class="s1">'S'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="p">,</span> <span class="s1">'flux_ref'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">flux_ref</span><span class="p">,</span>
+                        <span class="s1">'psf_size'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">psf_size</span><span class="p">,</span> <span class="s1">'VT'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="p">,</span>
+                        <span class="s1">'Pi'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="p">,</span> <span class="s1">'alpha'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span>
+                        <span class="s1">'ccd_list'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span><span class="p">}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_outputs</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">iters_dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;iters_glob_A&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">iters_glob_A</span><span class="p">,</span>
-                         <span class="s1">&#39;iters_glob_S&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">iters_glob_S</span><span class="p">,</span>
-                         <span class="s1">&#39;iters_loc_A&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">iters_loc_A</span><span class="p">,</span>
-                         <span class="s1">&#39;iters_loc_S&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">iters_loc_S</span><span class="p">}</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;__iter_outputs_dic&#39;</span><span class="p">,</span> <span class="n">iters_dic</span><span class="p">)</span>
+            <span class="n">iters_dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'iters_glob_A'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">iters_glob_A</span><span class="p">,</span>
+                         <span class="s1">'iters_glob_S'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">iters_glob_S</span><span class="p">,</span>
+                         <span class="s1">'iters_loc_A'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">iters_loc_A</span><span class="p">,</span>
+                         <span class="s1">'iters_loc_S'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">iters_loc_S</span><span class="p">}</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s1">'__iter_outputs_dic'</span><span class="p">,</span> <span class="n">iters_dic</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span> <span class="o">!=</span> <span class="s1">&#39;.npy&#39;</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">+=</span> <span class="s1">&#39;.npy&#39;</span>
+        <span class="k">if</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span> <span class="o">!=</span> <span class="s1">'.npy'</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">+=</span> <span class="s1">'.npy'</span>
         <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">[</span><span class="n">mccd_params</span><span class="p">,</span> <span class="n">fitted_model</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="MCCD.fit"><a class="viewcode-back" href="../../mccd.mccd.html#mccd.mccd.MCCD.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs_data</span><span class="p">,</span> <span class="n">obs_pos</span><span class="p">,</span> <span class="n">ccd_list</span><span class="p">,</span> <span class="n">obs_weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">SNR_weight_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">VT</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Pi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">shifts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sigs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psf_size</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">psf_size_type</span><span class="o">=</span><span class="s1">&#39;R2&#39;</span><span class="p">,</span>
+            <span class="n">shifts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sigs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psf_size</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">psf_size_type</span><span class="o">=</span><span class="s1">'R2'</span><span class="p">,</span>
             <span class="n">flux</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nb_iter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nb_iter_glob</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nb_iter_loc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="n">nb_subiter_S_loc</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">nb_reweight</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nb_subiter_A_loc</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
             <span class="n">nb_subiter_S_glob</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">nb_subiter_A_glob</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_eigenvects</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-            <span class="n">loc_model</span><span class="o">=</span><span class="s1">&#39;rca&#39;</span><span class="p">,</span> <span class="n">pi_degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">graph_kwargs</span><span class="o">=</span><span class="p">{}):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Fits MCCD to observed star field.</span>
+            <span class="n">loc_model</span><span class="o">=</span><span class="s1">'hybrid'</span><span class="p">,</span> <span class="n">pi_degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">graph_kwargs</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sa">r</span><span class="sd">"""Fits MCCD to observed star field.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -450,14 +395,14 @@
 <span class="sd">            ``psf_size_type`` determines the convention used for</span>
 <span class="sd">            this size (default is FWHM).</span>
 <span class="sd">            Ignored if ``shifts`` are provided.</span>
-<span class="sd">            Default is ``&#39;R2&#39;`` of ``6``.</span>
+<span class="sd">            Default is ``'R2'`` of ``6``.</span>
 <span class="sd">        psf_size_type: str</span>
-<span class="sd">            Can be any of ``&#39;R2&#39;``, ``&#39;fwhm&#39;`` or ``&#39;sigma&#39;``, for the size</span>
+<span class="sd">            Can be any of ``'R2'``, ``'fwhm'`` or ``'sigma'``, for the size</span>
 <span class="sd">            defined from quadrupole moments, full width at half maximum</span>
 <span class="sd">            (e.g. from SExtractor) or 1-sigma width of the best matching</span>
-<span class="sd">            2D Gaussian. ``&#39;sigma&#39;`` is the value outputed from Galsim&#39;s</span>
+<span class="sd">            2D Gaussian. ``'sigma'`` is the value outputed from Galsim's</span>
 <span class="sd">            HSM adaptive moment estimator.</span>
-<span class="sd">            Default is ``&#39;R2&#39;``.</span>
+<span class="sd">            Default is ``'R2'``.</span>
 <span class="sd">        flux: list of numpy.ndarray</span>
 <span class="sd">            Flux levels. Default is ``None``;</span>
 <span class="sd">            will be estimated from data if not provided.</span>
@@ -506,7 +451,7 @@
 <span class="sd">            is undersampled. Ignored if ``VT`` and ``alpha`` are provided.</span>
 <span class="sd">        loc_model: str</span>
 <span class="sd">            Defines the type of local model to use, it can be:</span>
-<span class="sd">            ``&#39;rca&#39;``, ``&#39;poly&#39;`` or ``&#39;hybrid&#39;``.</span>
+<span class="sd">            ``'rca'``, ``'poly'`` or ``'hybrid'``.</span>
 <span class="sd">            Thus defining the MCCD-RCA, MCCD-POL and MCCD-HYB.</span>
 <span class="sd">            When MCCD-POL is used, ``n_comp_loc`` should be used</span>
 <span class="sd">            as the ``d_comp_glob`` (max degree of the polynomial)</span>
@@ -520,7 +465,7 @@
 <span class="sd">        graph_kwargs: dict</span>
 <span class="sd">            List of optional kwargs to be passed on</span>
 <span class="sd">            to the :func:`utils.GraphBuilder`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Initialize the needed variables</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">obs_data_k</span><span class="p">)</span> <span class="k">for</span> <span class="n">obs_data_k</span> <span class="ow">in</span> <span class="n">obs_data</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">)</span>
@@ -552,18 +497,19 @@
                                 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s1">&#39;Shape mismatch; weights should be of shape:&#39;</span> <span class="o">+</span>
-                <span class="s1">&#39; </span><span class="si">{}</span><span class="s1"> (for per-pixel weights) or&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
-                <span class="s1">&#39; </span><span class="si">{}</span><span class="s1"> (per-observation)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">:]))</span>
+                <span class="s1">'Shape mismatch; weights should be of shape:'</span> <span class="o">+</span>
+                <span class="s1">' </span><span class="si">{}</span><span class="s1"> (for per-pixel weights) or'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+                <span class="s1">' </span><span class="si">{}</span><span class="s1"> (per-observation)'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">:]))</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc_model</span> <span class="o">==</span> <span class="s1">&#39;poly&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc_model</span> <span class="o">==</span> <span class="s1">'poly'</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">d_comp_loc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc_model</span> <span class="o">==</span> <span class="s1">&#39;hybrid&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc_model</span> <span class="o">==</span> <span class="s1">'hybrid'</span><span class="p">:</span>
             <span class="c1"># Hardcoded a poly deg 2 for the local polynome [TL] [improve]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span> <span class="o">+=</span> <span class="mi">6</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span> <span class="o">+=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">d_hyb_loc</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">d_hyb_loc</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">S</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># global eigenPSFs are the last ones</span>
@@ -605,34 +551,34 @@
 
         <span class="c1"># Start the initialization</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running basic initialization tasks...&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">'Running basic initialization tasks...'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_initialize</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;... Done.&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">'... Done.'</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">VT</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Constructing local spatial constraint...&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">'Constructing local spatial constraint...'</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc_model</span> <span class="o">==</span> <span class="s1">&#39;rca&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc_model</span> <span class="o">==</span> <span class="s1">'rca'</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_graph_constraint</span><span class="p">()</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc_model</span> <span class="o">==</span> <span class="s1">&#39;poly&#39;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc_model</span> <span class="o">==</span> <span class="s1">'poly'</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_loc_poly_model</span><span class="p">()</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc_model</span> <span class="o">==</span> <span class="s1">&#39;hybrid&#39;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc_model</span> <span class="o">==</span> <span class="s1">'hybrid'</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_loc_hybrid_model</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s1">&#39;Local model not undersood. Should be &lt;rca&gt; or &lt;poly&gt;.&#39;</span><span class="p">)</span>
+                    <span class="s1">'Local model not undersood. Should be &lt;rca&gt; or &lt;poly&gt;.'</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;... Done.&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">'... Done.'</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">A_loc</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
                           <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pi</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Building position polynomials...&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">'Building position polynomials...'</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_poly_model</span><span class="p">()</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;... Done.&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">'... Done.'</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">A_glob</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
                            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
@@ -640,41 +586,126 @@
         <span class="c1"># Finally fit the model</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_fit</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_fitted</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Remove outliers</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccd_star_thresh</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove_outlier_ccds</span><span class="p">()</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">A_loc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">A_glob</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pi</span></div>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_set_psf_size</span><span class="p">(</span><span class="n">psf_size</span><span class="p">,</span> <span class="n">psf_size_type</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Handle different ``size`` conventions.&quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">"""Handle different ``size`` conventions."""</span>
         <span class="k">if</span> <span class="n">psf_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">psf_size_type</span> <span class="o">==</span> <span class="s1">&#39;fwhm&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">psf_size_type</span> <span class="o">==</span> <span class="s1">'fwhm'</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">psf_size</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
-            <span class="k">elif</span> <span class="n">psf_size_type</span> <span class="o">==</span> <span class="s1">&#39;R2&#39;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">psf_size_type</span> <span class="o">==</span> <span class="s1">'R2'</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">psf_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">psf_size_type</span> <span class="o">==</span> <span class="s1">&#39;sigma&#39;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">psf_size_type</span> <span class="o">==</span> <span class="s1">'sigma'</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">psf_size</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s1">&#39;psf_size_type should be one of &quot;fwhm&quot;, &quot;R2&quot; or &quot;sigma&quot;&#39;</span><span class="p">)</span>
+                    <span class="s1">'psf_size_type should be one of "fwhm", "R2" or "sigma"'</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;WARNING: neither shifts nor an estimated PSF size were</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">'''WARNING: neither shifts nor an estimated PSF size were</span>
 <span class="s1">            provided to RCA; the shifts will be estimated from the data using</span>
-<span class="s1">            the default Gaussian window of 7.5 pixels.&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="s1">            the default Gaussian window of 7.5 pixels.'''</span><span class="p">)</span>
             <span class="k">return</span> <span class="mf">7.5</span>
 
+<div class="viewcode-block" id="MCCD.remove_ccd_from_model"><a class="viewcode-back" href="../../mccd.mccd.html#mccd.mccd.MCCD.remove_ccd_from_model">[docs]</a>    <span class="k">def</span> <span class="nf">remove_ccd_from_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_idx</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">""" Remove ccd from the trained model. """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ccd_idx</span><span class="p">)</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">A_loc</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ccd_idx</span><span class="p">)</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">A_glob</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ccd_idx</span><span class="p">)</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ccd_idx</span><span class="p">)</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flux_ref</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ccd_idx</span><span class="p">)</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ccd_idx</span><span class="p">)</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ccd_idx</span><span class="p">)</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ccd_idx</span><span class="p">)</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ccd_idx</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MCCD.remove_outlier_ccds"><a class="viewcode-back" href="../../mccd.mccd.html#mccd.mccd.MCCD.remove_outlier_ccds">[docs]</a>    <span class="k">def</span> <span class="nf">remove_outlier_ccds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">""" Remove all CCDs with outliers.</span>
+
+<span class="sd">        Reminder: the outlier rejection is done on the train stars.</span>
+<span class="sd">        We will reject a CCD if the percentage of outlier stars in</span>
+<span class="sd">        a single CCD is bigger than ``ccd_star_thresh``.</span>
+
+<span class="sd">        They outlier threshold is based in ``rmse_thresh``.</span>
+<span class="sd">        A perfect reconstruction would have ``rmse_thresh`` equal to 1.</span>
+
+<span class="sd">        """</span>
+        <span class="n">dim_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dim_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">win_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">dim_x</span><span class="p">,</span> <span class="n">dim_y</span><span class="p">])</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
+
+        <span class="c1"># Calculate the observation noise</span>
+        <span class="n">noise_estimator</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">NoiseEstimator</span><span class="p">((</span><span class="n">dim_x</span><span class="p">,</span> <span class="n">dim_y</span><span class="p">),</span> <span class="n">win_rad</span><span class="p">)</span>
+
+        <span class="n">ccd_outliers</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">)):</span>
+            <span class="c1"># Extract observations and reconstructions from the CCD</span>
+            <span class="n">stars</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+
+            <span class="c1"># Reconstruct the PSFs</span>
+            <span class="n">psfs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">validation_stars</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
+                    <span class="n">mccd_debug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="c1"># Estimate noise</span>
+            <span class="n">sigmas_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">noise_estimator</span><span class="o">.</span><span class="n">estimate_noise</span><span class="p">(</span><span class="n">star</span><span class="p">)</span>
+                            <span class="k">for</span> <span class="n">star</span> <span class="ow">in</span> <span class="n">stars</span><span class="p">])</span>
+
+            <span class="c1"># Window to consider the central PSF only</span>
+            <span class="n">window</span> <span class="o">=</span> <span class="o">~</span><span class="n">noise_estimator</span><span class="o">.</span><span class="n">window</span>
+
+            <span class="c1"># Calculate the windowed RMSE normalized by the noise level</span>
+            <span class="n">rmse_sig</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(((</span><span class="n">_mod</span> <span class="o">-</span> <span class="n">_obs</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)[</span><span class="n">window</span><span class="p">]))</span> <span class="o">/</span> <span class="n">_sig</span>
+                <span class="k">for</span> <span class="n">_mod</span><span class="p">,</span> <span class="n">_obs</span><span class="p">,</span> <span class="n">_sig</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">psfs</span><span class="p">,</span> <span class="n">stars</span><span class="p">,</span> <span class="n">sigmas_obs</span><span class="p">)</span>
+                                <span class="p">])</span>
+
+            <span class="c1"># Select outlier stars</span>
+            <span class="n">outlier_ids</span> <span class="o">=</span> <span class="n">rmse_sig</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rmse_thresh</span>
+            <span class="n">num_outliers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">outlier_ids</span><span class="p">)</span>
+
+            <span class="c1"># Check if the number of outliers depasses the star threshold</span>
+            <span class="n">num_stars</span> <span class="o">=</span> <span class="n">stars</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">star_thresh_num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ccd_star_thresh</span> <span class="o">*</span> <span class="n">num_stars</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"CCD num </span><span class="si">%02d</span><span class="s2">, </span><span class="se">\t</span><span class="s2"> </span><span class="si">%d</span><span class="s2"> outliers, </span><span class="se">\t</span><span class="si">%d</span><span class="s2"> stars,"</span>
+                  <span class="s2">" </span><span class="se">\t</span><span class="si">%d</span><span class="s2"> star threshold number."</span> <span class="o">%</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">num_outliers</span><span class="p">,</span> <span class="n">num_stars</span><span class="p">,</span>
+                    <span class="n">star_thresh_num</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">num_outliers</span> <span class="o">&gt;</span> <span class="n">star_thresh_num</span><span class="p">:</span>
+                <span class="c1"># We have to reject the CCD</span>
+                <span class="n">ccd_outliers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">'Removing CCD </span><span class="si">%d</span><span class="s1">.'</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+
+        <span class="c1"># Remove all the outliers</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ccd_outliers</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove_ccd_from_model</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
     <span class="k">def</span> <span class="nf">_initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Initialize internal tasks.</span>
+        <span class="sa">r</span><span class="sd">"""Initialize internal tasks.</span>
 
 <span class="sd">        Tasks related to noise levels, shifts and flux.</span>
 <span class="sd">        Note it includes renormalizing observed data,</span>
 <span class="sd">        so needs to be ran even if all three are provided.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_filters</span><span class="p">:</span>
             <span class="n">init_filters</span> <span class="o">=</span> <span class="n">mccd_utils</span><span class="o">.</span><span class="n">get_mr_filters</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">2</span><span class="p">],</span> <span class="n">opt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">opt</span><span class="p">,</span> <span class="n">coarse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">init_filters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Phi_filters</span>
 
-        <span class="c1"># Initialize sizes with Galsim&#39;s HSM</span>
+        <span class="c1"># Initialize sizes with Galsim's HSM</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">star_moms</span> <span class="o">=</span> <span class="p">[[</span><span class="n">gs</span><span class="o">.</span><span class="n">hsm</span><span class="o">.</span><span class="n">FindAdaptiveMom</span><span class="p">(</span>
                 <span class="n">gs</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">star</span><span class="p">),</span> <span class="n">badpix</span><span class="o">=</span><span class="n">gs</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">badpix</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))),</span>
@@ -714,7 +745,7 @@
             <span class="n">cents</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">):</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shap</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">2</span><span class="p">]):</span>
-                    <span class="c1"># don&#39;t allow thresholding to be</span>
+                    <span class="c1"># don't allow thresholding to be</span>
                     <span class="c1"># over 80% of maximum observed pixel</span>
                     <span class="n">nsig_shifts</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ksig_init</span><span class="p">,</span>
                                       <span class="mf">0.8</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">[</span><span class="n">k</span><span class="p">][:,</span> <span class="p">:,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span>
@@ -751,10 +782,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">/=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_initialize_graph_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Initialize of the graph constraint.</span>
+        <span class="sa">r</span><span class="sd">"""Initialize of the graph constraint.</span>
 
 <span class="sd">        ``graph_kwards`` parameters used.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">gber</span> <span class="o">=</span> <span class="p">[</span><span class="n">utils</span><span class="o">.</span><span class="n">GraphBuilder</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
                                    <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span><span class="p">,</span>
                                    <span class="n">n_eigenvects</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_eigenvects</span><span class="p">,</span>
@@ -770,52 +801,55 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">A_loc</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">_initialize_poly_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Initialize the global polynomial model.</span>
+        <span class="sa">r</span><span class="sd">"""Initialize the global polynomial model.</span>
 
 <span class="sd">        The positions in the global coordinate system</span>
 <span class="sd">        are used.</span>
-<span class="sd">        Normalization of teh polynomials is being done here.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Normalization of the polynomials is being done here.</span>
+<span class="sd">        """</span>
+        <span class="c1"># Calculate max and min values of global coordinate system</span>
+        <span class="c1"># This configuration is specific for CFIS MegaCam configuration</span>
+        <span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
+        <span class="n">max_x</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="mi">5</span>
+        <span class="n">min_x</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">max_y</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="mi">1</span>
+        <span class="n">min_y</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">Pi</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">utils</span><span class="o">.</span><span class="n">poly_pos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_comp_glob</span><span class="p">,</span>
-                           <span class="n">normalice</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">utils</span><span class="o">.</span><span class="n">poly_pos</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">max_degree</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">d_comp_glob</span><span class="p">,</span>
+                           <span class="n">center_normalice</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                           <span class="n">x_lims</span><span class="o">=</span><span class="p">[</span><span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span><span class="p">],</span> <span class="n">y_lims</span><span class="o">=</span><span class="p">[</span><span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span><span class="p">],</span>
+                           <span class="n">normalice_Pi</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">min_degree</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">min_d_comp_glob</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_comp_glob</span><span class="p">))</span>
 
-        <span class="c1"># Global position model</span>
-        <span class="c1"># Normalization is not done on poly_pos() but globaly here</span>
-        <span class="n">sum_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_comp_glob</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_comp_glob</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">it_ccd</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">):</span>
-                <span class="n">sum_vals</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="p">[</span><span class="n">it_ccd</span><span class="p">][</span><span class="n">it</span><span class="p">,</span> <span class="p">:]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
-            <span class="n">sum_vals</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sum_vals</span><span class="p">[</span><span class="n">it</span><span class="p">])</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">Pi</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="o">/</span> <span class="n">sum_vals</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-                   <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="p">))]</span>
-        <span class="n">norm_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="p">)):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="o">/=</span> <span class="n">norm_val</span>
+        <span class="c1"># Global position model normalisation</span>
+        <span class="c1"># Start with the list Pi</span>
+        <span class="n">conc_Pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">Pi_norms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">conc_Pi</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Pi</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">/</span> <span class="n">Pi_norms</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">A_glob</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
                        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">_initialize_loc_poly_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Initialize the local polynomial model.&quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">"""Initialize the local polynomial model."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">VT</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">utils</span><span class="o">.</span><span class="n">poly_pos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_comp_loc</span><span class="p">,</span> <span class="n">normalice</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                           <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">utils</span><span class="o">.</span><span class="n">poly_pos</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">max_degree</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">d_comp_loc</span><span class="p">,</span>
+                           <span class="n">center_normalice</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                           <span class="n">x_lims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y_lims</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span><span class="p">)</span> <span class="k">for</span> <span class="n">_it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">A_loc</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">_initialize_loc_hybrid_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Initialize the hybrid local model.</span>
+        <span class="sa">r</span><span class="sd">"""Initialize the hybrid local model.</span>
 
 <span class="sd">        Graphs + polynomials.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># TODO Hardcoded to 2 the max_degree [TL] [improve]</span>
-        <span class="n">max_deg</span> <span class="o">=</span> <span class="mi">2</span>
-        <span class="n">n_poly_comp</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="sd">        """</span>
+        <span class="n">max_deg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_hyb_loc</span>
+        <span class="n">n_poly_comp</span> <span class="o">=</span> <span class="p">(</span><span class="n">max_deg</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_deg</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
         <span class="c1"># Take the number of local component top the graph value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span> <span class="o">-=</span> <span class="n">n_poly_comp</span>
 
@@ -825,8 +859,9 @@
         <span class="c1"># Calculate the local polynomial and add it to</span>
         <span class="c1"># the graph-calculated values</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">):</span>
-            <span class="n">poly_VT</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">poly_pos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">max_degree</span><span class="o">=</span><span class="n">max_deg</span><span class="p">,</span>
-                                     <span class="n">normalice</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">poly_VT</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">poly_pos</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">max_degree</span><span class="o">=</span><span class="n">max_deg</span><span class="p">,</span>
+                                     <span class="n">center_normalice</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                     <span class="n">x_lims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y_lims</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
             <span class="n">poly_alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_poly_comp</span><span class="p">)</span>
 
             <span class="n">n_comp_hyb</span> <span class="o">=</span> <span class="n">poly_alpha</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -844,7 +879,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span> <span class="o">+=</span> <span class="n">n_poly_comp</span>
 
     <span class="k">def</span> <span class="nf">_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Perform the main model fitting.&quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">"""Perform the main model fitting."""</span>
         <span class="c1"># Function variables</span>
         <span class="n">comp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span>
         <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span>
@@ -956,6 +991,8 @@
                           <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="n">min_elements_loc</span><span class="p">,</span>
                  <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">elem_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)])</span>
 
+        <span class="c1"># [TL] Using strong sparsity inducing function</span>
+        <span class="n">iter_func_loc</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">elem_size</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">coeff_prox_loc</span> <span class="o">=</span> <span class="n">prox</span><span class="o">.</span><span class="n">KThreshold</span><span class="p">(</span><span class="n">iter_func_loc</span><span class="p">)</span>
 
         <span class="c1"># Global model</span>
@@ -973,9 +1010,11 @@
                           <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="n">min_elements_glob</span><span class="p">,</span>
                  <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">elem_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)])</span>
 
-        <span class="n">coeff_prox_glob</span> <span class="o">=</span> <span class="n">prox</span><span class="o">.</span><span class="n">KThreshold</span><span class="p">(</span><span class="n">iter_func_glob</span><span class="p">)</span>
+        <span class="c1"># [TL] Using strong sparsity inducing function</span>
+        <span class="n">iter_func_glob_v2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">elem_size</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">coeff_prox_glob</span> <span class="o">=</span> <span class="n">prox</span><span class="o">.</span><span class="n">KThreshold</span><span class="p">(</span><span class="n">iter_func_glob_v2</span><span class="p">)</span>
 
-        <span class="n">norm_prox</span> <span class="o">=</span> <span class="n">prox</span><span class="o">.</span><span class="n">proxNormalization</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span><span class="p">)</span>
+        <span class="n">norm_prox</span> <span class="o">=</span> <span class="n">prox</span><span class="o">.</span><span class="n">proxNormalization</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">'columns'</span><span class="p">)</span>
         <span class="n">lin_recombine_alpha</span> <span class="o">=</span> <span class="p">[</span><span class="n">prox</span><span class="o">.</span><span class="n">LinRecombineAlpha</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
                                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
         <span class="n">lin_recombine_alpha</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
@@ -1079,42 +1118,38 @@
                 <span class="c1"># Coefficient sparsity prox update</span>
                 <span class="n">coeff_prox_glob</span><span class="o">.</span><span class="n">reset_iter</span><span class="p">()</span>
 
-                <span class="c1"># Conda&#39;s algorithm parameters</span>
-                <span class="c1"># (lipschitz of diff. part and operator norm of lin. part)</span>
-                <span class="c1"># See Conda&#39;s paper for more details.</span>
-                <span class="n">beta</span> <span class="o">=</span> <span class="n">weight_glob_grad</span><span class="o">.</span><span class="n">spec_rad</span> <span class="o">*</span> <span class="mf">1.5</span>
-                <span class="n">tau</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">beta</span>
-                <span class="n">sigma</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">lin_recombine_alpha</span><span class="p">[</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">]</span><span class="o">.</span><span class="n">norm</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="k">if</span> <span class="n">l_glob</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">nb_iter_glob</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">l_glob</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="c1"># Conda's algorithm parameters</span>
+                    <span class="c1"># (lipschitz of diff. part and operator norm of lin. part)</span>
+                    <span class="c1"># See Conda's paper for more details.</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="n">weight_glob_grad</span><span class="o">.</span><span class="n">spec_rad</span> <span class="o">*</span> <span class="mf">1.5</span>
+                    <span class="n">tau</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">beta</span>
+                    <span class="n">sigma</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">lin_recombine_alpha</span><span class="p">[</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">]</span><span class="o">.</span><span class="n">norm</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">/</span> <span class="mi">2</span>
 
-                <span class="c1"># try:</span>
-                <span class="c1">#     coeff_prox_glob.set_beta_param(beta)</span>
-                <span class="c1"># except Exception:</span>
-                <span class="c1">#     print(&#39;&#39;&#39;Exception catched when:</span>
-                <span class="c1">#     coeff_prox_glob.set_beta_param(beta)&#39;&#39;&#39;)</span>
+                    <span class="c1"># Optimize !</span>
+                    <span class="n">weight_optim</span> <span class="o">=</span> <span class="n">optimalg</span><span class="o">.</span><span class="n">Condat</span><span class="p">(</span>
+                        <span class="n">alpha</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">],</span>
+                        <span class="n">dual_alpha</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">],</span>
+                        <span class="n">weight_glob_grad</span><span class="p">,</span>
+                        <span class="n">coeff_prox_glob</span><span class="p">,</span>
+                        <span class="n">norm_prox</span><span class="p">,</span>
+                        <span class="n">linear</span><span class="o">=</span><span class="n">lin_recombine_alpha</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">],</span>
+                        <span class="n">cost</span><span class="o">=</span><span class="n">weight_glob_cost</span><span class="p">,</span>
+                        <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nb_subiter_A_glob</span><span class="p">,</span>
+                        <span class="n">tau</span><span class="o">=</span><span class="n">tau</span><span class="p">,</span>
+                        <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span>
+                        <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
+                        <span class="n">progress</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
+                    <span class="n">alpha</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight_optim</span><span class="o">.</span><span class="n">x_final</span>
+                    <span class="n">weights_glob</span> <span class="o">=</span> <span class="p">[</span><span class="n">alpha</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+                                    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
 
-                <span class="c1"># Optimize !</span>
-                <span class="n">weight_optim</span> <span class="o">=</span> <span class="n">optimalg</span><span class="o">.</span><span class="n">Condat</span><span class="p">(</span><span class="n">alpha</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">],</span>
-                                               <span class="n">dual_alpha</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">],</span>
-                                               <span class="n">weight_glob_grad</span><span class="p">,</span>
-                                               <span class="n">coeff_prox_glob</span><span class="p">,</span>
-                                               <span class="n">norm_prox</span><span class="p">,</span>
-                                               <span class="n">linear</span><span class="o">=</span><span class="n">lin_recombine_alpha</span><span class="p">[</span>
-                                                   <span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">],</span>
-                                               <span class="n">cost</span><span class="o">=</span><span class="n">weight_glob_cost</span><span class="p">,</span>
-                                               <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nb_subiter_A_glob</span><span class="p">,</span>
-                                               <span class="n">tau</span><span class="o">=</span><span class="n">tau</span><span class="p">,</span>
-                                               <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span>
-                                               <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
-                                               <span class="n">progress</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
-                <span class="n">alpha</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight_optim</span><span class="o">.</span><span class="n">x_final</span>
-                <span class="n">weights_glob</span> <span class="o">=</span> <span class="p">[</span><span class="n">alpha</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
-                                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
-
-                <span class="c1"># Save iteration diagnostic data</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_outputs</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">iters_glob_A</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">weight_glob_grad</span><span class="o">.</span><span class="n">get_iter_cost</span><span class="p">())</span>
-                    <span class="n">weight_glob_grad</span><span class="o">.</span><span class="n">reset_iter_cost</span><span class="p">()</span>
+                    <span class="c1"># Save iteration diagnostic data</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_outputs</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">iters_glob_A</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="n">weight_glob_grad</span><span class="o">.</span><span class="n">get_iter_cost</span><span class="p">())</span>
+                        <span class="n">weight_glob_grad</span><span class="o">.</span><span class="n">reset_iter_cost</span><span class="p">()</span>
 
                 <span class="c1"># Global model update</span>
                 <span class="n">H_glob</span> <span class="o">=</span> <span class="p">[</span><span class="n">comp</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights_glob</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
@@ -1218,34 +1253,39 @@
                     <span class="c1"># Coeff sparsity prox update</span>
                     <span class="n">coeff_prox_loc</span><span class="o">.</span><span class="n">reset_iter</span><span class="p">()</span>
 
-                    <span class="c1"># Conda parameters</span>
-                    <span class="c1"># (lipschitz of diff. part and operator norm of lin. part)</span>
-                    <span class="n">beta</span> <span class="o">=</span> <span class="n">weight_loc_grad</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">spec_rad</span> <span class="o">*</span> <span class="mf">1.5</span>
-                    <span class="n">tau</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">beta</span>
-                    <span class="n">sigma</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">lin_recombine_alpha</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">norm</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">/</span> <span class="mi">2</span>
+                    <span class="c1"># Skip alpha updates for the last iterations</span>
+                    <span class="k">if</span> <span class="n">l_loc</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">nb_iter_loc</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">l_loc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 
-                    <span class="c1"># Optimize</span>
-                    <span class="n">weight_optim</span> <span class="o">=</span> <span class="n">optimalg</span><span class="o">.</span><span class="n">Condat</span><span class="p">(</span>
-                        <span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
-                        <span class="n">dual_alpha</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
-                        <span class="n">weight_loc_grad</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
-                        <span class="n">coeff_prox_loc</span><span class="p">,</span>
-                        <span class="n">norm_prox</span><span class="p">,</span>
-                        <span class="n">linear</span><span class="o">=</span><span class="n">lin_recombine_alpha</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
-                        <span class="n">cost</span><span class="o">=</span><span class="n">weight_loc_cost</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
-                        <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nb_subiter_A_loc</span><span class="p">,</span>
-                        <span class="n">tau</span><span class="o">=</span><span class="n">tau</span><span class="p">,</span>
-                        <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span>
-                        <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
-                        <span class="n">progress</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
-                    <span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight_optim</span><span class="o">.</span><span class="n">x_final</span>
-                    <span class="n">weights_loc</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+                        <span class="c1"># Conda parameters</span>
+                        <span class="c1"># (lipschitz of diff. part and</span>
+                        <span class="c1"># operator norm of lin. part)</span>
+                        <span class="n">beta</span> <span class="o">=</span> <span class="n">weight_loc_grad</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">spec_rad</span> <span class="o">*</span> <span class="mf">1.5</span>
+                        <span class="n">tau</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">beta</span>
+                        <span class="n">sigma</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">lin_recombine_alpha</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">norm</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+                            <span class="n">beta</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
 
-                    <span class="c1"># Save iteration diagnostic data</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_outputs</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">iters_loc_A</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                            <span class="n">weight_loc_grad</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">get_iter_cost</span><span class="p">())</span>
-                        <span class="n">weight_loc_grad</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">reset_iter_cost</span><span class="p">()</span>
+                        <span class="c1"># Optimize</span>
+                        <span class="n">weight_optim</span> <span class="o">=</span> <span class="n">optimalg</span><span class="o">.</span><span class="n">Condat</span><span class="p">(</span>
+                            <span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
+                            <span class="n">dual_alpha</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
+                            <span class="n">weight_loc_grad</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
+                            <span class="n">coeff_prox_loc</span><span class="p">,</span>
+                            <span class="n">norm_prox</span><span class="p">,</span>
+                            <span class="n">linear</span><span class="o">=</span><span class="n">lin_recombine_alpha</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
+                            <span class="n">cost</span><span class="o">=</span><span class="n">weight_loc_cost</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
+                            <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nb_subiter_A_loc</span><span class="p">,</span>
+                            <span class="n">tau</span><span class="o">=</span><span class="n">tau</span><span class="p">,</span>
+                            <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span>
+                            <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
+                            <span class="n">progress</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
+                        <span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight_optim</span><span class="o">.</span><span class="n">x_final</span>
+                        <span class="n">weights_loc</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+
+                        <span class="c1"># Save iteration diagnostic data</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_outputs</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">iters_loc_A</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                                <span class="n">weight_loc_grad</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">get_iter_cost</span><span class="p">())</span>
+                            <span class="n">weight_loc_grad</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">reset_iter_cost</span><span class="p">()</span>
 
                     <span class="c1"># Local model update</span>
                     <span class="n">H_loc</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">comp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights_loc</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
@@ -1256,14 +1296,146 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">A_loc</span> <span class="o">=</span> <span class="n">weights_loc</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">A_glob</span> <span class="o">=</span> <span class="n">weights_glob</span>
 
+<div class="viewcode-block" id="MCCD.interpolate_psf_pipeline"><a class="viewcode-back" href="../../mccd.mccd.html#mccd.mccd.MCCD.interpolate_psf_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">interpolate_psf_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_pos</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">centroid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">""" Estimate PSF at desired position with the required centroid.</span>
+
+<span class="sd">        This function is a consequence of following the requirements</span>
+<span class="sd">        needed to use the MCCD model in a pipeline.</span>
+<span class="sd">        (ShapePipe now but could be adapted)</span>
+
+<span class="sd">        The returned PSFs should be normalized with unitary flux and with</span>
+<span class="sd">        the required centroid.</span>
+
+<span class="sd">        Please note the differences between the pixel conventions between</span>
+<span class="sd">        this package and Galsim. In the first one the position of a pixel is</span>
+<span class="sd">        in its lower left corner and the indexing starts at zero (numpy style).</span>
+<span class="sd">        Galsim's convention is that the position is in the center of the pixel</span>
+<span class="sd">        and the indexation starts at one.</span>
+
+<span class="sd">        Returns the model in "regular" format, (n_stars, n_pixels, n_pixels).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        test_pos: numpy.ndarray</span>
+<span class="sd">            Positions where the PSF should be estimated.</span>
+<span class="sd">            Should be in the same format (coordinate system, units, etc.) as</span>
+<span class="sd">            the ``obs_pos`` fed to :func:`MCCD.fit`.</span>
+<span class="sd">        ccd_n: int</span>
+<span class="sd">            ``ccd_id`` of the positions to be tested.</span>
+<span class="sd">        centroid: list of floats, [xc, yc]</span>
+<span class="sd">            Required centroid for the output PSF. It has to be specified</span>
+<span class="sd">            following the MCCD pixel convention.</span>
+<span class="sd">            Default will be the vignet centroid.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        PSFs: numpy.ndarray</span>
+<span class="sd">            Returns the interpolated PSFs in regular format.</span>
+
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_fitted</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'''MCCD instance has not yet been fitted to</span>
+<span class="s1">            observations. Please run the fit method.'''</span><span class="p">)</span>
+
+        <span class="c1"># Default values for interpolation</span>
+        <span class="n">n_loc_neighbors</span> <span class="o">=</span> <span class="mi">15</span>
+        <span class="n">n_glob_neighbors</span> <span class="o">=</span> <span class="mi">15</span>
+        <span class="n">rbf_function</span> <span class="o">=</span> <span class="s1">'thin_plate'</span>
+
+        <span class="n">ntest</span> <span class="o">=</span> <span class="n">test_pos</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">test_weights_glob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">n_comp_glob</span><span class="p">,</span> <span class="n">ntest</span><span class="p">))</span>
+        <span class="n">test_weights_loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span><span class="p">,</span> <span class="n">ntest</span><span class="p">))</span>
+
+        <span class="c1"># Turn ccd_n into list number.</span>
+        <span class="c1"># Select the correct indexes of the requested CCD.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ccd_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span><span class="p">)</span> <span class="o">==</span> <span class="n">ccd_n</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="c1"># If the CCD was not used for training the output should be</span>
+            <span class="c1"># None and be handled by the wrapping function.</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># PSF recovery</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">test_pos</span><span class="p">):</span>
+            <span class="c1"># Local model</span>
+            <span class="c1"># Determine neighbors</span>
+            <span class="n">nbs_loc</span><span class="p">,</span> <span class="n">pos_nbs_loc</span> <span class="o">=</span> <span class="n">mccd_utils</span><span class="o">.</span><span class="n">return_loc_neighbors</span><span class="p">(</span>
+                <span class="n">pos</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="p">[</span><span class="n">ccd_idx</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">A_loc</span><span class="p">[</span><span class="n">ccd_idx</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+                <span class="n">n_loc_neighbors</span><span class="p">)</span>
+            <span class="c1"># Train RBF and interpolate for each component</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span><span class="p">):</span>
+                <span class="n">rbfi</span> <span class="o">=</span> <span class="n">Rbf</span><span class="p">(</span><span class="n">pos_nbs_loc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+                           <span class="n">pos_nbs_loc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+                           <span class="n">nbs_loc</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span>
+                           <span class="n">function</span><span class="o">=</span><span class="n">rbf_function</span><span class="p">)</span>
+                <span class="n">test_weights_loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">rbfi</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="c1"># Global model</span>
+            <span class="c1"># Using return_loc_neighbors()</span>
+            <span class="n">nbs_glob</span><span class="p">,</span> <span class="n">pos_nbs_glob</span> <span class="o">=</span> <span class="n">mccd_utils</span><span class="o">.</span><span class="n">return_loc_neighbors</span><span class="p">(</span>
+                <span class="n">pos</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="p">[</span><span class="n">ccd_idx</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">A_glob</span><span class="p">[</span><span class="n">ccd_idx</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+                <span class="n">n_glob_neighbors</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_comp_glob</span><span class="p">):</span>
+                <span class="n">rbfi</span> <span class="o">=</span> <span class="n">Rbf</span><span class="p">(</span><span class="n">pos_nbs_glob</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+                            <span class="n">pos_nbs_glob</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+                            <span class="n">nbs_glob</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span>
+                            <span class="n">function</span><span class="o">=</span><span class="n">rbf_function</span><span class="p">)</span>
+                <span class="n">test_weights_glob</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">rbfi</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># Reconstruct the global and local PSF contributions</span>
+        <span class="n">PSFs_loc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loc_transform</span><span class="p">(</span><span class="n">test_weights_loc</span><span class="p">,</span> <span class="n">ccd_idx</span><span class="p">)</span>
+        <span class="n">PSFs_glob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_glob_transform</span><span class="p">(</span><span class="n">test_weights_glob</span><span class="p">)</span>
+        <span class="c1"># PSFs is in reg format: batch dim is the first one</span>
+        <span class="n">PSFs</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="n">PSFs_glob</span> <span class="o">+</span> <span class="n">PSFs_loc</span><span class="p">)</span>
+
+        <span class="c1"># Let's handle the shifts</span>
+        <span class="k">if</span> <span class="n">centroid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">centroid</span> <span class="o">=</span> <span class="p">[</span><span class="n">PSFs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">PSFs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">]</span>
+
+        <span class="n">psf_moms</span> <span class="o">=</span> <span class="p">[</span><span class="n">gs</span><span class="o">.</span><span class="n">hsm</span><span class="o">.</span><span class="n">FindAdaptiveMom</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">psf</span><span class="p">),</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">psf</span> <span class="ow">in</span> <span class="n">PSFs</span><span class="p">]</span>
+        <span class="n">sigmas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">moms</span><span class="o">.</span><span class="n">moments_sigma</span> <span class="k">for</span> <span class="n">moms</span> <span class="ow">in</span> <span class="n">psf_moms</span><span class="p">])</span>
+        <span class="c1"># This centroids are with MCCD's pixel convention</span>
+        <span class="n">cents</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">moms</span><span class="o">.</span><span class="n">moments_centroid</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span>
+                           <span class="n">moms</span><span class="o">.</span><span class="n">moments_centroid</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">]</span>
+                           <span class="k">for</span> <span class="n">moms</span> <span class="ow">in</span> <span class="n">psf_moms</span><span class="p">])</span>
+
+        <span class="n">shifts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">centroid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">ce</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">centroid</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">ce</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+                           <span class="k">for</span> <span class="n">ce</span> <span class="ow">in</span> <span class="n">cents</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">sigmas</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lanc_rad</span> <span class="o">=</span> <span class="mi">8</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lanc_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="mf">3.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">sigmas</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="n">shift_kernels</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">shift_ker_stack</span><span class="p">(</span><span class="n">shifts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">upfact</span><span class="p">,</span>
+                                            <span class="n">lanc_rad</span><span class="o">=</span><span class="n">lanc_rad</span><span class="p">)</span>
+        <span class="c1"># PSFs changed into reg_format in the degradation process</span>
+        <span class="n">PSFs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">utils</span><span class="o">.</span><span class="n">degradation_op</span><span class="p">(</span><span class="n">PSFs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span>
+                                    <span class="n">shift_kernels</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">j</span><span class="p">],</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">upfact</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ntest</span><span class="p">)])</span>
+
+        <span class="c1"># Normalize the PSFs flux</span>
+        <span class="n">PSFs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">PSFs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">PSFs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:])</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ntest</span><span class="p">)])</span>
+
+        <span class="k">return</span> <span class="n">PSFs</span></div>
+
 <div class="viewcode-block" id="MCCD.estimate_psf"><a class="viewcode-back" href="../../mccd.mccd.html#mccd.mccd.MCCD.estimate_psf">[docs]</a>    <span class="k">def</span> <span class="nf">estimate_psf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_pos</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">n_loc_neighbors</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
-                     <span class="n">n_glob_neighbors</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">rbf_function</span><span class="o">=</span><span class="s1">&#39;thin_plate&#39;</span><span class="p">,</span>
+                     <span class="n">n_glob_neighbors</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">rbf_function</span><span class="o">=</span><span class="s1">'thin_plate'</span><span class="p">,</span>
                      <span class="n">apply_degradation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shifts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flux</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                      <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upfact</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mccd_debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                      <span class="n">global_pol_interp</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Estimate and return PSF at desired positions.</span>
+        <span class="sa">r</span><span class="sd">"""Estimate and return PSF at desired positions.</span>
 
-<span class="sd">        Returns the model in &quot;regular&quot; format, (n_stars, n_pixels, n_pixels).</span>
+<span class="sd">        Returns the model in "regular" format, (n_stars, n_pixels, n_pixels).</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1280,7 +1452,7 @@
 <span class="sd">            Number of neighbors for the global model to use for RBF</span>
 <span class="sd">            interpolation. Default is 15.</span>
 <span class="sd">        rbf_function: str</span>
-<span class="sd">            Type of RBF kernel to use. Default is ``&#39;thin_plate&#39;``.</span>
+<span class="sd">            Type of RBF kernel to use. Default is ``'thin_plate'``.</span>
 <span class="sd">            Check scipy RBF documentation for more models.</span>
 <span class="sd">        apply_degradation: bool</span>
 <span class="sd">            Whether PSF model should be degraded (shifted and</span>
@@ -1323,10 +1495,10 @@
 <span class="sd">        PSFs: numpy.ndarray</span>
 <span class="sd">            Returns the interpolated PSFs in regular format.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_fitted</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;MCCD instance has not yet been fitted to</span>
-<span class="s1">            observations. Please run the fit method.&#39;&#39;&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'''MCCD instance has not yet been fitted to</span>
+<span class="s1">            observations. Please run the fit method.'''</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">upfact</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">upfact</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">upfact</span>
 
@@ -1453,11 +1625,11 @@
 <div class="viewcode-block" id="MCCD.validation_stars"><a class="viewcode-back" href="../../mccd.mccd.html#mccd.mccd.MCCD.validation_stars">[docs]</a>    <span class="k">def</span> <span class="nf">validation_stars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_stars</span><span class="p">,</span> <span class="n">test_pos</span><span class="p">,</span> <span class="n">test_masks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                          <span class="n">ccd_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mccd_debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                          <span class="n">response_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">global_pol_interp</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Match PSF model to stars.</span>
+        <span class="sa">r</span><span class="sd">"""Match PSF model to stars.</span>
 
 <span class="sd">        The match is done in flux, shift and pixel sampling -</span>
 <span class="sd">        for validation tests.</span>
-<span class="sd">        Returns the matched PSFs&#39; stamps.</span>
+<span class="sd">        Returns the matched PSFs' stamps.</span>
 <span class="sd">        Returned matched PSFs will be None if there is no model on that</span>
 <span class="sd">        specific CCD due to the lack of training stars.</span>
 
@@ -1465,7 +1637,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        test_stars: numpy.ndarray</span>
 <span class="sd">            Star stamps to be used for comparison with the PSF model.</span>
-<span class="sd">            Should be in &quot;rca&quot; format,</span>
+<span class="sd">            Should be in "rca" format,</span>
 <span class="sd">            i.e. with axises (n_pixels, n_pixels, n_stars).</span>
 <span class="sd">        test_pos: numpy.ndarray</span>
 <span class="sd">            Their corresponding positions in global coordinate system.</span>
@@ -1488,10 +1660,10 @@
 <span class="sd">            If is not None, the global interpolation is done directly</span>
 <span class="sd">            using position polynomials.</span>
 <span class="sd">            In this case, it should be the normalized Pi interpolation matrix.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_fitted</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;MCCD instance has not yet been fitted to</span>
-<span class="s1">            observations. Please run the fit method.&#39;&#39;&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'''MCCD instance has not yet been fitted to</span>
+<span class="s1">            observations. Please run the fit method.'''</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">response_flag</span><span class="p">:</span>
             <span class="n">test_shifts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">test_pos</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
@@ -1537,55 +1709,50 @@
         <span class="k">return</span> <span class="n">matched_psfs</span></div>
 
     <span class="k">def</span> <span class="nf">_loc_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">A_loc_weights</span><span class="p">,</span> <span class="n">ccd_idx</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Transform local weights to local contributions of the PSFs.&quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">"""Transform local weights to local contributions of the PSFs."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="p">[</span><span class="n">ccd_idx</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A_loc_weights</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_glob_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">A_glob_weights</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Transform global weights to global contribution of the PSFs.&quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">"""Transform global weights to global contribution of the PSFs."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A_glob_weights</span><span class="p">)</span></div>
-</pre></div>
-
-           </div>
-           
-          </div>
-          <footer>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020, Tobias Liaudat.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
+</code></pre>
+</main>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 18 Jul, 2021. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
+</div>
+<div class="sticky bottom-0 md:hidden print:hidden bg-white">
+<div class="flex justify-center items-center">
+<button aria-labelledby="menuLabel" class="text-3xl p-4 flex items-center focus:bg-gray-200" id="openNavBtn">
+<svg aria-hidden="true" class="fill-current h-8 w-8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+<span class="pl-2 text-sm font-medium uppercase tracking-wide text-gray-700" id="menuLabel">Menu</span>
+</button><button aria-labelledby="searchLabel" class="text-3xl p-4 flex items-center focus:bg-gray-200" id="openSearchBtn">
+<svg aria-hidden="true" class="fill-current h-8 w-8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+<span class="pl-2 text-sm font-medium uppercase tracking-wide text-gray-700" id="searchLabel">Search</span>
+</button>
+</div>
+</div>
+<div class="w-full fixed bottom-0 left-0 z-10 bg-gray-900 overflow-x-hidden pt-10 flex flex-col items-center md:hidden" data-menu="closed" id="search-pane">
+<h4 class="text-xl text-white mb-4" id="search-label">Enter search term</h4><form action="../../search.html" class="flex w-full justify-between items-center max-w-sm px-12" id="searchbox" method="get">
+<input aria-labelledby="search-label" class="p-2 flex-1" name="q" placeholder="Search the docs" type="search"/>
+<button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+</button>
+</form>
+<button aria-label="Close menu" class="text-4xl text-gray-200 p-4 bottom-0 hover:text-pink-500 md:hidden focus:text-pink-500 self-center" id="closeSearchBtn" title="Close menu">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</div>
+<div class="fixed bottom-0 right-0 opacity-0 p-4 m-4 rounded bg-gray-900 text-gray-100 transition transform duration-500 translate-y-full" id="snackbar"></div>
+<div class="fixed inset-0 bg-black bg-opacity-50" id="screen" style="display: none;"></div>
+</div>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js">
+</script>
+<script src="../../_static/jquery.js"></script>
+<script src="../../_static/underscore.js"></script>
+<script src="../../_static/doctools.js"></script>
+<script src="../../_static/language_data.js"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+<script defer="" src="../../_static/theme.js"></script>
 </body>
 </html>

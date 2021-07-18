@@ -1,5 +1,5 @@
-mccd.auxiliary\_fun module
-==========================
+mccd.auxiliary\_fun
+-------------------
 
 .. automodule:: mccd.auxiliary_fun
    :members:

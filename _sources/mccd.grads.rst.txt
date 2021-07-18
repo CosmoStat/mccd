@@ -1,5 +1,5 @@
-mccd.grads module
-=================
+mccd.grads
+----------
 
 .. automodule:: mccd.grads
    :members:

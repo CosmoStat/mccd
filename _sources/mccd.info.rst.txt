@@ -1,5 +1,5 @@
-mccd.info module
-================
+mccd.info
+---------
 
 .. automodule:: mccd.info
    :members:

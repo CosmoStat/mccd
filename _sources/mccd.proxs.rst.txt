@@ -1,5 +1,5 @@
-mccd.proxs module
-=================
+mccd.proxs
+----------
 
 .. automodule:: mccd.proxs
    :members:

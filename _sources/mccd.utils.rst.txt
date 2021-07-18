@@ -1,5 +1,5 @@
-mccd.utils module
-=================
+mccd.utils
+----------
 
 .. automodule:: mccd.utils
    :members:

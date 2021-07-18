@@ -1,5 +1,5 @@
-mccd.mccd module
-================
+mccd.mccd
+---------
 
 .. automodule:: mccd.mccd
    :members:
