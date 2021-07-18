@@ -14,6 +14,10 @@ from . import auxiliary_fun
 from .info import __version__, __about__
 
 __all__ = []  # List of submodules
-__all__ += [MCCD, mccd_quickload]
-__all__ += [mccd_utils, utils, grads, proxs]
-__all__ += [auxiliary_fun, dataset_generation]
+__all__ += ['mccd']
+__all__ += ['proxs']
+__all__ += ['grads']
+__all__ += ['utils']
+__all__ += ['mccd_utils']
+__all__ += ['auxiliary_fun']
+__all__ += ['dataset_generation']
