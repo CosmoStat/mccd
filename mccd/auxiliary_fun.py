@@ -941,7 +941,7 @@ def mccd_preprocessing(
         ccd_list = output[3]
         SNR_list = output[4]
         RA_list = output[5]
-        DEC_list  = output[6]
+        DEC_list = output[6]
 
         if outlier_std_max < 99:
             output = mccd_inputs.outlier_rejection(
@@ -961,7 +961,7 @@ def mccd_preprocessing(
             ccd_list = output[3]
             SNR_list = output[4]
             RA_list = output[5]
-            DEC_list  = output[6]
+            DEC_list = output[6]
 
         mccd_star_list = []
         mccd_pos_list = []

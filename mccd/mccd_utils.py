@@ -210,7 +210,7 @@ class Loc2Glob_EUCLID_sim(object):
 
     Notes
     -----
-    The global origin is in the middle of the focal plane. This is the 
+    The global origin is in the middle of the focal plane. This is the
     bottom left corner of the CCD 15.
 
     Example of Euclid's VIS instrument geometry.
@@ -267,19 +267,20 @@ class Loc2Glob_EUCLID_sim(object):
 
         # Return new coordinates
         return x_coor + x_shift, y_coor + y_shift
-    
-    
+
     def glob2loc_img_coord(self, x_coor, y_coor):
         r""" Go from global to local coordinates.
         """
         # Determine the CCD
         ccd_n = int(
-            (-y_coor // (self.y_npix + self.y_gap) + 3) * 6 + (x_coor // (self.x_npix + self.x_gap)) + 3
+            (-y_coor // (self.y_npix + self.y_gap) + 3) * 6 + (
+                x_coor // (self.x_npix + self.x_gap)
+            ) + 3
         )
         # Calculate shifts
         x_shift, y_shift = self.shift_coord(ccd_n)
-        
-        return  ccd_n, x_coor - x_shift, y_coor - y_shift
+
+        return ccd_n, x_coor - x_shift, y_coor - y_shift
 
     def flip_coord(self, ccd_n, x_coor, y_coor):
         r"""Change of coordinate convention.
@@ -295,9 +296,9 @@ class Loc2Glob_EUCLID_sim(object):
         It is needed to go from the local coordinate
         system origin to the global coordinate system origin.
         """
-        x_shift = (ccd_n - 3. - (ccd_n//6)*6) * (self.x_gap + self.x_npix)
-        y_shift = (2. - (ccd_n//6)) * (self.y_gap + self.y_npix)
-        
+        x_shift = (ccd_n - 3. - (ccd_n // 6) * 6) * (self.x_gap + self.x_npix)
+        y_shift = (2. - (ccd_n // 6)) * (self.y_gap + self.y_npix)
+
         return x_shift, y_shift
 
 
@@ -1047,7 +1048,7 @@ def interpolation_Pi(position_list, d_comp_glob):
         CCD (object in the position list).
 
     """
-    n_comp_glob = (d_comp_glob + 1) * (d_comp_glob + 2) // 2
+    # n_comp_glob = (d_comp_glob + 1) * (d_comp_glob + 2) // 2
 
     # Calculate max and min values of global coordinate system
     # This configuration is specific for CFIS MegaCam configuration
