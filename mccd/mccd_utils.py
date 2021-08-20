@@ -231,13 +231,17 @@ class MccdInputs(object):
     """
 
     def __init__(self, separator='-', coord_x_descriptor='XWIN_IMAGE',
-                 coord_y_descriptor='YWIN_IMAGE', mask_thresh=-1e5):
+                 coord_y_descriptor='YWIN_IMAGE', mask_thresh=-1e5,
+                 loc2glob=None):
         r"""Initialize class attributes."""
         self.separator = separator
         self.coord_x_descriptor = coord_x_descriptor
         self.coord_y_descriptor = coord_y_descriptor
         self.mask_thresh = mask_thresh
-        self.loc2glob = Loc2Glob()
+        if loc2glob is None:
+            self.loc2glob = Loc2Glob()
+        else:
+            self.loc2glob = loc2glob
 
         self.SNR_list = None
         self.star_list = None
