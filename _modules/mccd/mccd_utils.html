@@ -252,6 +252,119 @@
             <span class="k">return</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span></div></div>
 
 
+<div class="viewcode-block" id="Loc2Glob_EUCLID_sim"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim">[docs]</a><span class="k">class</span> <span class="nc">Loc2Glob_EUCLID_sim</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">"""Change from local to global coordinates.</span>
+
+<span class="sd">    Class to pass from local coordinates to global coordinates under</span>
+<span class="sd">    a simulation of Euclid's VIS instrument.</span>
+<span class="sd">    The geometrical informcation of the instrument is encoded in this</span>
+<span class="sd">    function.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x_gap: int</span>
+<span class="sd">        Gap between the CCDs on the horizontal direction.</span>
+<span class="sd">    y_gap: int</span>
+<span class="sd">        Gap between the CCDs on the vertical direction.</span>
+<span class="sd">    x_npix: int (float)</span>
+<span class="sd">        Number of pixels on one CCD on the horizontal direction.</span>
+<span class="sd">    y_npix: int (float)</span>
+<span class="sd">        Number of pixels on one CCD on the vertical direction.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The global origin is in the middle of the focal plane. This is the</span>
+<span class="sd">    bottom left corner of the CCD 15.</span>
+
+<span class="sd">    Example of Euclid's VIS instrument geometry.</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; 'COMMENT   ------------------------',</span>
+<span class="sd">        'COMMENT    00  01  02  03  04  05 ',</span>
+<span class="sd">        'COMMENT   ------------------------',</span>
+<span class="sd">        'COMMENT    06  07  08  09  10  11 ',</span>
+<span class="sd">        'COMMENT   ------------^-----------',</span>
+<span class="sd">        'COMMENT    12  13  14 |15  16  17 ',</span>
+<span class="sd">        'COMMENT   ------------*-&gt;---------',</span>
+<span class="sd">        'COMMENT    18  19  20  21  22  23 ',</span>
+<span class="sd">        'COMMENT   ------------------------',</span>
+<span class="sd">        'COMMENT    24  25  26  27  28  29 ',</span>
+<span class="sd">        'COMMENT   ------------------------',</span>
+<span class="sd">        'COMMENT    30  31  32  33  34  35 ',</span>
+<span class="sd">        'COMMENT   ________________________'</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_gap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_gap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_npix</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">y_npix</span><span class="o">=</span><span class="mi">4096</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">"""Initialize with instrument geometry."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">=</span> <span class="n">x_gap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">=</span> <span class="n">y_gap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">=</span> <span class="n">x_npix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">=</span> <span class="n">y_npix</span>
+
+<div class="viewcode-block" id="Loc2Glob_EUCLID_sim.loc2glob_img_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.loc2glob_img_coord">[docs]</a>    <span class="k">def</span> <span class="nf">loc2glob_img_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">"""Go from the local to the global img (pixel) coordinate system.</span>
+
+<span class="sd">        Global system with (0,0) in the bottom left corner of the CCD 15.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ccd_n: int</span>
+<span class="sd">            CCD number of the considered positions.</span>
+<span class="sd">        x_coor: float</span>
+<span class="sd">            Local coordinate system hotizontal value.</span>
+<span class="sd">        y_coor: float</span>
+<span class="sd">            Local coordinate system vertical value.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        glob_x_coor: float</span>
+<span class="sd">            Horizontal position in global coordinate system.</span>
+<span class="sd">        glob_y_coor: float</span>
+<span class="sd">            Vertical position in global coordinate system.</span>
+
+<span class="sd">        """</span>
+        <span class="c1"># Flip axes</span>
+        <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flip_coord</span><span class="p">(</span><span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">)</span>
+
+        <span class="c1"># Calculate the shift</span>
+        <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_coord</span><span class="p">(</span><span class="n">ccd_n</span><span class="p">)</span>
+
+        <span class="c1"># Return new coordinates</span>
+        <span class="k">return</span> <span class="n">x_coor</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_coor</span> <span class="o">+</span> <span class="n">y_shift</span></div>
+
+<div class="viewcode-block" id="Loc2Glob_EUCLID_sim.glob2loc_img_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.glob2loc_img_coord">[docs]</a>    <span class="k">def</span> <span class="nf">glob2loc_img_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">""" Go from global to local coordinates.</span>
+<span class="sd">        """</span>
+        <span class="c1"># Determine the CCD</span>
+        <span class="n">ccd_n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">y_coor</span> <span class="o">//</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="p">(</span>
+                <span class="n">x_coor</span> <span class="o">//</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span><span class="p">)</span>
+            <span class="p">)</span> <span class="o">+</span> <span class="mi">3</span>
+        <span class="p">)</span>
+        <span class="c1"># Calculate shifts</span>
+        <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_coord</span><span class="p">(</span><span class="n">ccd_n</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span> <span class="o">-</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_coor</span> <span class="o">-</span> <span class="n">y_shift</span></div>
+
+<div class="viewcode-block" id="Loc2Glob_EUCLID_sim.flip_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.flip_coord">[docs]</a>    <span class="k">def</span> <span class="nf">flip_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">"""Change of coordinate convention.</span>
+
+<span class="sd">        There is no fliping for Euclid.</span>
+<span class="sd">        """</span>
+
+        <span class="k">return</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span></div>
+
+<div class="viewcode-block" id="Loc2Glob_EUCLID_sim.shift_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.shift_coord">[docs]</a>    <span class="k">def</span> <span class="nf">shift_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">"""Provide the shifting.</span>
+
+<span class="sd">        It is needed to go from the local coordinate</span>
+<span class="sd">        system origin to the global coordinate system origin.</span>
+<span class="sd">        """</span>
+        <span class="n">x_shift</span> <span class="o">=</span> <span class="p">(</span><span class="n">ccd_n</span> <span class="o">-</span> <span class="mf">3.</span> <span class="o">-</span> <span class="p">(</span><span class="n">ccd_n</span> <span class="o">//</span> <span class="mi">6</span><span class="p">)</span> <span class="o">*</span> <span class="mi">6</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span><span class="p">)</span>
+        <span class="n">y_shift</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">-</span> <span class="p">(</span><span class="n">ccd_n</span> <span class="o">//</span> <span class="mi">6</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span></div></div>
+
+
 <div class="viewcode-block" id="MccdInputs"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs">[docs]</a><span class="k">class</span> <span class="nc">MccdInputs</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">"""Handle inputs for the MCCD algorithm.</span>
 
@@ -291,16 +404,29 @@
 <span class="sd">        pixels to the value -1e30.</span>
 <span class="sd">        Values beneath the threshold will be considered masked.</span>
 <span class="sd">        Default is ``-1e5``.</span>
+<span class="sd">    loc2glob: object</span>
+<span class="sd">        The object that allows to do the coordinate conversion from local to</span>
+<span class="sd">        global. It is specific for each instrument's focal plane geometry.</span>
+<span class="sd">        If is ``None`` it defaults to the CFIS MegaCam instrument.</span>
+<span class="sd">    fits_tb_pos: int</span>
+<span class="sd">        Position in the fits file of the useful table.</span>
+<span class="sd">        Default is ``2`` that's the case for the CFIS data.</span>
 <span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="s1">'-'</span><span class="p">,</span> <span class="n">coord_x_descriptor</span><span class="o">=</span><span class="s1">'XWIN_IMAGE'</span><span class="p">,</span>
-                 <span class="n">coord_y_descriptor</span><span class="o">=</span><span class="s1">'YWIN_IMAGE'</span><span class="p">,</span> <span class="n">mask_thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">):</span>
+                 <span class="n">coord_y_descriptor</span><span class="o">=</span><span class="s1">'YWIN_IMAGE'</span><span class="p">,</span> <span class="n">mask_thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">,</span>
+                 <span class="n">loc2glob</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fits_tb_pos</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">separator</span> <span class="o">=</span> <span class="n">separator</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coord_x_descriptor</span> <span class="o">=</span> <span class="n">coord_x_descriptor</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coord_y_descriptor</span> <span class="o">=</span> <span class="n">coord_y_descriptor</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mask_thresh</span> <span class="o">=</span> <span class="n">mask_thresh</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">Loc2Glob</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">loc2glob</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">Loc2Glob</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">loc2glob</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fits_tb_pos</span> <span class="o">=</span> <span class="n">fits_tb_pos</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">SNR_list</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">star_list</span> <span class="o">=</span> <span class="kc">None</span>
@@ -504,14 +630,22 @@
             <span class="n">starcat</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">starcat_array</span><span class="p">[</span><span class="n">it</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">memmap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="n">ccd</span> <span class="o">=</span> <span class="n">starcat_array</span><span class="p">[</span><span class="n">it</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'int'</span><span class="p">)</span>
 
-            <span class="n">positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">loc2glob_img_coord</span><span class="p">(</span><span class="n">ccd</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span>
-                 <span class="nb">zip</span><span class="p">(</span><span class="n">starcat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">coord_x_descriptor</span><span class="p">],</span>
-                     <span class="n">starcat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">coord_y_descriptor</span><span class="p">])])</span>
+            <span class="n">positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">loc2glob_img_coord</span><span class="p">(</span><span class="n">ccd</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span>
+                <span class="nb">zip</span><span class="p">(</span>
+                     <span class="n">starcat</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_tb_pos</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">coord_x_descriptor</span><span class="p">],</span>
+                     <span class="n">starcat</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_tb_pos</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">coord_y_descriptor</span><span class="p">]</span>
+                <span class="p">)</span>
+            <span class="p">])</span>
 
-            <span class="n">stars</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">starcat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'VIGNET'</span><span class="p">])</span>
-            <span class="n">masks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_mask</span><span class="p">(</span><span class="n">stars</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mask_thresh</span><span class="p">,</span>
-                                     <span class="n">apply_to_stars</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">stars</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span>
+                <span class="n">starcat</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_tb_pos</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'VIGNET'</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">masks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_mask</span><span class="p">(</span>
+                <span class="n">stars</span><span class="p">,</span>
+                <span class="n">thresh</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mask_thresh</span><span class="p">,</span>
+                <span class="n">apply_to_stars</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
 
             <span class="n">star_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stars</span><span class="p">)</span>
             <span class="n">position_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
@@ -519,14 +653,18 @@
             <span class="n">ccd_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ccd</span><span class="p">)</span>
 
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">SNR</span> <span class="o">=</span> <span class="n">starcat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'SNR_WIN'</span><span class="p">]</span>
+                <span class="n">SNR</span> <span class="o">=</span> <span class="n">starcat</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_tb_pos</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'SNR_WIN'</span><span class="p">]</span>
                 <span class="n">SNR_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SNR</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                 <span class="n">SNR_list</span> <span class="o">=</span> <span class="kc">None</span>
 
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">RA_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">starcat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'XWIN_WORLD'</span><span class="p">])</span>
-                <span class="n">DEC_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">starcat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'YWIN_WORLD'</span><span class="p">])</span>
+                <span class="n">RA_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">starcat</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_tb_pos</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'XWIN_WORLD'</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="n">DEC_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">starcat</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_tb_pos</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'YWIN_WORLD'</span><span class="p">]</span>
+                <span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                 <span class="n">RA_list</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="n">DEC_list</span> <span class="o">=</span> <span class="kc">None</span>
@@ -973,7 +1111,7 @@
 <span class="sd">        CCD (object in the position list).</span>
 
 <span class="sd">    """</span>
-    <span class="n">n_comp_glob</span> <span class="o">=</span> <span class="p">(</span><span class="n">d_comp_glob</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">d_comp_glob</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="c1"># n_comp_glob = (d_comp_glob + 1) * (d_comp_glob + 2) // 2</span>
 
     <span class="c1"># Calculate max and min values of global coordinate system</span>
     <span class="c1"># This configuration is specific for CFIS MegaCam configuration</span>
@@ -1085,7 +1223,7 @@
         <span class="k">return</span> <span class="n">filters</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
 </code></pre>
 </main>
-<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 19 Jul, 2021. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 20 Aug, 2021. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
 </div>
 <div class="sticky bottom-0 md:hidden print:hidden bg-white">
 <div class="flex justify-center items-center">

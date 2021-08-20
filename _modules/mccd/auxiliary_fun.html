@@ -897,14 +897,21 @@
     <span class="k">return</span> <span class="n">star_dict</span></div>
 
 
-<div class="viewcode-block" id="mccd_preprocessing"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.mccd_preprocessing">[docs]</a><span class="k">def</span> <span class="nf">mccd_preprocessing</span><span class="p">(</span><span class="n">input_folder_path</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span> <span class="n">min_n_stars</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-                       <span class="n">file_pattern</span><span class="o">=</span><span class="s1">'sexcat-*-*.fits'</span><span class="p">,</span>
-                       <span class="n">separator</span><span class="o">=</span><span class="s1">'-'</span><span class="p">,</span>
-                       <span class="n">CCD_id_filter_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                       <span class="n">outlier_std_max</span><span class="o">=</span><span class="mf">100.</span><span class="p">,</span>
-                       <span class="n">save_masks</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">save_name</span><span class="o">=</span><span class="s1">'train_star_selection'</span><span class="p">,</span>
-                       <span class="n">save_extension</span><span class="o">=</span><span class="s1">'.fits'</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="mccd_preprocessing"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.mccd_preprocessing">[docs]</a><span class="k">def</span> <span class="nf">mccd_preprocessing</span><span class="p">(</span>
+    <span class="n">input_folder_path</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="p">,</span>
+    <span class="n">min_n_stars</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">file_pattern</span><span class="o">=</span><span class="s1">'sexcat-*-*.fits'</span><span class="p">,</span>
+    <span class="n">separator</span><span class="o">=</span><span class="s1">'-'</span><span class="p">,</span>
+    <span class="n">CCD_id_filter_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">outlier_std_max</span><span class="o">=</span><span class="mf">100.</span><span class="p">,</span>
+    <span class="n">save_masks</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">save_name</span><span class="o">=</span><span class="s1">'train_star_selection'</span><span class="p">,</span>
+    <span class="n">save_extension</span><span class="o">=</span><span class="s1">'.fits'</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">loc2glob</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">fits_tb_pos</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">):</span>
     <span class="sa">r</span><span class="sd">"""Preprocess input catalog.</span>
 
 <span class="sd">    Parameters</span>
@@ -946,6 +953,13 @@
 <span class="sd">    verbose: bool</span>
 <span class="sd">        Verbose mode.</span>
 <span class="sd">        Default is ``True``.</span>
+<span class="sd">    loc2glob: class</span>
+<span class="sd">        The object that allows to do the coordinate conversion from local to</span>
+<span class="sd">        global. It is specific for each instrument's focal plane geometry.</span>
+<span class="sd">        Default is ``None`` that uses the CFIS MegaCam geometry.</span>
+<span class="sd">    fits_tb_pos: int</span>
+<span class="sd">        Position in the fits file of the useful table.</span>
+<span class="sd">        Default is ``2`` that is the default for CFIS fits files.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -968,24 +982,49 @@
             <span class="k">pass</span>
 
     <span class="c1"># Preprocess</span>
-    <span class="n">mccd_inputs</span> <span class="o">=</span> <span class="n">mccd_utils</span><span class="o">.</span><span class="n">MccdInputs</span><span class="p">(</span><span class="n">separator</span><span class="o">=</span><span class="n">separator</span><span class="p">)</span>
+    <span class="n">mccd_inputs</span> <span class="o">=</span> <span class="n">mccd_utils</span><span class="o">.</span><span class="n">MccdInputs</span><span class="p">(</span>
+        <span class="n">separator</span><span class="o">=</span><span class="n">separator</span><span class="p">,</span>
+        <span class="n">loc2glob</span><span class="o">=</span><span class="n">loc2glob</span><span class="p">,</span>
+        <span class="n">fits_tb_pos</span><span class="o">=</span><span class="n">fits_tb_pos</span>
+    <span class="p">)</span>
     <span class="n">print_fun</span><span class="p">(</span><span class="s1">'Processing dataset..'</span><span class="p">)</span>
-    <span class="n">catalog_ids</span> <span class="o">=</span> <span class="n">mccd_inputs</span><span class="o">.</span><span class="n">preprocess_data</span><span class="p">(</span><span class="n">folder_path</span><span class="o">=</span><span class="n">input_folder_path</span><span class="p">,</span>
-                                              <span class="n">pattern</span><span class="o">=</span><span class="n">file_pattern</span><span class="p">)</span>
+    <span class="n">catalog_ids</span> <span class="o">=</span> <span class="n">mccd_inputs</span><span class="o">.</span><span class="n">preprocess_data</span><span class="p">(</span>
+        <span class="n">folder_path</span><span class="o">=</span><span class="n">input_folder_path</span><span class="p">,</span>
+        <span class="n">pattern</span><span class="o">=</span><span class="n">file_pattern</span>
+    <span class="p">)</span>
 
     <span class="c1"># Loop over the catalogs</span>
     <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">catalog_ids</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
         <span class="c1"># For each observation position</span>
         <span class="n">catalog_id</span> <span class="o">=</span> <span class="n">catalog_ids</span><span class="p">[</span><span class="n">it</span><span class="p">]</span>
-        <span class="n">star_list</span><span class="p">,</span> <span class="n">pos_list</span><span class="p">,</span> <span class="n">mask_list</span><span class="p">,</span> <span class="n">ccd_list</span><span class="p">,</span> <span class="n">SNR_list</span><span class="p">,</span> <span class="n">RA_list</span><span class="p">,</span> \
-            <span class="n">DEC_list</span> <span class="o">=</span> <span class="n">mccd_inputs</span><span class="o">.</span><span class="n">get_inputs</span><span class="p">(</span><span class="n">catalog_id</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">mccd_inputs</span><span class="o">.</span><span class="n">get_inputs</span><span class="p">(</span><span class="n">catalog_id</span><span class="p">)</span>
+        <span class="n">star_list</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">pos_list</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">mask_list</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">ccd_list</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">SNR_list</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">RA_list</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+        <span class="n">DEC_list</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">outlier_std_max</span> <span class="o">&lt;</span> <span class="mi">99</span><span class="p">:</span>
-            <span class="n">star_list</span><span class="p">,</span> <span class="n">pos_list</span><span class="p">,</span> <span class="n">mask_list</span><span class="p">,</span> <span class="n">ccd_list</span><span class="p">,</span> <span class="n">SNR_list</span><span class="p">,</span> <span class="n">RA_list</span><span class="p">,</span> \
-                <span class="n">DEC_list</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mccd_inputs</span><span class="o">.</span><span class="n">outlier_rejection</span><span class="p">(</span>
-                    <span class="n">star_list</span><span class="p">,</span> <span class="n">pos_list</span><span class="p">,</span> <span class="n">mask_list</span><span class="p">,</span> <span class="n">ccd_list</span><span class="p">,</span> <span class="n">SNR_list</span><span class="p">,</span>
-                    <span class="n">RA_list</span><span class="p">,</span> <span class="n">DEC_list</span><span class="p">,</span> <span class="n">shape_std_max</span><span class="o">=</span><span class="n">outlier_std_max</span><span class="p">,</span>
-                    <span class="n">print_fun</span><span class="o">=</span><span class="n">print_fun</span><span class="p">)</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">mccd_inputs</span><span class="o">.</span><span class="n">outlier_rejection</span><span class="p">(</span>
+                <span class="n">star_list</span><span class="p">,</span>
+                <span class="n">pos_list</span><span class="p">,</span>
+                <span class="n">mask_list</span><span class="p">,</span>
+                <span class="n">ccd_list</span><span class="p">,</span>
+                <span class="n">SNR_list</span><span class="p">,</span>
+                <span class="n">RA_list</span><span class="p">,</span>
+                <span class="n">DEC_list</span><span class="p">,</span>
+                <span class="n">shape_std_max</span><span class="o">=</span><span class="n">outlier_std_max</span><span class="p">,</span>
+                <span class="n">print_fun</span><span class="o">=</span><span class="n">print_fun</span>
+            <span class="p">)</span>
+            <span class="n">star_list</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">pos_list</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">mask_list</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">ccd_list</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="n">SNR_list</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+            <span class="n">RA_list</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+            <span class="n">DEC_list</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
 
         <span class="n">mccd_star_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">mccd_pos_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1054,11 +1093,15 @@
             <span class="n">mccd_star_nb</span> <span class="o">+=</span> <span class="n">mccd_stars</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
             <span class="c1"># Save the fits file</span>
-            <span class="n">train_dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'VIGNET_LIST'</span><span class="p">:</span> <span class="n">mccd_stars</span><span class="p">,</span>
-                         <span class="s1">'GLOB_POSITION_IMG_LIST'</span><span class="p">:</span> <span class="n">mccd_poss</span><span class="p">,</span>
-                         <span class="s1">'MASK_LIST'</span><span class="p">:</span> <span class="n">mccd_masks</span><span class="p">,</span> <span class="s1">'CCD_ID_LIST'</span><span class="p">:</span> <span class="n">mccd_ccds</span><span class="p">,</span>
-                         <span class="s1">'SNR_WIN_LIST'</span><span class="p">:</span> <span class="n">mccd_SNRs</span><span class="p">,</span>
-                         <span class="s1">'RA_LIST'</span><span class="p">:</span> <span class="n">mccd_RAs</span><span class="p">,</span> <span class="s1">'DEC_LIST'</span><span class="p">:</span> <span class="n">mccd_DECs</span><span class="p">}</span>
+            <span class="n">train_dic</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">'VIGNET_LIST'</span><span class="p">:</span> <span class="n">mccd_stars</span><span class="p">,</span>
+                <span class="s1">'GLOB_POSITION_IMG_LIST'</span><span class="p">:</span> <span class="n">mccd_poss</span><span class="p">,</span>
+                <span class="s1">'MASK_LIST'</span><span class="p">:</span> <span class="n">mccd_masks</span><span class="p">,</span>
+                <span class="s1">'CCD_ID_LIST'</span><span class="p">:</span> <span class="n">mccd_ccds</span><span class="p">,</span>
+                <span class="s1">'SNR_WIN_LIST'</span><span class="p">:</span> <span class="n">mccd_SNRs</span><span class="p">,</span>
+                <span class="s1">'RA_LIST'</span><span class="p">:</span> <span class="n">mccd_RAs</span><span class="p">,</span>
+                <span class="s1">'DEC_LIST'</span><span class="p">:</span> <span class="n">mccd_DECs</span>
+            <span class="p">}</span>
 
             <span class="n">saving_path</span> <span class="o">=</span> <span class="n">output_path</span> <span class="o">+</span> <span class="n">save_name</span> <span class="o">+</span> <span class="n">separator</span> \
                 <span class="o">+</span> <span class="n">catalog_id</span> <span class="o">+</span> <span class="n">save_extension</span>
@@ -1794,7 +1837,7 @@
         <span class="k">return</span> <span class="n">rec_PSFs</span></div></div>
 </code></pre>
 </main>
-<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 19 Jul, 2021. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 20 Aug, 2021. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
 </div>
 <div class="sticky bottom-0 md:hidden print:hidden bg-white">
 <div class="flex justify-center items-center">
