@@ -189,6 +189,118 @@ class Loc2Glob(object):
             return x_shift, y_shift
 
 
+class Loc2Glob_EUCLID_sim(object):
+    r"""Change from local to global coordinates.
+
+    Class to pass from local coordinates to global coordinates under
+    a simulation of Euclid's VIS instrument.
+    The geometrical informcation of the instrument is encoded in this
+    function.
+
+    Parameters
+    ----------
+    x_gap: int
+        Gap between the CCDs on the horizontal direction.
+    y_gap: int
+        Gap between the CCDs on the vertical direction.
+    x_npix: int (float)
+        Number of pixels on one CCD on the horizontal direction.
+    y_npix: int (float)
+        Number of pixels on one CCD on the vertical direction.
+
+    Notes
+    -----
+    The global origin is in the middle of the focal plane. This is the 
+    bottom left corner of the CCD 15.
+
+    Example of Euclid's VIS instrument geometry.
+    --------
+    >>> 'COMMENT   ------------------------',
+        'COMMENT    00  01  02  03  04  05 ',
+        'COMMENT   ------------------------',
+        'COMMENT    06  07  08  09  10  11 ',
+        'COMMENT   ------------^-----------',
+        'COMMENT    12  13  14 |15  16  17 ',
+        'COMMENT   ------------*->---------',
+        'COMMENT    18  19  20  21  22  23 ',
+        'COMMENT   ------------------------',
+        'COMMENT    24  25  26  27  28  29 ',
+        'COMMENT   ------------------------',
+        'COMMENT    30  31  32  33  34  35 ',
+        'COMMENT   ________________________'
+    """
+
+    def __init__(self, x_gap=0, y_gap=0, x_npix=4096, y_npix=4096):
+        r"""Initialize with instrument geometry."""
+        self.x_gap = x_gap
+        self.y_gap = y_gap
+        self.x_npix = x_npix
+        self.y_npix = y_npix
+
+    def loc2glob_img_coord(self, ccd_n, x_coor, y_coor):
+        r"""Go from the local to the global img (pixel) coordinate system.
+
+        Global system with (0,0) in the bottom left corner of the CCD 15.
+
+        Parameters
+        ----------
+        ccd_n: int
+            CCD number of the considered positions.
+        x_coor: float
+            Local coordinate system hotizontal value.
+        y_coor: float
+            Local coordinate system vertical value.
+
+        Returns
+        -------
+        glob_x_coor: float
+            Horizontal position in global coordinate system.
+        glob_y_coor: float
+            Vertical position in global coordinate system.
+
+        """
+        # Flip axes
+        x_coor, y_coor = self.flip_coord(ccd_n, x_coor, y_coor)
+
+        # Calculate the shift
+        x_shift, y_shift = self.shift_coord(ccd_n)
+
+        # Return new coordinates
+        return x_coor + x_shift, y_coor + y_shift
+    
+    
+    def glob2loc_img_coord(self, x_coor, y_coor):
+        r""" Go from global to local coordinates.
+        """
+        # Determine the CCD
+        ccd_n = int(
+            (-y_coor // (self.y_npix + self.y_gap) + 3) * 6 + (x_coor // (self.x_npix + self.x_gap)) + 3
+        )
+        # Calculate shifts
+        x_shift, y_shift = self.shift_coord(ccd_n)
+        
+        return  ccd_n, x_coor - x_shift, y_coor - y_shift
+
+    def flip_coord(self, ccd_n, x_coor, y_coor):
+        r"""Change of coordinate convention.
+
+        There is no fliping for Euclid.
+        """
+
+        return x_coor, y_coor
+
+    def shift_coord(self, ccd_n):
+        r"""Provide the shifting.
+
+        It is needed to go from the local coordinate
+        system origin to the global coordinate system origin.
+        """
+        x_shift = (ccd_n - 3. - (ccd_n//6)*6) * (self.x_gap + self.x_npix)
+        y_shift = (2. - (ccd_n//6)) * (self.y_gap + self.y_npix)
+        
+        return x_shift, y_shift
+
+
 class MccdInputs(object):
     r"""Handle inputs for the MCCD algorithm.
 
