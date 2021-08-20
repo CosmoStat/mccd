@@ -1030,11 +1030,15 @@ def mccd_preprocessing(
             mccd_star_nb += mccd_stars.shape[0]
 
             # Save the fits file
-            train_dic = {'VIGNET_LIST': mccd_stars,
-                         'GLOB_POSITION_IMG_LIST': mccd_poss,
-                         'MASK_LIST': mccd_masks, 'CCD_ID_LIST': mccd_ccds,
-                         'SNR_WIN_LIST': mccd_SNRs,
-                         'RA_LIST': mccd_RAs, 'DEC_LIST': mccd_DECs}
+            train_dic = {
+                'VIGNET_LIST': mccd_stars,
+                'GLOB_POSITION_IMG_LIST': mccd_poss,
+                'MASK_LIST': mccd_masks,
+                'CCD_ID_LIST': mccd_ccds,
+                'SNR_WIN_LIST': mccd_SNRs,
+                'RA_LIST': mccd_RAs,
+                'DEC_LIST': mccd_DECs
+            }
 
             saving_path = output_path + save_name + separator \
                 + catalog_id + save_extension
