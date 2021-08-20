@@ -228,6 +228,10 @@ class MccdInputs(object):
         pixels to the value -1e30.
         Values beneath the threshold will be considered masked.
         Default is ``-1e5``.
+    loc2glob: object
+        The object that allows to do the coordinate conversion from local to
+        global. It is specific for each instrument's focal plane geometry.
+        If is ``None`` it defaults to the CFIS MegaCam instrument.
     """
 
     def __init__(self, separator='-', coord_x_descriptor='XWIN_IMAGE',
