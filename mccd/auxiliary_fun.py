@@ -834,14 +834,21 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
     return star_dict
 
 
-def mccd_preprocessing(input_folder_path, output_path, min_n_stars=20,
-                       file_pattern='sexcat-*-*.fits',
-                       separator='-',
-                       CCD_id_filter_list=None,
-                       outlier_std_max=100.,
-                       save_masks=True,
-                       save_name='train_star_selection',
-                       save_extension='.fits', verbose=True):
+def mccd_preprocessing(
+    input_folder_path,
+    output_path,
+    min_n_stars=20,
+    file_pattern='sexcat-*-*.fits',
+    separator='-',
+    CCD_id_filter_list=None,
+    outlier_std_max=100.,
+    save_masks=True,
+    save_name='train_star_selection',
+    save_extension='.fits',
+    verbose=True,
+    loc2glob=None,
+    fits_tb_pos=2
+):
     r"""Preprocess input catalog.
 
     Parameters
@@ -883,6 +890,13 @@ def mccd_preprocessing(input_folder_path, output_path, min_n_stars=20,
     verbose: bool
         Verbose mode.
         Default is ``True``.
+    loc2glob: class
+        The object that allows to do the coordinate conversion from local to
+        global. It is specific for each instrument's focal plane geometry.
+        Default is ``None`` that uses the CFIS MegaCam geometry.
+    fits_tb_pos: int
+        Position in the fits file of the useful table.
+        Default is ``2`` that is the default for CFIS fits files.
 
     Returns
     -------
@@ -905,24 +919,49 @@ def mccd_preprocessing(input_folder_path, output_path, min_n_stars=20,
             pass
 
     # Preprocess
-    mccd_inputs = mccd_utils.MccdInputs(separator=separator)
+    mccd_inputs = mccd_utils.MccdInputs(
+        separator=separator,
+        loc2glob=loc2glob,
+        fits_tb_pos=fits_tb_pos
+    )
     print_fun('Processing dataset..')
-    catalog_ids = mccd_inputs.preprocess_data(folder_path=input_folder_path,
-                                              pattern=file_pattern)
+    catalog_ids = mccd_inputs.preprocess_data(
+        folder_path=input_folder_path,
+        pattern=file_pattern
+    )
 
     # Loop over the catalogs
     for it in range(catalog_ids.shape[0]):
         # For each observation position
         catalog_id = catalog_ids[it]
-        star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list, \
-            DEC_list = mccd_inputs.get_inputs(catalog_id)
+        output = mccd_inputs.get_inputs(catalog_id)
+        star_list = output[0]
+        pos_list = output[1]
+        mask_list = output[2]
+        ccd_list = output[3]
+        SNR_list = output[4]
+        RA_list = output[5]
+        DEC_list  = output[6]
 
         if outlier_std_max < 99:
-            star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list, \
-                DEC_list, _ = mccd_inputs.outlier_rejection(
-                    star_list, pos_list, mask_list, ccd_list, SNR_list,
-                    RA_list, DEC_list, shape_std_max=outlier_std_max,
-                    print_fun=print_fun)
+            output = mccd_inputs.outlier_rejection(
+                star_list,
+                pos_list,
+                mask_list,
+                ccd_list,
+                SNR_list,
+                RA_list,
+                DEC_list,
+                shape_std_max=outlier_std_max,
+                print_fun=print_fun
+            )
+            star_list = output[0]
+            pos_list = output[1]
+            mask_list = output[2]
+            ccd_list = output[3]
+            SNR_list = output[4]
+            RA_list = output[5]
+            DEC_list  = output[6]
 
         mccd_star_list = []
         mccd_pos_list = []
