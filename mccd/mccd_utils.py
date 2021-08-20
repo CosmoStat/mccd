@@ -344,11 +344,14 @@ class MccdInputs(object):
         The object that allows to do the coordinate conversion from local to
         global. It is specific for each instrument's focal plane geometry.
         If is ``None`` it defaults to the CFIS MegaCam instrument.
+    fits_tb_pos: int
+        Position in the fits file of the useful table.
+        Default is ``2`` that's the case for the CFIS data.
     """
 
     def __init__(self, separator='-', coord_x_descriptor='XWIN_IMAGE',
                  coord_y_descriptor='YWIN_IMAGE', mask_thresh=-1e5,
-                 loc2glob=None):
+                 loc2glob=None, fits_tb_pos=2):
         r"""Initialize class attributes."""
         self.separator = separator
         self.coord_x_descriptor = coord_x_descriptor
@@ -358,6 +361,8 @@ class MccdInputs(object):
             self.loc2glob = Loc2Glob()
         else:
             self.loc2glob = loc2glob
+
+        self.fits_tb_pos = fits_tb_pos
 
         self.SNR_list = None
         self.star_list = None
@@ -561,14 +566,22 @@ class MccdInputs(object):
             starcat = fits.open(starcat_array[it, 2], memmap=False)
             ccd = starcat_array[it, 1].astype('int')
 
-            positions = np.array(
-                [self.loc2glob.loc2glob_img_coord(ccd, x, y) for x, y in
-                 zip(starcat[2].data[self.coord_x_descriptor],
-                     starcat[2].data[self.coord_y_descriptor])])
+            positions = np.array([
+                self.loc2glob.loc2glob_img_coord(ccd, x, y) for x, y in
+                zip(
+                     starcat[self.fits_tb_pos].data[self.coord_x_descriptor],
+                     starcat[self.fits_tb_pos].data[self.coord_y_descriptor]
+                )
+            ])
 
-            stars = utils.rca_format(starcat[2].data['VIGNET'])
-            masks = self.handle_mask(stars, thresh=self.mask_thresh,
-                                     apply_to_stars=True)
+            stars = utils.rca_format(
+                starcat[self.fits_tb_pos].data['VIGNET']
+            )
+            masks = self.handle_mask(
+                stars,
+                thresh=self.mask_thresh,
+                apply_to_stars=True
+            )
 
             star_list.append(stars)
             position_list.append(positions)
@@ -576,14 +589,18 @@ class MccdInputs(object):
             ccd_list.append(ccd)
 
             try:
-                SNR = starcat[2].data['SNR_WIN']
+                SNR = starcat[self.fits_tb_pos].data['SNR_WIN']
                 SNR_list.append(SNR)
             except Exception:
                 SNR_list = None
 
             try:
-                RA_list.append(starcat[2].data['XWIN_WORLD'])
-                DEC_list.append(starcat[2].data['YWIN_WORLD'])
+                RA_list.append(
+                    starcat[self.fits_tb_pos].data['XWIN_WORLD']
+                )
+                DEC_list.append(
+                    starcat[self.fits_tb_pos].data['YWIN_WORLD']
+                )
             except Exception:
                 RA_list = None
                 DEC_list = None
