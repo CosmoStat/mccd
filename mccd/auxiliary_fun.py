@@ -951,7 +951,7 @@ def mccd_preprocessing(
     loc2glob: object
         The object that allows to do the coordinate conversion from local to
         global. It is specific for each instrument's focal plane geometry.
-        Default is ``None`` that uses the CFIS MegaCam geometry.
+        Default is ``None`` that uses the CFIS MegaCam's geometry.
     fits_tb_pos: int
         Position in the fits file of the useful table.
         Default is ``2`` that is the default for CFIS fits files.
@@ -962,10 +962,13 @@ def mccd_preprocessing(
         An instance of ``MccdInputs`` class used for the input preprocessing.
 
     """
+    if loc2glob is None:
+        loc2glob = mccd_utils.Loc2Glob()
+
     mccd_star_nb = 0
 
     if CCD_id_filter_list is None:
-        CCD_id_filter_list = np.arange(40)
+        CCD_id_filter_list = np.arange(loc2glob.ccd_tot)
     else:
         CCD_id_filter_list = np.array(CCD_id_filter_list)
 
