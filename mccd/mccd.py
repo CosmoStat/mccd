@@ -670,6 +670,10 @@ class MCCD(object):
                 [moms.moments_sigma for moms in star_moms[k]])
                 for k in range(self.n_ccd)]
 
+            # Replace failed measurements by the guess size
+            for it in range(len(self.sigmas)):
+                self.sigmas[it][self.sigmas[it] < 0] = self.psf_size
+
         # Initialize noise levels
         if self.sigs is None:
             transf_data = [
