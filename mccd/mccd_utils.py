@@ -56,6 +56,9 @@ class Loc2Glob(object):
     y_npix: int
         Number of pixels on one CCD on the vertical direction.
         Default to ``4612`` (CFIS value).
+    ccd_tot: int
+        Total number of CCDs.
+        Default to ``40`` (CFIS value).
 
     Notes
     -----
@@ -81,12 +84,20 @@ class Loc2Glob(object):
         'COMMENT    __________________________'
     """
 
-    def __init__(self, x_gap=70, y_gap=425, x_npix=2048, y_npix=4612):
+    def __init__(
+        self,
+        x_gap=70,
+        y_gap=425,
+        x_npix=2048,
+        y_npix=4612,
+        ccd_tot=40
+    ):
         r"""Initialize with instrument geometry."""
         self.x_gap = x_gap
         self.y_gap = y_gap
         self.x_npix = x_npix
         self.y_npix = y_npix
+        self.ccd_tot = ccd_tot
 
     def loc2glob_img_coord(self, ccd_n, x_coor, y_coor):
         r"""Go from the local to the global img (pixel) coordinate system.
@@ -221,6 +232,9 @@ class Loc2Glob_EUCLID_sim(object):
         Number of pixels on one CCD on the horizontal direction.
     y_npix: int (float)
         Number of pixels on one CCD on the vertical direction.
+    ccd_tot: int
+        Total number of CCDs.
+        Default to ``36`` (Euclid value).
 
     Notes
     -----
@@ -244,12 +258,13 @@ class Loc2Glob_EUCLID_sim(object):
         'COMMENT   ________________________'
     """
 
-    def __init__(self, x_gap=0, y_gap=0, x_npix=4096, y_npix=4096):
+    def __init__(self, x_gap=0, y_gap=0, x_npix=4096, y_npix=4096, ccd_tot=36):
         r"""Initialize with instrument geometry."""
         self.x_gap = x_gap
         self.y_gap = y_gap
         self.x_npix = x_npix
         self.y_npix = y_npix
+        self.ccd_tot = ccd_tot
 
     def loc2glob_img_coord(self, ccd_n, x_coor, y_coor):
         r"""Go from the local to the global img (pixel) coordinate system.
