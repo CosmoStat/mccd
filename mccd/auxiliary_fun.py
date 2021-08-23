@@ -1687,14 +1687,20 @@ class RunMCCD(object):
         r"""Preprocess the input data."""
         if not self.parsed_parameters:
             self.parse_config_file()
-        self.mccd_inputs = mccd_preprocessing(**self.mccd_inputs_kw)
+        self.mccd_inputs = mccd_preprocessing(
+            **self.mccd_inputs_kw,
+            fits_tb_pos=self.fits_table_pos
+        )
         self.catalog_ids = self.mccd_inputs.get_catalog_ids()
 
     def preprocess_val_inputs(self):
         r"""Preprocess validation input data."""
         if not self.parsed_parameters:
             self.parse_config_file()
-        self.val_mccd_inputs = mccd_preprocessing(**self.mccd_val_prepro_kw)
+        self.val_mccd_inputs = mccd_preprocessing(
+            **self.mccd_val_prepro_kw,
+            fits_tb_pos=self.fits_table_pos
+        )
         self.val_catalog_ids = self.val_mccd_inputs.get_catalog_ids()
 
     def fit_models(self):
