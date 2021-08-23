@@ -134,6 +134,20 @@ class Loc2Glob(object):
 
         return x_coor, y_coor
 
+    def x_coord_range(self):
+        r""" Return range of the x coordinate.
+        """
+        max_x = self.x_npix * 6 + self.x_gap * 5
+        min_x = self.x_npix * (-5) + self.x_gap * (-5)
+        return min_x, max_x
+
+    def y_coord_range(self):
+        r""" Return range of the y coordinate.
+        """
+        max_y = self.y_npix * 2 + self.y_gap * 1
+        min_y = self.y_npix * (-2) + self.y_gap * (-2)
+        return min_y, max_y
+
     def shift_coord(self, ccd_n):
         r"""Provide the shifting.
 
@@ -289,6 +303,20 @@ class Loc2Glob_EUCLID_sim(object):
         """
 
         return x_coor, y_coor
+
+    def x_coord_range(self):
+        r""" Return range of the x coordinate.
+        """
+        max_x = self.x_npix * 3 + self.x_gap * 2
+        min_x = self.x_npix * (-3) + self.x_gap * (-3)
+        return min_x, max_x
+
+    def y_coord_range(self):
+        r""" Return range of the y coordinate.
+        """
+        max_y = self.y_npix * 3 + self.y_gap * 2
+        min_y = self.y_npix * (-3) + self.y_gap * (-3)
+        return min_y, max_y
 
     def shift_coord(self, ccd_n):
         r"""Provide the shifting.
