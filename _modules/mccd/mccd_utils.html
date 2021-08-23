@@ -197,6 +197,20 @@
 
         <span class="k">return</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span></div>
 
+<div class="viewcode-block" id="Loc2Glob.x_coord_range"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob.x_coord_range">[docs]</a>    <span class="k">def</span> <span class="nf">x_coord_range</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">""" Return range of the x coordinate.</span>
+<span class="sd">        """</span>
+        <span class="n">max_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="mi">5</span>
+        <span class="n">min_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span></div>
+
+<div class="viewcode-block" id="Loc2Glob.y_coord_range"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob.y_coord_range">[docs]</a>    <span class="k">def</span> <span class="nf">y_coord_range</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">""" Return range of the y coordinate.</span>
+<span class="sd">        """</span>
+        <span class="n">max_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="mi">1</span>
+        <span class="n">min_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span></div>
+
 <div class="viewcode-block" id="Loc2Glob.shift_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob.shift_coord">[docs]</a>    <span class="k">def</span> <span class="nf">shift_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Provide the shifting.</span>
 
@@ -352,6 +366,20 @@
 <span class="sd">        """</span>
 
         <span class="k">return</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span></div>
+
+<div class="viewcode-block" id="Loc2Glob_EUCLID_sim.x_coord_range"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.x_coord_range">[docs]</a>    <span class="k">def</span> <span class="nf">x_coord_range</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">""" Return range of the x coordinate.</span>
+<span class="sd">        """</span>
+        <span class="n">max_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="mi">2</span>
+        <span class="n">min_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span></div>
+
+<div class="viewcode-block" id="Loc2Glob_EUCLID_sim.y_coord_range"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.y_coord_range">[docs]</a>    <span class="k">def</span> <span class="nf">y_coord_range</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">""" Return range of the y coordinate.</span>
+<span class="sd">        """</span>
+        <span class="n">max_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="mi">2</span>
+        <span class="n">min_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span></div>
 
 <div class="viewcode-block" id="Loc2Glob_EUCLID_sim.shift_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.shift_coord">[docs]</a>    <span class="k">def</span> <span class="nf">shift_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Provide the shifting.</span>
@@ -1223,7 +1251,7 @@
         <span class="k">return</span> <span class="n">filters</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
 </code></pre>
 </main>
-<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 20 Aug, 2021. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 23 Aug, 2021. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
 </div>
 <div class="sticky bottom-0 md:hidden print:hidden bg-white">
 <div class="flex justify-center items-center">
