@@ -133,13 +133,18 @@ class GenerateRealisticDataset(object):
     save_realisation: bool
         If we need to save the exposure realisation in order to be able to
         reproduce the simulation.
+    loc2glob: object
+        The object that allows to do the coordinate conversion from local to
+        global. It is specific for each instrument's focal plane geometry.
+        If is ``None`` it defaults to the CFIS MegaCam instrument.
+        Default is ``None``.
 
     """
     def __init__(self, e1_path, e2_path, size_path, output_path,
                  image_size=51, psf_flux=1., beta_psf=4.765, pix_scale=0.187,
                  catalog_id=2086592, n_ccd=40, range_mean_star_qt=[40, 100],
                  range_dev_star_nb=[-10, 10], max_fwhm_var=0.04,
-                 save_realisation=False,
+                 save_realisation=False, loc2glob=None,
                  atmos_kwargs={'ngrid': 8192}, e1_kwargs={},
                  e2_kwargs={}):
         # Load the paths
@@ -166,12 +171,15 @@ class GenerateRealisticDataset(object):
         self.positions = None
         self.ccd_list = None
 
+        # Define focal plane geometry
+        if loc2glob is None:
+            self.loc2glob = mccd.mccd_utils.Loc2Glob()
+        else:
+            self.loc2glob = loc2glob
+
         # Define camera geometry
-        self.loc2glob = mccd.mccd_utils.Loc2Glob()
-        self.max_x = self.loc2glob.x_npix * 6 + self.loc2glob.x_gap * 5
-        self.min_x = self.loc2glob.x_npix * (-5) + self.loc2glob.x_gap * (-5)
-        self.max_y = self.loc2glob.y_npix * 2 + self.loc2glob.y_gap * 1
-        self.min_y = self.loc2glob.y_npix * (-2) + self.loc2glob.y_gap * (-2)
+        self.min_x, self.max_x = loc2glob.x_coord_range()
+        self.min_y, self.max_y = loc2glob.y_coord_range()
 
         # Generate exposure instance
         self.exposure_sim = mccd.dataset_generation.ExposureSimulation(
@@ -448,13 +456,21 @@ class MomentInterpolator(object):
 
     Notes
     -----
-    Not used for the moment.
+    Hard-coded for the CFIS convention!
     """
-    def __init__(self, moment_map, n_neighbors=1000,
-                 rbf_function='thin_plate'):
+    def __init__(
+        self,
+        moment_map,
+        n_neighbors=1000,
+        rbf_function='thin_plate',
+        loc2glob=None
+    ):
         r"""Initialize class attributes."""
         # Save variables
-        self.loc2glob = mccd.mccd_utils.Loc2Glob()
+        if loc2glob is None:
+            self.loc2glob = mccd.mccd_utils.Loc2Glob()
+        else:
+            self.loc2glob = loc2glob
         self.n_neighbors = n_neighbors
         self.rbf_function = rbf_function
         self.moment_map = np.zeros(moment_map.shape)
@@ -559,17 +575,33 @@ class AtmosphereGenerator(object):
         Standard deviation of our realisation.
     pix_scale: float
         Pixel scale of our instrument. In arcsec/pixel.
+    loc2glob: object
+        The object that allows to do the coordinate conversion from local to
+        global. It is specific for each instrument's focal plane geometry.
+        If is ``None`` it defaults to the CFIS MegaCam instrument.
+        Default is ``None``.
 
     """
-    def __init__(self, theta_zero=3. * 60, r_trunc=1., ngrid=8192,
-                 map_std=0.008, pix_scale=0.187):
+    def __init__(
+        self,
+        theta_zero=3. * 60,
+        r_trunc=1.,
+        ngrid=8192,
+        map_std=0.008,
+        pix_scale=0.187,
+        loc2glob=None
+    ):
         # Variables initialised
         self.theta_zero = theta_zero
         self.r_trunc = r_trunc
         self.pix_scale = pix_scale  # arcsec/pixel
         self.ngrid = ngrid  # 2048 # 4096 # 8192
         self.map_std = map_std
-        self.loc2glob = mccd.mccd_utils.Loc2Glob()
+
+        if loc2glob is None:
+            self.loc2glob = mccd.mccd_utils.Loc2Glob()
+        else:
+            self.loc2glob = loc2glob
 
         # Other variables to initialise
         self.my_ps = None
@@ -598,10 +630,8 @@ class AtmosphereGenerator(object):
         r""" Initialise the powerspectrum. """
         # We need to have the hole area of the focal plane expressed in arcsec.
         # Get the maximum values for the global positions (in pixels])
-        max_x = self.loc2glob.x_npix * 6 + self.loc2glob.x_gap * 5
-        min_x = self.loc2glob.x_npix * (-5) + self.loc2glob.x_gap * (-5)
-        max_y = self.loc2glob.y_npix * 2 + self.loc2glob.y_gap * 1
-        min_y = self.loc2glob.y_npix * (-2) + self.loc2glob.y_gap * (-2)
+        min_x, max_x = self.loc2glob.x_coord_range()
+        min_y, max_y = self.loc2glob.y_coord_range()
 
         # Max absolute value in pixels
         # This gives us the maximum value of a square [-max_val, max_val]^2
@@ -751,7 +781,8 @@ class AtmosphereGenerator(object):
             kmax_factor=kmax_factor,
             kmin_factor=kmin_factor,
             n_theta=n_points,
-            bandlimit='hard')
+            bandlimit='hard'
+        )
 
         # Convert theta to arcmin
         theta_amin = theta / 60
@@ -789,6 +820,11 @@ class ExposureSimulation(object):
     fwhm_range: [float, float]
         The range for the possible fwhm. Units in arcsec.
         Default for CFIS data.
+    loc2glob: object
+        The object that allows to do the coordinate conversion from local to
+        global. It is specific for each instrument's focal plane geometry.
+        If is ``None`` it defaults to the CFIS MegaCam instrument.
+        Default is ``None``.
     atmos_kwargs: dict
         Atmosphere arguments.
     e1_kwargs: dict
@@ -797,9 +833,17 @@ class ExposureSimulation(object):
         e2 interpolator arguments.
 
     """
-    def __init__(self, e1_bin_path=None, e2_bin_path=None, fwhm_dist_path=None,
-                 fwhm_range=[0.45, 1.], atmos_kwargs={}, e1_kwargs={},
-                 e2_kwargs={}):
+    def __init__(
+        self,
+        e1_bin_path=None,
+        e2_bin_path=None,
+        fwhm_dist_path=None,
+        fwhm_range=[0.45, 1.],
+        loc2glob=None,
+        atmos_kwargs={},
+        e1_kwargs={},
+        e2_kwargs={}
+    ):
         # Variables
         self.atmos_kwargs = atmos_kwargs
         self.e1_kwargs = e1_kwargs
@@ -808,6 +852,11 @@ class ExposureSimulation(object):
         self.e2_bin_path = e2_bin_path
         self.fwhm_dist_path = fwhm_dist_path
         self.fwhm_range = fwhm_range
+
+        if loc2glob is None:
+            self.loc2glob = mccd.mccd_utils.Loc2Glob()
+        else:
+            self.loc2glob = loc2glob
 
         # Variables to init
         self.atmosphere = None
@@ -829,17 +878,25 @@ class ExposureSimulation(object):
         r""" Initialise exposure variables. """
         # Generate atmosphere
         self.atmosphere = mccd.dataset_generation.AtmosphereGenerator(
-            **self.atmos_kwargs)
+            loc2glob=self.loc2glob,
+            **self.atmos_kwargs
+        )
 
         # Generate e1 interpolator
         self.e1_bins = np.load(self.e1_bin_path, allow_pickle=True)
         self.e1_interp = mccd.dataset_generation.MomentInterpolator(
-            moment_map=self.e1_bins, **self.e1_kwargs)
+            moment_map=self.e1_bins,
+            loc2glob=self.loc2glob,
+            **self.e1_kwargs
+        )
 
         # Generate e2 interpolator
         self.e2_bins = np.load(self.e2_bin_path, allow_pickle=True)
         self.e2_interp = mccd.dataset_generation.MomentInterpolator(
-            moment_map=self.e2_bins, **self.e2_kwargs)
+            moment_map=self.e2_bins,
+            loc2glob=self.loc2glob,
+            **self.e2_kwargs
+        )
 
         # Sample the mean size from the size distribution
         self.fwhm_dist = np.load(self.fwhm_dist_path, allow_pickle=True)[()]

@@ -1056,7 +1056,7 @@ def return_glob_neighbors(new_pos, obs_pos_list, val_list, n_neighbors):
     return values, positions
 
 
-def interpolation_Pi(position_list, d_comp_glob):
+def interpolation_Pi(position_list, d_comp_glob, loc2glob=None):
     r"""Create polynomial interpolation Pi matrix.
 
     Create a Pi matrix list that will be used for the interpolation
@@ -1068,6 +1068,10 @@ def interpolation_Pi(position_list, d_comp_glob):
         List containing the all the positions of the training stars.
     d_comp_glob: int
         Maximum polynomial degree to be used for the Pi matrix construction.
+    loc2glob: object
+        The object that allows to do the coordinate conversion from local to
+        global. It is specific for each instrument's focal plane geometry.
+        If is ``None`` it defaults to the CFIS MegaCam instrument.
 
     Returns
     -------
@@ -1080,11 +1084,13 @@ def interpolation_Pi(position_list, d_comp_glob):
 
     # Calculate max and min values of global coordinate system
     # This configuration is specific for CFIS MegaCam configuration
-    loc2glob = Loc2Glob()
-    max_x = loc2glob.x_npix * 6 + loc2glob.x_gap * 5
-    min_x = loc2glob.x_npix * (-5) + loc2glob.x_gap * (-5)
-    max_y = loc2glob.y_npix * 2 + loc2glob.y_gap * 1
-    min_y = loc2glob.y_npix * (-2) + loc2glob.y_gap * (-2)
+
+    if loc2glob is None:
+        loc2glob = Loc2Glob()
+
+    # Calculate max and min values of global coordinate system
+    min_x, max_x = loc2glob.x_coord_range()
+    min_y, max_y = loc2glob.y_coord_range()
 
     interp_Pi = [utils.poly_pos(pos=interp_pos, max_degree=d_comp_glob,
                                 center_normalice=True,

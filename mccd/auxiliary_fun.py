@@ -532,7 +532,7 @@ def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
 
 def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
                     mccd_debug=False, global_pol_interp=False,
-                    sex_thresh=-1e5):
+                    sex_thresh=-1e5, loc2glob=None,):
     r"""Validate a MCCD model.
 
     Parameters
@@ -549,7 +549,7 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
     apply_degradation: bool
         Boolean determining if the returned PSFs should be matched to the
         observed stars by the application of a degradation which consists of
-        an intra-pixel shift, fulx matching, etc.
+        an intra-pixel shift, flux matching, etc.
         Default is ``True``.
     mccd_debug: bool
         Boolean to determine if the validation will be run in debug mode.
@@ -562,6 +562,11 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
     sex_thresh: float
         Masking threshold, specially for SExtractor catalogs.
         Default is ``-1e5``.
+    loc2glob: object
+        The object that allows to do the coordinate conversion from local to
+        global. It is specific for each instrument's focal plane geometry.
+        Default is ``None`` that uses the CFIS MegaCam geometry.
+
 
     Returns
     -------
@@ -578,6 +583,9 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
     The parameter ``apply_degradation`` needs to be set to True if a pixel
     validation of the model is going to be done.
     """
+    if loc2glob is None:
+        loc2glob = mccd_utils.Loc2Glob()
+
     # Import
     mccd_model = mccd.mccd_quickload(mccd_model_path)
 
@@ -654,7 +662,10 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
 
             if global_pol_interp:
                 interp_Pi = mccd_utils.interpolation_Pi(
-                    val_pos_list, mccd_model.d_comp_glob)
+                    val_pos_list,
+                    mccd_model.d_comp_glob,
+                    loc2glob
+                )
 
                 PSF_list = [mccd_model.validation_stars(
                     _star, _pos, _mask, _ccd_id,
@@ -890,7 +901,7 @@ def mccd_preprocessing(
     verbose: bool
         Verbose mode.
         Default is ``True``.
-    loc2glob: class
+    loc2glob: object
         The object that allows to do the coordinate conversion from local to
         global. It is specific for each instrument's focal plane geometry.
         Default is ``None`` that uses the CFIS MegaCam geometry.
@@ -1541,6 +1552,7 @@ class RunMCCD(object):
     Missing:
     - Method including the validation.
     - Erase the preprocessed files (?)
+    - Handling different geometries
 
     """
 
