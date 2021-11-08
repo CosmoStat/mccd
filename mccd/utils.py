@@ -523,7 +523,12 @@ class GraphBuilder(object):
         self.VT = np.vstack((eigenvect for eigenvect in list_eigenvects))
         self.alpha = np.zeros((self.n_comp, self.VT.shape[0]))
         for i in range(self.n_comp):
-            self.alpha[i, i * self.n_eigenvects + idx[i]] = 1
+            # Check column range (case with low number of observations)
+            col_n = i * self.n_eigenvects + idx[i]
+            if col_n >= self.alpha.shape[1]:
+                # Randomly init the column position
+                col_n = np.random.randint(low=0, high=self.alpha.shape[1])
+            self.alpha[i, col_n] = 1
 
     def pick_emax(self, epsilon=1e-15):
         r"""Pick maximum value for ``e`` parameter.

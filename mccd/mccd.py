@@ -140,12 +140,18 @@ class MCCD(object):
         If verbose is set to 2, will run ModOpt's optimization
         algorithms in verbose mode.
         Default to ``2``.
+    fp_geometry: str
+        Geometry of the focal plane. It defines the transformations to use
+        to go from local to global coordinates.
+        Default is ``CFIS``.
+        Available options are ``CFIS``, ``EUCLID``.
     """
 
     def __init__(self, n_comp_loc, d_comp_glob, d_hyb_loc=2,
                  min_d_comp_glob=None, upfact=1, ksig_loc=1.,
                  ksig_glob=1., rmse_thresh=1.25, ccd_star_thresh=0.15,
-                 n_scales=3, ksig_init=1., filters=None, verbose=2):
+                 n_scales=3, ksig_init=1., filters=None, verbose=2,
+                 fp_geometry='CFIS'):
         r"""General parameter initialisations."""
         # Main model paramters
         self.n_comp_loc = n_comp_loc
@@ -167,6 +173,15 @@ class MCCD(object):
         self.ksig_glob = ksig_glob
         self.ksig_init = ksig_init
         self.iter_outputs = False
+
+        # Focal plane geometry
+        # This configuration is specific for CFIS MegaCam configuration
+        if fp_geometry == 'CFIS':
+            self.loc2glob = mccd_utils.Loc2Glob()
+        elif fp_geometry == 'EUCLID':
+            self.loc2glob = mccd_utils.Loc2Glob_EUCLID_sim()
+        else:
+            raise NotImplementedError
 
         # Outlier rejection parameters
         self.ccd_star_thresh = ccd_star_thresh
@@ -655,6 +670,10 @@ class MCCD(object):
                 [moms.moments_sigma for moms in star_moms[k]])
                 for k in range(self.n_ccd)]
 
+            # Replace failed measurements by the guess size
+            for it in range(len(self.sigmas)):
+                self.sigmas[it][self.sigmas[it] < 0] = self.psf_size
+
         # Initialize noise levels
         if self.sigs is None:
             transf_data = [
@@ -745,12 +764,8 @@ class MCCD(object):
         Normalization of the polynomials is being done here.
         """
         # Calculate max and min values of global coordinate system
-        # This configuration is specific for CFIS MegaCam configuration
-        loc2glob = mccd_utils.Loc2Glob()
-        max_x = loc2glob.x_npix * 6 + loc2glob.x_gap * 5
-        min_x = loc2glob.x_npix * (-5) + loc2glob.x_gap * (-5)
-        max_y = loc2glob.y_npix * 2 + loc2glob.y_gap * 1
-        min_y = loc2glob.y_npix * (-2) + loc2glob.y_gap * (-2)
+        min_x, max_x = self.loc2glob.x_coord_range()
+        min_y, max_y = self.loc2glob.y_coord_range()
 
         self.Pi = [
             utils.poly_pos(pos=self.obs_pos[k], max_degree=self.d_comp_glob,

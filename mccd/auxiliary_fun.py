@@ -488,8 +488,9 @@ def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
             SNR_weights *= max_snr_w
             SNR_weights[SNR_weights < min_snr_w] = min_snr_w
 
-            SNR_weight_list = [SNR_weights[ccds == ccd] for ccd in
-                               ccds_unique]
+            SNR_weight_list = [
+                SNR_weights[ccds == ccd] for ccd in ccds_unique
+            ]
         else:
             # If no SNR should be use we go to the no-SNR case
             # with the exception
@@ -499,23 +500,33 @@ def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
         if verbose:
             print('No SNR weights are being used.')
 
-    pos_list = [positions[ccds == ccd]
-                for ccd in ccds_unique]
-    star_list = [utils.rca_format(stars[ccds == ccd])
-                 for ccd in ccds_unique]
-    mask_list = [utils.rca_format(masks[ccds == ccd])
-                 for ccd in ccds_unique]
-    ccd_list = [ccds[ccds == ccd].astype(int)
-                for ccd in ccds_unique]
-    ccd_list = [np.unique(_list)[0].astype(int)
-                for _list in ccd_list]
+    pos_list = [
+        positions[ccds == ccd] for ccd in ccds_unique
+    ]
+    star_list = [
+        utils.rca_format(stars[ccds == ccd]) for ccd in ccds_unique
+    ]
+    mask_list = [
+        utils.rca_format(masks[ccds == ccd]) for ccd in ccds_unique
+    ]
+    ccd_list = [
+        ccds[ccds == ccd].astype(int) for ccd in ccds_unique
+    ]
+    ccd_list = [
+        np.unique(_list)[0].astype(int) for _list in ccd_list
+    ]
 
     # Instantiate the method
     mccd_instance = mccd.MCCD(**mccd_inst_kw, verbose=verbose)
     # Launch the training
     _, _, _, _, _ = mccd_instance.fit(
-        star_list, pos_list, ccd_list, mask_list,
-        SNR_weight_list, **mccd_fit_kw)
+        star_list,
+        pos_list,
+        ccd_list,
+        mask_list,
+        SNR_weight_list,
+        **mccd_fit_kw
+    )
 
     if isinstance(catalog_id, int):
         cat_id = str(catalog_id)
@@ -532,7 +543,7 @@ def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
 
 def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
                     mccd_debug=False, global_pol_interp=False,
-                    sex_thresh=-1e5):
+                    sex_thresh=-1e5, loc2glob=None):
     r"""Validate a MCCD model.
 
     Parameters
@@ -549,7 +560,7 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
     apply_degradation: bool
         Boolean determining if the returned PSFs should be matched to the
         observed stars by the application of a degradation which consists of
-        an intra-pixel shift, fulx matching, etc.
+        an intra-pixel shift, flux matching, etc.
         Default is ``True``.
     mccd_debug: bool
         Boolean to determine if the validation will be run in debug mode.
@@ -562,6 +573,11 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
     sex_thresh: float
         Masking threshold, specially for SExtractor catalogs.
         Default is ``-1e5``.
+    loc2glob: object
+        The object that allows to do the coordinate conversion from local to
+        global. It is specific for each instrument's focal plane geometry.
+        Default is ``None`` that uses the CFIS MegaCam geometry.
+
 
     Returns
     -------
@@ -578,6 +594,9 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
     The parameter ``apply_degradation`` needs to be set to True if a pixel
     validation of the model is going to be done.
     """
+    if loc2glob is None:
+        loc2glob = mccd_utils.Loc2Glob()
+
     # Import
     mccd_model = mccd.mccd_quickload(mccd_model_path)
 
@@ -604,24 +623,31 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
 
     # Prepare data in ccd-list format
     if RA_pos is not None:
-        val_RA_list = [RA_pos[ccds == ccd]
-                       for ccd in ccds_unique]
-        val_DEC_list = [DEC_pos[ccds == ccd]
-                        for ccd in ccds_unique]
+        val_RA_list = [
+            RA_pos[ccds == ccd] for ccd in ccds_unique
+        ]
+        val_DEC_list = [
+            DEC_pos[ccds == ccd] for ccd in ccds_unique
+        ]
     else:
         val_RA_list, val_DEC_list = None, None
 
-    val_pos_list = [positions[ccds == ccd]
-                    for ccd in ccds_unique]
-    val_star_list = [utils.rca_format(stars[ccds == ccd])
-                     for ccd in ccds_unique]
-    val_mask_list = [utils.rca_format(masks[ccds == ccd])
-                     for ccd in ccds_unique]
-    val_ccd_list = [ccds[ccds == ccd].astype(int)
-                    for ccd in ccds_unique]
+    val_pos_list = [
+        positions[ccds == ccd] for ccd in ccds_unique
+    ]
+    val_star_list = [
+        utils.rca_format(stars[ccds == ccd]) for ccd in ccds_unique
+    ]
+    val_mask_list = [
+        utils.rca_format(masks[ccds == ccd]) for ccd in ccds_unique
+    ]
+    val_ccd_list = [
+        ccds[ccds == ccd].astype(int) for ccd in ccds_unique
+    ]
     val_ccd_list_to_save = np.copy(val_ccd_list)
-    val_ccd_list = [np.unique(_list)[0].astype(int)
-                    for _list in val_ccd_list]
+    val_ccd_list = [
+        np.unique(_list)[0].astype(int) for _list in val_ccd_list
+    ]
 
     if apply_degradation:
         if mccd_debug:
@@ -636,8 +662,12 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
 
                 deg_PSFs, deg_PSFs_glob, deg_PSFs_loc = \
                     mccd_model.validation_stars(
-                        val_star_list[it], val_pos_list[it], val_mask_list[it],
-                        val_ccd_list[it], mccd_debug=mccd_debug)
+                        val_star_list[it],
+                        val_pos_list[it],
+                        val_mask_list[it],
+                        val_ccd_list[it],
+                        mccd_debug=mccd_debug
+                    )
 
                 PSF_list.append(deg_PSFs)
                 if deg_PSFs_glob is not None:
@@ -645,29 +675,57 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
                     PSF_loc_list.append(deg_PSFs_loc)
 
             star_dict['PSF_GLOB_VIGNET_LIST'] = np.copy(
-                np.concatenate(PSF_glob_list, axis=0))
+                np.concatenate(PSF_glob_list, axis=0)
+            )
             star_dict['PSF_LOC_VIGNET_LIST'] = np.copy(
-                np.concatenate(PSF_loc_list, axis=0))
+                np.concatenate(PSF_loc_list, axis=0)
+            )
         else:
 
             global_pol_interp = False
 
             if global_pol_interp:
                 interp_Pi = mccd_utils.interpolation_Pi(
-                    val_pos_list, mccd_model.d_comp_glob)
+                    val_pos_list,
+                    mccd_model.d_comp_glob,
+                    loc2glob
+                )
 
-                PSF_list = [mccd_model.validation_stars(
-                    _star, _pos, _mask, _ccd_id,
-                    mccd_debug=mccd_debug, global_pol_interp=_iterp_Pi)
+                PSF_list = [
+                    mccd_model.validation_stars(
+                        _star,
+                        _pos,
+                        _mask,
+                        _ccd_id,
+                        mccd_debug=mccd_debug,
+                        global_pol_interp=_iterp_Pi
+                    )
                     for _star, _pos, _mask, _ccd_id, _iterp_Pi in
-                    zip(val_star_list, val_pos_list, val_mask_list,
-                        val_ccd_list, interp_Pi)]
+                    zip(
+                        val_star_list,
+                        val_pos_list,
+                        val_mask_list,
+                        val_ccd_list,
+                        interp_Pi
+                    )
+                ]
             else:
-                PSF_list = [mccd_model.validation_stars(
-                    _star, _pos, _mask, _ccd_id, mccd_debug=mccd_debug)
+                PSF_list = [
+                    mccd_model.validation_stars(
+                        _star,
+                        _pos,
+                        _mask,
+                        _ccd_id,
+                        mccd_debug=mccd_debug
+                    )
                     for _star, _pos, _mask, _ccd_id in
-                    zip(val_star_list, val_pos_list, val_mask_list,
-                        val_ccd_list)]
+                    zip(
+                        val_star_list,
+                        val_pos_list,
+                        val_mask_list,
+                        val_ccd_list
+                    )
+                ]
     """
     # [TL] TEST
     # Checking how many CCDs would have been rejected.
@@ -890,10 +948,10 @@ def mccd_preprocessing(
     verbose: bool
         Verbose mode.
         Default is ``True``.
-    loc2glob: class
+    loc2glob: object
         The object that allows to do the coordinate conversion from local to
         global. It is specific for each instrument's focal plane geometry.
-        Default is ``None`` that uses the CFIS MegaCam geometry.
+        Default is ``None`` that uses the CFIS MegaCam's geometry.
     fits_tb_pos: int
         Position in the fits file of the useful table.
         Default is ``2`` that is the default for CFIS fits files.
@@ -904,10 +962,13 @@ def mccd_preprocessing(
         An instance of ``MccdInputs`` class used for the input preprocessing.
 
     """
+    if loc2glob is None:
+        loc2glob = mccd_utils.Loc2Glob()
+
     mccd_star_nb = 0
 
     if CCD_id_filter_list is None:
-        CCD_id_filter_list = np.arange(40)
+        CCD_id_filter_list = np.arange(loc2glob.ccd_tot)
     else:
         CCD_id_filter_list = np.array(CCD_id_filter_list)
 
@@ -1166,6 +1227,9 @@ class MCCDParamsParser(object):
         if not self.config.has_option('INSTANCE', 'RMSE_THRESH'):
             self.config.set('INSTANCE', 'RMSE_THRESH', '1.25')
 
+        if not self.config.has_option('INSTANCE', 'FP_GEOMETRY'):
+            self.config.set('INSTANCE', 'FP_GEOMETRY', 'CFIS')
+
     def _set_fit_options(self):
         """Set Fit Options.
 
@@ -1302,17 +1366,21 @@ class MCCDParamsParser(object):
                 min_d_comp_glob = int(
                     self.config['INSTANCE'].get('MIN_D_COMP_GLOB'))
 
+            fp_geometry = self.config['INSTANCE'].get('FP_GEOMETRY')
+
             # Build the parameter dictionaries
-            self.mccd_inst_kw = {'n_comp_loc': n_comp_loc,
-                                 'd_comp_glob': d_comp_glob,
-                                 'd_hyb_loc': d_hyb_loc,
-                                 'min_d_comp_glob': min_d_comp_glob,
-                                 'filters': filters,
-                                 'ksig_loc': ksig_loc,
-                                 'ksig_glob': ksig_glob,
-                                 'rmse_thresh': rmse_thresh,
-                                 'ccd_star_thresh': ccd_star_thresh
-                                 }
+            self.mccd_inst_kw = {
+                'n_comp_loc': n_comp_loc,
+                'd_comp_glob': d_comp_glob,
+                'd_hyb_loc': d_hyb_loc,
+                'min_d_comp_glob': min_d_comp_glob,
+                'filters': filters,
+                'ksig_loc': ksig_loc,
+                'ksig_glob': ksig_glob,
+                'rmse_thresh': rmse_thresh,
+                'ccd_star_thresh': ccd_star_thresh,
+                'fp_geometry': fp_geometry
+            }
 
     def _build_fit_kw(self):
         r"""Build ``FIT`` parameter dictionary."""
@@ -1333,17 +1401,19 @@ class MCCDParamsParser(object):
             loc_model = self.config['FIT'].get('LOC_MODEL')
 
             # Build the parameter dictionaries
-            self.mccd_fit_kw = {'psf_size': psf_size,
-                                'psf_size_type': psf_size_type,
-                                'n_eigenvects': n_eigenvects,
-                                'nb_iter': n_iter_rca,
-                                'nb_iter_glob': nb_iter_glob,
-                                'nb_iter_loc': nb_iter_loc,
-                                'nb_subiter_S_loc': nb_subit_S_loc,
-                                'nb_subiter_A_loc': nb_subit_A_loc,
-                                'nb_subiter_S_glob': nb_subit_S_glob,
-                                'nb_subiter_A_glob': nb_subit_A_glob,
-                                'loc_model': loc_model}
+            self.mccd_fit_kw = {
+                'psf_size': psf_size,
+                'psf_size_type': psf_size_type,
+                'n_eigenvects': n_eigenvects,
+                'nb_iter': n_iter_rca,
+                'nb_iter_glob': nb_iter_glob,
+                'nb_iter_loc': nb_iter_loc,
+                'nb_subiter_S_loc': nb_subit_S_loc,
+                'nb_subiter_A_loc': nb_subit_A_loc,
+                'nb_subiter_S_glob': nb_subit_S_glob,
+                'nb_subiter_A_glob': nb_subit_A_glob,
+                'loc_model': loc_model
+            }
 
     def _build_inputs_kw(self):
         r"""Build ``INPUTS`` parameter dictionary."""
@@ -1366,14 +1436,16 @@ class MCCDParamsParser(object):
             else:
                 raise RuntimeError('USE_SNR_WEIGHTS should be True or False.')
 
-            self.mccd_inputs_kw = {'input_folder_path': input_folder_path,
-                                   'output_path': output_path,
-                                   'min_n_stars': min_n_stars,
-                                   'file_pattern': file_pattern,
-                                   'separator': separator,
-                                   'outlier_std_max': outlier_std_max,
-                                   'save_name': 'train_star_selection',
-                                   'save_extension': '.fits'}
+            self.mccd_inputs_kw = {
+                'input_folder_path': input_folder_path,
+                'output_path': output_path,
+                'min_n_stars': min_n_stars,
+                'file_pattern': file_pattern,
+                'separator': separator,
+                'outlier_std_max': outlier_std_max,
+                'save_name': 'train_star_selection',
+                'save_extension': '.fits'
+            }
 
             self.mccd_extra_kw['use_SNR_weight'] = use_SNR_weight
             self.mccd_extra_kw['output_dir'] = self.config['INPUTS'].get(
@@ -1430,7 +1502,8 @@ class MCCDParamsParser(object):
                 'separator': val_separator,
                 'outlier_std_max': outlier_std_max,
                 'save_name': 'test_star_selection',
-                'save_extension': '.fits'}
+                'save_extension': '.fits'
+            }
 
             self.mccd_extra_kw['val_model_input_dir'] = self.config[
                 'VALIDATION'].get('VAL_MODEL_INPUT_DIR')
@@ -1541,10 +1614,16 @@ class RunMCCD(object):
     Missing:
     - Method including the validation.
     - Erase the preprocessed files (?)
+    - Handling different geometries
 
     """
 
-    def __init__(self, config_file_path, fits_table_pos=1, verbose=True):
+    def __init__(
+        self,
+        config_file_path,
+        fits_table_pos=1,
+        verbose=True
+    ):
         r"""Initialize class."""
         self.config_file_path = config_file_path
 
@@ -1576,6 +1655,17 @@ class RunMCCD(object):
 
         self.verbose = verbose
 
+        # Parse config file
+        self.parse_config_file()
+
+        # Define geometry
+        if self.mccd_inst_kw['fp_geometry'] == 'CFIS':
+            self.loc2glob = mccd_utils.Loc2Glob()
+        elif self.mccd_inst_kw['fp_geometry'] == 'EUCLID':
+            self.loc2glob = mccd_utils.Loc2Glob_EUCLID_sim()
+        else:
+            raise NotImplementedError
+
     def parse_config_file(self):
         r"""Parse configuration file and recover parameters."""
         if not self.parsed_parameters:
@@ -1597,14 +1687,20 @@ class RunMCCD(object):
         r"""Preprocess the input data."""
         if not self.parsed_parameters:
             self.parse_config_file()
-        self.mccd_inputs = mccd_preprocessing(**self.mccd_inputs_kw)
+        self.mccd_inputs = mccd_preprocessing(
+            **self.mccd_inputs_kw,
+            fits_tb_pos=self.fits_table_pos
+        )
         self.catalog_ids = self.mccd_inputs.get_catalog_ids()
 
     def preprocess_val_inputs(self):
         r"""Preprocess validation input data."""
         if not self.parsed_parameters:
             self.parse_config_file()
-        self.val_mccd_inputs = mccd_preprocessing(**self.mccd_val_prepro_kw)
+        self.val_mccd_inputs = mccd_preprocessing(
+            **self.mccd_val_prepro_kw,
+            fits_tb_pos=self.fits_table_pos
+        )
         self.val_catalog_ids = self.val_mccd_inputs.get_catalog_ids()
 
     def fit_models(self):
@@ -1631,16 +1727,17 @@ class RunMCCD(object):
             else:
                 raise OSError('File {} not found.'.format(input_path))
 
-            mccd_fit(starcat,
-                     self.mccd_inst_kw,
-                     self.mccd_fit_kw,
-                     output_dir=output_dir,
-                     catalog_id=int(cat_id),
-                     sex_thresh=-1e5,
-                     use_SNR_weight=self.use_SNR_weight,
-                     verbose=self.verbose,
-                     saving_name=self.fitting_model_saving_name +
-                     self.separator)
+            mccd_fit(
+                starcat,
+                self.mccd_inst_kw,
+                self.mccd_fit_kw,
+                output_dir=output_dir,
+                catalog_id=int(cat_id),
+                sex_thresh=-1e5,
+                use_SNR_weight=self.use_SNR_weight,
+                verbose=self.verbose,
+                saving_name=self.fitting_model_saving_name + self.separator
+            )
 
     def validate_models(self):
         r"""Validate MCCD models."""
@@ -1680,10 +1777,13 @@ class RunMCCD(object):
 
                 testcat = fits.open(input_val_path)[self.fits_table_pos]
 
-                val_dict = mccd_validation(fit_model_path,
-                                           testcat,
-                                           **self.mccd_val_kw,
-                                           sex_thresh=-1e5)
+                val_dict = mccd_validation(
+                    fit_model_path,
+                    testcat,
+                    **self.mccd_val_kw,
+                    sex_thresh=-1e5,
+                    loc2glob=self.loc2glob
+                )
 
                 saving_path = val_output_dir + self.val_saving_name + \
                     separator + cat_id + save_extension
@@ -1718,8 +1818,13 @@ class RunMCCD(object):
         self.preprocess_val_inputs()
         self.validate_models()
 
-    @staticmethod
-    def recover_MCCD_PSFs(mccd_model_path, positions, ccd_id, local_pos=False):
+    def recover_MCCD_PSFs(
+        self,
+        mccd_model_path,
+        positions,
+        ccd_id,
+        local_pos=False
+    ):
         r"""Recover MCCD PSFs at required positions.
 
         Parameters
@@ -1759,10 +1864,14 @@ class RunMCCD(object):
             raise ValueError('Parameter ccd_id should be an integer.')
 
         if local_pos:
-            loc2glob = mccd_utils.Loc2Glob()
             glob_pos = np.array([
-                loc2glob.loc2glob_img_coord(ccd_id, _pos[0], _pos[1])
-                for _pos in positions])
+                self.loc2glob.loc2glob_img_coord(
+                    ccd_id,
+                    _pos[0],
+                    _pos[1]
+                )
+                for _pos in positions
+            ])
         else:
             glob_pos = positions
 

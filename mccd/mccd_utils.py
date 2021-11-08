@@ -56,6 +56,9 @@ class Loc2Glob(object):
     y_npix: int
         Number of pixels on one CCD on the vertical direction.
         Default to ``4612`` (CFIS value).
+    ccd_tot: int
+        Total number of CCDs.
+        Default to ``40`` (CFIS value).
 
     Notes
     -----
@@ -81,12 +84,20 @@ class Loc2Glob(object):
         'COMMENT    __________________________'
     """
 
-    def __init__(self, x_gap=70, y_gap=425, x_npix=2048, y_npix=4612):
+    def __init__(
+        self,
+        x_gap=70,
+        y_gap=425,
+        x_npix=2048,
+        y_npix=4612,
+        ccd_tot=40
+    ):
         r"""Initialize with instrument geometry."""
         self.x_gap = x_gap
         self.y_gap = y_gap
         self.x_npix = x_npix
         self.y_npix = y_npix
+        self.ccd_tot = ccd_tot
 
     def loc2glob_img_coord(self, ccd_n, x_coor, y_coor):
         r"""Go from the local to the global img (pixel) coordinate system.
@@ -221,6 +232,9 @@ class Loc2Glob_EUCLID_sim(object):
         Number of pixels on one CCD on the horizontal direction.
     y_npix: int (float)
         Number of pixels on one CCD on the vertical direction.
+    ccd_tot: int
+        Total number of CCDs.
+        Default to ``36`` (Euclid value).
 
     Notes
     -----
@@ -244,12 +258,13 @@ class Loc2Glob_EUCLID_sim(object):
         'COMMENT   ________________________'
     """
 
-    def __init__(self, x_gap=0, y_gap=0, x_npix=4096, y_npix=4096):
+    def __init__(self, x_gap=0, y_gap=0, x_npix=4096, y_npix=4096, ccd_tot=36):
         r"""Initialize with instrument geometry."""
         self.x_gap = x_gap
         self.y_gap = y_gap
         self.x_npix = x_npix
         self.y_npix = y_npix
+        self.ccd_tot = ccd_tot
 
     def loc2glob_img_coord(self, ccd_n, x_coor, y_coor):
         r"""Go from the local to the global img (pixel) coordinate system.
@@ -1056,7 +1071,7 @@ def return_glob_neighbors(new_pos, obs_pos_list, val_list, n_neighbors):
     return values, positions
 
 
-def interpolation_Pi(position_list, d_comp_glob):
+def interpolation_Pi(position_list, d_comp_glob, loc2glob=None):
     r"""Create polynomial interpolation Pi matrix.
 
     Create a Pi matrix list that will be used for the interpolation
@@ -1068,6 +1083,10 @@ def interpolation_Pi(position_list, d_comp_glob):
         List containing the all the positions of the training stars.
     d_comp_glob: int
         Maximum polynomial degree to be used for the Pi matrix construction.
+    loc2glob: object
+        The object that allows to do the coordinate conversion from local to
+        global. It is specific for each instrument's focal plane geometry.
+        If is ``None`` it defaults to the CFIS MegaCam instrument.
 
     Returns
     -------
@@ -1080,11 +1099,13 @@ def interpolation_Pi(position_list, d_comp_glob):
 
     # Calculate max and min values of global coordinate system
     # This configuration is specific for CFIS MegaCam configuration
-    loc2glob = Loc2Glob()
-    max_x = loc2glob.x_npix * 6 + loc2glob.x_gap * 5
-    min_x = loc2glob.x_npix * (-5) + loc2glob.x_gap * (-5)
-    max_y = loc2glob.y_npix * 2 + loc2glob.y_gap * 1
-    min_y = loc2glob.y_npix * (-2) + loc2glob.y_gap * (-2)
+
+    if loc2glob is None:
+        loc2glob = Loc2Glob()
+
+    # Calculate max and min values of global coordinate system
+    min_x, max_x = loc2glob.x_coord_range()
+    min_y, max_y = loc2glob.y_coord_range()
 
     interp_Pi = [utils.poly_pos(pos=interp_pos, max_degree=d_comp_glob,
                                 center_normalice=True,
