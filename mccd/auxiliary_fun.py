@@ -55,8 +55,14 @@ class GenerateSimDataset(object):
     ellipticity for each position in the focal plane.
     """
 
-    def __init__(self, input_pos_path, input_ccd_path, output_path,
-                 e1_analytic_fun=None, e2_analytic_fun=None):
+    def __init__(
+        self,
+        input_pos_path,
+        input_ccd_path,
+        output_path,
+        e1_analytic_fun=None,
+        e2_analytic_fun=None
+    ):
         r"""Initialize the class."""
         self.input_pos_path = input_pos_path
         self.input_ccd_path = input_ccd_path
@@ -92,9 +98,16 @@ class GenerateSimDataset(object):
             print('The positions or ccd path was not found. Check the paths.')
             raise FileNotFoundError
 
-    def generate_train_data(self, sigma=1.6, image_size=51, psf_flux=1.,
-                            beta_psf=4.8, pix_scale=0.187,
-                            desired_SNR=30, catalog_id=2086592):
+    def generate_train_data(
+        self,
+        sigma=1.6,
+        image_size=51,
+        psf_flux=1.,
+        beta_psf=4.8,
+        pix_scale=0.187,
+        desired_SNR=30,
+        catalog_id=2086592
+    ):
         r"""Generate the training dataset and saves it in fits format.
 
         Parameters
@@ -133,12 +146,14 @@ class GenerateSimDataset(object):
         self.catalog_id = catalog_id
 
         # Define the ellipticities for each stars
-        e1s = np.array(
-            [self.e1_catalog_fun(position[0], position[1]) for position in
-             self.positions])
-        e2s = np.array(
-            [self.e2_catalog_fun(position[0], position[1]) for position in
-             self.positions])
+        e1s = np.array([
+            self.e1_catalog_fun(position[0], position[1])
+            for position in self.positions
+        ])
+        e2s = np.array([
+            self.e2_catalog_fun(position[0], position[1])
+            for position in self.positions
+        ])
 
         # Define the constant shape of the stars (before the shearing)
         fwhm_psf = (2 * np.sqrt(2 * np.log(2))) * sigma
@@ -161,11 +176,17 @@ class GenerateSimDataset(object):
             noisy_image_epsf = gs.ImageF(image_size, image_size)
             # Define intrapixel shift (uniform distribution in [-0.5,0.5])
             rand_shift = np.random.rand(2) - 0.5
-            psf.drawImage(image=noisy_image_epsf, offset=rand_shift,
-                          scale=pix_scale)
+            psf.drawImage(
+                image=noisy_image_epsf,
+                offset=rand_shift,
+                scale=pix_scale
+            )
 
-            sigma_noise = np.sqrt((np.sum(noisy_image_epsf.array ** 2)) / (
-                    desired_SNR * image_size ** 2))
+            sigma_noise = np.sqrt(
+                (
+                    np.sum(noisy_image_epsf.array ** 2)
+                ) / (desired_SNR * image_size ** 2)
+            )
             # Generate Gaussian noise for the PSF
             gaussian_noise = gs.GaussianNoise(sigma=sigma_noise)
 
@@ -183,17 +204,30 @@ class GenerateSimDataset(object):
         new_masks = self.handle_SExtractor_mask(new_vignets, thresh=-1e5)
 
         # Build the dictionary
-        train_dic = {'VIGNET_LIST': new_vignets,
-                     'GLOB_POSITION_IMG_LIST': self.positions,
-                     'MASK_LIST': new_masks, 'CCD_ID_LIST': self.ccd_id,
-                     'TRUE_E1_HSM': new_e1_HSM, 'TRUE_E2_HSM': new_e2_HSM,
-                     'TRUE_SIG_HSM': new_sig_HSM}
+        train_dic = {
+            'VIGNET_LIST': new_vignets,
+            'GLOB_POSITION_IMG_LIST': self.positions,
+            'MASK_LIST': new_masks,
+            'CCD_ID_LIST': self.ccd_id,
+            'TRUE_E1_HSM': new_e1_HSM,
+            'TRUE_E2_HSM': new_e2_HSM,
+            'TRUE_SIG_HSM': new_sig_HSM
+        }
 
         # Save the fits file
-        mccd_utils.save_fits(train_dic, train_bool=True, cat_id=catalog_id,
-                             output_path=self.output_path)
+        mccd_utils.save_fits(
+            train_dic,
+            train_bool=True,
+            cat_id=catalog_id,
+            output_path=self.output_path
+        )
 
-    def generate_test_data(self, x_grid=5, y_grid=10, n_ccd=40):
+    def generate_test_data(
+        self,
+        x_grid=5,
+        y_grid=10,
+        n_ccd=40
+    ):
         r"""Generate the test dataset and save it into a fits file.
 
         Parameters
@@ -212,8 +246,8 @@ class GenerateSimDataset(object):
 
         """
         # Parameters
-        self.test_grid_xy = [x_grid,
-                             y_grid]  # Grid size for the PSF generation
+        # Grid size for the PSF generation
+        self.test_grid_xy = [x_grid, y_grid]
         self.n_ccd = n_ccd
 
         # Generation of the test positions
@@ -223,12 +257,16 @@ class GenerateSimDataset(object):
         loc2glob = mccd_utils.Loc2Glob()
 
         # Generate local generic grid
-        x_lin = np.linspace(start=self.image_size,
-                            stop=loc2glob.x_npix - self.image_size,
-                            num=self.test_grid_xy[0])
-        y_lin = np.linspace(start=self.image_size,
-                            stop=loc2glob.y_npix - self.image_size,
-                            num=self.test_grid_xy[1])
+        x_lin = np.linspace(
+            start=self.image_size,
+            stop=loc2glob.x_npix - self.image_size,
+            num=self.test_grid_xy[0]
+        )
+        y_lin = np.linspace(
+            start=self.image_size,
+            stop=loc2glob.y_npix - self.image_size,
+            num=self.test_grid_xy[1]
+        )
         xv, yv = np.meshgrid(x_lin, y_lin)
         x_coor = xv.flatten()
         y_coor = yv.flatten()
@@ -239,38 +277,48 @@ class GenerateSimDataset(object):
         for it in range(len(ccd_unique_list)):
             x_glob, y_glob = loc2glob.loc2glob_img_coord(
                 ccd_n=ccd_unique_list[it],
-                x_coor=np.copy(x_coor), y_coor=np.copy(y_coor))
+                x_coor=np.copy(x_coor),
+                y_coor=np.copy(y_coor)
+            )
             position_list.append(np.array([x_glob, y_glob]).T)
-            ccd_list.append(
-                (np.ones(len(x_glob), dtype=int) * ccd_unique_list[it]).astype(
-                    int))
+            ccd_list.append((
+                np.ones(
+                    len(x_glob),
+                    dtype=int
+                ) * ccd_unique_list[it]).astype(int)
+            )
 
         # Obtain final positions and ccd_id list
         test_positions = np.concatenate(position_list, axis=0)
         test_ccd_id = np.concatenate(ccd_list, axis=0)
 
         # Calculate the ellipticities on the testing positions
-        test_e1s = np.array(
-            [self.e1_catalog_fun(position[0], position[1]) for position in
-             test_positions])
-        test_e2s = np.array(
-            [self.e2_catalog_fun(position[0], position[1]) for position in
-             test_positions])
+        test_e1s = np.array([
+            self.e1_catalog_fun(position[0], position[1])
+            for position in test_positions
+        ])
+        test_e2s = np.array([
+            self.e2_catalog_fun(position[0], position[1])
+            for position in test_positions
+        ])
 
         fwhm_psf = (2 * np.sqrt(2 * np.log(2))) * self.sigma
-        test_fwhms = np.ones(
-            test_e1s.shape) * fwhm_psf  # Arround 5. and 6. in sigma
+        # Arround 5. and 6. in sigma
+        test_fwhms = np.ones(test_e1s.shape) * fwhm_psf
 
         # Generate the vignets
         test_vignets = np.zeros(
-            (test_e1s.shape[0], self.image_size, self.image_size))
+            (test_e1s.shape[0], self.image_size, self.image_size)
+        )
         test_e1_HSM = np.zeros(test_e1s.shape)
         test_e2_HSM = np.zeros(test_e1s.shape)
         test_sig_HSM = np.zeros(test_e1s.shape)
         for it in range(test_e1s.shape[0]):
             # PSF generation. Define size
-            psf = gs.Moffat(fwhm=test_fwhms[it] * self.pix_scale,
-                            beta=self.beta_psf)
+            psf = gs.Moffat(
+                fwhm=test_fwhms[it] * self.pix_scale,
+                beta=self.beta_psf
+            )
             # Define the Flux
             psf = psf.withFlux(self.psf_flux)
             # Define the shear
@@ -291,16 +339,23 @@ class GenerateSimDataset(object):
         test_masks = self.handle_SExtractor_mask(test_vignets, thresh=-1e5)
 
         # Build the dictionary
-        test_dic = {'VIGNET_LIST': test_vignets,
-                    'GLOB_POSITION_IMG_LIST': test_positions,
-                    'MASK_LIST': test_masks, 'CCD_ID_LIST': test_ccd_id,
-                    'TRUE_E1_HSM': test_e1_HSM, 'TRUE_E2_HSM': test_e2_HSM,
-                    'TRUE_SIG_HSM': test_sig_HSM}
+        test_dic = {
+            'VIGNET_LIST': test_vignets,
+            'GLOB_POSITION_IMG_LIST': test_positions,
+            'MASK_LIST': test_masks,
+            'CCD_ID_LIST': test_ccd_id,
+            'TRUE_E1_HSM': test_e1_HSM,
+            'TRUE_E2_HSM': test_e2_HSM,
+            'TRUE_SIG_HSM': test_sig_HSM
+        }
 
         # Save the fits file
-        mccd_utils.save_fits(test_dic, train_bool=False,
-                             cat_id=self.catalog_id,
-                             output_path=self.output_path)
+        mccd_utils.save_fits(
+            test_dic,
+            train_bool=False,
+            cat_id=self.catalog_id,
+            output_path=self.output_path
+        )
 
     @staticmethod
     def e1_catalog_fun(x, y):
@@ -319,14 +374,19 @@ class GenerateSimDataset(object):
         exp_decay_alpha = None
 
         scaled_x, scaled_y = GenerateSimDataset.scale_coordinates(
-            x, y, coor_min, coor_max)
+            x,
+            y,
+            coor_min,
+            coor_max
+        )
         scaled_d = np.sqrt(scaled_x ** 2 + scaled_y ** 2)
 
         vals_x = np.sinc(scaled_d)
 
         if exp_decay_alpha is not None:
             exp_weight = np.exp(
-                -(scaled_d - ((coor_max + coor_min) / 2)) / exp_decay_alpha)
+                -(scaled_d - ((coor_max + coor_min) / 2)) / exp_decay_alpha
+            )
             scale_factor *= exp_weight
 
         return vals_x * scale_factor
@@ -348,8 +408,15 @@ class GenerateSimDataset(object):
         exp_decay_alpha = 201.13767350
 
         return GenerateSimDataset.bessel_generator(
-            x, y, coor_min, coor_max, max_order, scale_factor,
-            circular_symetry=True, exp_decay_alpha=exp_decay_alpha)
+            x,
+            y,
+            coor_min,
+            coor_max,
+            max_order,
+            scale_factor,
+            circular_symetry=True,
+            exp_decay_alpha=exp_decay_alpha
+        )
 
     @staticmethod
     def scale_coordinates(x, y, coor_min, coor_max, offset=None):
@@ -362,10 +429,16 @@ class GenerateSimDataset(object):
         grid_ymax = 2 * loc2glob.y_npix + 1 * loc2glob.y_gap
 
         # Scale the input coordinates
-        scaled_x = ((x - grid_xmin) / (grid_xmax - grid_xmin)) * (
-                coor_max - coor_min) + coor_min
-        scaled_y = ((y - grid_ymin) / (grid_ymax - grid_ymin)) * (
-                coor_max - coor_min) + coor_min
+        scaled_x = (
+            ((x - grid_xmin) / (grid_xmax - grid_xmin)) * (
+                coor_max - coor_min
+            ) + coor_min
+        )
+        scaled_y = (
+            ((y - grid_ymin) / (grid_ymax - grid_ymin)) * (
+                coor_max - coor_min
+            ) + coor_min
+        )
 
         if offset is not None:
             scaled_x += offset[0]
@@ -374,13 +447,26 @@ class GenerateSimDataset(object):
         return scaled_x, scaled_y
 
     @staticmethod
-    def bessel_generator(x, y, coor_min, coor_max, max_order, scale_factor,
-                         circular_symetry=False,
-                         exp_decay_alpha=None, offset=None):
+    def bessel_generator(
+        x,
+        y,
+        coor_min,
+        coor_max,
+        max_order,
+        scale_factor,
+        circular_symetry=False,
+        exp_decay_alpha=None,
+        offset=None
+    ):
         r"""Generate a type of Bessel function response."""
         # Scale coordinates
         scaled_x, scaled_y = GenerateSimDataset.scale_coordinates(
-            x, y, coor_min, coor_max, offset=offset)
+            x,
+            y,
+            coor_min,
+            coor_max,
+            offset=offset
+        )
 
         # Calculate the function
         vals_x = 0
@@ -401,8 +487,9 @@ class GenerateSimDataset(object):
                 vals_x += sp.special.jv(it, scaled_d)
 
             if exp_decay_alpha is not None:
-                exp_weight = np.exp(-(scaled_d - (
-                        (coor_max + coor_min) / 2)) / exp_decay_alpha)
+                exp_weight = np.exp(-(
+                    scaled_d - ((coor_max + coor_min) / 2)
+                ) / exp_decay_alpha)
                 scale_factor *= exp_weight
 
             return vals_x * scale_factor
@@ -422,9 +509,17 @@ class GenerateSimDataset(object):
         return mask
 
 
-def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
-             catalog_id=1234567, sex_thresh=-1e5, use_SNR_weight=False,
-             verbose=False, saving_name='fitted_model'):
+def mccd_fit(
+    starcat,
+    mccd_inst_kw,
+    mccd_fit_kw,
+    output_dir='./',
+    catalog_id=1234567,
+    sex_thresh=-1e5,
+    use_SNR_weight=False,
+    verbose=False,
+    saving_name='fitted_model'
+):
     r"""Fits (train) the MCCD model.
 
     Then saves it.
@@ -541,9 +636,15 @@ def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
     gc.collect()
 
 
-def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
-                    mccd_debug=False, global_pol_interp=False,
-                    sex_thresh=-1e5, loc2glob=None):
+def mccd_validation(
+    mccd_model_path,
+    testcat,
+    apply_degradation=True,
+    mccd_debug=False,
+    global_pol_interp=False,
+    sex_thresh=-1e5,
+    loc2glob=None
+):
     r"""Validate a MCCD model.
 
     Parameters
