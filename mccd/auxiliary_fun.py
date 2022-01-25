@@ -422,9 +422,17 @@ class GenerateSimDataset(object):
         return mask
 
 
-def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
-             catalog_id=1234567, sex_thresh=-1e5, use_SNR_weight=False,
-             verbose=False, saving_name='fitted_model'):
+def mccd_fit(
+    starcat,
+    mccd_inst_kw,
+    mccd_fit_kw,
+    output_dir='./',
+    catalog_id=1234567,
+    sex_thresh=-1e5,
+    use_SNR_weight=False,
+    verbose=False,
+    saving_name='fitted_model'
+):
     r"""Fits (train) the MCCD model.
 
     Then saves it.
@@ -488,8 +496,9 @@ def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
             SNR_weights *= max_snr_w
             SNR_weights[SNR_weights < min_snr_w] = min_snr_w
 
-            SNR_weight_list = [SNR_weights[ccds == ccd] for ccd in
-                               ccds_unique]
+            SNR_weight_list = [
+                SNR_weights[ccds == ccd] for ccd in ccds_unique
+            ]
         else:
             # If no SNR should be use we go to the no-SNR case
             # with the exception
@@ -499,23 +508,33 @@ def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
         if verbose:
             print('No SNR weights are being used.')
 
-    pos_list = [positions[ccds == ccd]
-                for ccd in ccds_unique]
-    star_list = [utils.rca_format(stars[ccds == ccd])
-                 for ccd in ccds_unique]
-    mask_list = [utils.rca_format(masks[ccds == ccd])
-                 for ccd in ccds_unique]
-    ccd_list = [ccds[ccds == ccd].astype(int)
-                for ccd in ccds_unique]
-    ccd_list = [np.unique(_list)[0].astype(int)
-                for _list in ccd_list]
+    pos_list = [
+        positions[ccds == ccd] for ccd in ccds_unique
+    ]
+    star_list = [
+        utils.rca_format(stars[ccds == ccd]) for ccd in ccds_unique
+    ]
+    mask_list = [
+        utils.rca_format(masks[ccds == ccd]) for ccd in ccds_unique
+    ]
+    ccd_list = [
+        ccds[ccds == ccd].astype(int) for ccd in ccds_unique
+    ]
+    ccd_list = [
+        np.unique(_list)[0].astype(int) for _list in ccd_list
+    ]
 
     # Instantiate the method
     mccd_instance = mccd.MCCD(**mccd_inst_kw, verbose=verbose)
     # Launch the training
     _, _, _, _, _ = mccd_instance.fit(
-        star_list, pos_list, ccd_list, mask_list,
-        SNR_weight_list, **mccd_fit_kw)
+        star_list,
+        pos_list,
+        ccd_list,
+        mask_list,
+        SNR_weight_list,
+        **mccd_fit_kw
+    )
 
     if isinstance(catalog_id, int):
         cat_id = str(catalog_id)
@@ -530,9 +549,14 @@ def mccd_fit(starcat, mccd_inst_kw, mccd_fit_kw, output_dir='./',
     gc.collect()
 
 
-def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
-                    mccd_debug=False, global_pol_interp=False,
-                    sex_thresh=-1e5):
+def mccd_validation(
+    mccd_model_path,
+    testcat,
+    apply_degradation=True,
+    mccd_debug=False,
+    global_pol_interp=False,
+    sex_thresh=-1e5
+):
     r"""Validate a MCCD model.
 
     Parameters
@@ -604,25 +628,33 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
 
     # Prepare data in ccd-list format
     if RA_pos is not None:
-        val_RA_list = [RA_pos[ccds == ccd]
-                       for ccd in ccds_unique]
-        val_DEC_list = [DEC_pos[ccds == ccd]
-                        for ccd in ccds_unique]
+        val_RA_list = [
+            RA_pos[ccds == ccd] for ccd in ccds_unique
+        ]
+        val_DEC_list = [
+            DEC_pos[ccds == ccd] for ccd in ccds_unique
+        ]
     else:
         val_RA_list, val_DEC_list = None, None
 
-    val_pos_list = [positions[ccds == ccd]
-                    for ccd in ccds_unique]
-    val_star_list = [utils.rca_format(stars[ccds == ccd])
-                     for ccd in ccds_unique]
-    val_mask_list = [utils.rca_format(masks[ccds == ccd])
-                     for ccd in ccds_unique]
-    val_ccd_list = [ccds[ccds == ccd].astype(int)
-                    for ccd in ccds_unique]
-    val_ccd_list_to_save = [np.copy(ccds[ccds == ccd].astype(int))
-        for ccd in ccds_unique]
-    val_ccd_list = [np.unique(_list)[0].astype(int)
-                    for _list in val_ccd_list]
+    val_pos_list = [
+        positions[ccds == ccd] for ccd in ccds_unique
+    ]
+    val_star_list = [
+        utils.rca_format(stars[ccds == ccd]) for ccd in ccds_unique
+    ]
+    val_mask_list = [
+        utils.rca_format(masks[ccds == ccd]) for ccd in ccds_unique
+    ]
+    val_ccd_list = [
+        ccds[ccds == ccd].astype(int) for ccd in ccds_unique
+    ]
+    val_ccd_list_to_save = [
+        np.copy(ccds[ccds == ccd].astype(int)) for ccd in ccds_unique
+    ]
+    val_ccd_list = [
+        np.unique(_list)[0].astype(int) for _list in val_ccd_list
+    ]
 
     if apply_degradation:
         if mccd_debug:
@@ -637,8 +669,12 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
 
                 deg_PSFs, deg_PSFs_glob, deg_PSFs_loc = \
                     mccd_model.validation_stars(
-                        val_star_list[it], val_pos_list[it], val_mask_list[it],
-                        val_ccd_list[it], mccd_debug=mccd_debug)
+                        val_star_list[it],
+                        val_pos_list[it],
+                        val_mask_list[it],
+                        val_ccd_list[it],
+                        mccd_debug=mccd_debug
+                    )
 
                 PSF_list.append(deg_PSFs)
                 if deg_PSFs_glob is not None:
@@ -646,9 +682,11 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
                     PSF_loc_list.append(deg_PSFs_loc)
 
             star_dict['PSF_GLOB_VIGNET_LIST'] = np.copy(
-                np.concatenate(PSF_glob_list, axis=0))
+                np.concatenate(PSF_glob_list, axis=0)
+            )
             star_dict['PSF_LOC_VIGNET_LIST'] = np.copy(
-                np.concatenate(PSF_loc_list, axis=0))
+                np.concatenate(PSF_loc_list, axis=0)
+            )
         else:
 
             global_pol_interp = False
@@ -657,18 +695,41 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
                 interp_Pi = mccd_utils.interpolation_Pi(
                     val_pos_list, mccd_model.d_comp_glob)
 
-                PSF_list = [mccd_model.validation_stars(
-                    _star, _pos, _mask, _ccd_id,
-                    mccd_debug=mccd_debug, global_pol_interp=_iterp_Pi)
+                PSF_list = [
+                    mccd_model.validation_stars(
+                        _star,
+                        _pos,
+                        _mask,
+                        _ccd_id,
+                        mccd_debug=mccd_debug,
+                        global_pol_interp=_iterp_Pi
+                    )
                     for _star, _pos, _mask, _ccd_id, _iterp_Pi in
-                    zip(val_star_list, val_pos_list, val_mask_list,
-                        val_ccd_list, interp_Pi)]
+                    zip(
+                        val_star_list,
+                        val_pos_list,
+                        val_mask_list,
+                        val_ccd_list,
+                        interp_Pi
+                    )
+                ]
             else:
-                PSF_list = [mccd_model.validation_stars(
-                    _star, _pos, _mask, _ccd_id, mccd_debug=mccd_debug)
+                PSF_list = [
+                    mccd_model.validation_stars(
+                        _star,
+                        _pos,
+                        _mask,
+                        _ccd_id,
+                        mccd_debug=mccd_debug
+                    )
                     for _star, _pos, _mask, _ccd_id in
-                    zip(val_star_list, val_pos_list, val_mask_list,
-                        val_ccd_list)]
+                    zip(
+                        val_star_list,
+                        val_pos_list,
+                        val_mask_list,
+                        val_ccd_list
+                    )
+                ]
 
     # Remove the CCDs not used for training from ALL the lists
     # Identify the None elements on a boolean list
@@ -708,23 +769,44 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
         matched_psfs = PSF_list[it]
 
         # Stars
-        star_moms = [gs.hsm.FindAdaptiveMom(
-            gs.Image(star), badpix=gs.Image(bp), strict=False)
+        star_moms = [
+            gs.hsm.FindAdaptiveMom(
+                gs.Image(star),
+                badpix=gs.Image(bp),
+                strict=False
+            )
             for star, bp in
-            zip(utils.reg_format(test_stars), utils.reg_format(badpix_mask))]
-        star_shapes = np.array([[moms.observed_shape.g1,
-                                 moms.observed_shape.g2,
-                                 moms.moments_sigma,
-                                 int(bool(moms.error_message))]
-                                for moms in star_moms])
+            zip(
+                utils.reg_format(test_stars),
+                utils.reg_format(badpix_mask)
+            )
+        ]
+        star_shapes = np.array([
+            [
+                moms.observed_shape.g1,
+                moms.observed_shape.g2,
+                moms.moments_sigma,
+                int(bool(moms.error_message))
+            ]
+            for moms in star_moms
+        ])
         # PSFs
-        psf_moms = [gs.hsm.FindAdaptiveMom(gs.Image(psf), strict=False)
-                    for psf in utils.reg_format(matched_psfs)]
-        psf_shapes = np.array([[moms.observed_shape.g1,
-                                moms.observed_shape.g2,
-                                moms.moments_sigma,
-                                int(bool(moms.error_message))]
-                               for moms in psf_moms])
+        psf_moms = [
+            gs.hsm.FindAdaptiveMom(
+                gs.Image(psf),
+                strict=False
+            )
+            for psf in utils.reg_format(matched_psfs)
+        ]
+        psf_shapes = np.array([
+            [
+                moms.observed_shape.g1,
+                moms.observed_shape.g2,
+                moms.moments_sigma,
+                int(bool(moms.error_message))
+            ]
+            for moms in psf_moms
+        ])
 
         star_shapes_list.append(star_shapes)
         psf_shapes_list.append(psf_shapes)
