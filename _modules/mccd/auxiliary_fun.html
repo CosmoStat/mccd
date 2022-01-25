@@ -118,8 +118,14 @@
 <span class="sd">    ellipticity for each position in the focal plane.</span>
 <span class="sd">    """</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_pos_path</span><span class="p">,</span> <span class="n">input_ccd_path</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span>
-                 <span class="n">e1_analytic_fun</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">e2_analytic_fun</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">input_pos_path</span><span class="p">,</span>
+        <span class="n">input_ccd_path</span><span class="p">,</span>
+        <span class="n">output_path</span><span class="p">,</span>
+        <span class="n">e1_analytic_fun</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">e2_analytic_fun</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Initialize the class."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_pos_path</span> <span class="o">=</span> <span class="n">input_pos_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_ccd_path</span> <span class="o">=</span> <span class="n">input_ccd_path</span>
@@ -155,9 +161,16 @@
             <span class="nb">print</span><span class="p">(</span><span class="s1">'The positions or ccd path was not found. Check the paths.'</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">FileNotFoundError</span></div>
 
-<div class="viewcode-block" id="GenerateSimDataset.generate_train_data"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.GenerateSimDataset.generate_train_data">[docs]</a>    <span class="k">def</span> <span class="nf">generate_train_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span> <span class="n">psf_flux</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
-                            <span class="n">beta_psf</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span> <span class="n">pix_scale</span><span class="o">=</span><span class="mf">0.187</span><span class="p">,</span>
-                            <span class="n">desired_SNR</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">catalog_id</span><span class="o">=</span><span class="mi">2086592</span><span class="p">):</span>
+<div class="viewcode-block" id="GenerateSimDataset.generate_train_data"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.GenerateSimDataset.generate_train_data">[docs]</a>    <span class="k">def</span> <span class="nf">generate_train_data</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">sigma</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
+        <span class="n">image_size</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span>
+        <span class="n">psf_flux</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+        <span class="n">beta_psf</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span>
+        <span class="n">pix_scale</span><span class="o">=</span><span class="mf">0.187</span><span class="p">,</span>
+        <span class="n">desired_SNR</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="n">catalog_id</span><span class="o">=</span><span class="mi">2086592</span>
+    <span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Generate the training dataset and saves it in fits format.</span>
 
 <span class="sd">        Parameters</span>
@@ -196,12 +209,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">catalog_id</span> <span class="o">=</span> <span class="n">catalog_id</span>
 
         <span class="c1"># Define the ellipticities for each stars</span>
-        <span class="n">e1s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">e1_catalog_fun</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span>
-             <span class="bp">self</span><span class="o">.</span><span class="n">positions</span><span class="p">])</span>
-        <span class="n">e2s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">e2_catalog_fun</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span>
-             <span class="bp">self</span><span class="o">.</span><span class="n">positions</span><span class="p">])</span>
+        <span class="n">e1s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">e1_catalog_fun</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">positions</span>
+        <span class="p">])</span>
+        <span class="n">e2s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">e2_catalog_fun</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">positions</span>
+        <span class="p">])</span>
 
         <span class="c1"># Define the constant shape of the stars (before the shearing)</span>
         <span class="n">fwhm_psf</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span> <span class="o">*</span> <span class="n">sigma</span>
@@ -224,11 +239,17 @@
             <span class="n">noisy_image_epsf</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">ImageF</span><span class="p">(</span><span class="n">image_size</span><span class="p">,</span> <span class="n">image_size</span><span class="p">)</span>
             <span class="c1"># Define intrapixel shift (uniform distribution in [-0.5,0.5])</span>
             <span class="n">rand_shift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span>
-            <span class="n">psf</span><span class="o">.</span><span class="n">drawImage</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">noisy_image_epsf</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">rand_shift</span><span class="p">,</span>
-                          <span class="n">scale</span><span class="o">=</span><span class="n">pix_scale</span><span class="p">)</span>
+            <span class="n">psf</span><span class="o">.</span><span class="n">drawImage</span><span class="p">(</span>
+                <span class="n">image</span><span class="o">=</span><span class="n">noisy_image_epsf</span><span class="p">,</span>
+                <span class="n">offset</span><span class="o">=</span><span class="n">rand_shift</span><span class="p">,</span>
+                <span class="n">scale</span><span class="o">=</span><span class="n">pix_scale</span>
+            <span class="p">)</span>
 
-            <span class="n">sigma_noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">noisy_image_epsf</span><span class="o">.</span><span class="n">array</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span>
-                    <span class="n">desired_SNR</span> <span class="o">*</span> <span class="n">image_size</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">sigma_noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">noisy_image_epsf</span><span class="o">.</span><span class="n">array</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">desired_SNR</span> <span class="o">*</span> <span class="n">image_size</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="p">)</span>
             <span class="c1"># Generate Gaussian noise for the PSF</span>
             <span class="n">gaussian_noise</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">GaussianNoise</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="n">sigma_noise</span><span class="p">)</span>
 
@@ -246,17 +267,30 @@
         <span class="n">new_masks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_SExtractor_mask</span><span class="p">(</span><span class="n">new_vignets</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">)</span>
 
         <span class="c1"># Build the dictionary</span>
-        <span class="n">train_dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'VIGNET_LIST'</span><span class="p">:</span> <span class="n">new_vignets</span><span class="p">,</span>
-                     <span class="s1">'GLOB_POSITION_IMG_LIST'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">positions</span><span class="p">,</span>
-                     <span class="s1">'MASK_LIST'</span><span class="p">:</span> <span class="n">new_masks</span><span class="p">,</span> <span class="s1">'CCD_ID_LIST'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccd_id</span><span class="p">,</span>
-                     <span class="s1">'TRUE_E1_HSM'</span><span class="p">:</span> <span class="n">new_e1_HSM</span><span class="p">,</span> <span class="s1">'TRUE_E2_HSM'</span><span class="p">:</span> <span class="n">new_e2_HSM</span><span class="p">,</span>
-                     <span class="s1">'TRUE_SIG_HSM'</span><span class="p">:</span> <span class="n">new_sig_HSM</span><span class="p">}</span>
+        <span class="n">train_dic</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'VIGNET_LIST'</span><span class="p">:</span> <span class="n">new_vignets</span><span class="p">,</span>
+            <span class="s1">'GLOB_POSITION_IMG_LIST'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">positions</span><span class="p">,</span>
+            <span class="s1">'MASK_LIST'</span><span class="p">:</span> <span class="n">new_masks</span><span class="p">,</span>
+            <span class="s1">'CCD_ID_LIST'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccd_id</span><span class="p">,</span>
+            <span class="s1">'TRUE_E1_HSM'</span><span class="p">:</span> <span class="n">new_e1_HSM</span><span class="p">,</span>
+            <span class="s1">'TRUE_E2_HSM'</span><span class="p">:</span> <span class="n">new_e2_HSM</span><span class="p">,</span>
+            <span class="s1">'TRUE_SIG_HSM'</span><span class="p">:</span> <span class="n">new_sig_HSM</span>
+        <span class="p">}</span>
 
         <span class="c1"># Save the fits file</span>
-        <span class="n">mccd_utils</span><span class="o">.</span><span class="n">save_fits</span><span class="p">(</span><span class="n">train_dic</span><span class="p">,</span> <span class="n">train_bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cat_id</span><span class="o">=</span><span class="n">catalog_id</span><span class="p">,</span>
-                             <span class="n">output_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">output_path</span><span class="p">)</span></div>
+        <span class="n">mccd_utils</span><span class="o">.</span><span class="n">save_fits</span><span class="p">(</span>
+            <span class="n">train_dic</span><span class="p">,</span>
+            <span class="n">train_bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">cat_id</span><span class="o">=</span><span class="n">catalog_id</span><span class="p">,</span>
+            <span class="n">output_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">output_path</span>
+        <span class="p">)</span></div>
 
-<div class="viewcode-block" id="GenerateSimDataset.generate_test_data"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.GenerateSimDataset.generate_test_data">[docs]</a>    <span class="k">def</span> <span class="nf">generate_test_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_grid</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">y_grid</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_ccd</span><span class="o">=</span><span class="mi">40</span><span class="p">):</span>
+<div class="viewcode-block" id="GenerateSimDataset.generate_test_data"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.GenerateSimDataset.generate_test_data">[docs]</a>    <span class="k">def</span> <span class="nf">generate_test_data</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">x_grid</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="n">y_grid</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">n_ccd</span><span class="o">=</span><span class="mi">40</span>
+    <span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Generate the test dataset and save it into a fits file.</span>
 
 <span class="sd">        Parameters</span>
@@ -275,8 +309,8 @@
 
 <span class="sd">        """</span>
         <span class="c1"># Parameters</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">test_grid_xy</span> <span class="o">=</span> <span class="p">[</span><span class="n">x_grid</span><span class="p">,</span>
-                             <span class="n">y_grid</span><span class="p">]</span>  <span class="c1"># Grid size for the PSF generation</span>
+        <span class="c1"># Grid size for the PSF generation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_grid_xy</span> <span class="o">=</span> <span class="p">[</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_grid</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span> <span class="o">=</span> <span class="n">n_ccd</span>
 
         <span class="c1"># Generation of the test positions</span>
@@ -286,12 +320,16 @@
         <span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
 
         <span class="c1"># Generate local generic grid</span>
-        <span class="n">x_lin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">,</span>
-                            <span class="n">stop</span><span class="o">=</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">,</span>
-                            <span class="n">num</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">test_grid_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">y_lin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">,</span>
-                            <span class="n">stop</span><span class="o">=</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">,</span>
-                            <span class="n">num</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">test_grid_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">x_lin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+            <span class="n">start</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">,</span>
+            <span class="n">stop</span><span class="o">=</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">,</span>
+            <span class="n">num</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">test_grid_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">y_lin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+            <span class="n">start</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">,</span>
+            <span class="n">stop</span><span class="o">=</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">,</span>
+            <span class="n">num</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">test_grid_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="p">)</span>
         <span class="n">xv</span><span class="p">,</span> <span class="n">yv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x_lin</span><span class="p">,</span> <span class="n">y_lin</span><span class="p">)</span>
         <span class="n">x_coor</span> <span class="o">=</span> <span class="n">xv</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
         <span class="n">y_coor</span> <span class="o">=</span> <span class="n">yv</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
@@ -302,38 +340,48 @@
         <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ccd_unique_list</span><span class="p">)):</span>
             <span class="n">x_glob</span><span class="p">,</span> <span class="n">y_glob</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">loc2glob_img_coord</span><span class="p">(</span>
                 <span class="n">ccd_n</span><span class="o">=</span><span class="n">ccd_unique_list</span><span class="p">[</span><span class="n">it</span><span class="p">],</span>
-                <span class="n">x_coor</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x_coor</span><span class="p">),</span> <span class="n">y_coor</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">y_coor</span><span class="p">))</span>
+                <span class="n">x_coor</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x_coor</span><span class="p">),</span>
+                <span class="n">y_coor</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">y_coor</span><span class="p">)</span>
+            <span class="p">)</span>
             <span class="n">position_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_glob</span><span class="p">,</span> <span class="n">y_glob</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-            <span class="n">ccd_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_glob</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span> <span class="o">*</span> <span class="n">ccd_unique_list</span><span class="p">[</span><span class="n">it</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
-                    <span class="nb">int</span><span class="p">))</span>
+            <span class="n">ccd_list</span><span class="o">.</span><span class="n">append</span><span class="p">((</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span>
+                    <span class="nb">len</span><span class="p">(</span><span class="n">x_glob</span><span class="p">),</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span>
+                <span class="p">)</span> <span class="o">*</span> <span class="n">ccd_unique_list</span><span class="p">[</span><span class="n">it</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="p">)</span>
 
         <span class="c1"># Obtain final positions and ccd_id list</span>
         <span class="n">test_positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">position_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">test_ccd_id</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">ccd_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="c1"># Calculate the ellipticities on the testing positions</span>
-        <span class="n">test_e1s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">e1_catalog_fun</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span>
-             <span class="n">test_positions</span><span class="p">])</span>
-        <span class="n">test_e2s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">e2_catalog_fun</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span>
-             <span class="n">test_positions</span><span class="p">])</span>
+        <span class="n">test_e1s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">e1_catalog_fun</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">test_positions</span>
+        <span class="p">])</span>
+        <span class="n">test_e2s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">e2_catalog_fun</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">test_positions</span>
+        <span class="p">])</span>
 
         <span class="n">fwhm_psf</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span>
-        <span class="n">test_fwhms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span>
-            <span class="n">test_e1s</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="n">fwhm_psf</span>  <span class="c1"># Arround 5. and 6. in sigma</span>
+        <span class="c1"># Arround 5. and 6. in sigma</span>
+        <span class="n">test_fwhms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">test_e1s</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="n">fwhm_psf</span>
 
         <span class="c1"># Generate the vignets</span>
         <span class="n">test_vignets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">test_e1s</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">))</span>
+            <span class="p">(</span><span class="n">test_e1s</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="n">test_e1_HSM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">test_e1s</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
         <span class="n">test_e2_HSM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">test_e1s</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
         <span class="n">test_sig_HSM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">test_e1s</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">test_e1s</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
             <span class="c1"># PSF generation. Define size</span>
-            <span class="n">psf</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">Moffat</span><span class="p">(</span><span class="n">fwhm</span><span class="o">=</span><span class="n">test_fwhms</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">pix_scale</span><span class="p">,</span>
-                            <span class="n">beta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_psf</span><span class="p">)</span>
+            <span class="n">psf</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">Moffat</span><span class="p">(</span>
+                <span class="n">fwhm</span><span class="o">=</span><span class="n">test_fwhms</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">pix_scale</span><span class="p">,</span>
+                <span class="n">beta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_psf</span>
+            <span class="p">)</span>
             <span class="c1"># Define the Flux</span>
             <span class="n">psf</span> <span class="o">=</span> <span class="n">psf</span><span class="o">.</span><span class="n">withFlux</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">psf_flux</span><span class="p">)</span>
             <span class="c1"># Define the shear</span>
@@ -354,16 +402,23 @@
         <span class="n">test_masks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_SExtractor_mask</span><span class="p">(</span><span class="n">test_vignets</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">)</span>
 
         <span class="c1"># Build the dictionary</span>
-        <span class="n">test_dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'VIGNET_LIST'</span><span class="p">:</span> <span class="n">test_vignets</span><span class="p">,</span>
-                    <span class="s1">'GLOB_POSITION_IMG_LIST'</span><span class="p">:</span> <span class="n">test_positions</span><span class="p">,</span>
-                    <span class="s1">'MASK_LIST'</span><span class="p">:</span> <span class="n">test_masks</span><span class="p">,</span> <span class="s1">'CCD_ID_LIST'</span><span class="p">:</span> <span class="n">test_ccd_id</span><span class="p">,</span>
-                    <span class="s1">'TRUE_E1_HSM'</span><span class="p">:</span> <span class="n">test_e1_HSM</span><span class="p">,</span> <span class="s1">'TRUE_E2_HSM'</span><span class="p">:</span> <span class="n">test_e2_HSM</span><span class="p">,</span>
-                    <span class="s1">'TRUE_SIG_HSM'</span><span class="p">:</span> <span class="n">test_sig_HSM</span><span class="p">}</span>
+        <span class="n">test_dic</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'VIGNET_LIST'</span><span class="p">:</span> <span class="n">test_vignets</span><span class="p">,</span>
+            <span class="s1">'GLOB_POSITION_IMG_LIST'</span><span class="p">:</span> <span class="n">test_positions</span><span class="p">,</span>
+            <span class="s1">'MASK_LIST'</span><span class="p">:</span> <span class="n">test_masks</span><span class="p">,</span>
+            <span class="s1">'CCD_ID_LIST'</span><span class="p">:</span> <span class="n">test_ccd_id</span><span class="p">,</span>
+            <span class="s1">'TRUE_E1_HSM'</span><span class="p">:</span> <span class="n">test_e1_HSM</span><span class="p">,</span>
+            <span class="s1">'TRUE_E2_HSM'</span><span class="p">:</span> <span class="n">test_e2_HSM</span><span class="p">,</span>
+            <span class="s1">'TRUE_SIG_HSM'</span><span class="p">:</span> <span class="n">test_sig_HSM</span>
+        <span class="p">}</span>
 
         <span class="c1"># Save the fits file</span>
-        <span class="n">mccd_utils</span><span class="o">.</span><span class="n">save_fits</span><span class="p">(</span><span class="n">test_dic</span><span class="p">,</span> <span class="n">train_bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                             <span class="n">cat_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">catalog_id</span><span class="p">,</span>
-                             <span class="n">output_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">output_path</span><span class="p">)</span></div>
+        <span class="n">mccd_utils</span><span class="o">.</span><span class="n">save_fits</span><span class="p">(</span>
+            <span class="n">test_dic</span><span class="p">,</span>
+            <span class="n">train_bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">cat_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">catalog_id</span><span class="p">,</span>
+            <span class="n">output_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">output_path</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="GenerateSimDataset.e1_catalog_fun"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.GenerateSimDataset.e1_catalog_fun">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">e1_catalog_fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
@@ -382,14 +437,19 @@
         <span class="n">exp_decay_alpha</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="n">scaled_x</span><span class="p">,</span> <span class="n">scaled_y</span> <span class="o">=</span> <span class="n">GenerateSimDataset</span><span class="o">.</span><span class="n">scale_coordinates</span><span class="p">(</span>
-            <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">coor_min</span><span class="p">,</span> <span class="n">coor_max</span><span class="p">)</span>
+            <span class="n">x</span><span class="p">,</span>
+            <span class="n">y</span><span class="p">,</span>
+            <span class="n">coor_min</span><span class="p">,</span>
+            <span class="n">coor_max</span>
+        <span class="p">)</span>
         <span class="n">scaled_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">scaled_x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">scaled_y</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 
         <span class="n">vals_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sinc</span><span class="p">(</span><span class="n">scaled_d</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">exp_decay_alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">exp_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>
-                <span class="o">-</span><span class="p">(</span><span class="n">scaled_d</span> <span class="o">-</span> <span class="p">((</span><span class="n">coor_max</span> <span class="o">+</span> <span class="n">coor_min</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">exp_decay_alpha</span><span class="p">)</span>
+                <span class="o">-</span><span class="p">(</span><span class="n">scaled_d</span> <span class="o">-</span> <span class="p">((</span><span class="n">coor_max</span> <span class="o">+</span> <span class="n">coor_min</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">exp_decay_alpha</span>
+            <span class="p">)</span>
             <span class="n">scale_factor</span> <span class="o">*=</span> <span class="n">exp_weight</span>
 
         <span class="k">return</span> <span class="n">vals_x</span> <span class="o">*</span> <span class="n">scale_factor</span></div>
@@ -411,8 +471,15 @@
         <span class="n">exp_decay_alpha</span> <span class="o">=</span> <span class="mf">201.13767350</span>
 
         <span class="k">return</span> <span class="n">GenerateSimDataset</span><span class="o">.</span><span class="n">bessel_generator</span><span class="p">(</span>
-            <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">coor_min</span><span class="p">,</span> <span class="n">coor_max</span><span class="p">,</span> <span class="n">max_order</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span>
-            <span class="n">circular_symetry</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exp_decay_alpha</span><span class="o">=</span><span class="n">exp_decay_alpha</span><span class="p">)</span></div>
+            <span class="n">x</span><span class="p">,</span>
+            <span class="n">y</span><span class="p">,</span>
+            <span class="n">coor_min</span><span class="p">,</span>
+            <span class="n">coor_max</span><span class="p">,</span>
+            <span class="n">max_order</span><span class="p">,</span>
+            <span class="n">scale_factor</span><span class="p">,</span>
+            <span class="n">circular_symetry</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">exp_decay_alpha</span><span class="o">=</span><span class="n">exp_decay_alpha</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="GenerateSimDataset.scale_coordinates"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.GenerateSimDataset.scale_coordinates">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">scale_coordinates</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">coor_min</span><span class="p">,</span> <span class="n">coor_max</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -425,10 +492,16 @@
         <span class="n">grid_ymax</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">*</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span>
 
         <span class="c1"># Scale the input coordinates</span>
-        <span class="n">scaled_x</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">grid_xmin</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">grid_xmax</span> <span class="o">-</span> <span class="n">grid_xmin</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span>
-                <span class="n">coor_max</span> <span class="o">-</span> <span class="n">coor_min</span><span class="p">)</span> <span class="o">+</span> <span class="n">coor_min</span>
-        <span class="n">scaled_y</span> <span class="o">=</span> <span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">grid_ymin</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">grid_ymax</span> <span class="o">-</span> <span class="n">grid_ymin</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span>
-                <span class="n">coor_max</span> <span class="o">-</span> <span class="n">coor_min</span><span class="p">)</span> <span class="o">+</span> <span class="n">coor_min</span>
+        <span class="n">scaled_x</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">grid_xmin</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">grid_xmax</span> <span class="o">-</span> <span class="n">grid_xmin</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="n">coor_max</span> <span class="o">-</span> <span class="n">coor_min</span>
+            <span class="p">)</span> <span class="o">+</span> <span class="n">coor_min</span>
+        <span class="p">)</span>
+        <span class="n">scaled_y</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">grid_ymin</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">grid_ymax</span> <span class="o">-</span> <span class="n">grid_ymin</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="n">coor_max</span> <span class="o">-</span> <span class="n">coor_min</span>
+            <span class="p">)</span> <span class="o">+</span> <span class="n">coor_min</span>
+        <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">offset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">scaled_x</span> <span class="o">+=</span> <span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -437,13 +510,26 @@
         <span class="k">return</span> <span class="n">scaled_x</span><span class="p">,</span> <span class="n">scaled_y</span></div>
 
 <div class="viewcode-block" id="GenerateSimDataset.bessel_generator"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.GenerateSimDataset.bessel_generator">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">bessel_generator</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">coor_min</span><span class="p">,</span> <span class="n">coor_max</span><span class="p">,</span> <span class="n">max_order</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span>
-                         <span class="n">circular_symetry</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                         <span class="n">exp_decay_alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">bessel_generator</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">,</span>
+        <span class="n">coor_min</span><span class="p">,</span>
+        <span class="n">coor_max</span><span class="p">,</span>
+        <span class="n">max_order</span><span class="p">,</span>
+        <span class="n">scale_factor</span><span class="p">,</span>
+        <span class="n">circular_symetry</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">exp_decay_alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">offset</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Generate a type of Bessel function response."""</span>
         <span class="c1"># Scale coordinates</span>
         <span class="n">scaled_x</span><span class="p">,</span> <span class="n">scaled_y</span> <span class="o">=</span> <span class="n">GenerateSimDataset</span><span class="o">.</span><span class="n">scale_coordinates</span><span class="p">(</span>
-            <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">coor_min</span><span class="p">,</span> <span class="n">coor_max</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
+            <span class="n">x</span><span class="p">,</span>
+            <span class="n">y</span><span class="p">,</span>
+            <span class="n">coor_min</span><span class="p">,</span>
+            <span class="n">coor_max</span><span class="p">,</span>
+            <span class="n">offset</span><span class="o">=</span><span class="n">offset</span>
+        <span class="p">)</span>
 
         <span class="c1"># Calculate the function</span>
         <span class="n">vals_x</span> <span class="o">=</span> <span class="mi">0</span>
@@ -464,8 +550,9 @@
                 <span class="n">vals_x</span> <span class="o">+=</span> <span class="n">sp</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">jv</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">scaled_d</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">exp_decay_alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">exp_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">scaled_d</span> <span class="o">-</span> <span class="p">(</span>
-                        <span class="p">(</span><span class="n">coor_max</span> <span class="o">+</span> <span class="n">coor_min</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">exp_decay_alpha</span><span class="p">)</span>
+                <span class="n">exp_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span>
+                    <span class="n">scaled_d</span> <span class="o">-</span> <span class="p">((</span><span class="n">coor_max</span> <span class="o">+</span> <span class="n">coor_min</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="p">)</span> <span class="o">/</span> <span class="n">exp_decay_alpha</span><span class="p">)</span>
                 <span class="n">scale_factor</span> <span class="o">*=</span> <span class="n">exp_weight</span>
 
             <span class="k">return</span> <span class="n">vals_x</span> <span class="o">*</span> <span class="n">scale_factor</span></div>
@@ -485,9 +572,17 @@
         <span class="k">return</span> <span class="n">mask</span></div></div>
 
 
-<div class="viewcode-block" id="mccd_fit"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.mccd_fit">[docs]</a><span class="k">def</span> <span class="nf">mccd_fit</span><span class="p">(</span><span class="n">starcat</span><span class="p">,</span> <span class="n">mccd_inst_kw</span><span class="p">,</span> <span class="n">mccd_fit_kw</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="s1">'./'</span><span class="p">,</span>
-             <span class="n">catalog_id</span><span class="o">=</span><span class="mi">1234567</span><span class="p">,</span> <span class="n">sex_thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">,</span> <span class="n">use_SNR_weight</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-             <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">saving_name</span><span class="o">=</span><span class="s1">'fitted_model'</span><span class="p">):</span>
+<div class="viewcode-block" id="mccd_fit"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.mccd_fit">[docs]</a><span class="k">def</span> <span class="nf">mccd_fit</span><span class="p">(</span>
+    <span class="n">starcat</span><span class="p">,</span>
+    <span class="n">mccd_inst_kw</span><span class="p">,</span>
+    <span class="n">mccd_fit_kw</span><span class="p">,</span>
+    <span class="n">output_dir</span><span class="o">=</span><span class="s1">'./'</span><span class="p">,</span>
+    <span class="n">catalog_id</span><span class="o">=</span><span class="mi">1234567</span><span class="p">,</span>
+    <span class="n">sex_thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">,</span>
+    <span class="n">use_SNR_weight</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">saving_name</span><span class="o">=</span><span class="s1">'fitted_model'</span>
+<span class="p">):</span>
     <span class="sa">r</span><span class="sd">"""Fits (train) the MCCD model.</span>
 
 <span class="sd">    Then saves it.</span>
@@ -604,9 +699,15 @@
     <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="mccd_validation"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.mccd_validation">[docs]</a><span class="k">def</span> <span class="nf">mccd_validation</span><span class="p">(</span><span class="n">mccd_model_path</span><span class="p">,</span> <span class="n">testcat</span><span class="p">,</span> <span class="n">apply_degradation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">mccd_debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">global_pol_interp</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                    <span class="n">sex_thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">,</span> <span class="n">loc2glob</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="mccd_validation"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.mccd_validation">[docs]</a><span class="k">def</span> <span class="nf">mccd_validation</span><span class="p">(</span>
+    <span class="n">mccd_model_path</span><span class="p">,</span>
+    <span class="n">testcat</span><span class="p">,</span>
+    <span class="n">apply_degradation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">mccd_debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">global_pol_interp</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">sex_thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">,</span>
+    <span class="n">loc2glob</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
     <span class="sa">r</span><span class="sd">"""Validate a MCCD model.</span>
 
 <span class="sd">    Parameters</span>
