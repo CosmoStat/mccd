@@ -619,7 +619,8 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
                      for ccd in ccds_unique]
     val_ccd_list = [ccds[ccds == ccd].astype(int)
                     for ccd in ccds_unique]
-    val_ccd_list_to_save = np.copy(val_ccd_list)
+    val_ccd_list_to_save = [np.copy(ccds[ccds == ccd].astype(int))
+        for ccd in ccds_unique]
     val_ccd_list = [np.unique(_list)[0].astype(int)
                     for _list in val_ccd_list]
 
@@ -668,73 +669,6 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
                     for _star, _pos, _mask, _ccd_id in
                     zip(val_star_list, val_pos_list, val_mask_list,
                         val_ccd_list)]
-    """
-    # [TL] TEST
-    # Checking how many CCDs would have been rejected.
-    dim_x = val_star_list[0].shape[0]
-    dim_y = val_star_list[0].shape[1]
-    win_rad = np.floor(np.max([dim_x, dim_y]) / 3)
-
-    ccd_star_thresh = 0.1
-    rmse_thresh = 1.25
-
-    # Calculate the observation noise
-    noise_estimator = utils.NoiseEstimator((dim_x, dim_y), win_rad)
-
-    ccd_outliers = []
-
-    for k in range(len(val_star_list)):
-        # Extract observations and reconstructions from the CCD
-        stars = utils.reg_format(val_star_list[k])
-        # Reconstruct the PSFs
-        psfs = PSF_list[k]
-
-        if psfs is not None:
-            # Estimate noise
-            sigmas_obs = np.array([noise_estimator.estimate_noise(star)
-                            for star in stars])
-
-            # Window to consider the central PSF only
-            window = ~noise_estimator.window
-
-            # Calculate the windowed RMSE normalized by the noise level
-            rmse_sig = np.array([
-                np.sqrt(np.mean(((_mod - _obs)**2)[window])) / _sig
-                for _mod, _obs, _sig in zip(psfs, stars, sigmas_obs)
-                                ])
-
-            # Select outlier stars
-            outlier_ids = rmse_sig >= rmse_thresh
-            num_outliers = np.sum(outlier_ids)
-
-            # Check if the number of outliers depasses the star threshold
-            num_stars = stars.shape[0]
-            star_thresh_num = np.ceil(ccd_star_thresh * num_stars)
-
-            print("CCD num %02d, \t %d outliers, \t%d stars,"
-                    " \t%d star threshold number." % (
-                        val_ccd_list[k], num_outliers, num_stars,
-                        star_thresh_num))
-
-            if num_outliers > star_thresh_num:
-                # We have to reject the CCD
-                ccd_outliers.append(k)
-                print('\nOutlier! CCD %d, \t%d outliers, \t%d tot stars.' % (
-                    val_ccd_list[k], num_outliers, num_stars))
-
-    # Remove all the outliers
-    # for idx in sorted(ccd_outliers, reverse=True):
-    #     del PSF_list[idx]
-    #     del val_pos_list[idx]
-    #     del val_star_list[idx]
-    #     del val_mask_list[idx]
-    #     del val_ccd_list[idx]
-    #     if val_RA_list is not None:
-    #         del val_RA_list[idx]
-    #         del val_DEC_list[idx]
-
-    # [TL] finish testing
-    """
 
     # Remove the CCDs not used for training from ALL the lists
     # Identify the None elements on a boolean list
@@ -749,6 +683,7 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
         del val_star_list[idx]
         del val_mask_list[idx]
         del val_ccd_list[idx]
+        del val_ccd_list_to_save[idx]
         if val_RA_list is not None:
             del val_RA_list[idx]
             del val_DEC_list[idx]
