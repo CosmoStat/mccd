@@ -7,6 +7,12 @@
 # Ignore cache
 *.cache/
 
+# Ignore vscode files
+.vscode/
+
+# Ignore build files
+mccd.egg-info/
+
 # Ignore coverage tests
 .coverage
 .pytest_cache/
