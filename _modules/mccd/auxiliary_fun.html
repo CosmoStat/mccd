@@ -551,8 +551,9 @@
             <span class="n">SNR_weights</span> <span class="o">*=</span> <span class="n">max_snr_w</span>
             <span class="n">SNR_weights</span><span class="p">[</span><span class="n">SNR_weights</span> <span class="o">&lt;</span> <span class="n">min_snr_w</span><span class="p">]</span> <span class="o">=</span> <span class="n">min_snr_w</span>
 
-            <span class="n">SNR_weight_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">SNR_weights</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">]</span> <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span>
-                               <span class="n">ccds_unique</span><span class="p">]</span>
+            <span class="n">SNR_weight_list</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">SNR_weights</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">]</span> <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span>
+            <span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># If no SNR should be use we go to the no-SNR case</span>
             <span class="c1"># with the exception</span>
@@ -562,23 +563,33 @@
         <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">'No SNR weights are being used.'</span><span class="p">)</span>
 
-    <span class="n">pos_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">positions</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">]</span>
-                <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span><span class="p">]</span>
-    <span class="n">star_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">stars</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">])</span>
-                 <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span><span class="p">]</span>
-    <span class="n">mask_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">masks</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">])</span>
-                 <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span><span class="p">]</span>
-    <span class="n">ccd_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ccds</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span><span class="p">]</span>
-    <span class="n">ccd_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">_list</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">_list</span> <span class="ow">in</span> <span class="n">ccd_list</span><span class="p">]</span>
+    <span class="n">pos_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">positions</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">]</span> <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span>
+    <span class="p">]</span>
+    <span class="n">star_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">stars</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">])</span> <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span>
+    <span class="p">]</span>
+    <span class="n">mask_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">masks</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">])</span> <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span>
+    <span class="p">]</span>
+    <span class="n">ccd_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">ccds</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span>
+    <span class="p">]</span>
+    <span class="n">ccd_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">_list</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="k">for</span> <span class="n">_list</span> <span class="ow">in</span> <span class="n">ccd_list</span>
+    <span class="p">]</span>
 
     <span class="c1"># Instantiate the method</span>
     <span class="n">mccd_instance</span> <span class="o">=</span> <span class="n">mccd</span><span class="o">.</span><span class="n">MCCD</span><span class="p">(</span><span class="o">**</span><span class="n">mccd_inst_kw</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
     <span class="c1"># Launch the training</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mccd_instance</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-        <span class="n">star_list</span><span class="p">,</span> <span class="n">pos_list</span><span class="p">,</span> <span class="n">ccd_list</span><span class="p">,</span> <span class="n">mask_list</span><span class="p">,</span>
-        <span class="n">SNR_weight_list</span><span class="p">,</span> <span class="o">**</span><span class="n">mccd_fit_kw</span><span class="p">)</span>
+        <span class="n">star_list</span><span class="p">,</span>
+        <span class="n">pos_list</span><span class="p">,</span>
+        <span class="n">ccd_list</span><span class="p">,</span>
+        <span class="n">mask_list</span><span class="p">,</span>
+        <span class="n">SNR_weight_list</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">mccd_fit_kw</span>
+    <span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">catalog_id</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
         <span class="n">cat_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">catalog_id</span><span class="p">)</span>
@@ -595,7 +606,7 @@
 
 <div class="viewcode-block" id="mccd_validation"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.mccd_validation">[docs]</a><span class="k">def</span> <span class="nf">mccd_validation</span><span class="p">(</span><span class="n">mccd_model_path</span><span class="p">,</span> <span class="n">testcat</span><span class="p">,</span> <span class="n">apply_degradation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">mccd_debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">global_pol_interp</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                    <span class="n">sex_thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">):</span>
+                    <span class="n">sex_thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">,</span> <span class="n">loc2glob</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">"""Validate a MCCD model.</span>
 
 <span class="sd">    Parameters</span>
@@ -612,7 +623,7 @@
 <span class="sd">    apply_degradation: bool</span>
 <span class="sd">        Boolean determining if the returned PSFs should be matched to the</span>
 <span class="sd">        observed stars by the application of a degradation which consists of</span>
-<span class="sd">        an intra-pixel shift, fulx matching, etc.</span>
+<span class="sd">        an intra-pixel shift, flux matching, etc.</span>
 <span class="sd">        Default is ``True``.</span>
 <span class="sd">    mccd_debug: bool</span>
 <span class="sd">        Boolean to determine if the validation will be run in debug mode.</span>
@@ -625,6 +636,11 @@
 <span class="sd">    sex_thresh: float</span>
 <span class="sd">        Masking threshold, specially for SExtractor catalogs.</span>
 <span class="sd">        Default is ``-1e5``.</span>
+<span class="sd">    loc2glob: object</span>
+<span class="sd">        The object that allows to do the coordinate conversion from local to</span>
+<span class="sd">        global. It is specific for each instrument's focal plane geometry.</span>
+<span class="sd">        Default is ``None`` that uses the CFIS MegaCam geometry.</span>
+
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -641,6 +657,9 @@
 <span class="sd">    The parameter ``apply_degradation`` needs to be set to True if a pixel</span>
 <span class="sd">    validation of the model is going to be done.</span>
 <span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">loc2glob</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
+
     <span class="c1"># Import</span>
     <span class="n">mccd_model</span> <span class="o">=</span> <span class="n">mccd</span><span class="o">.</span><span class="n">mccd_quickload</span><span class="p">(</span><span class="n">mccd_model_path</span><span class="p">)</span>
 
@@ -667,24 +686,33 @@
 
     <span class="c1"># Prepare data in ccd-list format</span>
     <span class="k">if</span> <span class="n">RA_pos</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">val_RA_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">RA_pos</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">]</span>
-                       <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span><span class="p">]</span>
-        <span class="n">val_DEC_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">DEC_pos</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">]</span>
-                        <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span><span class="p">]</span>
+        <span class="n">val_RA_list</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">RA_pos</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">]</span> <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span>
+        <span class="p">]</span>
+        <span class="n">val_DEC_list</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">DEC_pos</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">]</span> <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span>
+        <span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">val_RA_list</span><span class="p">,</span> <span class="n">val_DEC_list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
 
-    <span class="n">val_pos_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">positions</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">]</span>
-                    <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span><span class="p">]</span>
-    <span class="n">val_star_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">stars</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">])</span>
-                     <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span><span class="p">]</span>
-    <span class="n">val_mask_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">masks</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">])</span>
-                     <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span><span class="p">]</span>
-    <span class="n">val_ccd_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ccds</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-                    <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span><span class="p">]</span>
-    <span class="n">val_ccd_list_to_save</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">val_ccd_list</span><span class="p">)</span>
-    <span class="n">val_ccd_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">_list</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-                    <span class="k">for</span> <span class="n">_list</span> <span class="ow">in</span> <span class="n">val_ccd_list</span><span class="p">]</span>
+    <span class="n">val_pos_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">positions</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">]</span> <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span>
+    <span class="p">]</span>
+    <span class="n">val_star_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">stars</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">])</span> <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span>
+    <span class="p">]</span>
+    <span class="n">val_mask_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">masks</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">])</span> <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span>
+    <span class="p">]</span>
+    <span class="n">val_ccd_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">ccds</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span>
+    <span class="p">]</span>
+    <span class="n">val_ccd_list_to_save</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">ccds</span><span class="p">[</span><span class="n">ccds</span> <span class="o">==</span> <span class="n">ccd</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span> <span class="k">for</span> <span class="n">ccd</span> <span class="ow">in</span> <span class="n">ccds_unique</span>
+    <span class="p">]</span>
+    <span class="n">val_ccd_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">_list</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="k">for</span> <span class="n">_list</span> <span class="ow">in</span> <span class="n">val_ccd_list</span>
+    <span class="p">]</span>
 
     <span class="k">if</span> <span class="n">apply_degradation</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">mccd_debug</span><span class="p">:</span>
@@ -699,8 +727,12 @@
 
                 <span class="n">deg_PSFs</span><span class="p">,</span> <span class="n">deg_PSFs_glob</span><span class="p">,</span> <span class="n">deg_PSFs_loc</span> <span class="o">=</span> \
                     <span class="n">mccd_model</span><span class="o">.</span><span class="n">validation_stars</span><span class="p">(</span>
-                        <span class="n">val_star_list</span><span class="p">[</span><span class="n">it</span><span class="p">],</span> <span class="n">val_pos_list</span><span class="p">[</span><span class="n">it</span><span class="p">],</span> <span class="n">val_mask_list</span><span class="p">[</span><span class="n">it</span><span class="p">],</span>
-                        <span class="n">val_ccd_list</span><span class="p">[</span><span class="n">it</span><span class="p">],</span> <span class="n">mccd_debug</span><span class="o">=</span><span class="n">mccd_debug</span><span class="p">)</span>
+                        <span class="n">val_star_list</span><span class="p">[</span><span class="n">it</span><span class="p">],</span>
+                        <span class="n">val_pos_list</span><span class="p">[</span><span class="n">it</span><span class="p">],</span>
+                        <span class="n">val_mask_list</span><span class="p">[</span><span class="n">it</span><span class="p">],</span>
+                        <span class="n">val_ccd_list</span><span class="p">[</span><span class="n">it</span><span class="p">],</span>
+                        <span class="n">mccd_debug</span><span class="o">=</span><span class="n">mccd_debug</span>
+                    <span class="p">)</span>
 
                 <span class="n">PSF_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deg_PSFs</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">deg_PSFs_glob</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -708,96 +740,57 @@
                     <span class="n">PSF_loc_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deg_PSFs_loc</span><span class="p">)</span>
 
             <span class="n">star_dict</span><span class="p">[</span><span class="s1">'PSF_GLOB_VIGNET_LIST'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">PSF_glob_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">PSF_glob_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="p">)</span>
             <span class="n">star_dict</span><span class="p">[</span><span class="s1">'PSF_LOC_VIGNET_LIST'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">PSF_loc_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">PSF_loc_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
 
             <span class="n">global_pol_interp</span> <span class="o">=</span> <span class="kc">False</span>
 
             <span class="k">if</span> <span class="n">global_pol_interp</span><span class="p">:</span>
                 <span class="n">interp_Pi</span> <span class="o">=</span> <span class="n">mccd_utils</span><span class="o">.</span><span class="n">interpolation_Pi</span><span class="p">(</span>
-                    <span class="n">val_pos_list</span><span class="p">,</span> <span class="n">mccd_model</span><span class="o">.</span><span class="n">d_comp_glob</span><span class="p">)</span>
+                    <span class="n">val_pos_list</span><span class="p">,</span>
+                    <span class="n">mccd_model</span><span class="o">.</span><span class="n">d_comp_glob</span><span class="p">,</span>
+                    <span class="n">loc2glob</span>
+                <span class="p">)</span>
 
-                <span class="n">PSF_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">mccd_model</span><span class="o">.</span><span class="n">validation_stars</span><span class="p">(</span>
-                    <span class="n">_star</span><span class="p">,</span> <span class="n">_pos</span><span class="p">,</span> <span class="n">_mask</span><span class="p">,</span> <span class="n">_ccd_id</span><span class="p">,</span>
-                    <span class="n">mccd_debug</span><span class="o">=</span><span class="n">mccd_debug</span><span class="p">,</span> <span class="n">global_pol_interp</span><span class="o">=</span><span class="n">_iterp_Pi</span><span class="p">)</span>
+                <span class="n">PSF_list</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">mccd_model</span><span class="o">.</span><span class="n">validation_stars</span><span class="p">(</span>
+                        <span class="n">_star</span><span class="p">,</span>
+                        <span class="n">_pos</span><span class="p">,</span>
+                        <span class="n">_mask</span><span class="p">,</span>
+                        <span class="n">_ccd_id</span><span class="p">,</span>
+                        <span class="n">mccd_debug</span><span class="o">=</span><span class="n">mccd_debug</span><span class="p">,</span>
+                        <span class="n">global_pol_interp</span><span class="o">=</span><span class="n">_iterp_Pi</span>
+                    <span class="p">)</span>
                     <span class="k">for</span> <span class="n">_star</span><span class="p">,</span> <span class="n">_pos</span><span class="p">,</span> <span class="n">_mask</span><span class="p">,</span> <span class="n">_ccd_id</span><span class="p">,</span> <span class="n">_iterp_Pi</span> <span class="ow">in</span>
-                    <span class="nb">zip</span><span class="p">(</span><span class="n">val_star_list</span><span class="p">,</span> <span class="n">val_pos_list</span><span class="p">,</span> <span class="n">val_mask_list</span><span class="p">,</span>
-                        <span class="n">val_ccd_list</span><span class="p">,</span> <span class="n">interp_Pi</span><span class="p">)]</span>
+                    <span class="nb">zip</span><span class="p">(</span>
+                        <span class="n">val_star_list</span><span class="p">,</span>
+                        <span class="n">val_pos_list</span><span class="p">,</span>
+                        <span class="n">val_mask_list</span><span class="p">,</span>
+                        <span class="n">val_ccd_list</span><span class="p">,</span>
+                        <span class="n">interp_Pi</span>
+                    <span class="p">)</span>
+                <span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">PSF_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">mccd_model</span><span class="o">.</span><span class="n">validation_stars</span><span class="p">(</span>
-                    <span class="n">_star</span><span class="p">,</span> <span class="n">_pos</span><span class="p">,</span> <span class="n">_mask</span><span class="p">,</span> <span class="n">_ccd_id</span><span class="p">,</span> <span class="n">mccd_debug</span><span class="o">=</span><span class="n">mccd_debug</span><span class="p">)</span>
+                <span class="n">PSF_list</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">mccd_model</span><span class="o">.</span><span class="n">validation_stars</span><span class="p">(</span>
+                        <span class="n">_star</span><span class="p">,</span>
+                        <span class="n">_pos</span><span class="p">,</span>
+                        <span class="n">_mask</span><span class="p">,</span>
+                        <span class="n">_ccd_id</span><span class="p">,</span>
+                        <span class="n">mccd_debug</span><span class="o">=</span><span class="n">mccd_debug</span>
+                    <span class="p">)</span>
                     <span class="k">for</span> <span class="n">_star</span><span class="p">,</span> <span class="n">_pos</span><span class="p">,</span> <span class="n">_mask</span><span class="p">,</span> <span class="n">_ccd_id</span> <span class="ow">in</span>
-                    <span class="nb">zip</span><span class="p">(</span><span class="n">val_star_list</span><span class="p">,</span> <span class="n">val_pos_list</span><span class="p">,</span> <span class="n">val_mask_list</span><span class="p">,</span>
-                        <span class="n">val_ccd_list</span><span class="p">)]</span>
-    <span class="sd">"""</span>
-<span class="sd">    # [TL] TEST</span>
-<span class="sd">    # Checking how many CCDs would have been rejected.</span>
-<span class="sd">    dim_x = val_star_list[0].shape[0]</span>
-<span class="sd">    dim_y = val_star_list[0].shape[1]</span>
-<span class="sd">    win_rad = np.floor(np.max([dim_x, dim_y]) / 3)</span>
-
-<span class="sd">    ccd_star_thresh = 0.1</span>
-<span class="sd">    rmse_thresh = 1.25</span>
-
-<span class="sd">    # Calculate the observation noise</span>
-<span class="sd">    noise_estimator = utils.NoiseEstimator((dim_x, dim_y), win_rad)</span>
-
-<span class="sd">    ccd_outliers = []</span>
-
-<span class="sd">    for k in range(len(val_star_list)):</span>
-<span class="sd">        # Extract observations and reconstructions from the CCD</span>
-<span class="sd">        stars = utils.reg_format(val_star_list[k])</span>
-<span class="sd">        # Reconstruct the PSFs</span>
-<span class="sd">        psfs = PSF_list[k]</span>
-
-<span class="sd">        if psfs is not None:</span>
-<span class="sd">            # Estimate noise</span>
-<span class="sd">            sigmas_obs = np.array([noise_estimator.estimate_noise(star)</span>
-<span class="sd">                            for star in stars])</span>
-
-<span class="sd">            # Window to consider the central PSF only</span>
-<span class="sd">            window = ~noise_estimator.window</span>
-
-<span class="sd">            # Calculate the windowed RMSE normalized by the noise level</span>
-<span class="sd">            rmse_sig = np.array([</span>
-<span class="sd">                np.sqrt(np.mean(((_mod - _obs)**2)[window])) / _sig</span>
-<span class="sd">                for _mod, _obs, _sig in zip(psfs, stars, sigmas_obs)</span>
-<span class="sd">                                ])</span>
-
-<span class="sd">            # Select outlier stars</span>
-<span class="sd">            outlier_ids = rmse_sig &gt;= rmse_thresh</span>
-<span class="sd">            num_outliers = np.sum(outlier_ids)</span>
-
-<span class="sd">            # Check if the number of outliers depasses the star threshold</span>
-<span class="sd">            num_stars = stars.shape[0]</span>
-<span class="sd">            star_thresh_num = np.ceil(ccd_star_thresh * num_stars)</span>
-
-<span class="sd">            print("CCD num %02d, \t %d outliers, \t%d stars,"</span>
-<span class="sd">                    " \t%d star threshold number." % (</span>
-<span class="sd">                        val_ccd_list[k], num_outliers, num_stars,</span>
-<span class="sd">                        star_thresh_num))</span>
-
-<span class="sd">            if num_outliers &gt; star_thresh_num:</span>
-<span class="sd">                # We have to reject the CCD</span>
-<span class="sd">                ccd_outliers.append(k)</span>
-<span class="sd">                print('\nOutlier! CCD %d, \t%d outliers, \t%d tot stars.' % (</span>
-<span class="sd">                    val_ccd_list[k], num_outliers, num_stars))</span>
-
-<span class="sd">    # Remove all the outliers</span>
-<span class="sd">    # for idx in sorted(ccd_outliers, reverse=True):</span>
-<span class="sd">    #     del PSF_list[idx]</span>
-<span class="sd">    #     del val_pos_list[idx]</span>
-<span class="sd">    #     del val_star_list[idx]</span>
-<span class="sd">    #     del val_mask_list[idx]</span>
-<span class="sd">    #     del val_ccd_list[idx]</span>
-<span class="sd">    #     if val_RA_list is not None:</span>
-<span class="sd">    #         del val_RA_list[idx]</span>
-<span class="sd">    #         del val_DEC_list[idx]</span>
-
-<span class="sd">    # [TL] finish testing</span>
-<span class="sd">    """</span>
+                    <span class="nb">zip</span><span class="p">(</span>
+                        <span class="n">val_star_list</span><span class="p">,</span>
+                        <span class="n">val_pos_list</span><span class="p">,</span>
+                        <span class="n">val_mask_list</span><span class="p">,</span>
+                        <span class="n">val_ccd_list</span>
+                    <span class="p">)</span>
+                <span class="p">]</span>
 
     <span class="c1"># Remove the CCDs not used for training from ALL the lists</span>
     <span class="c1"># Identify the None elements on a boolean list</span>
@@ -812,6 +805,7 @@
         <span class="k">del</span> <span class="n">val_star_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
         <span class="k">del</span> <span class="n">val_mask_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
         <span class="k">del</span> <span class="n">val_ccd_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">del</span> <span class="n">val_ccd_list_to_save</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">val_RA_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">del</span> <span class="n">val_RA_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
             <span class="k">del</span> <span class="n">val_DEC_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
@@ -836,23 +830,38 @@
         <span class="n">matched_psfs</span> <span class="o">=</span> <span class="n">PSF_list</span><span class="p">[</span><span class="n">it</span><span class="p">]</span>
 
         <span class="c1"># Stars</span>
-        <span class="n">star_moms</span> <span class="o">=</span> <span class="p">[</span><span class="n">gs</span><span class="o">.</span><span class="n">hsm</span><span class="o">.</span><span class="n">FindAdaptiveMom</span><span class="p">(</span>
-            <span class="n">gs</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">star</span><span class="p">),</span> <span class="n">badpix</span><span class="o">=</span><span class="n">gs</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">bp</span><span class="p">),</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">star_moms</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">hsm</span><span class="o">.</span><span class="n">FindAdaptiveMom</span><span class="p">(</span>
+                <span class="n">gs</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">star</span><span class="p">),</span>
+                <span class="n">badpix</span><span class="o">=</span><span class="n">gs</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">bp</span><span class="p">),</span>
+                <span class="n">strict</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
             <span class="k">for</span> <span class="n">star</span><span class="p">,</span> <span class="n">bp</span> <span class="ow">in</span>
-            <span class="nb">zip</span><span class="p">(</span><span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="n">test_stars</span><span class="p">),</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="n">badpix_mask</span><span class="p">))]</span>
-        <span class="n">star_shapes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">moms</span><span class="o">.</span><span class="n">observed_shape</span><span class="o">.</span><span class="n">g1</span><span class="p">,</span>
-                                 <span class="n">moms</span><span class="o">.</span><span class="n">observed_shape</span><span class="o">.</span><span class="n">g2</span><span class="p">,</span>
-                                 <span class="n">moms</span><span class="o">.</span><span class="n">moments_sigma</span><span class="p">,</span>
-                                 <span class="nb">int</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">moms</span><span class="o">.</span><span class="n">error_message</span><span class="p">))]</span>
-                                <span class="k">for</span> <span class="n">moms</span> <span class="ow">in</span> <span class="n">star_moms</span><span class="p">])</span>
+            <span class="nb">zip</span><span class="p">(</span><span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="n">test_stars</span><span class="p">),</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="n">badpix_mask</span><span class="p">))</span>
+        <span class="p">]</span>
+        <span class="n">star_shapes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="p">[</span>
+                <span class="n">moms</span><span class="o">.</span><span class="n">observed_shape</span><span class="o">.</span><span class="n">g1</span><span class="p">,</span>
+                <span class="n">moms</span><span class="o">.</span><span class="n">observed_shape</span><span class="o">.</span><span class="n">g2</span><span class="p">,</span>
+                <span class="n">moms</span><span class="o">.</span><span class="n">moments_sigma</span><span class="p">,</span>
+                <span class="nb">int</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">moms</span><span class="o">.</span><span class="n">error_message</span><span class="p">))</span>
+            <span class="p">]</span>
+            <span class="k">for</span> <span class="n">moms</span> <span class="ow">in</span> <span class="n">star_moms</span>
+        <span class="p">])</span>
         <span class="c1"># PSFs</span>
-        <span class="n">psf_moms</span> <span class="o">=</span> <span class="p">[</span><span class="n">gs</span><span class="o">.</span><span class="n">hsm</span><span class="o">.</span><span class="n">FindAdaptiveMom</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">psf</span><span class="p">),</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                    <span class="k">for</span> <span class="n">psf</span> <span class="ow">in</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="n">matched_psfs</span><span class="p">)]</span>
-        <span class="n">psf_shapes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">moms</span><span class="o">.</span><span class="n">observed_shape</span><span class="o">.</span><span class="n">g1</span><span class="p">,</span>
-                                <span class="n">moms</span><span class="o">.</span><span class="n">observed_shape</span><span class="o">.</span><span class="n">g2</span><span class="p">,</span>
-                                <span class="n">moms</span><span class="o">.</span><span class="n">moments_sigma</span><span class="p">,</span>
-                                <span class="nb">int</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">moms</span><span class="o">.</span><span class="n">error_message</span><span class="p">))]</span>
-                               <span class="k">for</span> <span class="n">moms</span> <span class="ow">in</span> <span class="n">psf_moms</span><span class="p">])</span>
+        <span class="n">psf_moms</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">hsm</span><span class="o">.</span><span class="n">FindAdaptiveMom</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">psf</span><span class="p">),</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">psf</span> <span class="ow">in</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="n">matched_psfs</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">psf_shapes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="p">[</span>
+                <span class="n">moms</span><span class="o">.</span><span class="n">observed_shape</span><span class="o">.</span><span class="n">g1</span><span class="p">,</span>
+                <span class="n">moms</span><span class="o">.</span><span class="n">observed_shape</span><span class="o">.</span><span class="n">g2</span><span class="p">,</span>
+                <span class="n">moms</span><span class="o">.</span><span class="n">moments_sigma</span><span class="p">,</span>
+                <span class="nb">int</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">moms</span><span class="o">.</span><span class="n">error_message</span><span class="p">))</span>
+            <span class="p">]</span>
+            <span class="k">for</span> <span class="n">moms</span> <span class="ow">in</span> <span class="n">psf_moms</span>
+        <span class="p">])</span>
 
         <span class="n">star_shapes_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">star_shapes</span><span class="p">)</span>
         <span class="n">psf_shapes_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">psf_shapes</span><span class="p">)</span>
@@ -953,10 +962,10 @@
 <span class="sd">    verbose: bool</span>
 <span class="sd">        Verbose mode.</span>
 <span class="sd">        Default is ``True``.</span>
-<span class="sd">    loc2glob: class</span>
+<span class="sd">    loc2glob: object</span>
 <span class="sd">        The object that allows to do the coordinate conversion from local to</span>
 <span class="sd">        global. It is specific for each instrument's focal plane geometry.</span>
-<span class="sd">        Default is ``None`` that uses the CFIS MegaCam geometry.</span>
+<span class="sd">        Default is ``None`` that uses the CFIS MegaCam's geometry.</span>
 <span class="sd">    fits_tb_pos: int</span>
 <span class="sd">        Position in the fits file of the useful table.</span>
 <span class="sd">        Default is ``2`` that is the default for CFIS fits files.</span>
@@ -967,10 +976,13 @@
 <span class="sd">        An instance of ``MccdInputs`` class used for the input preprocessing.</span>
 
 <span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">loc2glob</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
+
     <span class="n">mccd_star_nb</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="k">if</span> <span class="n">CCD_id_filter_list</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">CCD_id_filter_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+        <span class="n">CCD_id_filter_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">ccd_tot</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">CCD_id_filter_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">CCD_id_filter_list</span><span class="p">)</span>
 
@@ -1229,6 +1241,9 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">has_option</span><span class="p">(</span><span class="s1">'INSTANCE'</span><span class="p">,</span> <span class="s1">'RMSE_THRESH'</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'INSTANCE'</span><span class="p">,</span> <span class="s1">'RMSE_THRESH'</span><span class="p">,</span> <span class="s1">'1.25'</span><span class="p">)</span>
 
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">has_option</span><span class="p">(</span><span class="s1">'INSTANCE'</span><span class="p">,</span> <span class="s1">'FP_GEOMETRY'</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'INSTANCE'</span><span class="p">,</span> <span class="s1">'FP_GEOMETRY'</span><span class="p">,</span> <span class="s1">'CFIS'</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">_set_fit_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""Set Fit Options.</span>
 
@@ -1365,17 +1380,21 @@
                 <span class="n">min_d_comp_glob</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">'INSTANCE'</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'MIN_D_COMP_GLOB'</span><span class="p">))</span>
 
+            <span class="n">fp_geometry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">'INSTANCE'</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'FP_GEOMETRY'</span><span class="p">)</span>
+
             <span class="c1"># Build the parameter dictionaries</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">mccd_inst_kw</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'n_comp_loc'</span><span class="p">:</span> <span class="n">n_comp_loc</span><span class="p">,</span>
-                                 <span class="s1">'d_comp_glob'</span><span class="p">:</span> <span class="n">d_comp_glob</span><span class="p">,</span>
-                                 <span class="s1">'d_hyb_loc'</span><span class="p">:</span> <span class="n">d_hyb_loc</span><span class="p">,</span>
-                                 <span class="s1">'min_d_comp_glob'</span><span class="p">:</span> <span class="n">min_d_comp_glob</span><span class="p">,</span>
-                                 <span class="s1">'filters'</span><span class="p">:</span> <span class="n">filters</span><span class="p">,</span>
-                                 <span class="s1">'ksig_loc'</span><span class="p">:</span> <span class="n">ksig_loc</span><span class="p">,</span>
-                                 <span class="s1">'ksig_glob'</span><span class="p">:</span> <span class="n">ksig_glob</span><span class="p">,</span>
-                                 <span class="s1">'rmse_thresh'</span><span class="p">:</span> <span class="n">rmse_thresh</span><span class="p">,</span>
-                                 <span class="s1">'ccd_star_thresh'</span><span class="p">:</span> <span class="n">ccd_star_thresh</span>
-                                 <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mccd_inst_kw</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">'n_comp_loc'</span><span class="p">:</span> <span class="n">n_comp_loc</span><span class="p">,</span>
+                <span class="s1">'d_comp_glob'</span><span class="p">:</span> <span class="n">d_comp_glob</span><span class="p">,</span>
+                <span class="s1">'d_hyb_loc'</span><span class="p">:</span> <span class="n">d_hyb_loc</span><span class="p">,</span>
+                <span class="s1">'min_d_comp_glob'</span><span class="p">:</span> <span class="n">min_d_comp_glob</span><span class="p">,</span>
+                <span class="s1">'filters'</span><span class="p">:</span> <span class="n">filters</span><span class="p">,</span>
+                <span class="s1">'ksig_loc'</span><span class="p">:</span> <span class="n">ksig_loc</span><span class="p">,</span>
+                <span class="s1">'ksig_glob'</span><span class="p">:</span> <span class="n">ksig_glob</span><span class="p">,</span>
+                <span class="s1">'rmse_thresh'</span><span class="p">:</span> <span class="n">rmse_thresh</span><span class="p">,</span>
+                <span class="s1">'ccd_star_thresh'</span><span class="p">:</span> <span class="n">ccd_star_thresh</span><span class="p">,</span>
+                <span class="s1">'fp_geometry'</span><span class="p">:</span> <span class="n">fp_geometry</span>
+            <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">_build_fit_kw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Build ``FIT`` parameter dictionary."""</span>
@@ -1396,17 +1415,19 @@
             <span class="n">loc_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">'FIT'</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LOC_MODEL'</span><span class="p">)</span>
 
             <span class="c1"># Build the parameter dictionaries</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">mccd_fit_kw</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'psf_size'</span><span class="p">:</span> <span class="n">psf_size</span><span class="p">,</span>
-                                <span class="s1">'psf_size_type'</span><span class="p">:</span> <span class="n">psf_size_type</span><span class="p">,</span>
-                                <span class="s1">'n_eigenvects'</span><span class="p">:</span> <span class="n">n_eigenvects</span><span class="p">,</span>
-                                <span class="s1">'nb_iter'</span><span class="p">:</span> <span class="n">n_iter_rca</span><span class="p">,</span>
-                                <span class="s1">'nb_iter_glob'</span><span class="p">:</span> <span class="n">nb_iter_glob</span><span class="p">,</span>
-                                <span class="s1">'nb_iter_loc'</span><span class="p">:</span> <span class="n">nb_iter_loc</span><span class="p">,</span>
-                                <span class="s1">'nb_subiter_S_loc'</span><span class="p">:</span> <span class="n">nb_subit_S_loc</span><span class="p">,</span>
-                                <span class="s1">'nb_subiter_A_loc'</span><span class="p">:</span> <span class="n">nb_subit_A_loc</span><span class="p">,</span>
-                                <span class="s1">'nb_subiter_S_glob'</span><span class="p">:</span> <span class="n">nb_subit_S_glob</span><span class="p">,</span>
-                                <span class="s1">'nb_subiter_A_glob'</span><span class="p">:</span> <span class="n">nb_subit_A_glob</span><span class="p">,</span>
-                                <span class="s1">'loc_model'</span><span class="p">:</span> <span class="n">loc_model</span><span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mccd_fit_kw</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">'psf_size'</span><span class="p">:</span> <span class="n">psf_size</span><span class="p">,</span>
+                <span class="s1">'psf_size_type'</span><span class="p">:</span> <span class="n">psf_size_type</span><span class="p">,</span>
+                <span class="s1">'n_eigenvects'</span><span class="p">:</span> <span class="n">n_eigenvects</span><span class="p">,</span>
+                <span class="s1">'nb_iter'</span><span class="p">:</span> <span class="n">n_iter_rca</span><span class="p">,</span>
+                <span class="s1">'nb_iter_glob'</span><span class="p">:</span> <span class="n">nb_iter_glob</span><span class="p">,</span>
+                <span class="s1">'nb_iter_loc'</span><span class="p">:</span> <span class="n">nb_iter_loc</span><span class="p">,</span>
+                <span class="s1">'nb_subiter_S_loc'</span><span class="p">:</span> <span class="n">nb_subit_S_loc</span><span class="p">,</span>
+                <span class="s1">'nb_subiter_A_loc'</span><span class="p">:</span> <span class="n">nb_subit_A_loc</span><span class="p">,</span>
+                <span class="s1">'nb_subiter_S_glob'</span><span class="p">:</span> <span class="n">nb_subit_S_glob</span><span class="p">,</span>
+                <span class="s1">'nb_subiter_A_glob'</span><span class="p">:</span> <span class="n">nb_subit_A_glob</span><span class="p">,</span>
+                <span class="s1">'loc_model'</span><span class="p">:</span> <span class="n">loc_model</span>
+            <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">_build_inputs_kw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Build ``INPUTS`` parameter dictionary."""</span>
@@ -1429,14 +1450,16 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">'USE_SNR_WEIGHTS should be True or False.'</span><span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">mccd_inputs_kw</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'input_folder_path'</span><span class="p">:</span> <span class="n">input_folder_path</span><span class="p">,</span>
-                                   <span class="s1">'output_path'</span><span class="p">:</span> <span class="n">output_path</span><span class="p">,</span>
-                                   <span class="s1">'min_n_stars'</span><span class="p">:</span> <span class="n">min_n_stars</span><span class="p">,</span>
-                                   <span class="s1">'file_pattern'</span><span class="p">:</span> <span class="n">file_pattern</span><span class="p">,</span>
-                                   <span class="s1">'separator'</span><span class="p">:</span> <span class="n">separator</span><span class="p">,</span>
-                                   <span class="s1">'outlier_std_max'</span><span class="p">:</span> <span class="n">outlier_std_max</span><span class="p">,</span>
-                                   <span class="s1">'save_name'</span><span class="p">:</span> <span class="s1">'train_star_selection'</span><span class="p">,</span>
-                                   <span class="s1">'save_extension'</span><span class="p">:</span> <span class="s1">'.fits'</span><span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mccd_inputs_kw</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">'input_folder_path'</span><span class="p">:</span> <span class="n">input_folder_path</span><span class="p">,</span>
+                <span class="s1">'output_path'</span><span class="p">:</span> <span class="n">output_path</span><span class="p">,</span>
+                <span class="s1">'min_n_stars'</span><span class="p">:</span> <span class="n">min_n_stars</span><span class="p">,</span>
+                <span class="s1">'file_pattern'</span><span class="p">:</span> <span class="n">file_pattern</span><span class="p">,</span>
+                <span class="s1">'separator'</span><span class="p">:</span> <span class="n">separator</span><span class="p">,</span>
+                <span class="s1">'outlier_std_max'</span><span class="p">:</span> <span class="n">outlier_std_max</span><span class="p">,</span>
+                <span class="s1">'save_name'</span><span class="p">:</span> <span class="s1">'train_star_selection'</span><span class="p">,</span>
+                <span class="s1">'save_extension'</span><span class="p">:</span> <span class="s1">'.fits'</span>
+            <span class="p">}</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">mccd_extra_kw</span><span class="p">[</span><span class="s1">'use_SNR_weight'</span><span class="p">]</span> <span class="o">=</span> <span class="n">use_SNR_weight</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mccd_extra_kw</span><span class="p">[</span><span class="s1">'output_dir'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">'INPUTS'</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
@@ -1493,7 +1516,8 @@
                 <span class="s1">'separator'</span><span class="p">:</span> <span class="n">val_separator</span><span class="p">,</span>
                 <span class="s1">'outlier_std_max'</span><span class="p">:</span> <span class="n">outlier_std_max</span><span class="p">,</span>
                 <span class="s1">'save_name'</span><span class="p">:</span> <span class="s1">'test_star_selection'</span><span class="p">,</span>
-                <span class="s1">'save_extension'</span><span class="p">:</span> <span class="s1">'.fits'</span><span class="p">}</span>
+                <span class="s1">'save_extension'</span><span class="p">:</span> <span class="s1">'.fits'</span>
+            <span class="p">}</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">mccd_extra_kw</span><span class="p">[</span><span class="s1">'val_model_input_dir'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span>
                 <span class="s1">'VALIDATION'</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'VAL_MODEL_INPUT_DIR'</span><span class="p">)</span>
@@ -1604,10 +1628,16 @@
 <span class="sd">    Missing:</span>
 <span class="sd">    - Method including the validation.</span>
 <span class="sd">    - Erase the preprocessed files (?)</span>
+<span class="sd">    - Handling different geometries</span>
 
 <span class="sd">    """</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_file_path</span><span class="p">,</span> <span class="n">fits_table_pos</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">config_file_path</span><span class="p">,</span>
+        <span class="n">fits_table_pos</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Initialize class."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config_file_path</span> <span class="o">=</span> <span class="n">config_file_path</span>
 
@@ -1639,6 +1669,17 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
 
+        <span class="c1"># Parse config file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse_config_file</span><span class="p">()</span>
+
+        <span class="c1"># Define geometry</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mccd_inst_kw</span><span class="p">[</span><span class="s1">'fp_geometry'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'CFIS'</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">mccd_inst_kw</span><span class="p">[</span><span class="s1">'fp_geometry'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'EUCLID'</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob_EUCLID_sim</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
 <div class="viewcode-block" id="RunMCCD.parse_config_file"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.RunMCCD.parse_config_file">[docs]</a>    <span class="k">def</span> <span class="nf">parse_config_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Parse configuration file and recover parameters."""</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">parsed_parameters</span><span class="p">:</span>
@@ -1660,14 +1701,20 @@
         <span class="sa">r</span><span class="sd">"""Preprocess the input data."""</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">parsed_parameters</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parse_config_file</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mccd_inputs</span> <span class="o">=</span> <span class="n">mccd_preprocessing</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">mccd_inputs_kw</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mccd_inputs</span> <span class="o">=</span> <span class="n">mccd_preprocessing</span><span class="p">(</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">mccd_inputs_kw</span><span class="p">,</span>
+            <span class="n">fits_tb_pos</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_table_pos</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">catalog_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mccd_inputs</span><span class="o">.</span><span class="n">get_catalog_ids</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="RunMCCD.preprocess_val_inputs"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.RunMCCD.preprocess_val_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess_val_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Preprocess validation input data."""</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">parsed_parameters</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parse_config_file</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">val_mccd_inputs</span> <span class="o">=</span> <span class="n">mccd_preprocessing</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">mccd_val_prepro_kw</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val_mccd_inputs</span> <span class="o">=</span> <span class="n">mccd_preprocessing</span><span class="p">(</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">mccd_val_prepro_kw</span><span class="p">,</span>
+            <span class="n">fits_tb_pos</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_table_pos</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">val_catalog_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">val_mccd_inputs</span><span class="o">.</span><span class="n">get_catalog_ids</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="RunMCCD.fit_models"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.RunMCCD.fit_models">[docs]</a>    <span class="k">def</span> <span class="nf">fit_models</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1694,16 +1741,17 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s1">'File </span><span class="si">{}</span><span class="s1"> not found.'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">input_path</span><span class="p">))</span>
 
-            <span class="n">mccd_fit</span><span class="p">(</span><span class="n">starcat</span><span class="p">,</span>
-                     <span class="bp">self</span><span class="o">.</span><span class="n">mccd_inst_kw</span><span class="p">,</span>
-                     <span class="bp">self</span><span class="o">.</span><span class="n">mccd_fit_kw</span><span class="p">,</span>
-                     <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span>
-                     <span class="n">catalog_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">cat_id</span><span class="p">),</span>
-                     <span class="n">sex_thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">,</span>
-                     <span class="n">use_SNR_weight</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">use_SNR_weight</span><span class="p">,</span>
-                     <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
-                     <span class="n">saving_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fitting_model_saving_name</span> <span class="o">+</span>
-                     <span class="bp">self</span><span class="o">.</span><span class="n">separator</span><span class="p">)</span></div>
+            <span class="n">mccd_fit</span><span class="p">(</span>
+                <span class="n">starcat</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">mccd_inst_kw</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">mccd_fit_kw</span><span class="p">,</span>
+                <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span>
+                <span class="n">catalog_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">cat_id</span><span class="p">),</span>
+                <span class="n">sex_thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">,</span>
+                <span class="n">use_SNR_weight</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">use_SNR_weight</span><span class="p">,</span>
+                <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
+                <span class="n">saving_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fitting_model_saving_name</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">separator</span>
+            <span class="p">)</span></div>
 
 <div class="viewcode-block" id="RunMCCD.validate_models"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.RunMCCD.validate_models">[docs]</a>    <span class="k">def</span> <span class="nf">validate_models</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Validate MCCD models."""</span>
@@ -1743,10 +1791,13 @@
 
                 <span class="n">testcat</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">input_val_path</span><span class="p">)[</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_table_pos</span><span class="p">]</span>
 
-                <span class="n">val_dict</span> <span class="o">=</span> <span class="n">mccd_validation</span><span class="p">(</span><span class="n">fit_model_path</span><span class="p">,</span>
-                                           <span class="n">testcat</span><span class="p">,</span>
-                                           <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">mccd_val_kw</span><span class="p">,</span>
-                                           <span class="n">sex_thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">)</span>
+                <span class="n">val_dict</span> <span class="o">=</span> <span class="n">mccd_validation</span><span class="p">(</span>
+                    <span class="n">fit_model_path</span><span class="p">,</span>
+                    <span class="n">testcat</span><span class="p">,</span>
+                    <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">mccd_val_kw</span><span class="p">,</span>
+                    <span class="n">sex_thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">,</span>
+                    <span class="n">loc2glob</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span>
+                <span class="p">)</span>
 
                 <span class="n">saving_path</span> <span class="o">=</span> <span class="n">val_output_dir</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">val_saving_name</span> <span class="o">+</span> \
                     <span class="n">separator</span> <span class="o">+</span> <span class="n">cat_id</span> <span class="o">+</span> <span class="n">save_extension</span>
@@ -1781,8 +1832,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_val_inputs</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">validate_models</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="RunMCCD.recover_MCCD_PSFs"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.RunMCCD.recover_MCCD_PSFs">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">recover_MCCD_PSFs</span><span class="p">(</span><span class="n">mccd_model_path</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">ccd_id</span><span class="p">,</span> <span class="n">local_pos</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="RunMCCD.recover_MCCD_PSFs"><a class="viewcode-back" href="../../mccd.auxiliary_fun.html#mccd.auxiliary_fun.RunMCCD.recover_MCCD_PSFs">[docs]</a>    <span class="k">def</span> <span class="nf">recover_MCCD_PSFs</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">mccd_model_path</span><span class="p">,</span>
+        <span class="n">positions</span><span class="p">,</span>
+        <span class="n">ccd_id</span><span class="p">,</span>
+        <span class="n">local_pos</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Recover MCCD PSFs at required positions.</span>
 
 <span class="sd">        Parameters</span>
@@ -1822,10 +1878,14 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Parameter ccd_id should be an integer.'</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">local_pos</span><span class="p">:</span>
-            <span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
             <span class="n">glob_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-                <span class="n">loc2glob</span><span class="o">.</span><span class="n">loc2glob_img_coord</span><span class="p">(</span><span class="n">ccd_id</span><span class="p">,</span> <span class="n">_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-                <span class="k">for</span> <span class="n">_pos</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">loc2glob_img_coord</span><span class="p">(</span>
+                    <span class="n">ccd_id</span><span class="p">,</span>
+                    <span class="n">_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="n">_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">_pos</span> <span class="ow">in</span> <span class="n">positions</span>
+            <span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">glob_pos</span> <span class="o">=</span> <span class="n">positions</span>
 
@@ -1837,7 +1897,7 @@
         <span class="k">return</span> <span class="n">rec_PSFs</span></div></div>
 </code></pre>
 </main>
-<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 23 Aug, 2021. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 25 Jan, 2022. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
 </div>
 <div class="sticky bottom-0 md:hidden print:hidden bg-white">
 <div class="flex justify-center items-center">

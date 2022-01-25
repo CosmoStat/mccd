@@ -196,13 +196,18 @@
 <span class="sd">    save_realisation: bool</span>
 <span class="sd">        If we need to save the exposure realisation in order to be able to</span>
 <span class="sd">        reproduce the simulation.</span>
+<span class="sd">    loc2glob: object</span>
+<span class="sd">        The object that allows to do the coordinate conversion from local to</span>
+<span class="sd">        global. It is specific for each instrument's focal plane geometry.</span>
+<span class="sd">        If is ``None`` it defaults to the CFIS MegaCam instrument.</span>
+<span class="sd">        Default is ``None``.</span>
 
 <span class="sd">    """</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e1_path</span><span class="p">,</span> <span class="n">e2_path</span><span class="p">,</span> <span class="n">size_path</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span>
                  <span class="n">image_size</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span> <span class="n">psf_flux</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">beta_psf</span><span class="o">=</span><span class="mf">4.765</span><span class="p">,</span> <span class="n">pix_scale</span><span class="o">=</span><span class="mf">0.187</span><span class="p">,</span>
                  <span class="n">catalog_id</span><span class="o">=</span><span class="mi">2086592</span><span class="p">,</span> <span class="n">n_ccd</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">range_mean_star_qt</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
                  <span class="n">range_dev_star_nb</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">max_fwhm_var</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span>
-                 <span class="n">save_realisation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">save_realisation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">loc2glob</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">atmos_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">'ngrid'</span><span class="p">:</span> <span class="mi">8192</span><span class="p">},</span> <span class="n">e1_kwargs</span><span class="o">=</span><span class="p">{},</span>
                  <span class="n">e2_kwargs</span><span class="o">=</span><span class="p">{}):</span>
         <span class="c1"># Load the paths</span>
@@ -229,12 +234,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">positions</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span> <span class="o">=</span> <span class="kc">None</span>
 
+        <span class="c1"># Define focal plane geometry</span>
+        <span class="k">if</span> <span class="n">loc2glob</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd</span><span class="o">.</span><span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">loc2glob</span>
+
         <span class="c1"># Define camera geometry</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd</span><span class="o">.</span><span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">max_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="mi">5</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">min_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">max_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">min_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_x</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_coord_range</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_y</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_coord_range</span><span class="p">()</span>
 
         <span class="c1"># Generate exposure instance</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">exposure_sim</span> <span class="o">=</span> <span class="n">mccd</span><span class="o">.</span><span class="n">dataset_generation</span><span class="o">.</span><span class="n">ExposureSimulation</span><span class="p">(</span>
@@ -511,13 +519,21 @@
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    Not used for the moment.</span>
+<span class="sd">    Hard-coded for the CFIS convention!</span>
 <span class="sd">    """</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">moment_map</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-                 <span class="n">rbf_function</span><span class="o">=</span><span class="s1">'thin_plate'</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">moment_map</span><span class="p">,</span>
+        <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="n">rbf_function</span><span class="o">=</span><span class="s1">'thin_plate'</span><span class="p">,</span>
+        <span class="n">loc2glob</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
         <span class="c1"># Save variables</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd</span><span class="o">.</span><span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">loc2glob</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd</span><span class="o">.</span><span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">loc2glob</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_neighbors</span> <span class="o">=</span> <span class="n">n_neighbors</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rbf_function</span> <span class="o">=</span> <span class="n">rbf_function</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">moment_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">moment_map</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -622,17 +638,33 @@
 <span class="sd">        Standard deviation of our realisation.</span>
 <span class="sd">    pix_scale: float</span>
 <span class="sd">        Pixel scale of our instrument. In arcsec/pixel.</span>
+<span class="sd">    loc2glob: object</span>
+<span class="sd">        The object that allows to do the coordinate conversion from local to</span>
+<span class="sd">        global. It is specific for each instrument's focal plane geometry.</span>
+<span class="sd">        If is ``None`` it defaults to the CFIS MegaCam instrument.</span>
+<span class="sd">        Default is ``None``.</span>
 
 <span class="sd">    """</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theta_zero</span><span class="o">=</span><span class="mf">3.</span> <span class="o">*</span> <span class="mi">60</span><span class="p">,</span> <span class="n">r_trunc</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">ngrid</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span>
-                 <span class="n">map_std</span><span class="o">=</span><span class="mf">0.008</span><span class="p">,</span> <span class="n">pix_scale</span><span class="o">=</span><span class="mf">0.187</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">theta_zero</span><span class="o">=</span><span class="mf">3.</span> <span class="o">*</span> <span class="mi">60</span><span class="p">,</span>
+        <span class="n">r_trunc</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+        <span class="n">ngrid</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span>
+        <span class="n">map_std</span><span class="o">=</span><span class="mf">0.008</span><span class="p">,</span>
+        <span class="n">pix_scale</span><span class="o">=</span><span class="mf">0.187</span><span class="p">,</span>
+        <span class="n">loc2glob</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
         <span class="c1"># Variables initialised</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">theta_zero</span> <span class="o">=</span> <span class="n">theta_zero</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">r_trunc</span> <span class="o">=</span> <span class="n">r_trunc</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pix_scale</span> <span class="o">=</span> <span class="n">pix_scale</span>  <span class="c1"># arcsec/pixel</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ngrid</span> <span class="o">=</span> <span class="n">ngrid</span>  <span class="c1"># 2048 # 4096 # 8192</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">map_std</span> <span class="o">=</span> <span class="n">map_std</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd</span><span class="o">.</span><span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">loc2glob</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd</span><span class="o">.</span><span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">loc2glob</span>
 
         <span class="c1"># Other variables to initialise</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">my_ps</span> <span class="o">=</span> <span class="kc">None</span>
@@ -661,10 +693,8 @@
         <span class="sa">r</span><span class="sd">""" Initialise the powerspectrum. """</span>
         <span class="c1"># We need to have the hole area of the focal plane expressed in arcsec.</span>
         <span class="c1"># Get the maximum values for the global positions (in pixels])</span>
-        <span class="n">max_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="mi">5</span>
-        <span class="n">min_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
-        <span class="n">max_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="mi">1</span>
-        <span class="n">min_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_coord_range</span><span class="p">()</span>
+        <span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_coord_range</span><span class="p">()</span>
 
         <span class="c1"># Max absolute value in pixels</span>
         <span class="c1"># This gives us the maximum value of a square [-max_val, max_val]^2</span>
@@ -814,7 +844,8 @@
             <span class="n">kmax_factor</span><span class="o">=</span><span class="n">kmax_factor</span><span class="p">,</span>
             <span class="n">kmin_factor</span><span class="o">=</span><span class="n">kmin_factor</span><span class="p">,</span>
             <span class="n">n_theta</span><span class="o">=</span><span class="n">n_points</span><span class="p">,</span>
-            <span class="n">bandlimit</span><span class="o">=</span><span class="s1">'hard'</span><span class="p">)</span>
+            <span class="n">bandlimit</span><span class="o">=</span><span class="s1">'hard'</span>
+        <span class="p">)</span>
 
         <span class="c1"># Convert theta to arcmin</span>
         <span class="n">theta_amin</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">/</span> <span class="mi">60</span>
@@ -852,6 +883,11 @@
 <span class="sd">    fwhm_range: [float, float]</span>
 <span class="sd">        The range for the possible fwhm. Units in arcsec.</span>
 <span class="sd">        Default for CFIS data.</span>
+<span class="sd">    loc2glob: object</span>
+<span class="sd">        The object that allows to do the coordinate conversion from local to</span>
+<span class="sd">        global. It is specific for each instrument's focal plane geometry.</span>
+<span class="sd">        If is ``None`` it defaults to the CFIS MegaCam instrument.</span>
+<span class="sd">        Default is ``None``.</span>
 <span class="sd">    atmos_kwargs: dict</span>
 <span class="sd">        Atmosphere arguments.</span>
 <span class="sd">    e1_kwargs: dict</span>
@@ -860,9 +896,17 @@
 <span class="sd">        e2 interpolator arguments.</span>
 
 <span class="sd">    """</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e1_bin_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">e2_bin_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fwhm_dist_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">fwhm_range</span><span class="o">=</span><span class="p">[</span><span class="mf">0.45</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="n">atmos_kwargs</span><span class="o">=</span><span class="p">{},</span> <span class="n">e1_kwargs</span><span class="o">=</span><span class="p">{},</span>
-                 <span class="n">e2_kwargs</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">e1_bin_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">e2_bin_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">fwhm_dist_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">fwhm_range</span><span class="o">=</span><span class="p">[</span><span class="mf">0.45</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span>
+        <span class="n">loc2glob</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">atmos_kwargs</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">e1_kwargs</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">e2_kwargs</span><span class="o">=</span><span class="p">{}</span>
+    <span class="p">):</span>
         <span class="c1"># Variables</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">atmos_kwargs</span> <span class="o">=</span> <span class="n">atmos_kwargs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">e1_kwargs</span> <span class="o">=</span> <span class="n">e1_kwargs</span>
@@ -871,6 +915,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">e2_bin_path</span> <span class="o">=</span> <span class="n">e2_bin_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fwhm_dist_path</span> <span class="o">=</span> <span class="n">fwhm_dist_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fwhm_range</span> <span class="o">=</span> <span class="n">fwhm_range</span>
+
+        <span class="k">if</span> <span class="n">loc2glob</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd</span><span class="o">.</span><span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">loc2glob</span>
 
         <span class="c1"># Variables to init</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">atmosphere</span> <span class="o">=</span> <span class="kc">None</span>
@@ -892,17 +941,25 @@
         <span class="sa">r</span><span class="sd">""" Initialise exposure variables. """</span>
         <span class="c1"># Generate atmosphere</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">atmosphere</span> <span class="o">=</span> <span class="n">mccd</span><span class="o">.</span><span class="n">dataset_generation</span><span class="o">.</span><span class="n">AtmosphereGenerator</span><span class="p">(</span>
-            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">atmos_kwargs</span><span class="p">)</span>
+            <span class="n">loc2glob</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="p">,</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">atmos_kwargs</span>
+        <span class="p">)</span>
 
         <span class="c1"># Generate e1 interpolator</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">e1_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">e1_bin_path</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">e1_interp</span> <span class="o">=</span> <span class="n">mccd</span><span class="o">.</span><span class="n">dataset_generation</span><span class="o">.</span><span class="n">MomentInterpolator</span><span class="p">(</span>
-            <span class="n">moment_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">e1_bins</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">e1_kwargs</span><span class="p">)</span>
+            <span class="n">moment_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">e1_bins</span><span class="p">,</span>
+            <span class="n">loc2glob</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="p">,</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">e1_kwargs</span>
+        <span class="p">)</span>
 
         <span class="c1"># Generate e2 interpolator</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">e2_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">e2_bin_path</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">e2_interp</span> <span class="o">=</span> <span class="n">mccd</span><span class="o">.</span><span class="n">dataset_generation</span><span class="o">.</span><span class="n">MomentInterpolator</span><span class="p">(</span>
-            <span class="n">moment_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">e2_bins</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">e2_kwargs</span><span class="p">)</span>
+            <span class="n">moment_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">e2_bins</span><span class="p">,</span>
+            <span class="n">loc2glob</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="p">,</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">e2_kwargs</span>
+        <span class="p">)</span>
 
         <span class="c1"># Sample the mean size from the size distribution</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fwhm_dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fwhm_dist_path</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)[()]</span>
@@ -1376,7 +1433,7 @@
         <span class="k">return</span> <span class="n">mask</span></div></div>
 </code></pre>
 </main>
-<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 23 Aug, 2021. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 25 Jan, 2022. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
 </div>
 <div class="sticky bottom-0 md:hidden print:hidden bg-white">
 <div class="flex justify-center items-center">

@@ -119,6 +119,9 @@
 <span class="sd">    y_npix: int</span>
 <span class="sd">        Number of pixels on one CCD on the vertical direction.</span>
 <span class="sd">        Default to ``4612`` (CFIS value).</span>
+<span class="sd">    ccd_tot: int</span>
+<span class="sd">        Total number of CCDs.</span>
+<span class="sd">        Default to ``40`` (CFIS value).</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
@@ -144,12 +147,20 @@
 <span class="sd">        'COMMENT    __________________________'</span>
 <span class="sd">    """</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_gap</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">y_gap</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">x_npix</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">y_npix</span><span class="o">=</span><span class="mi">4612</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">x_gap</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span>
+        <span class="n">y_gap</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span>
+        <span class="n">x_npix</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span>
+        <span class="n">y_npix</span><span class="o">=</span><span class="mi">4612</span><span class="p">,</span>
+        <span class="n">ccd_tot</span><span class="o">=</span><span class="mi">40</span>
+    <span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Initialize with instrument geometry."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">=</span> <span class="n">x_gap</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">=</span> <span class="n">y_gap</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">=</span> <span class="n">x_npix</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">=</span> <span class="n">y_npix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ccd_tot</span> <span class="o">=</span> <span class="n">ccd_tot</span>
 
 <div class="viewcode-block" id="Loc2Glob.loc2glob_img_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob.loc2glob_img_coord">[docs]</a>    <span class="k">def</span> <span class="nf">loc2glob_img_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Go from the local to the global img (pixel) coordinate system.</span>
@@ -284,6 +295,9 @@
 <span class="sd">        Number of pixels on one CCD on the horizontal direction.</span>
 <span class="sd">    y_npix: int (float)</span>
 <span class="sd">        Number of pixels on one CCD on the vertical direction.</span>
+<span class="sd">    ccd_tot: int</span>
+<span class="sd">        Total number of CCDs.</span>
+<span class="sd">        Default to ``36`` (Euclid value).</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
@@ -307,12 +321,13 @@
 <span class="sd">        'COMMENT   ________________________'</span>
 <span class="sd">    """</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_gap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_gap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_npix</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">y_npix</span><span class="o">=</span><span class="mi">4096</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_gap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_gap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_npix</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">y_npix</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">ccd_tot</span><span class="o">=</span><span class="mi">36</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Initialize with instrument geometry."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">=</span> <span class="n">x_gap</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">=</span> <span class="n">y_gap</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">=</span> <span class="n">x_npix</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">=</span> <span class="n">y_npix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ccd_tot</span> <span class="o">=</span> <span class="n">ccd_tot</span>
 
 <div class="viewcode-block" id="Loc2Glob_EUCLID_sim.loc2glob_img_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.loc2glob_img_coord">[docs]</a>    <span class="k">def</span> <span class="nf">loc2glob_img_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Go from the local to the global img (pixel) coordinate system.</span>
@@ -1119,7 +1134,7 @@
     <span class="k">return</span> <span class="n">values</span><span class="p">,</span> <span class="n">positions</span></div>
 
 
-<div class="viewcode-block" id="interpolation_Pi"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.interpolation_Pi">[docs]</a><span class="k">def</span> <span class="nf">interpolation_Pi</span><span class="p">(</span><span class="n">position_list</span><span class="p">,</span> <span class="n">d_comp_glob</span><span class="p">):</span>
+<div class="viewcode-block" id="interpolation_Pi"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.interpolation_Pi">[docs]</a><span class="k">def</span> <span class="nf">interpolation_Pi</span><span class="p">(</span><span class="n">position_list</span><span class="p">,</span> <span class="n">d_comp_glob</span><span class="p">,</span> <span class="n">loc2glob</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">"""Create polynomial interpolation Pi matrix.</span>
 
 <span class="sd">    Create a Pi matrix list that will be used for the interpolation</span>
@@ -1131,6 +1146,10 @@
 <span class="sd">        List containing the all the positions of the training stars.</span>
 <span class="sd">    d_comp_glob: int</span>
 <span class="sd">        Maximum polynomial degree to be used for the Pi matrix construction.</span>
+<span class="sd">    loc2glob: object</span>
+<span class="sd">        The object that allows to do the coordinate conversion from local to</span>
+<span class="sd">        global. It is specific for each instrument's focal plane geometry.</span>
+<span class="sd">        If is ``None`` it defaults to the CFIS MegaCam instrument.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -1143,11 +1162,13 @@
 
     <span class="c1"># Calculate max and min values of global coordinate system</span>
     <span class="c1"># This configuration is specific for CFIS MegaCam configuration</span>
-    <span class="n">loc2glob</span> <span class="o">=</span> <span class="n">Loc2Glob</span><span class="p">()</span>
-    <span class="n">max_x</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="mi">5</span>
-    <span class="n">min_x</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
-    <span class="n">max_y</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="mi">1</span>
-    <span class="n">min_y</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">loc2glob</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">loc2glob</span> <span class="o">=</span> <span class="n">Loc2Glob</span><span class="p">()</span>
+
+    <span class="c1"># Calculate max and min values of global coordinate system</span>
+    <span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_coord_range</span><span class="p">()</span>
+    <span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_coord_range</span><span class="p">()</span>
 
     <span class="n">interp_Pi</span> <span class="o">=</span> <span class="p">[</span><span class="n">utils</span><span class="o">.</span><span class="n">poly_pos</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">interp_pos</span><span class="p">,</span> <span class="n">max_degree</span><span class="o">=</span><span class="n">d_comp_glob</span><span class="p">,</span>
                                 <span class="n">center_normalice</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -1251,7 +1272,7 @@
         <span class="k">return</span> <span class="n">filters</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
 </code></pre>
 </main>
-<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 23 Aug, 2021. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 25 Jan, 2022. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
 </div>
 <div class="sticky bottom-0 md:hidden print:hidden bg-white">
 <div class="flex justify-center items-center">

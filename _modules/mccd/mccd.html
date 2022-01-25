@@ -203,12 +203,18 @@
 <span class="sd">        If verbose is set to 2, will run ModOpt's optimization</span>
 <span class="sd">        algorithms in verbose mode.</span>
 <span class="sd">        Default to ``2``.</span>
+<span class="sd">    fp_geometry: str</span>
+<span class="sd">        Geometry of the focal plane. It defines the transformations to use</span>
+<span class="sd">        to go from local to global coordinates.</span>
+<span class="sd">        Default is ``CFIS``.</span>
+<span class="sd">        Available options are ``CFIS``, ``EUCLID``.</span>
 <span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_comp_loc</span><span class="p">,</span> <span class="n">d_comp_glob</span><span class="p">,</span> <span class="n">d_hyb_loc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                  <span class="n">min_d_comp_glob</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upfact</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ksig_loc</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
                  <span class="n">ksig_glob</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">rmse_thresh</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span> <span class="n">ccd_star_thresh</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span>
-                 <span class="n">n_scales</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ksig_init</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+                 <span class="n">n_scales</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ksig_init</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="n">fp_geometry</span><span class="o">=</span><span class="s1">'CFIS'</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""General parameter initialisations."""</span>
         <span class="c1"># Main model paramters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span> <span class="o">=</span> <span class="n">n_comp_loc</span>
@@ -230,6 +236,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ksig_glob</span> <span class="o">=</span> <span class="n">ksig_glob</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ksig_init</span> <span class="o">=</span> <span class="n">ksig_init</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iter_outputs</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Focal plane geometry</span>
+        <span class="c1"># This configuration is specific for CFIS MegaCam configuration</span>
+        <span class="k">if</span> <span class="n">fp_geometry</span> <span class="o">==</span> <span class="s1">'CFIS'</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">fp_geometry</span> <span class="o">==</span> <span class="s1">'EUCLID'</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob_EUCLID_sim</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
         <span class="c1"># Outlier rejection parameters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ccd_star_thresh</span> <span class="o">=</span> <span class="n">ccd_star_thresh</span>
@@ -718,6 +733,10 @@
                 <span class="p">[</span><span class="n">moms</span><span class="o">.</span><span class="n">moments_sigma</span> <span class="k">for</span> <span class="n">moms</span> <span class="ow">in</span> <span class="n">star_moms</span><span class="p">[</span><span class="n">k</span><span class="p">]])</span>
                 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
 
+            <span class="c1"># Replace failed measurements by the guess size</span>
+            <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">[</span><span class="n">it</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">psf_size</span>
+
         <span class="c1"># Initialize noise levels</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">transf_data</span> <span class="o">=</span> <span class="p">[</span>
@@ -808,12 +827,8 @@
 <span class="sd">        Normalization of the polynomials is being done here.</span>
 <span class="sd">        """</span>
         <span class="c1"># Calculate max and min values of global coordinate system</span>
-        <span class="c1"># This configuration is specific for CFIS MegaCam configuration</span>
-        <span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
-        <span class="n">max_x</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="mi">5</span>
-        <span class="n">min_x</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
-        <span class="n">max_y</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="mi">1</span>
-        <span class="n">min_y</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_coord_range</span><span class="p">()</span>
+        <span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_coord_range</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">Pi</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">utils</span><span class="o">.</span><span class="n">poly_pos</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">max_degree</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">d_comp_glob</span><span class="p">,</span>
@@ -1717,7 +1732,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A_glob_weights</span><span class="p">)</span></div>
 </code></pre>
 </main>
-<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 23 Aug, 2021. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 25 Jan, 2022. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
 </div>
 <div class="sticky bottom-0 md:hidden print:hidden bg-white">
 <div class="flex justify-center items-center">
