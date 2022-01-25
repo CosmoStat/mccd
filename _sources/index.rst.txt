@@ -5,8 +5,8 @@ MCCD Documentation
 .. include:: toc.rst
 
 :Author: |link-to-author| `(tobiasliaudat@gmail.com) <tobiasliaudat@gmail.com>`_
-:Version: 1.1.1
-:Release Date: 17/07/2021
+:Version: 1.2.1
+:Release Date: 25/01/2022
 :Repository: |link-to-repo|
 
 .. |link-to-repo| raw:: html
