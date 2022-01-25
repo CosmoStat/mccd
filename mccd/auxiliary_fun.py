@@ -767,23 +767,38 @@ def mccd_validation(mccd_model_path, testcat, apply_degradation=True,
         matched_psfs = PSF_list[it]
 
         # Stars
-        star_moms = [gs.hsm.FindAdaptiveMom(
-            gs.Image(star), badpix=gs.Image(bp), strict=False)
+        star_moms = [
+            gs.hsm.FindAdaptiveMom(
+                gs.Image(star),
+                badpix=gs.Image(bp),
+                strict=False
+            )
             for star, bp in
-            zip(utils.reg_format(test_stars), utils.reg_format(badpix_mask))]
-        star_shapes = np.array([[moms.observed_shape.g1,
-                                 moms.observed_shape.g2,
-                                 moms.moments_sigma,
-                                 int(bool(moms.error_message))]
-                                for moms in star_moms])
+            zip(utils.reg_format(test_stars), utils.reg_format(badpix_mask))
+        ]
+        star_shapes = np.array([
+            [
+                moms.observed_shape.g1,
+                moms.observed_shape.g2,
+                moms.moments_sigma,
+                int(bool(moms.error_message))
+            ]
+            for moms in star_moms
+        ])
         # PSFs
-        psf_moms = [gs.hsm.FindAdaptiveMom(gs.Image(psf), strict=False)
-                    for psf in utils.reg_format(matched_psfs)]
-        psf_shapes = np.array([[moms.observed_shape.g1,
-                                moms.observed_shape.g2,
-                                moms.moments_sigma,
-                                int(bool(moms.error_message))]
-                               for moms in psf_moms])
+        psf_moms = [
+            gs.hsm.FindAdaptiveMom(gs.Image(psf), strict=False)
+            for psf in utils.reg_format(matched_psfs)
+        ]
+        psf_shapes = np.array([
+            [
+                moms.observed_shape.g1,
+                moms.observed_shape.g2,
+                moms.moments_sigma,
+                int(bool(moms.error_message))
+            ]
+            for moms in psf_moms
+        ])
 
         star_shapes_list.append(star_shapes)
         psf_shapes_list.append(psf_shapes)
