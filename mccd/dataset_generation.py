@@ -178,8 +178,8 @@ class GenerateRealisticDataset(object):
             self.loc2glob = loc2glob
 
         # Define camera geometry
-        self.min_x, self.max_x = loc2glob.x_coord_range()
-        self.min_y, self.max_y = loc2glob.y_coord_range()
+        self.min_x, self.max_x = self.loc2glob.x_coord_range()
+        self.min_y, self.max_y = self.loc2glob.y_coord_range()
 
         # Generate exposure instance
         self.exposure_sim = mccd.dataset_generation.ExposureSimulation(
