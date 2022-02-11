@@ -484,29 +484,22 @@ class MomentInterpolator(object):
         self.bin_x = self.x_pix / self.x_grid
         self.bin_y = self.y_pix / self.y_grid
 
-        # Correct MegaCam origin conventions
-        for ccd_it in range(self.n_ccd):
-            for it_x in range(self.x_grid):
-                for it_y in range(self.y_grid):
-
-                    if ccd_it < 18 or ccd_it in [36, 37]:
-                        # swap x axis so origin is on top-right
-                        x = it_x
-                        y = it_y
-
-                    else:
-                        # swap y axis so origin is on bottom-left
-                        x = self.x_grid - it_x - 1
-                        y = self.y_grid - it_y - 1
-
-                    self.moment_map[ccd_it, x, y] = moment_map[ccd_it, it_x,
-                                                               it_y]
+        # Shift the y-axis
+        for it_y in range(self.y_grid):
+            y = self.y_grid - it_y - 1
+            self.moment_map[:, :, y] = moment_map[:, :, it_y]
 
         # Generate local generic grid
-        x_lin = np.linspace(start=self.bin_x / 2,
-                            stop=self.x_pix - self.bin_x / 2, num=self.x_grid)
-        y_lin = np.linspace(start=self.bin_y / 2,
-                            stop=self.y_pix - self.bin_y / 2, num=self.y_grid)
+        x_lin = np.linspace(
+            start=self.bin_x / 2,
+            stop=self.x_pix - self.bin_x / 2,
+            num=self.x_grid
+        )
+        y_lin = np.linspace(
+            start=self.bin_y / 2,
+            stop=self.y_pix - self.bin_y / 2,
+            num=self.y_grid
+        )
         xv, yv = np.meshgrid(x_lin, y_lin, indexing='ij')
         self.xv = xv
         self.yv = yv
@@ -515,15 +508,18 @@ class MomentInterpolator(object):
         self.x_pos = np.zeros(moment_map.shape)
         self.y_pos = np.zeros(moment_map.shape)
         for ccd_it in range(self.n_ccd):
-            x_glob, y_glob = self.loc2glob.loc2glob_img_coord(
-                ccd_n=ccd_it,
-                x_coor=np.copy(self.xv.flatten()),
-                y_coor=np.copy(self.yv.flatten()))
+            x_shift, y_shift = self.loc2glob.shift_coord(ccd_it)
+            x_glob = np.copy(self.xv.flatten()) + x_shift
+            y_glob = np.copy(self.yv.flatten()) + y_shift
 
-            self.x_pos[ccd_it, :, :] = x_glob.reshape(self.x_grid,
-                                                      self.y_grid)
-            self.y_pos[ccd_it, :, :] = y_glob.reshape(self.x_grid,
-                                                      self.y_grid)
+            self.x_pos[ccd_it, :, :] = x_glob.reshape(
+                self.x_grid,
+                self.y_grid
+            )
+            self.y_pos[ccd_it, :, :] = y_glob.reshape(
+                self.x_grid,
+                self.y_grid
+            )
 
     def interpolate_position(self, target_x, target_y):
         r"""Interpolate positions."""
