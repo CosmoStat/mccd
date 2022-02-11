@@ -547,29 +547,22 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">bin_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_pix</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_grid</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bin_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_pix</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_grid</span>
 
-        <span class="c1"># Correct MegaCam origin conventions</span>
-        <span class="k">for</span> <span class="n">ccd_it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">it_x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_grid</span><span class="p">):</span>
-                <span class="k">for</span> <span class="n">it_y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_grid</span><span class="p">):</span>
-
-                    <span class="k">if</span> <span class="n">ccd_it</span> <span class="o">&lt;</span> <span class="mi">18</span> <span class="ow">or</span> <span class="n">ccd_it</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">36</span><span class="p">,</span> <span class="mi">37</span><span class="p">]:</span>
-                        <span class="c1"># swap x axis so origin is on top-right</span>
-                        <span class="n">x</span> <span class="o">=</span> <span class="n">it_x</span>
-                        <span class="n">y</span> <span class="o">=</span> <span class="n">it_y</span>
-
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="c1"># swap y axis so origin is on bottom-left</span>
-                        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_grid</span> <span class="o">-</span> <span class="n">it_x</span> <span class="o">-</span> <span class="mi">1</span>
-                        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_grid</span> <span class="o">-</span> <span class="n">it_y</span> <span class="o">-</span> <span class="mi">1</span>
-
-                    <span class="bp">self</span><span class="o">.</span><span class="n">moment_map</span><span class="p">[</span><span class="n">ccd_it</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">moment_map</span><span class="p">[</span><span class="n">ccd_it</span><span class="p">,</span> <span class="n">it_x</span><span class="p">,</span>
-                                                               <span class="n">it_y</span><span class="p">]</span>
+        <span class="c1"># Shift the y-axis</span>
+        <span class="k">for</span> <span class="n">it_y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_grid</span><span class="p">):</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_grid</span> <span class="o">-</span> <span class="n">it_y</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">moment_map</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">moment_map</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">it_y</span><span class="p">]</span>
 
         <span class="c1"># Generate local generic grid</span>
-        <span class="n">x_lin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bin_x</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
-                            <span class="n">stop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x_pix</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">bin_x</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x_grid</span><span class="p">)</span>
-        <span class="n">y_lin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bin_y</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
-                            <span class="n">stop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y_pix</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">bin_y</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y_grid</span><span class="p">)</span>
+        <span class="n">x_lin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+            <span class="n">start</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bin_x</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="n">stop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x_pix</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">bin_x</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="n">num</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x_grid</span>
+        <span class="p">)</span>
+        <span class="n">y_lin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+            <span class="n">start</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bin_y</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="n">stop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y_pix</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">bin_y</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="n">num</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y_grid</span>
+        <span class="p">)</span>
         <span class="n">xv</span><span class="p">,</span> <span class="n">yv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x_lin</span><span class="p">,</span> <span class="n">y_lin</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s1">'ij'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xv</span> <span class="o">=</span> <span class="n">xv</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">yv</span> <span class="o">=</span> <span class="n">yv</span>
@@ -578,15 +571,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">x_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">moment_map</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">moment_map</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">ccd_it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">):</span>
-            <span class="n">x_glob</span><span class="p">,</span> <span class="n">y_glob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">loc2glob_img_coord</span><span class="p">(</span>
-                <span class="n">ccd_n</span><span class="o">=</span><span class="n">ccd_it</span><span class="p">,</span>
-                <span class="n">x_coor</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xv</span><span class="o">.</span><span class="n">flatten</span><span class="p">()),</span>
-                <span class="n">y_coor</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yv</span><span class="o">.</span><span class="n">flatten</span><span class="p">()))</span>
+            <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">shift_coord</span><span class="p">(</span><span class="n">ccd_it</span><span class="p">)</span>
+            <span class="n">x_glob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xv</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span> <span class="o">+</span> <span class="n">x_shift</span>
+            <span class="n">y_glob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yv</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span> <span class="o">+</span> <span class="n">y_shift</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">x_pos</span><span class="p">[</span><span class="n">ccd_it</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">x_glob</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_grid</span><span class="p">,</span>
-                                                      <span class="bp">self</span><span class="o">.</span><span class="n">y_grid</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">y_pos</span><span class="p">[</span><span class="n">ccd_it</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">y_glob</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_grid</span><span class="p">,</span>
-                                                      <span class="bp">self</span><span class="o">.</span><span class="n">y_grid</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x_pos</span><span class="p">[</span><span class="n">ccd_it</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">x_glob</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">x_grid</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">y_grid</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y_pos</span><span class="p">[</span><span class="n">ccd_it</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">y_glob</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">x_grid</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">y_grid</span>
+            <span class="p">)</span>
 
 <div class="viewcode-block" id="MomentInterpolator.interpolate_position"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.MomentInterpolator.interpolate_position">[docs]</a>    <span class="k">def</span> <span class="nf">interpolate_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">"""Interpolate positions."""</span>
@@ -1433,7 +1429,7 @@
         <span class="k">return</span> <span class="n">mask</span></div></div>
 </code></pre>
 </main>
-<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 10 Feb, 2022. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 11 Feb, 2022. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
 </div>
 <div class="sticky bottom-0 md:hidden print:hidden bg-white">
 <div class="flex justify-center items-center">
