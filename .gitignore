@@ -1,5 +1,6 @@
 # Ignore annoying mac files
 *.DS_Store
+mccd/*.DS_Store
 
 # Ignore Python compilation
 *.pyc
