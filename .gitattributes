@@ -1,0 +1,3 @@
+# Exclude jupyter notebooks from linguist project count
+*.ipynb linguist-generated=true
+notebooks/*.ipynb linguist-generated=true
