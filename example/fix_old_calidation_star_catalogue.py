@@ -127,7 +127,7 @@ class Glob2CCD(object):
 # Starting the script
 data_dir = '/n05data/tliaudat/CFIS_shapepipe_v1/data/'
 original_cat = 'unions_shapepipe_psf_2022_v1.0.1.fits'
-new_cat = 'unions_shapepipe_psf_2022_v1.0.2.fits'
+new_cat = 'unions_shapepipe_psf_2022_v1.0.2-0000000.fits'
 
 starcat = fits.open(data_dir + original_cat, memmap=True)
 print(starcat[1].columns)
