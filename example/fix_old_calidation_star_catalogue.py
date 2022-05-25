@@ -137,7 +137,7 @@ glob2ccd = Glob2CCD(loc2glob)
 
 ccd_list = np.array([
     glob2ccd.get_ccd_n(x, y)
-    for x, y in zip(starcat[1].data['X'], starcat[1].data['X'])
+    for x, y in zip(starcat[1].data['X'], starcat[1].data['Y'])
 ])
 
 # Collect columns
