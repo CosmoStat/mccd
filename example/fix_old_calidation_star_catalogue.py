@@ -132,28 +132,34 @@ new_cat = 'unions_shapepipe_psf_2022_v1.0.2-0000000.fits'
 starcat = fits.open(data_dir + original_cat, memmap=True)
 print(starcat[1].columns)
 
+# Build a mask to remove objects with problems
+# These are objects with DEC coordinate equal to zero
+mask_good_dec = ~(starcat[1].data['DEC'] == 0.)
+
 loc2glob = mccd.mccd_utils.Loc2Glob()
 glob2ccd = Glob2CCD(loc2glob)
 
 ccd_list = np.array([
-    glob2ccd.get_ccd_n(x, y)
-    for x, y in zip(starcat[1].data['X'], starcat[1].data['Y'])
+    glob2ccd.get_ccd_n(x, y) for x, y in zip(
+        starcat[1].data['X'][mask_good_dec],
+        starcat[1].data['Y'][mask_good_dec]
+    )
 ])
 
 # Collect columns
 data = {
-    'X': starcat[1].data['X'],
-    'Y': starcat[1].data['Y'],
-    'RA': starcat[1].data['RA'],
-    'DEC': starcat[1].data['DEC'],
-    'E1_PSF_HSM': starcat[1].data['E1_PSF_HSM'],
-    'E2_PSF_HSM': starcat[1].data['E2_PSF_HSM'],
-    'SIGMA_PSF_HSM': starcat[1].data['SIGMA_PSF_HSM'],
-    'E1_STAR_HSM': starcat[1].data['E1_STAR_HSM'],
-    'E2_STAR_HSM': starcat[1].data['E2_STAR_HSM'],
-    'SIGMA_STAR_HSM': starcat[1].data['SIGMA_STAR_HSM'],
-    'FLAG_PSF_HSM': starcat[1].data['FLAG_PSF_HSM'],
-    'FLAG_STAR_HSM': starcat[1].data['FLAG_STAR_HSM'],
+    'X': starcat[1].data['X'][mask_good_dec],
+    'Y': starcat[1].data['Y'][mask_good_dec],
+    'RA': starcat[1].data['RA'][mask_good_dec],
+    'DEC': starcat[1].data['DEC'][mask_good_dec],
+    'E1_PSF_HSM': starcat[1].data['E1_PSF_HSM'][mask_good_dec],
+    'E2_PSF_HSM': starcat[1].data['E2_PSF_HSM'][mask_good_dec],
+    'SIGMA_PSF_HSM': starcat[1].data['SIGMA_PSF_HSM'][mask_good_dec],
+    'E1_STAR_HSM': starcat[1].data['E1_STAR_HSM'][mask_good_dec],
+    'E2_STAR_HSM': starcat[1].data['E2_STAR_HSM'][mask_good_dec],
+    'SIGMA_STAR_HSM': starcat[1].data['SIGMA_STAR_HSM'][mask_good_dec],
+    'FLAG_PSF_HSM': starcat[1].data['FLAG_PSF_HSM'][mask_good_dec],
+    'FLAG_STAR_HSM': starcat[1].data['FLAG_STAR_HSM'][mask_good_dec],
     'CCD_NB': ccd_list.astype(float),
 }
 
