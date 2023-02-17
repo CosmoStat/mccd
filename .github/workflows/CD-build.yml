@@ -38,7 +38,6 @@ jobs:
           python -m pip install -r develop.txt
           python -m pip install twine
           python -m pip install GalSim
-          python -m pip install pyqtgraph
           python -m pip install -r requirements.txt
 
       - name: Install MCCD
@@ -57,7 +56,6 @@ jobs:
     name: Deploy API Documentation
     needs: coverage
     runs-on: ubuntu-latest
-    if: success()
 
     steps:
       - name: Checkout
