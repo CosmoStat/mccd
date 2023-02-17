@@ -7,3 +7,4 @@ sphinx==4.3.1
 sphinx-gallery==0.10.1
 sphinxcontrib-bibtex==2.4.1
 sphinx-book-theme==0.3.2
+sphinxawesome-theme==1.17.0
