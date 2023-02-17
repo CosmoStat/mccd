@@ -1775,7 +1775,13 @@ class RunMCCD(object):
                 + cat_id + self.file_extension
 
             if os.path.isfile(input_path):
-                starcat = fits.open(input_path)[self.fits_table_pos]
+                try:
+                    starcat = fits.open(input_path)[self.fits_table_pos]
+                except IndexError:
+                    # Probably the `self.fits_table_pos` of the input catalogue
+                    # differs from the `self.fits_table_pos` of the 
+                    # preprocessed data.
+                    starcat = fits.open(input_path)[1]
             else:
                 raise OSError('File {} not found.'.format(input_path))
 
