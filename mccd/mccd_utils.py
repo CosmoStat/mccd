@@ -478,8 +478,8 @@ class MccdInputs(object):
     coordinate system to the global one.
     The expected files are in fits format.
     An filename example would be: ``star_selection-1234567-04.fits``
-        Where the exposure ID is: ``1234567``
-        Where the CCD ID is: ``04``
+    Where the exposure ID is: ``1234567``
+    Where the CCD ID is: ``04``
 
     Parameters
     ----------

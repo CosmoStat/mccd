@@ -83,7 +83,8 @@ class GenerateRealisticDataset(object):
         e2_path=e2_path,
         size_path=fwhm_path,
         output_path=output_path,
-        catalog_id=cat_id)
+        catalog_id=cat_id
+    )
     sim_dataset_gen.generate_train_data()
     sim_dataset_gen.generate_test_data()
 
