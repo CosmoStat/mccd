@@ -15,7 +15,7 @@ Multi-CCD Point Spread Function Modelling.
 > Email: <a href="mailto:tobias.liaudat@cea.fr" style="text-decoration:none; color: #F08080">tobias.liaudat@cea.fr</a>  
 > Documentation: <a href="https://cosmostat.github.io/mccd/" target="_blank" style="text-decoration:none; color: #F08080">https://cosmostat.github.io/mccd/</a>  
 > Article: <a href="https://doi.org/10.1051/0004-6361/202039584" style="text-decoration:none; color: #F08080">DOI - A&A</a>  
-> Current release: 08/03/2022
+> Current release: 17/02/2023
 ---
 
 The non-parametric MCCD PSF modelling, or MCCD for short, is a Point Spread Function modelling
@@ -126,13 +126,17 @@ test_pos = np.load(..)
 ccd_id = np.load(..)
 local_pos = True
 
-mccd_instance = mccd.auxiliary_fun.RunMCCD(config_file_path,
-                                           fits_table_pos=1)
+mccd_instance = mccd.auxiliary_fun.RunMCCD(
+    config_file_path,
+    fits_table_pos=1
+)
 
-rec_PSFs = mccd_instance.recover_MCCD_PSFs(mccd_model_path,
-                                           positions=test_pos,
-                                           ccd_id=ccd_id,
-                                           local_pos=local_pos)
+rec_PSFs = mccd_instance.recover_MCCD_PSFs(
+    mccd_model_path,
+    positions=test_pos,
+    ccd_id=ccd_id,
+    local_pos=local_pos
+)
 ```
 
 See the [documentation](https://cosmostat.github.io/mccd/mccd.auxiliary_fun.html)
