@@ -2,4 +2,4 @@ numpy>=1.19.5
 scipy>=1.5.4
 modopt>=1.5.1
 astropy>=4.0.2
-python-pysap>=0.0.5
+python-pysap>=0.0.6
