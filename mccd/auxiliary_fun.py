@@ -1779,7 +1779,7 @@ class RunMCCD(object):
                     starcat = fits.open(input_path)[self.fits_table_pos]
                 except IndexError:
                     # Probably the `self.fits_table_pos` of the input catalogue
-                    # differs from the `self.fits_table_pos` of the 
+                    # differs from the `self.fits_table_pos` of the
                     # preprocessed data.
                     starcat = fits.open(input_path)[1]
             else:
