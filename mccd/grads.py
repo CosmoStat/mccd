@@ -61,10 +61,11 @@ class CoeffLocGrad(GradParent, PowerMethod):
 
     def __init__(self, data, weights, S, VT, H_glob, flux, sig, ker,
                  ker_rot, SNR_weights, D, save_iter_cost=False,
-                 data_type='float', verbose=True):
+                 data_type='float', input_data_writeable=False, verbose=True):
         r"""Initialize class attributes."""
         self.verbose = verbose
         self._grad_data_type = data_type
+        self._input_data_writeable = input_data_writeable
         self.obs_data = data
         self.obs_weights = weights
         self.op = self.MX
@@ -210,9 +211,10 @@ class CoeffGlobGrad(GradParent, PowerMethod):
 
     def __init__(self, data, weights, S, Pi, H_loc, flux, sig, ker,
                  ker_rot, D, SNR_weights, save_iter_cost=False,
-                 data_type='float', verbose=True):
+                 data_type='float', input_data_writeable=False, verbose=True):
         r"""Initialize class attributes."""
         self.verbose = verbose
+        self._input_data_writeable = input_data_writeable
         self._grad_data_type = data_type
         self.obs_data = data
         self.obs_weights = weights
@@ -355,10 +357,11 @@ class SourceLocGrad(GradParent, PowerMethod):
 
     def __init__(self, data, weights, A, H_glob, flux, sig, ker, ker_rot,
                  SNR_weights, D, filters, save_iter_cost=False,
-                 data_type='float', verbose=True):
+                 data_type='float', input_data_writeable=False, verbose=True):
         r"""Initialize class attributes."""
         self.verbose = verbose
         self._grad_data_type = data_type
+        self._input_data_writeable = input_data_writeable
         self.obs_data = data
         self.obs_weights = weights
         self.op = self.MX
@@ -504,10 +507,11 @@ class SourceGlobGrad(GradParent, PowerMethod):
 
     def __init__(self, data, weights, A, H_loc, flux, sig,
                  ker, ker_rot, SNR_weights, D, filters, save_iter_cost=False,
-                 data_type='float', verbose=True):
+                 data_type='float', input_data_writeable=False, verbose=True):
         r"""Initialize class attributes."""
         self.verbose = verbose
         self._grad_data_type = data_type
+        self._input_data_writeable = input_data_writeable
         self.obs_data = data
         self.obs_weights = weights
         self.op = self.MX
