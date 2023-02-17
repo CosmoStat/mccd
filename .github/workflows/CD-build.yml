@@ -37,8 +37,11 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r develop.txt
           python -m pip install twine
+          python -m pip install pyqtgraph
+          python -m pip install git+https://github.com/CEA-COSMIC/pysap.git@2e26a71024b5a0419b27d4b3fc5cdee77bd3919b
+          python -m pip install -r docs/requirements.txt
           python -m pip install GalSim
-          python -m pip install -r requirements.txt
+          python -m pip install .
 
       - name: Install MCCD
         run: python -m pip install .
@@ -74,11 +77,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          conda install -c conda-forge pandoc
           python -m pip install --upgrade pip
+          python -m pip install pandoc
+          python -m pip install pyqtgraph
+          python -m pip install git+https://github.com/CEA-COSMIC/pysap.git@2e26a71024b5a0419b27d4b3fc5cdee77bd3919b
           python -m pip install -r docs/requirements.txt
           python -m pip install GalSim
-          python -m pip install pyqtgraph
           python -m pip install .
 
       - name: Build API documentation
