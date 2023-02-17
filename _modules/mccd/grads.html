@@ -7,8 +7,10 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta charset="utf-8"/>
 <title>
-      mccd.grads | mccd v1.2.3
+      mccd.grads | mccd v1.2.4
     </title>
+<link href="../../_static/pygments.css" rel="stylesheet"/>
+<link href="../../_static/theme.css" rel="stylesheet"/>
 <link href="../../_static/pygments.css" rel="stylesheet"/>
 <link href="../../_static/theme.css" rel="stylesheet"/>
 <link href="../../search.html" rel="search" title="Search"/>
@@ -17,7 +19,7 @@
 <body class="text-gray-900 antialiased min-h-screen md:h-screen flex flex-col">
 <a class="block text-xl bg-white px-8 py-4 z-20 absolute top-0 left-0 transform -translate-x-full focus:translate-x-0 transition-transform duration-75" href="#mccd-grads" title="Skip navigation links">Skip to content</a>
 <header class="md:sticky top-0 bg-gray-900 shadow-md flex md:flex-row justify-between items-center z-10"><a aria-label="Back to homepage" class="hover:bg-gray-700 focus:bg-gray-700 tooltipped tooltipped-se" href="../../index.html">
-<h2 class="text-xl text-gray-100 mx-5 py-4">mccd v1.2.3</h2>
+<h2 class="text-xl text-gray-100 mx-5 py-4">mccd v1.2.4</h2>
 </a><form action="../../search.html" class="hidden md:flex my-auto mx-5 justify-between items-center print:hidden" id="searchbox" method="get">
 <input aria-label="Search the docs" class="p-2 flex-1 focus:bg-yellow-200" id="search-input" name="q" placeholder="Search the docs" style="width: 300px;" type="search"/>
 <button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
@@ -26,14 +28,14 @@
 </form>
 </header>
 <div class="md:overflow-hidden flex flex-col md:flex-row flex-1"><nav class="h-full fixed md:relative inset-y-0 left-0 z-20 md:z-0 bg-white text-gray-700 border-r overflow-x-hidden pt-16 print:hidden flex flex-col" data-menu="closed" role="navigation" style="width: 270px;">
-<div class="nav-toc"><p class="caption">Getting Started</p>
+<div class="nav-toc"><p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../about.html">About</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../installation.html">Installation</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../quickstart.html">Quickstart Tutorial</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../changelog.html">Changelog</a></div></li>
 </ul>
-<p class="caption">API Documentation</p>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><div class="nav-link"><svg aria-hidden="true" class="expand" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" href="../../mccd.html">mccd</a></div><ul>
 <li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.auxiliary_fun.html">mccd.auxiliary_fun</a></div></li>
@@ -48,7 +50,7 @@
 </li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../z_ref.html">References</a></div></li>
 </ul>
-<p class="caption">Guidelines</p>
+<p class="caption" role="heading"><span class="caption-text">Guidelines</span></p>
 <ul>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../contributing.html">Contributing</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../citing.html">Citing this Package</a></div></li>
@@ -85,7 +87,7 @@
 
 
 <div class="viewcode-block" id="CoeffLocGrad"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad">[docs]</a><span class="k">class</span> <span class="nc">CoeffLocGrad</span><span class="p">(</span><span class="n">GradParent</span><span class="p">,</span> <span class="n">PowerMethod</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Gradient class for the local coefficient update.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Gradient class for the local coefficient update.</span>
 
 <span class="sd">    Local Alpha, :math:`\\alpha_{k}`.</span>
 
@@ -120,14 +122,21 @@
 <span class="sd">    data_type: str</span>
 <span class="sd">        Data type to be used.</span>
 <span class="sd">        Default is ``float``.</span>
+<span class="sd">    input_data_writeable: bool</span>
+<span class="sd">        Option to make the observed data writeable.</span>
+<span class="sd">        Default is ``False``. See ModOpt for more info.</span>
+<span class="sd">    verbose : bool</span>
+<span class="sd">        Option for verbose output.</span>
+<span class="sd">        Default is ``True``. See ModOpt for more info.</span>
 <span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">H_glob</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">ker</span><span class="p">,</span>
                  <span class="n">ker_rot</span><span class="p">,</span> <span class="n">SNR_weights</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">save_iter_cost</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">data_type</span><span class="o">=</span><span class="s1">'float'</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
+                 <span class="n">data_type</span><span class="o">=</span><span class="s1">'float'</span><span class="p">,</span> <span class="n">input_data_writeable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_grad_data_type</span> <span class="o">=</span> <span class="n">data_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_data_writeable</span> <span class="o">=</span> <span class="n">input_data_writeable</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span> <span class="o">=</span> <span class="n">data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">=</span> <span class="n">weights</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MX</span>
@@ -155,15 +164,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="CoeffLocGrad.reset_iter_cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad.reset_iter_cost">[docs]</a>    <span class="k">def</span> <span class="nf">reset_iter_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Reset iteration cost."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Reset iteration cost."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span> <span class="o">=</span> <span class="p">[]</span></div>
 
 <div class="viewcode-block" id="CoeffLocGrad.get_iter_cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad.get_iter_cost">[docs]</a>    <span class="k">def</span> <span class="nf">get_iter_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Get current iteration cost."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Get current iteration cost."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span></div>
 
 <div class="viewcode-block" id="CoeffLocGrad.update_S"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad.update_S">[docs]</a>    <span class="k">def</span> <span class="nf">update_S</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_S</span><span class="p">,</span> <span class="n">update_spectral_radius</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Update current eigenPSFs."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Update current eigenPSFs."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="n">new_S</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">FdS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">degradation_op</span><span class="p">(</span><span class="n">S_j</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
                               <span class="k">for</span> <span class="n">nf</span><span class="p">,</span> <span class="n">shift_ker</span> <span class="ow">in</span>
@@ -173,7 +182,7 @@
             <span class="n">PowerMethod</span><span class="o">.</span><span class="n">get_spec_rad</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CoeffLocGrad.update_H_glob"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad.update_H_glob">[docs]</a>    <span class="k">def</span> <span class="nf">update_H_glob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_H_glob</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Update current global model."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Update current global model."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H_glob</span> <span class="o">=</span> <span class="n">new_H_glob</span>
         <span class="n">dec_H_glob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
             <span class="p">[</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">degradation_op</span><span class="p">(</span><span class="n">H_i</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
@@ -184,7 +193,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">FdH_glob</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">dec_H_glob</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CoeffLocGrad.MX"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad.MX">[docs]</a>    <span class="k">def</span> <span class="nf">MX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Apply degradation operator and renormalize.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Apply degradation operator and renormalize.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -200,7 +209,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span></div>
 
 <div class="viewcode-block" id="CoeffLocGrad.MtX"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad.MtX">[docs]</a>    <span class="k">def</span> <span class="nf">MtX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Adjoint to degradation operator :func:`MX`.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Adjoint to degradation operator :func:`MX`.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -212,7 +221,7 @@
         <span class="k">return</span> <span class="n">STx</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="o">.</span><span class="n">T</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CoeffLocGrad.cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad.cost">[docs]</a>    <span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Compute data fidelity term.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute data fidelity term.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
@@ -227,7 +236,7 @@
         <span class="k">return</span> <span class="n">cost_val</span></div>
 
 <div class="viewcode-block" id="CoeffLocGrad.get_grad"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffLocGrad.get_grad">[docs]</a>    <span class="k">def</span> <span class="nf">get_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Compute current iteration's gradient."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute current iteration's gradient."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MtX</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span>
                              <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MX</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FdH_glob</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">))</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_iter_cost</span><span class="p">:</span>
@@ -235,7 +244,7 @@
 
 
 <div class="viewcode-block" id="CoeffGlobGrad"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad">[docs]</a><span class="k">class</span> <span class="nc">CoeffGlobGrad</span><span class="p">(</span><span class="n">GradParent</span><span class="p">,</span> <span class="n">PowerMethod</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Gradient class for the local coefficient update.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Gradient class for the local coefficient update.</span>
 
 <span class="sd">    Global Alpha, :math: \\tilde{\\alpha}`.</span>
 
@@ -269,13 +278,20 @@
 <span class="sd">    data_type: str</span>
 <span class="sd">        Data type to be used.</span>
 <span class="sd">        Default is ``float``.</span>
+<span class="sd">    input_data_writeable: bool</span>
+<span class="sd">        Option to make the observed data writeable.</span>
+<span class="sd">        Default is ``False``. See ModOpt for more info.</span>
+<span class="sd">    verbose : bool</span>
+<span class="sd">        Option for verbose output.</span>
+<span class="sd">        Default is ``True``. See ModOpt for more info.</span>
 <span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Pi</span><span class="p">,</span> <span class="n">H_loc</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">ker</span><span class="p">,</span>
                  <span class="n">ker_rot</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">SNR_weights</span><span class="p">,</span> <span class="n">save_iter_cost</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">data_type</span><span class="o">=</span><span class="s1">'float'</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
+                 <span class="n">data_type</span><span class="o">=</span><span class="s1">'float'</span><span class="p">,</span> <span class="n">input_data_writeable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_data_writeable</span> <span class="o">=</span> <span class="n">input_data_writeable</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_grad_data_type</span> <span class="o">=</span> <span class="n">data_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span> <span class="o">=</span> <span class="n">data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">=</span> <span class="n">weights</span>
@@ -303,15 +319,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="CoeffGlobGrad.reset_iter_cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad.reset_iter_cost">[docs]</a>    <span class="k">def</span> <span class="nf">reset_iter_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Reset iteration cost."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Reset iteration cost."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span> <span class="o">=</span> <span class="p">[]</span></div>
 
 <div class="viewcode-block" id="CoeffGlobGrad.get_iter_cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad.get_iter_cost">[docs]</a>    <span class="k">def</span> <span class="nf">get_iter_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Get current iteration cost."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Get current iteration cost."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span></div>
 
 <div class="viewcode-block" id="CoeffGlobGrad.update_S"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad.update_S">[docs]</a>    <span class="k">def</span> <span class="nf">update_S</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_S</span><span class="p">,</span> <span class="n">update_spectral_radius</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Update current eigenPSFs."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Update current eigenPSFs."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="n">new_S</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">FdS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">degradation_op</span><span class="p">(</span><span class="n">S_j</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
                               <span class="k">for</span> <span class="n">nf</span><span class="p">,</span> <span class="n">shift_ker</span> <span class="ow">in</span>
@@ -321,7 +337,7 @@
             <span class="n">PowerMethod</span><span class="o">.</span><span class="n">get_spec_rad</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CoeffGlobGrad.update_H_loc"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad.update_H_loc">[docs]</a>    <span class="k">def</span> <span class="nf">update_H_loc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_H_loc</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Update current local models."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Update current local models."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H_loc</span> <span class="o">=</span> <span class="n">new_H_loc</span>
         <span class="n">dec_H_loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">degradation_op</span><span class="p">(</span><span class="n">H_i</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
                               <span class="k">for</span> <span class="n">nf</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="n">H_i</span> <span class="ow">in</span>
@@ -331,7 +347,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">FdH_loc</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">dec_H_loc</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CoeffGlobGrad.MX"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad.MX">[docs]</a>    <span class="k">def</span> <span class="nf">MX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Apply degradation operator and renormalize.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Apply degradation operator and renormalize.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -347,7 +363,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span></div>
 
 <div class="viewcode-block" id="CoeffGlobGrad.MtX"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad.MtX">[docs]</a>    <span class="k">def</span> <span class="nf">MtX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Adjoint to degradation operator :func:`MX`.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Adjoint to degradation operator :func:`MX`.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -359,7 +375,7 @@
         <span class="k">return</span> <span class="n">STx</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pi</span><span class="o">.</span><span class="n">T</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CoeffGlobGrad.cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad.cost">[docs]</a>    <span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Compute data fidelity term.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute data fidelity term.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
@@ -374,7 +390,7 @@
         <span class="k">return</span> <span class="n">cost_val</span></div>
 
 <div class="viewcode-block" id="CoeffGlobGrad.get_grad"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.CoeffGlobGrad.get_grad">[docs]</a>    <span class="k">def</span> <span class="nf">get_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Compute current iteration's gradient."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute current iteration's gradient."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MtX</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span>
                              <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MX</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FdH_loc</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">))</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_iter_cost</span><span class="p">:</span>
@@ -382,7 +398,7 @@
 
 
 <div class="viewcode-block" id="SourceLocGrad"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad">[docs]</a><span class="k">class</span> <span class="nc">SourceLocGrad</span><span class="p">(</span><span class="n">GradParent</span><span class="p">,</span> <span class="n">PowerMethod</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Gradient class for the local eigenPSF update.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Gradient class for the local eigenPSF update.</span>
 
 <span class="sd">    Local S, :math:`S_{k}`.</span>
 
@@ -414,14 +430,21 @@
 <span class="sd">    data_type: str</span>
 <span class="sd">        Data type to be used.</span>
 <span class="sd">        Default is ``float``.</span>
+<span class="sd">    input_data_writeable: bool</span>
+<span class="sd">        Option to make the observed data writeable.</span>
+<span class="sd">        Default is ``False``. See ModOpt for more info.</span>
+<span class="sd">    verbose : bool</span>
+<span class="sd">        Option for verbose output.</span>
+<span class="sd">        Default is ``True``. See ModOpt for more info.</span>
 <span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">H_glob</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">ker</span><span class="p">,</span> <span class="n">ker_rot</span><span class="p">,</span>
                  <span class="n">SNR_weights</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">filters</span><span class="p">,</span> <span class="n">save_iter_cost</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">data_type</span><span class="o">=</span><span class="s1">'float'</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
+                 <span class="n">data_type</span><span class="o">=</span><span class="s1">'float'</span><span class="p">,</span> <span class="n">input_data_writeable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_grad_data_type</span> <span class="o">=</span> <span class="n">data_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_data_writeable</span> <span class="o">=</span> <span class="n">input_data_writeable</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span> <span class="o">=</span> <span class="n">data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">=</span> <span class="n">weights</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MX</span>
@@ -448,21 +471,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="SourceLocGrad.reset_iter_cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad.reset_iter_cost">[docs]</a>    <span class="k">def</span> <span class="nf">reset_iter_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Reset iteration cost."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Reset iteration cost."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span> <span class="o">=</span> <span class="p">[]</span></div>
 
 <div class="viewcode-block" id="SourceLocGrad.get_iter_cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad.get_iter_cost">[docs]</a>    <span class="k">def</span> <span class="nf">get_iter_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Get current iteration cost."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Get current iteration cost."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span></div>
 
 <div class="viewcode-block" id="SourceLocGrad.update_A"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad.update_A">[docs]</a>    <span class="k">def</span> <span class="nf">update_A</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_A</span><span class="p">,</span> <span class="n">update_spectral_radius</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Update current coefficients."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Update current coefficients."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">=</span> <span class="n">new_A</span>
         <span class="k">if</span> <span class="n">update_spectral_radius</span><span class="p">:</span>
             <span class="n">PowerMethod</span><span class="o">.</span><span class="n">get_spec_rad</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SourceLocGrad.update_H_glob"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad.update_H_glob">[docs]</a>    <span class="k">def</span> <span class="nf">update_H_glob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_H_glob</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Update current global model."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Update current global model."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H_glob</span> <span class="o">=</span> <span class="n">new_H_glob</span>
         <span class="n">dec_H_glob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
             <span class="p">[</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">degradation_op</span><span class="p">(</span><span class="n">H_i</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
@@ -472,7 +495,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">FdH_glob</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">dec_H_glob</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SourceLocGrad.MX"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad.MX">[docs]</a>    <span class="k">def</span> <span class="nf">MX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transf_S</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Apply degradation operator and renormalize.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Apply degradation operator and renormalize.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -496,7 +519,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span></div>
 
 <div class="viewcode-block" id="SourceLocGrad.MtX"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad.MtX">[docs]</a>    <span class="k">def</span> <span class="nf">MtX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Adjoint to degradation operator :func:`MX`."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Adjoint to degradation operator :func:`MX`."""</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">SNR_weights</span><span class="p">)</span>
         <span class="n">upsamp_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
             <span class="p">[</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">adjoint_degradation_op</span><span class="p">(</span><span class="n">x_i</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
@@ -507,7 +530,7 @@
         <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">apply_transform</span><span class="p">(</span><span class="n">upsamp_x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SourceLocGrad.cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad.cost">[docs]</a>    <span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Compute data fidelity term.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute data fidelity term.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
@@ -523,7 +546,7 @@
         <span class="k">return</span> <span class="n">cost_val</span></div>
 
 <div class="viewcode-block" id="SourceLocGrad.get_grad"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceLocGrad.get_grad">[docs]</a>    <span class="k">def</span> <span class="nf">get_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Compute current iteration's gradient."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute current iteration's gradient."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MtX</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span>
                              <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MX</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FdH_glob</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">))</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_iter_cost</span><span class="p">:</span>
@@ -531,7 +554,7 @@
 
 
 <div class="viewcode-block" id="SourceGlobGrad"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad">[docs]</a><span class="k">class</span> <span class="nc">SourceGlobGrad</span><span class="p">(</span><span class="n">GradParent</span><span class="p">,</span> <span class="n">PowerMethod</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Gradient class for the global eigenPSF update.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Gradient class for the global eigenPSF update.</span>
 
 <span class="sd">    Global S, :math:`\\tilde{S}`.</span>
 
@@ -563,14 +586,21 @@
 <span class="sd">    data_type: str</span>
 <span class="sd">        Data type to be used.</span>
 <span class="sd">        Default is ``float``.</span>
+<span class="sd">    input_data_writeable: bool</span>
+<span class="sd">        Option to make the observed data writeable.</span>
+<span class="sd">        Default is ``False``. See ModOpt for more info.</span>
+<span class="sd">    verbose : bool</span>
+<span class="sd">        Option for verbose output.</span>
+<span class="sd">        Default is ``True``. See ModOpt for more info.</span>
 <span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">H_loc</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span>
                  <span class="n">ker</span><span class="p">,</span> <span class="n">ker_rot</span><span class="p">,</span> <span class="n">SNR_weights</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">filters</span><span class="p">,</span> <span class="n">save_iter_cost</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">data_type</span><span class="o">=</span><span class="s1">'float'</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
+                 <span class="n">data_type</span><span class="o">=</span><span class="s1">'float'</span><span class="p">,</span> <span class="n">input_data_writeable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_grad_data_type</span> <span class="o">=</span> <span class="n">data_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_data_writeable</span> <span class="o">=</span> <span class="n">input_data_writeable</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span> <span class="o">=</span> <span class="n">data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">=</span> <span class="n">weights</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MX</span>
@@ -597,21 +627,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="SourceGlobGrad.reset_iter_cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad.reset_iter_cost">[docs]</a>    <span class="k">def</span> <span class="nf">reset_iter_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Reset iteration cost."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Reset iteration cost."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span> <span class="o">=</span> <span class="p">[]</span></div>
 
 <div class="viewcode-block" id="SourceGlobGrad.get_iter_cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad.get_iter_cost">[docs]</a>    <span class="k">def</span> <span class="nf">get_iter_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Get current iteration cost."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Get current iteration cost."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span></div>
 
 <div class="viewcode-block" id="SourceGlobGrad.update_A"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad.update_A">[docs]</a>    <span class="k">def</span> <span class="nf">update_A</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_A</span><span class="p">,</span> <span class="n">update_spectral_radius</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Update current coefficients."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Update current coefficients."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">=</span> <span class="n">new_A</span>
         <span class="k">if</span> <span class="n">update_spectral_radius</span><span class="p">:</span>
             <span class="n">PowerMethod</span><span class="o">.</span><span class="n">get_spec_rad</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SourceGlobGrad.update_H_loc"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad.update_H_loc">[docs]</a>    <span class="k">def</span> <span class="nf">update_H_loc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_H_loc</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Update current local models."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Update current local models."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H_loc</span> <span class="o">=</span> <span class="n">new_H_loc</span>
         <span class="n">dec_H_loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
             <span class="p">[</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">degradation_op</span><span class="p">(</span><span class="n">H_i</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
@@ -622,7 +652,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">FdH_loc</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span><span class="n">dec_H_loc</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SourceGlobGrad.MX"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad.MX">[docs]</a>    <span class="k">def</span> <span class="nf">MX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transf_S</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Apply degradation operator and renormalize.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Apply degradation operator and renormalize.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -646,7 +676,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_rec</span></div>
 
 <div class="viewcode-block" id="SourceGlobGrad.MtX"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad.MtX">[docs]</a>    <span class="k">def</span> <span class="nf">MtX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Adjoint to degradation operator :func:`MX`."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Adjoint to degradation operator :func:`MX`."""</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">SNR_weights</span><span class="p">)</span>
         <span class="n">upsamp_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
             <span class="p">[</span><span class="n">nf</span> <span class="o">*</span> <span class="n">utils</span><span class="o">.</span><span class="n">adjoint_degradation_op</span><span class="p">(</span><span class="n">x_i</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span> <span class="k">for</span>
@@ -656,7 +686,7 @@
         <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">apply_transform</span><span class="p">(</span><span class="n">upsamp_x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SourceGlobGrad.cost"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad.cost">[docs]</a>    <span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Compute data fidelity term.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute data fidelity term.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
@@ -672,14 +702,14 @@
         <span class="k">return</span> <span class="n">cost_val</span></div>
 
 <div class="viewcode-block" id="SourceGlobGrad.get_grad"><a class="viewcode-back" href="../../mccd.grads.html#mccd.grads.SourceGlobGrad.get_grad">[docs]</a>    <span class="k">def</span> <span class="nf">get_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Compute current iteration's gradient."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute current iteration's gradient."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MtX</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">MX</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FdH_loc</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">))</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_iter_cost</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">iter_cost</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cost</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></div></div>
 </code></pre>
 </main>
-<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 08 Mar, 2022. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 17 Feb, 2023. Made with <a href="https://www.sphinx-doc.org">Sphinx 4.3.1</a></footer>
 </div>
 <div class="sticky bottom-0 md:hidden print:hidden bg-white">
 <div class="flex justify-center items-center">
@@ -708,13 +738,11 @@
 </div>
 <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js">
 </script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
 <script src="../../_static/jquery.js"></script>
 <script src="../../_static/underscore.js"></script>
 <script src="../../_static/doctools.js"></script>
-<script src="../../_static/language_data.js"></script>
 <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-<script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
 <script defer="" src="../../_static/theme.js"></script>
 </body>
 </html>

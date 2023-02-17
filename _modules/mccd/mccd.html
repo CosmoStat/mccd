@@ -7,8 +7,10 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta charset="utf-8"/>
 <title>
-      mccd.mccd | mccd v1.2.3
+      mccd.mccd | mccd v1.2.4
     </title>
+<link href="../../_static/pygments.css" rel="stylesheet"/>
+<link href="../../_static/theme.css" rel="stylesheet"/>
 <link href="../../_static/pygments.css" rel="stylesheet"/>
 <link href="../../_static/theme.css" rel="stylesheet"/>
 <link href="../../search.html" rel="search" title="Search"/>
@@ -17,7 +19,7 @@
 <body class="text-gray-900 antialiased min-h-screen md:h-screen flex flex-col">
 <a class="block text-xl bg-white px-8 py-4 z-20 absolute top-0 left-0 transform -translate-x-full focus:translate-x-0 transition-transform duration-75" href="#mccd-mccd" title="Skip navigation links">Skip to content</a>
 <header class="md:sticky top-0 bg-gray-900 shadow-md flex md:flex-row justify-between items-center z-10"><a aria-label="Back to homepage" class="hover:bg-gray-700 focus:bg-gray-700 tooltipped tooltipped-se" href="../../index.html">
-<h2 class="text-xl text-gray-100 mx-5 py-4">mccd v1.2.3</h2>
+<h2 class="text-xl text-gray-100 mx-5 py-4">mccd v1.2.4</h2>
 </a><form action="../../search.html" class="hidden md:flex my-auto mx-5 justify-between items-center print:hidden" id="searchbox" method="get">
 <input aria-label="Search the docs" class="p-2 flex-1 focus:bg-yellow-200" id="search-input" name="q" placeholder="Search the docs" style="width: 300px;" type="search"/>
 <button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
@@ -26,14 +28,14 @@
 </form>
 </header>
 <div class="md:overflow-hidden flex flex-col md:flex-row flex-1"><nav class="h-full fixed md:relative inset-y-0 left-0 z-20 md:z-0 bg-white text-gray-700 border-r overflow-x-hidden pt-16 print:hidden flex flex-col" data-menu="closed" role="navigation" style="width: 270px;">
-<div class="nav-toc"><p class="caption">Getting Started</p>
+<div class="nav-toc"><p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../about.html">About</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../installation.html">Installation</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../quickstart.html">Quickstart Tutorial</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../changelog.html">Changelog</a></div></li>
 </ul>
-<p class="caption">API Documentation</p>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><div class="nav-link"><svg aria-hidden="true" class="expand" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" href="../../mccd.html">mccd</a></div><ul>
 <li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.auxiliary_fun.html">mccd.auxiliary_fun</a></div></li>
@@ -48,7 +50,7 @@
 </li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../z_ref.html">References</a></div></li>
 </ul>
-<p class="caption">Guidelines</p>
+<p class="caption" role="heading"><span class="caption-text">Guidelines</span></p>
 <ul>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../contributing.html">Contributing</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../citing.html">Citing this Package</a></div></li>
@@ -91,7 +93,7 @@
 
 
 <div class="viewcode-block" id="mccd_quickload"><a class="viewcode-back" href="../../mccd.mccd.html#mccd.mccd.mccd_quickload">[docs]</a><span class="k">def</span> <span class="nf">mccd_quickload</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Load pre-fitted MCCD model.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Load pre-fitted MCCD model.</span>
 
 <span class="sd">    (saved with :func:`mccd.quicksave`).</span>
 
@@ -129,7 +131,7 @@
 
 
 <div class="viewcode-block" id="MCCD"><a class="viewcode-back" href="../../mccd.mccd.html#mccd.mccd.MCCD">[docs]</a><span class="k">class</span> <span class="nc">MCCD</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Multi-CCD Resolved Components Analysis.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Multi-CCD Resolved Components Analysis.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -215,7 +217,7 @@
                  <span class="n">ksig_glob</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">rmse_thresh</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span> <span class="n">ccd_star_thresh</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span>
                  <span class="n">n_scales</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ksig_init</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                  <span class="n">fp_geometry</span><span class="o">=</span><span class="s1">'CFIS'</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""General parameter initialisations."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""General parameter initialisations."""</span>
         <span class="c1"># Main model paramters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span> <span class="o">=</span> <span class="n">n_comp_loc</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">d_comp_glob</span> <span class="o">=</span> <span class="n">d_comp_glob</span>
@@ -313,7 +315,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">iters_loc_S</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="MCCD.quicksave"><a class="viewcode-back" href="../../mccd.mccd.html#mccd.mccd.MCCD.quicksave">[docs]</a>    <span class="k">def</span> <span class="nf">quicksave</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Save fitted model.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Save fitted model.</span>
 
 <span class="sd">        Save fitted MCCD model for later use. Ideally, you would probably</span>
 <span class="sd">        want to store the whole MCCD instance, though this might mean</span>
@@ -357,7 +359,7 @@
             <span class="n">nb_subiter_S_loc</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">nb_reweight</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nb_subiter_A_loc</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
             <span class="n">nb_subiter_S_glob</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">nb_subiter_A_glob</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_eigenvects</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
             <span class="n">loc_model</span><span class="o">=</span><span class="s1">'hybrid'</span><span class="p">,</span> <span class="n">pi_degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">graph_kwargs</span><span class="o">=</span><span class="p">{}):</span>
-        <span class="sa">r</span><span class="sd">"""Fits MCCD to observed star field.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Fits MCCD to observed star field.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -610,7 +612,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_set_psf_size</span><span class="p">(</span><span class="n">psf_size</span><span class="p">,</span> <span class="n">psf_size_type</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Handle different ``size`` conventions."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Handle different ``size`` conventions."""</span>
         <span class="k">if</span> <span class="n">psf_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">psf_size_type</span> <span class="o">==</span> <span class="s1">'fwhm'</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">psf_size</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
@@ -628,7 +630,7 @@
             <span class="k">return</span> <span class="mf">7.5</span>
 
 <div class="viewcode-block" id="MCCD.remove_ccd_from_model"><a class="viewcode-back" href="../../mccd.mccd.html#mccd.mccd.MCCD.remove_ccd_from_model">[docs]</a>    <span class="k">def</span> <span class="nf">remove_ccd_from_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_idx</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Remove ccd from the trained model. """</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Remove ccd from the trained model. """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span> <span class="o">-=</span> <span class="mi">1</span>
         <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ccd_idx</span><span class="p">)</span>
         <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">A_loc</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ccd_idx</span><span class="p">)</span>
@@ -641,7 +643,7 @@
         <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ccd_idx</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="MCCD.remove_outlier_ccds"><a class="viewcode-back" href="../../mccd.mccd.html#mccd.mccd.MCCD.remove_outlier_ccds">[docs]</a>    <span class="k">def</span> <span class="nf">remove_outlier_ccds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Remove all CCDs with outliers.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Remove all CCDs with outliers.</span>
 
 <span class="sd">        Reminder: the outlier rejection is done on the train stars.</span>
 <span class="sd">        We will reject a CCD if the percentage of outlier stars in</span>
@@ -708,7 +710,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">remove_ccd_from_model</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Initialize internal tasks.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize internal tasks.</span>
 
 <span class="sd">        Tasks related to noise levels, shifts and flux.</span>
 <span class="sd">        Note it includes renormalizing observed data,</span>
@@ -801,7 +803,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">/=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_initialize_graph_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Initialize of the graph constraint.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize of the graph constraint.</span>
 
 <span class="sd">        ``graph_kwards`` parameters used.</span>
 <span class="sd">        """</span>
@@ -820,7 +822,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">A_loc</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">_initialize_poly_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Initialize the global polynomial model.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize the global polynomial model.</span>
 
 <span class="sd">        The positions in the global coordinate system</span>
 <span class="sd">        are used.</span>
@@ -849,7 +851,7 @@
                        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">_initialize_loc_poly_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Initialize the local polynomial model."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize the local polynomial model."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">VT</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">utils</span><span class="o">.</span><span class="n">poly_pos</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">max_degree</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">d_comp_loc</span><span class="p">,</span>
                            <span class="n">center_normalice</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -859,7 +861,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">A_loc</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ccd</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">_initialize_loc_hybrid_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Initialize the hybrid local model.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize the hybrid local model.</span>
 
 <span class="sd">        Graphs + polynomials.</span>
 <span class="sd">        """</span>
@@ -894,7 +896,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">n_comp_loc</span> <span class="o">+=</span> <span class="n">n_poly_comp</span>
 
     <span class="k">def</span> <span class="nf">_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Perform the main model fitting."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Perform the main model fitting."""</span>
         <span class="c1"># Function variables</span>
         <span class="n">comp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span>
         <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span>
@@ -1312,7 +1314,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">A_glob</span> <span class="o">=</span> <span class="n">weights_glob</span>
 
 <div class="viewcode-block" id="MCCD.interpolate_psf_pipeline"><a class="viewcode-back" href="../../mccd.mccd.html#mccd.mccd.MCCD.interpolate_psf_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">interpolate_psf_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_pos</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">centroid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Estimate PSF at desired position with the required centroid.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Estimate PSF at desired position with the required centroid.</span>
 
 <span class="sd">        This function is a consequence of following the requirements</span>
 <span class="sd">        needed to use the MCCD model in a pipeline.</span>
@@ -1448,7 +1450,7 @@
                      <span class="n">apply_degradation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shifts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flux</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                      <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upfact</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mccd_debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                      <span class="n">global_pol_interp</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Estimate and return PSF at desired positions.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Estimate and return PSF at desired positions.</span>
 
 <span class="sd">        Returns the model in "regular" format, (n_stars, n_pixels, n_pixels).</span>
 
@@ -1640,7 +1642,7 @@
 <div class="viewcode-block" id="MCCD.validation_stars"><a class="viewcode-back" href="../../mccd.mccd.html#mccd.mccd.MCCD.validation_stars">[docs]</a>    <span class="k">def</span> <span class="nf">validation_stars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_stars</span><span class="p">,</span> <span class="n">test_pos</span><span class="p">,</span> <span class="n">test_masks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                          <span class="n">ccd_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mccd_debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                          <span class="n">response_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">global_pol_interp</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Match PSF model to stars.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Match PSF model to stars.</span>
 
 <span class="sd">        The match is done in flux, shift and pixel sampling -</span>
 <span class="sd">        for validation tests.</span>
@@ -1724,15 +1726,15 @@
         <span class="k">return</span> <span class="n">matched_psfs</span></div>
 
     <span class="k">def</span> <span class="nf">_loc_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">A_loc_weights</span><span class="p">,</span> <span class="n">ccd_idx</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Transform local weights to local contributions of the PSFs."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Transform local weights to local contributions of the PSFs."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="p">[</span><span class="n">ccd_idx</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A_loc_weights</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_glob_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">A_glob_weights</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Transform global weights to global contribution of the PSFs."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Transform global weights to global contribution of the PSFs."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A_glob_weights</span><span class="p">)</span></div>
 </code></pre>
 </main>
-<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 08 Mar, 2022. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 17 Feb, 2023. Made with <a href="https://www.sphinx-doc.org">Sphinx 4.3.1</a></footer>
 </div>
 <div class="sticky bottom-0 md:hidden print:hidden bg-white">
 <div class="flex justify-center items-center">
@@ -1761,13 +1763,11 @@
 </div>
 <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js">
 </script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
 <script src="../../_static/jquery.js"></script>
 <script src="../../_static/underscore.js"></script>
 <script src="../../_static/doctools.js"></script>
-<script src="../../_static/language_data.js"></script>
 <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-<script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
 <script defer="" src="../../_static/theme.js"></script>
 </body>
 </html>

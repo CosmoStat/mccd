@@ -7,8 +7,10 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta charset="utf-8"/>
 <title>
-      mccd.mccd_utils | mccd v1.2.3
+      mccd.mccd_utils | mccd v1.2.4
     </title>
+<link href="../../_static/pygments.css" rel="stylesheet"/>
+<link href="../../_static/theme.css" rel="stylesheet"/>
 <link href="../../_static/pygments.css" rel="stylesheet"/>
 <link href="../../_static/theme.css" rel="stylesheet"/>
 <link href="../../search.html" rel="search" title="Search"/>
@@ -17,7 +19,7 @@
 <body class="text-gray-900 antialiased min-h-screen md:h-screen flex flex-col">
 <a class="block text-xl bg-white px-8 py-4 z-20 absolute top-0 left-0 transform -translate-x-full focus:translate-x-0 transition-transform duration-75" href="#mccd-mccd-utils" title="Skip navigation links">Skip to content</a>
 <header class="md:sticky top-0 bg-gray-900 shadow-md flex md:flex-row justify-between items-center z-10"><a aria-label="Back to homepage" class="hover:bg-gray-700 focus:bg-gray-700 tooltipped tooltipped-se" href="../../index.html">
-<h2 class="text-xl text-gray-100 mx-5 py-4">mccd v1.2.3</h2>
+<h2 class="text-xl text-gray-100 mx-5 py-4">mccd v1.2.4</h2>
 </a><form action="../../search.html" class="hidden md:flex my-auto mx-5 justify-between items-center print:hidden" id="searchbox" method="get">
 <input aria-label="Search the docs" class="p-2 flex-1 focus:bg-yellow-200" id="search-input" name="q" placeholder="Search the docs" style="width: 300px;" type="search"/>
 <button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
@@ -26,14 +28,14 @@
 </form>
 </header>
 <div class="md:overflow-hidden flex flex-col md:flex-row flex-1"><nav class="h-full fixed md:relative inset-y-0 left-0 z-20 md:z-0 bg-white text-gray-700 border-r overflow-x-hidden pt-16 print:hidden flex flex-col" data-menu="closed" role="navigation" style="width: 270px;">
-<div class="nav-toc"><p class="caption">Getting Started</p>
+<div class="nav-toc"><p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../about.html">About</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../installation.html">Installation</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../quickstart.html">Quickstart Tutorial</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../changelog.html">Changelog</a></div></li>
 </ul>
-<p class="caption">API Documentation</p>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><div class="nav-link"><svg aria-hidden="true" class="expand" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" href="../../mccd.html">mccd</a></div><ul>
 <li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.auxiliary_fun.html">mccd.auxiliary_fun</a></div></li>
@@ -48,7 +50,7 @@
 </li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../z_ref.html">References</a></div></li>
 </ul>
-<p class="caption">Guidelines</p>
+<p class="caption" role="heading"><span class="caption-text">Guidelines</span></p>
 <ul>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../contributing.html">Contributing</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../citing.html">Citing this Package</a></div></li>
@@ -93,13 +95,13 @@
 
 
 <div class="viewcode-block" id="find_ccd_idx"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.find_ccd_idx">[docs]</a><span class="k">def</span> <span class="nf">find_ccd_idx</span><span class="p">(</span><span class="n">ccd_id</span><span class="p">,</span> <span class="n">ccd_list</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Find the index of an element in a list."""</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Find the index of an element in a list."""</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ccd_id</span> <span class="o">==</span> <span class="n">ccd_i</span> <span class="k">for</span> <span class="n">ccd_i</span> <span class="ow">in</span> <span class="n">ccd_list</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">idx</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="Loc2Glob"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob">[docs]</a><span class="k">class</span> <span class="nc">Loc2Glob</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Change from local to global coordinates.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Change from local to global coordinates.</span>
 
 <span class="sd">    Class to pass from local coordinates to global coordinates under</span>
 <span class="sd">    CFIS (CFHT) MegaCam instrument. The geometrical informcation of the</span>
@@ -155,7 +157,7 @@
         <span class="n">y_npix</span><span class="o">=</span><span class="mi">4612</span><span class="p">,</span>
         <span class="n">ccd_tot</span><span class="o">=</span><span class="mi">40</span>
     <span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Initialize with instrument geometry."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize with instrument geometry."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">=</span> <span class="n">x_gap</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">=</span> <span class="n">y_gap</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">=</span> <span class="n">x_npix</span>
@@ -163,7 +165,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ccd_tot</span> <span class="o">=</span> <span class="n">ccd_tot</span>
 
 <div class="viewcode-block" id="Loc2Glob.loc2glob_img_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob.loc2glob_img_coord">[docs]</a>    <span class="k">def</span> <span class="nf">loc2glob_img_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Go from the local to the global img (pixel) coordinate system.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Go from the local to the global img (pixel) coordinate system.</span>
 
 <span class="sd">        Global system with (0,0) in the intersection of ccds [12,13,21,22].</span>
 
@@ -194,7 +196,7 @@
         <span class="k">return</span> <span class="n">x_coor</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_coor</span> <span class="o">+</span> <span class="n">y_shift</span></div>
 
 <div class="viewcode-block" id="Loc2Glob.flip_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob.flip_coord">[docs]</a>    <span class="k">def</span> <span class="nf">flip_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Change of coordinate convention.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Change of coordinate convention.</span>
 
 <span class="sd">        So that all of them are coherent on the global coordinate system.</span>
 <span class="sd">        So that the origin is on the south-west corner.</span>
@@ -209,21 +211,21 @@
         <span class="k">return</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span></div>
 
 <div class="viewcode-block" id="Loc2Glob.x_coord_range"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob.x_coord_range">[docs]</a>    <span class="k">def</span> <span class="nf">x_coord_range</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Return range of the x coordinate.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Return range of the x coordinate.</span>
 <span class="sd">        """</span>
         <span class="n">max_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="mi">5</span>
         <span class="n">min_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span></div>
 
 <div class="viewcode-block" id="Loc2Glob.y_coord_range"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob.y_coord_range">[docs]</a>    <span class="k">def</span> <span class="nf">y_coord_range</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Return range of the y coordinate.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Return range of the y coordinate.</span>
 <span class="sd">        """</span>
         <span class="n">max_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="mi">1</span>
         <span class="n">min_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span></div>
 
 <div class="viewcode-block" id="Loc2Glob.shift_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob.shift_coord">[docs]</a>    <span class="k">def</span> <span class="nf">shift_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Provide the shifting.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Provide the shifting.</span>
 
 <span class="sd">        It is needed to go from the local coordinate</span>
 <span class="sd">        system origin to the global coordinate system origin.</span>
@@ -278,7 +280,7 @@
 
 
 <div class="viewcode-block" id="Loc2Glob_EUCLID_sim"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim">[docs]</a><span class="k">class</span> <span class="nc">Loc2Glob_EUCLID_sim</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Change from local to global coordinates.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Change from local to global coordinates.</span>
 
 <span class="sd">    Class to pass from local coordinates to global coordinates under</span>
 <span class="sd">    a simulation of Euclid's VIS instrument.</span>
@@ -322,7 +324,7 @@
 <span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_gap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_gap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_npix</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">y_npix</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">ccd_tot</span><span class="o">=</span><span class="mi">36</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Initialize with instrument geometry."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize with instrument geometry."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">=</span> <span class="n">x_gap</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">=</span> <span class="n">y_gap</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">=</span> <span class="n">x_npix</span>
@@ -330,7 +332,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ccd_tot</span> <span class="o">=</span> <span class="n">ccd_tot</span>
 
 <div class="viewcode-block" id="Loc2Glob_EUCLID_sim.loc2glob_img_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.loc2glob_img_coord">[docs]</a>    <span class="k">def</span> <span class="nf">loc2glob_img_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Go from the local to the global img (pixel) coordinate system.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Go from the local to the global img (pixel) coordinate system.</span>
 
 <span class="sd">        Global system with (0,0) in the bottom left corner of the CCD 15.</span>
 
@@ -361,7 +363,7 @@
         <span class="k">return</span> <span class="n">x_coor</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_coor</span> <span class="o">+</span> <span class="n">y_shift</span></div>
 
 <div class="viewcode-block" id="Loc2Glob_EUCLID_sim.glob2loc_img_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.glob2loc_img_coord">[docs]</a>    <span class="k">def</span> <span class="nf">glob2loc_img_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Go from global to local coordinates.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Go from global to local coordinates.</span>
 <span class="sd">        """</span>
         <span class="c1"># Determine the CCD</span>
         <span class="n">ccd_n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
@@ -375,7 +377,7 @@
         <span class="k">return</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span> <span class="o">-</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_coor</span> <span class="o">-</span> <span class="n">y_shift</span></div>
 
 <div class="viewcode-block" id="Loc2Glob_EUCLID_sim.flip_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.flip_coord">[docs]</a>    <span class="k">def</span> <span class="nf">flip_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Change of coordinate convention.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Change of coordinate convention.</span>
 
 <span class="sd">        There is no fliping for Euclid.</span>
 <span class="sd">        """</span>
@@ -383,21 +385,21 @@
         <span class="k">return</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span></div>
 
 <div class="viewcode-block" id="Loc2Glob_EUCLID_sim.x_coord_range"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.x_coord_range">[docs]</a>    <span class="k">def</span> <span class="nf">x_coord_range</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Return range of the x coordinate.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Return range of the x coordinate.</span>
 <span class="sd">        """</span>
         <span class="n">max_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="mi">2</span>
         <span class="n">min_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span></div>
 
 <div class="viewcode-block" id="Loc2Glob_EUCLID_sim.y_coord_range"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.y_coord_range">[docs]</a>    <span class="k">def</span> <span class="nf">y_coord_range</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Return range of the y coordinate.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Return range of the y coordinate.</span>
 <span class="sd">        """</span>
         <span class="n">max_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="mi">2</span>
         <span class="n">min_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span></div>
 
 <div class="viewcode-block" id="Loc2Glob_EUCLID_sim.shift_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.shift_coord">[docs]</a>    <span class="k">def</span> <span class="nf">shift_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Provide the shifting.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Provide the shifting.</span>
 
 <span class="sd">        It is needed to go from the local coordinate</span>
 <span class="sd">        system origin to the global coordinate system origin.</span>
@@ -408,8 +410,124 @@
         <span class="k">return</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span></div></div>
 
 
+<div class="viewcode-block" id="Glob2CCD"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Glob2CCD">[docs]</a><span class="k">class</span> <span class="nc">Glob2CCD</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">""" Get the CCD ID number from the global coordinate position.</span>
+
+<span class="sd">    The Loc2Glob() object as input is the one that defines the instrument's</span>
+<span class="sd">    geometry.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    loc2glob: Loc2Glob object</span>
+<span class="sd">        Object with the desired focal plane geometry.</span>
+<span class="sd">    with_gaps: bool</span>
+<span class="sd">        If add the gaps to the CCD area.</span>
+<span class="sd">    """</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loc2glob</span><span class="p">,</span> <span class="n">with_gaps</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="c1"># Save loc2glob object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">loc2glob</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">with_gaps</span> <span class="o">=</span> <span class="n">with_gaps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">ccd_tot</span><span class="p">)</span>
+        <span class="c1"># Init edges defininf the CCDs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">edge_x_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_y_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_all_edges</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Glob2CCD.build_all_edges"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Glob2CCD.build_all_edges">[docs]</a>    <span class="k">def</span> <span class="nf">build_all_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">""" Build the edges for all the CCDs in the focal plane.</span>
+<span class="sd">        """</span>
+        <span class="n">edge_x_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">build_edge</span><span class="p">(</span><span class="n">ccd_n</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">ccd_n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span>
+        <span class="p">])</span>
+        <span class="n">edge_y_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">build_edge</span><span class="p">(</span><span class="n">ccd_n</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">ccd_n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span>
+        <span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">edge_x_list</span><span class="p">,</span> <span class="n">edge_y_list</span></div>
+
+<div class="viewcode-block" id="Glob2CCD.build_edge"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Glob2CCD.build_edge">[docs]</a>    <span class="k">def</span> <span class="nf">build_edge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">""" Build the edges of the `ccd_n` in global coordinates.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_gaps</span><span class="p">:</span>
+            <span class="n">corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                <span class="p">[</span>
+                    <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="p">],</span>
+                <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="p">],</span>
+                <span class="p">[</span>
+                    <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="p">],</span>
+                <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span><span class="p">],</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span><span class="p">],</span>
+            <span class="p">])</span>
+
+        <span class="n">glob_corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">loc2glob_img_coord</span><span class="p">(</span><span class="n">ccd_n</span><span class="p">,</span> <span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">corners</span>
+        <span class="p">])</span>
+
+        <span class="n">edge_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">glob_corners</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">glob_corners</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="p">])</span>
+        <span class="n">edge_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">glob_corners</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">glob_corners</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">edge_x</span><span class="p">,</span> <span class="n">edge_y</span></div>
+
+<div class="viewcode-block" id="Glob2CCD.is_inside"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Glob2CCD.is_inside">[docs]</a>    <span class="k">def</span> <span class="nf">is_inside</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">edge_x</span><span class="p">,</span> <span class="n">edge_y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">""" Is the position inside the edges.</span>
+
+<span class="sd">        Return True if the position is within the rectangle</span>
+<span class="sd">        defined by the edges.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x: float</span>
+<span class="sd">            Horizontal position in global coordinate system.</span>
+<span class="sd">        y: float</span>
+<span class="sd">            Vertical position in global coordinate system.</span>
+<span class="sd">        edge_x: np.ndarray</span>
+<span class="sd">            Edge defined as `np.array([min_x, max_x])`.</span>
+<span class="sd">        edge_y: np.ndarray</span>
+<span class="sd">            Edge defined as `np.array([min_y, max_y])`.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">edge_x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">edge_x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">and</span> \
+           <span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">edge_y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;</span> <span class="n">edge_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Glob2CCD.get_ccd_n"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Glob2CCD.get_ccd_n">[docs]</a>    <span class="k">def</span> <span class="nf">get_ccd_n</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">""" Returns the CCD number from the position `(x, y)`.</span>
+
+<span class="sd">        Returns `None` if the position is not found.</span>
+<span class="sd">        """</span>
+        <span class="n">bool_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_inside</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">edge_x</span><span class="p">,</span> <span class="n">edge_y</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">edge_x</span><span class="p">,</span> <span class="n">edge_y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_x_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_y_list</span><span class="p">)</span>
+        <span class="p">])</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span><span class="p">[</span><span class="n">bool_list</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div></div>
+
+
 <div class="viewcode-block" id="MccdInputs"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs">[docs]</a><span class="k">class</span> <span class="nc">MccdInputs</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Handle inputs for the MCCD algorithm.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Handle inputs for the MCCD algorithm.</span>
 
 <span class="sd">    This method was set up to work with a catalog outputed by SExtractor but</span>
 <span class="sd">    it should not be restricted to that.</span>
@@ -425,8 +543,8 @@
 <span class="sd">    coordinate system to the global one.</span>
 <span class="sd">    The expected files are in fits format.</span>
 <span class="sd">    An filename example would be: ``star_selection-1234567-04.fits``</span>
-<span class="sd">        Where the exposure ID is: ``1234567``</span>
-<span class="sd">        Where the CCD ID is: ``04``</span>
+<span class="sd">    Where the exposure ID is: ``1234567``</span>
+<span class="sd">    Where the CCD ID is: ``04``</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -459,7 +577,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="s1">'-'</span><span class="p">,</span> <span class="n">coord_x_descriptor</span><span class="o">=</span><span class="s1">'XWIN_IMAGE'</span><span class="p">,</span>
                  <span class="n">coord_y_descriptor</span><span class="o">=</span><span class="s1">'YWIN_IMAGE'</span><span class="p">,</span> <span class="n">mask_thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">,</span>
                  <span class="n">loc2glob</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fits_tb_pos</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">separator</span> <span class="o">=</span> <span class="n">separator</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coord_x_descriptor</span> <span class="o">=</span> <span class="n">coord_x_descriptor</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coord_y_descriptor</span> <span class="o">=</span> <span class="n">coord_y_descriptor</span>
@@ -485,7 +603,7 @@
 
 <div class="viewcode-block" id="MccdInputs.handle_mask"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.handle_mask">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">handle_mask</span><span class="p">(</span><span class="n">stars</span><span class="p">,</span> <span class="n">thresh</span><span class="p">,</span> <span class="n">apply_to_stars</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Handle and generate masks.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Handle and generate masks.</span>
 
 <span class="sd">        Reads SExtracted star stamps, generates MCCD-compatible masks</span>
 <span class="sd">        (that is, binary weights), and replaces bad pixels with 0s -</span>
@@ -511,7 +629,7 @@
         <span class="k">return</span> <span class="n">mask</span></div>
 
 <div class="viewcode-block" id="MccdInputs.parse_path"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.parse_path">[docs]</a>    <span class="k">def</span> <span class="nf">parse_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Parse one path and extract info.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Parse one path and extract info.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -533,7 +651,7 @@
         <span class="k">return</span> <span class="n">starcat_id</span><span class="p">,</span> <span class="n">ccd_n</span></div>
 
 <div class="viewcode-block" id="MccdInputs.parse_folder"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.parse_folder">[docs]</a>    <span class="k">def</span> <span class="nf">parse_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder_path</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Parse a folder that match a specfic ``pattern``.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Parse a folder that match a specfic ``pattern``.</span>
 
 <span class="sd">        Separate into a list of np.array each one for each starcat_id</span>
 <span class="sd">        present in the folder.</span>
@@ -573,7 +691,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">starcat_list</span> <span class="o">=</span> <span class="n">starcat_list</span></div>
 
 <div class="viewcode-block" id="MccdInputs.parse_pipeline_input_list"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.parse_pipeline_input_list">[docs]</a>    <span class="k">def</span> <span class="nf">parse_pipeline_input_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_list</span><span class="p">,</span> <span class="n">element_position</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Parse a pipeline input file list.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Parse a pipeline input file list.</span>
 
 <span class="sd">        Separate into a list of np.array for each starcat_id</span>
 <span class="sd">        present in the folder.</span>
@@ -619,7 +737,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">starcat_list</span> <span class="o">=</span> <span class="n">starcat_list</span></div>
 
 <div class="viewcode-block" id="MccdInputs.prep_mccd_inputs"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.prep_mccd_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">prep_mccd_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">starcat_array</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Prepare the inputs for mccd algorithm.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Prepare the inputs for mccd algorithm.</span>
 
 <span class="sd">        Taks done:</span>
 
@@ -724,7 +842,7 @@
             <span class="n">RA_list</span><span class="p">,</span> <span class="n">DEC_list</span></div>
 
 <div class="viewcode-block" id="MccdInputs.preprocess_data"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.preprocess_data">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder_path</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Preprocess the data.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Preprocess the data.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -745,7 +863,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">catalog_ids</span></div>
 
 <div class="viewcode-block" id="MccdInputs.proprocess_pipeline_data"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.proprocess_pipeline_data">[docs]</a>    <span class="k">def</span> <span class="nf">proprocess_pipeline_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_list</span><span class="p">,</span> <span class="n">element_position</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Preprocess Shapepipe pipeline's input file list.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Preprocess Shapepipe pipeline's input file list.</span>
 
 <span class="sd">        Also return the list of ids.</span>
 
@@ -773,7 +891,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">catalog_ids</span></div>
 
 <div class="viewcode-block" id="MccdInputs.get_inputs"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.get_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">get_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">catalog_id</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Get the MCCD inputs from a specific exposure id.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Get the MCCD inputs from a specific exposure id.</span>
 
 <span class="sd">        Returns several lists corresponding to the outputs of the</span>
 <span class="sd">        function ``prep_mccd_inputs``.</span>
@@ -795,14 +913,14 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">prep_mccd_inputs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">starcat_list</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="MccdInputs.get_catalog_ids"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.get_catalog_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_catalog_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Get preprocessed catalog ids."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Get preprocessed catalog ids."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">catalog_ids</span></div>
 
 <div class="viewcode-block" id="MccdInputs.outlier_rejection"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.outlier_rejection">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">outlier_rejection</span><span class="p">(</span><span class="n">star_list</span><span class="p">,</span> <span class="n">pos_list</span><span class="p">,</span> <span class="n">mask_list</span><span class="p">,</span> <span class="n">ccd_list</span><span class="p">,</span>
                           <span class="n">SNR_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">RA_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">DEC_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                           <span class="n">shape_std_max</span><span class="o">=</span><span class="mf">5.</span><span class="p">,</span> <span class="n">print_fun</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Outlier star rejection method.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Outlier star rejection method.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
@@ -908,7 +1026,7 @@
 
 
 <div class="viewcode-block" id="random_indexes"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.random_indexes">[docs]</a><span class="k">def</span> <span class="nf">random_indexes</span><span class="p">(</span><span class="n">n_tot</span><span class="p">,</span> <span class="n">train_per</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">min_n_train</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Generate random indexes to separate datasets.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Generate random indexes to separate datasets.</span>
 
 <span class="sd">    Separate datasets into train and test sets following some criteria.</span>
 
@@ -966,7 +1084,7 @@
 
 
 <div class="viewcode-block" id="save_to_fits"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.save_to_fits">[docs]</a><span class="k">def</span> <span class="nf">save_to_fits</span><span class="p">(</span><span class="n">dictionary</span><span class="p">,</span> <span class="n">output_path</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Save dictionary of numpy.ndarray into a fits file.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Save dictionary of numpy.ndarray into a fits file.</span>
 
 <span class="sd">    ``output_path`` should be the path + new_name to save the fits and should</span>
 <span class="sd">    include ``.fits`` extension.</span>
@@ -1026,7 +1144,7 @@
 
 
 <div class="viewcode-block" id="save_fits"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.save_fits">[docs]</a><span class="k">def</span> <span class="nf">save_fits</span><span class="p">(</span><span class="n">dictionary</span><span class="p">,</span> <span class="n">train_bool</span><span class="p">,</span> <span class="n">cat_id</span><span class="p">,</span> <span class="n">output_path</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Save fits file.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Save fits file.</span>
 
 <span class="sd">    Save a dictionary into a fits file format.</span>
 
@@ -1062,7 +1180,7 @@
 
 
 <div class="viewcode-block" id="return_loc_neighbors"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.return_loc_neighbors">[docs]</a><span class="k">def</span> <span class="nf">return_loc_neighbors</span><span class="p">(</span><span class="n">new_pos</span><span class="p">,</span> <span class="n">obs_pos</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Find nearest neighbors locally in one CCD.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Find nearest neighbors locally in one CCD.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1090,7 +1208,7 @@
 
 
 <div class="viewcode-block" id="return_glob_neighbors"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.return_glob_neighbors">[docs]</a><span class="k">def</span> <span class="nf">return_glob_neighbors</span><span class="p">(</span><span class="n">new_pos</span><span class="p">,</span> <span class="n">obs_pos_list</span><span class="p">,</span> <span class="n">val_list</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Find nearest neighbors locally in all the available CCDs.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Find nearest neighbors locally in all the available CCDs.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1135,7 +1253,7 @@
 
 
 <div class="viewcode-block" id="interpolation_Pi"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.interpolation_Pi">[docs]</a><span class="k">def</span> <span class="nf">interpolation_Pi</span><span class="p">(</span><span class="n">position_list</span><span class="p">,</span> <span class="n">d_comp_glob</span><span class="p">,</span> <span class="n">loc2glob</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Create polynomial interpolation Pi matrix.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Create polynomial interpolation Pi matrix.</span>
 
 <span class="sd">    Create a Pi matrix list that will be used for the interpolation</span>
 <span class="sd">    of the global model.</span>
@@ -1186,7 +1304,7 @@
 
 
 <div class="viewcode-block" id="trim_filter"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.trim_filter">[docs]</a><span class="k">def</span> <span class="nf">trim_filter</span><span class="p">(</span><span class="n">filter_array</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Trim the filters to the minimal size.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Trim the filters to the minimal size.</span>
 
 <span class="sd">    This method will get rid of the extra zero coefficients in the filter.</span>
 <span class="sd">    Parameters</span>
@@ -1212,7 +1330,7 @@
 
 
 <div class="viewcode-block" id="get_mr_filters"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.get_mr_filters">[docs]</a><span class="k">def</span> <span class="nf">get_mr_filters</span><span class="p">(</span><span class="n">data_shape</span><span class="p">,</span> <span class="n">opt</span><span class="p">,</span> <span class="n">n_scales</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">coarse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Get transform filters.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Get transform filters.</span>
 
 <span class="sd">    This method obtains wavelet filters.</span>
 
@@ -1272,7 +1390,7 @@
         <span class="k">return</span> <span class="n">filters</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
 </code></pre>
 </main>
-<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 08 Mar, 2022. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 17 Feb, 2023. Made with <a href="https://www.sphinx-doc.org">Sphinx 4.3.1</a></footer>
 </div>
 <div class="sticky bottom-0 md:hidden print:hidden bg-white">
 <div class="flex justify-center items-center">
@@ -1301,13 +1419,11 @@
 </div>
 <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js">
 </script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
 <script src="../../_static/jquery.js"></script>
 <script src="../../_static/underscore.js"></script>
 <script src="../../_static/doctools.js"></script>
-<script src="../../_static/language_data.js"></script>
 <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-<script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
 <script defer="" src="../../_static/theme.js"></script>
 </body>
 </html>

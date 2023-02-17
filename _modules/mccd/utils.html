@@ -7,8 +7,10 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta charset="utf-8"/>
 <title>
-      mccd.utils | mccd v1.2.3
+      mccd.utils | mccd v1.2.4
     </title>
+<link href="../../_static/pygments.css" rel="stylesheet"/>
+<link href="../../_static/theme.css" rel="stylesheet"/>
 <link href="../../_static/pygments.css" rel="stylesheet"/>
 <link href="../../_static/theme.css" rel="stylesheet"/>
 <link href="../../search.html" rel="search" title="Search"/>
@@ -17,7 +19,7 @@
 <body class="text-gray-900 antialiased min-h-screen md:h-screen flex flex-col">
 <a class="block text-xl bg-white px-8 py-4 z-20 absolute top-0 left-0 transform -translate-x-full focus:translate-x-0 transition-transform duration-75" href="#mccd-utils" title="Skip navigation links">Skip to content</a>
 <header class="md:sticky top-0 bg-gray-900 shadow-md flex md:flex-row justify-between items-center z-10"><a aria-label="Back to homepage" class="hover:bg-gray-700 focus:bg-gray-700 tooltipped tooltipped-se" href="../../index.html">
-<h2 class="text-xl text-gray-100 mx-5 py-4">mccd v1.2.3</h2>
+<h2 class="text-xl text-gray-100 mx-5 py-4">mccd v1.2.4</h2>
 </a><form action="../../search.html" class="hidden md:flex my-auto mx-5 justify-between items-center print:hidden" id="searchbox" method="get">
 <input aria-label="Search the docs" class="p-2 flex-1 focus:bg-yellow-200" id="search-input" name="q" placeholder="Search the docs" style="width: 300px;" type="search"/>
 <button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
@@ -26,14 +28,14 @@
 </form>
 </header>
 <div class="md:overflow-hidden flex flex-col md:flex-row flex-1"><nav class="h-full fixed md:relative inset-y-0 left-0 z-20 md:z-0 bg-white text-gray-700 border-r overflow-x-hidden pt-16 print:hidden flex flex-col" data-menu="closed" role="navigation" style="width: 270px;">
-<div class="nav-toc"><p class="caption">Getting Started</p>
+<div class="nav-toc"><p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../about.html">About</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../installation.html">Installation</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../quickstart.html">Quickstart Tutorial</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../changelog.html">Changelog</a></div></li>
 </ul>
-<p class="caption">API Documentation</p>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><div class="nav-link"><svg aria-hidden="true" class="expand" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" href="../../mccd.html">mccd</a></div><ul>
 <li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.auxiliary_fun.html">mccd.auxiliary_fun</a></div></li>
@@ -48,7 +50,7 @@
 </li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../z_ref.html">References</a></div></li>
 </ul>
-<p class="caption">Guidelines</p>
+<p class="caption" role="heading"><span class="caption-text">Guidelines</span></p>
 <ul>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../contributing.html">Contributing</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../citing.html">Citing this Package</a></div></li>
@@ -81,7 +83,7 @@
 
 
 <div class="viewcode-block" id="apply_transform"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.apply_transform">[docs]</a><span class="k">def</span> <span class="nf">apply_transform</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">filters</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Transform ``data`` through application of a set of filters.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Transform ``data`` through application of a set of filters.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -99,7 +101,7 @@
 
 <div class="viewcode-block" id="acc_sig_maps"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.acc_sig_maps">[docs]</a><span class="k">def</span> <span class="nf">acc_sig_maps</span><span class="p">(</span><span class="n">shap_im</span><span class="p">,</span> <span class="n">ker_stack</span><span class="p">,</span> <span class="n">sig_est</span><span class="p">,</span> <span class="n">flux_est</span><span class="p">,</span> <span class="n">flux_ref</span><span class="p">,</span> <span class="n">upfact</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span>
                  <span class="n">sig_data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Apply acc_sig_map() several times.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Apply acc_sig_map() several times.</span>
 
 <span class="sd">    Calls:</span>
 
@@ -116,7 +118,7 @@
 
 <div class="viewcode-block" id="acc_sig_map"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.acc_sig_map">[docs]</a><span class="k">def</span> <span class="nf">acc_sig_map</span><span class="p">(</span><span class="n">shap_im</span><span class="p">,</span> <span class="n">ker_stack</span><span class="p">,</span> <span class="n">sig_est</span><span class="p">,</span> <span class="n">flux_est</span><span class="p">,</span> <span class="n">flux_ref</span><span class="p">,</span> <span class="n">upfact</span><span class="p">,</span>
                 <span class="n">w</span><span class="p">,</span> <span class="n">sig_data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Estimate the simga noise maps from the observed data.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Estimate the simga noise maps from the observed data.</span>
 
 <span class="sd">    Computes the square root of</span>
 <span class="sd">    :math:`\mathcal{F}^{2*}(\hat\sigma^2)(A^\top\odot A^\top)`.</span>
@@ -145,7 +147,7 @@
 
 
 <div class="viewcode-block" id="return_neighbors"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.return_neighbors">[docs]</a><span class="k">def</span> <span class="nf">return_neighbors</span><span class="p">(</span><span class="n">new_pos</span><span class="p">,</span> <span class="n">obs_pos</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Find the nearest neighbors locally in one ccd."""</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Find the nearest neighbors locally in one ccd."""</span>
     <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">obs_pos</span> <span class="o">-</span> <span class="n">new_pos</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">nbs</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">distances</span><span class="p">)[:</span><span class="n">n_neighbors</span><span class="p">]]</span>
     <span class="n">pos</span> <span class="o">=</span> <span class="n">obs_pos</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">distances</span><span class="p">)[:</span><span class="n">n_neighbors</span><span class="p">]]</span>
@@ -153,7 +155,7 @@
 
 
 <div class="viewcode-block" id="rca_format"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.rca_format">[docs]</a><span class="k">def</span> <span class="nf">rca_format</span><span class="p">(</span><span class="n">cube</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Switch from ``regular`` format to ``RCA`` format.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Switch from ``regular`` format to ``RCA`` format.</span>
 
 <span class="sd">    RCA format: image index is contained on last axis [:,:,it]</span>
 <span class="sd">    Regular format: image index is contained on first axis [it,:,:]</span>
@@ -162,7 +164,7 @@
 
 
 <div class="viewcode-block" id="reg_format"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.reg_format">[docs]</a><span class="k">def</span> <span class="nf">reg_format</span><span class="p">(</span><span class="n">rca_cube</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Switch from ``RCA`` format to ``regular`` format.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Switch from ``RCA`` format to ``regular`` format.</span>
 
 <span class="sd">    RCA format: image index is contained on last axis [:,:,it]</span>
 <span class="sd">    Regular format: image index is contained on first axis [it,:,:]</span>
@@ -171,7 +173,7 @@
 
 
 <div class="viewcode-block" id="decim"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.decim">[docs]</a><span class="k">def</span> <span class="nf">decim</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">av_en</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fft</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Decimate image to lower resolution."""</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Decimate image to lower resolution."""</span>
     <span class="n">im_filt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
     <span class="n">im_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -196,7 +198,7 @@
 
 
 <div class="viewcode-block" id="pairwise_distances"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.pairwise_distances">[docs]</a><span class="k">def</span> <span class="nf">pairwise_distances</span><span class="p">(</span><span class="n">obs_pos</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Compute pairwise distances."""</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Compute pairwise distances."""</span>
     <span class="n">ones</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">obs_pos</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">out0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">obs_pos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">ones</span><span class="p">)</span>
     <span class="n">out1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">obs_pos</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">ones</span><span class="p">)</span>
@@ -204,7 +206,7 @@
 
 
 <div class="viewcode-block" id="transpose_decim"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.transpose_decim">[docs]</a><span class="k">def</span> <span class="nf">transpose_decim</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">decim_fact</span><span class="p">,</span> <span class="n">av_en</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Apply the transpose of the decimation matrix."""</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Apply the transpose of the decimation matrix."""</span>
     <span class="n">shap</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span>
     <span class="n">im_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">decim_fact</span><span class="p">,</span> <span class="n">shap</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">decim_fact</span><span class="p">))</span>
 
@@ -221,7 +223,7 @@
 
 
 <div class="viewcode-block" id="SoftThresholding"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.SoftThresholding">[docs]</a><span class="k">def</span> <span class="nf">SoftThresholding</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">thresh</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Perform element-wise soft thresholding."""</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Perform element-wise soft thresholding."""</span>
     <span class="n">thresh_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">belowmask</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">thresh</span><span class="p">)</span>
     <span class="n">abovemask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">belowmask</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
@@ -231,14 +233,14 @@
 
 
 <div class="viewcode-block" id="HardThresholding"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.HardThresholding">[docs]</a><span class="k">def</span> <span class="nf">HardThresholding</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">thresh</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Perform element-wise hard thresholding."""</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Perform element-wise hard thresholding."""</span>
     <span class="n">thresh_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">thresh_data</span><span class="p">[</span><span class="n">thresh_data</span> <span class="o">&lt;</span> <span class="n">thresh</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
     <span class="k">return</span> <span class="n">thresh_data</span></div>
 
 
 <div class="viewcode-block" id="kthresholding"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.kthresholding">[docs]</a><span class="k">def</span> <span class="nf">kthresholding</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Apply k-thresholding.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Apply k-thresholding.</span>
 
 <span class="sd">    Keep only ``k`` highest values and set the rest to 0.</span>
 <span class="sd">    """</span>
@@ -256,7 +258,7 @@
 
 
 <div class="viewcode-block" id="lineskthresholding"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.lineskthresholding">[docs]</a><span class="k">def</span> <span class="nf">lineskthresholding</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Apply k-thresholding to each line of input matrix.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Apply k-thresholding to each line of input matrix.</span>
 
 <span class="sd">    Calls:</span>
 
@@ -270,7 +272,7 @@
 
 
 <div class="viewcode-block" id="mad"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.mad">[docs]</a><span class="k">def</span> <span class="nf">mad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Compute MAD (Median Absolute Deviation)."""</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Compute MAD (Median Absolute Deviation)."""</span>
     <span class="k">if</span> <span class="n">weight</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">valid_pixels</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">weight</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
@@ -279,7 +281,7 @@
 
 
 <div class="viewcode-block" id="transform_mask"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.transform_mask">[docs]</a><span class="k">def</span> <span class="nf">transform_mask</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">filt</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Propagate bad pixels to 1st wavelet scale and mask all pixels affected.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Propagate bad pixels to 1st wavelet scale and mask all pixels affected.</span>
 
 <span class="sd">    Bad pixels are the ones with weight 0.</span>
 <span class="sd">    """</span>
@@ -301,7 +303,7 @@
 
 
 <div class="viewcode-block" id="lanczos"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.lanczos">[docs]</a><span class="k">def</span> <span class="nf">lanczos</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n2</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Generate Lanczos kernel for a given shift."""</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Generate Lanczos kernel for a given shift."""</span>
     <span class="k">if</span> <span class="n">n2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">n2</span> <span class="o">=</span> <span class="n">n</span>
     <span class="n">siz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">U</span><span class="p">)</span>
@@ -334,7 +336,7 @@
 
 
 <div class="viewcode-block" id="flux_estimate"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.flux_estimate">[docs]</a><span class="k">def</span> <span class="nf">flux_estimate</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">cent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Estimate flux for one image.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Estimate flux for one image.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -373,7 +375,7 @@
 
 
 <div class="viewcode-block" id="flux_estimate_stack"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.flux_estimate_stack">[docs]</a><span class="k">def</span> <span class="nf">flux_estimate_stack</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">cent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="mf">2.</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Estimate flux for a bunch of images.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Estimate flux for a bunch of images.</span>
 
 <span class="sd">    Calls:</span>
 
@@ -395,7 +397,7 @@
 
 
 <div class="viewcode-block" id="shift_ker_stack"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.shift_ker_stack">[docs]</a><span class="k">def</span> <span class="nf">shift_ker_stack</span><span class="p">(</span><span class="n">shifts</span><span class="p">,</span> <span class="n">upfact</span><span class="p">,</span> <span class="n">lanc_rad</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Generate shifting kernels and rotated shifting kernels.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Generate shifting kernels and rotated shifting kernels.</span>
 
 <span class="sd">    Calls:</span>
 
@@ -418,7 +420,7 @@
 
 
 <div class="viewcode-block" id="gen_Pea"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.gen_Pea">[docs]</a><span class="k">def</span> <span class="nf">gen_Pea</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Compute the graph Laplacian for a given set of parameters.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Compute the graph Laplacian for a given set of parameters.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -452,7 +454,7 @@
 
 
 <div class="viewcode-block" id="select_vstar"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.select_vstar">[docs]</a><span class="k">def</span> <span class="nf">select_vstar</span><span class="p">(</span><span class="n">eigenvects</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Pick best eigenvector from a set of :math:`(e,a)`.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Pick best eigenvector from a set of :math:`(e,a)`.</span>
 
 <span class="sd">    i.e., solve (35) from RCA paper (Ngole et al.).</span>
 
@@ -481,7 +483,7 @@
 
 
 <div class="viewcode-block" id="GraphBuilder"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.GraphBuilder">[docs]</a><span class="k">class</span> <span class="nc">GraphBuilder</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""GraphBuilder class.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""GraphBuilder class.</span>
 
 <span class="sd">    This class computes the necessary quantities for RCA's graph constraint.</span>
 
@@ -519,7 +521,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs_data</span><span class="p">,</span> <span class="n">obs_pos</span><span class="p">,</span> <span class="n">obs_weights</span><span class="p">,</span> <span class="n">n_comp</span><span class="p">,</span>
                  <span class="n">n_eigenvects</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                  <span class="n">ea_gridsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">distances</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">auto_run</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span> <span class="o">=</span> <span class="n">obs_data</span>
         <span class="n">shap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="o">.</span><span class="n">shape</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span> <span class="o">=</span> <span class="n">obs_pos</span>
@@ -548,7 +550,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_build_graphs</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_build_graphs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Compute graph-constraint related values.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute graph-constraint related values.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
@@ -594,7 +596,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">col_n</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 
 <div class="viewcode-block" id="GraphBuilder.pick_emax"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.GraphBuilder.pick_emax">[docs]</a>    <span class="k">def</span> <span class="nf">pick_emax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-15</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Pick maximum value for ``e`` parameter.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Pick maximum value for ``e`` parameter.</span>
 
 <span class="sd">        From now, we fix the maximum :math:`e` to 1 and ignore the old</span>
 <span class="sd">        procedure that was giving values that were too big.</span>
@@ -612,7 +614,7 @@
         <span class="k">return</span> <span class="mf">1.</span></div>
 
 <div class="viewcode-block" id="GraphBuilder.select_params"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.GraphBuilder.select_params">[docs]</a>    <span class="k">def</span> <span class="nf">select_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">e_range</span><span class="p">,</span> <span class="n">a_range</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Select best graph parameters.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Select best graph parameters.</span>
 
 <span class="sd">        Select :math:`(e,a)` parameters and best eigenvector</span>
 <span class="sd">        for current :math:`R_i` matrix.</span>
@@ -650,7 +652,7 @@
         <span class="k">return</span> <span class="n">current_e</span><span class="p">,</span> <span class="n">current_a</span><span class="p">,</span> <span class="n">eigen_idx</span><span class="p">,</span> <span class="n">best_VT</span></div>
 
 <div class="viewcode-block" id="GraphBuilder.gen_eigenvects"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.GraphBuilder.gen_eigenvects">[docs]</a>    <span class="k">def</span> <span class="nf">gen_eigenvects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mat</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Compute input matrix's eigenvectors.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute input matrix's eigenvectors.</span>
 
 <span class="sd">        Keep only the ``n_eigenvects`` associated</span>
 <span class="sd">        with the smallest eigenvalues.</span>
@@ -663,7 +665,7 @@
 <div class="viewcode-block" id="poly_pos"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.poly_pos">[docs]</a><span class="k">def</span> <span class="nf">poly_pos</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">max_degree</span><span class="p">,</span> <span class="n">center_normalice</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
              <span class="n">x_lims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y_lims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
              <span class="n">normalice_Pi</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_degree</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Construct polynomial matrix.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Construct polynomial matrix.</span>
 
 <span class="sd">    Return a matrix Pi containing polynomials of stars</span>
 <span class="sd">    positions up to ``max_degree``.</span>
@@ -719,7 +721,7 @@
 
 
 <div class="viewcode-block" id="CentroidEstimator"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.CentroidEstimator">[docs]</a><span class="k">class</span> <span class="nc">CentroidEstimator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Estimate intra-pixel shifts.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Estimate intra-pixel shifts.</span>
 
 <span class="sd">    It calculates the centroid of the image and compare it with the stamp</span>
 <span class="sd">    centroid and returns the proper shift.</span>
@@ -750,7 +752,7 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">sig</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">auto_run</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                  <span class="n">xc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">yc</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">im</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stamp_size</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ranges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stamp_size</span><span class="p">])</span>
@@ -773,14 +775,14 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">estimate</span><span class="p">()</span>
 
 <div class="viewcode-block" id="CentroidEstimator.UpdateGrid"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.CentroidEstimator.UpdateGrid">[docs]</a>    <span class="k">def</span> <span class="nf">UpdateGrid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Update the grid where the star stamp is defined."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Update the grid where the star stamp is defined."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ranges</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">xc</span><span class="p">,</span>
                            <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stamp_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stamp_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
                            <span class="bp">self</span><span class="o">.</span><span class="n">ranges</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">yc</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CentroidEstimator.EllipticalGaussian"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.CentroidEstimator.EllipticalGaussian">[docs]</a>    <span class="k">def</span> <span class="nf">EllipticalGaussian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">e2</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Compute an elliptical 2D gaussian with arbitrary centroid."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute an elliptical 2D gaussian with arbitrary centroid."""</span>
         <span class="c1"># Shear it</span>
         <span class="n">gxx</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">e1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">xx</span> <span class="o">-</span> <span class="n">e2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">yy</span>
         <span class="n">gyy</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">e1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">yy</span> <span class="o">-</span> <span class="n">e2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">xx</span>
@@ -788,7 +790,7 @@
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">gxx</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">gyy</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">sig</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="CentroidEstimator.ComputeMoments"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.CentroidEstimator.ComputeMoments">[docs]</a>    <span class="k">def</span> <span class="nf">ComputeMoments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Compute the star moments.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute the star moments.</span>
 
 <span class="sd">        Compute the star image normalized first order moments with</span>
 <span class="sd">        the current window function.</span>
@@ -804,7 +806,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">yc</span> <span class="o">=</span> <span class="n">Q1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">Q0</span></div>
 
 <div class="viewcode-block" id="CentroidEstimator.estimate"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.CentroidEstimator.estimate">[docs]</a>    <span class="k">def</span> <span class="nf">estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Estimate the star image centroid iteratively."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Estimate the star image centroid iteratively."""</span>
         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iter</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">UpdateGrid</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EllipticalGaussian</span><span class="p">()</span>
@@ -813,7 +815,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">xc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yc</span></div>
 
 <div class="viewcode-block" id="CentroidEstimator.return_shifts"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.CentroidEstimator.return_shifts">[docs]</a>    <span class="k">def</span> <span class="nf">return_shifts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Return intra-pixel shifts.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Return intra-pixel shifts.</span>
 
 <span class="sd">        Intra-pixel shifts are the difference between</span>
 <span class="sd">        the estimated centroid and the center of the stamp (or pixel grid).</span>
@@ -822,19 +824,19 @@
 
 
 <div class="viewcode-block" id="adjoint_degradation_op"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.adjoint_degradation_op">[docs]</a><span class="k">def</span> <span class="nf">adjoint_degradation_op</span><span class="p">(</span><span class="n">x_i</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Apply adjoint of the degradation operator ``degradation_op``."""</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Apply adjoint of the degradation operator ``degradation_op``."""</span>
     <span class="k">return</span> <span class="n">scisig</span><span class="o">.</span><span class="n">fftconvolve</span><span class="p">(</span><span class="n">transpose_decim</span><span class="p">(</span><span class="n">x_i</span><span class="p">,</span> <span class="n">D</span><span class="p">),</span>
                               <span class="n">shift_ker</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'same'</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="degradation_op"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.degradation_op">[docs]</a><span class="k">def</span> <span class="nf">degradation_op</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Shift and decimate fine-grid image."""</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Shift and decimate fine-grid image."""</span>
     <span class="k">return</span> <span class="n">decim</span><span class="p">(</span><span class="n">scisig</span><span class="o">.</span><span class="n">fftconvolve</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'same'</span><span class="p">),</span>
                  <span class="n">D</span><span class="p">,</span> <span class="n">av_en</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="handle_SExtractor_mask"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.handle_SExtractor_mask">[docs]</a><span class="k">def</span> <span class="nf">handle_SExtractor_mask</span><span class="p">(</span><span class="n">stars</span><span class="p">,</span> <span class="n">thresh</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Handle Sextractor masks.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Handle Sextractor masks.</span>
 
 <span class="sd">    Reads SExtracted star stamps, generates MCCD-compatible masks</span>
 <span class="sd">    (that is, binary weights), and replaces bad pixels with 0s -</span>
@@ -848,7 +850,7 @@
 
 
 <div class="viewcode-block" id="match_psfs"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.match_psfs">[docs]</a><span class="k">def</span> <span class="nf">match_psfs</span><span class="p">(</span><span class="n">test_stars</span><span class="p">,</span> <span class="n">PSFs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Match psfs.DEPRECATED.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Match psfs.DEPRECATED.</span>
 
 <span class="sd">    See ``MCCD.validation_stars`` instead.</span>
 <span class="sd">    Takes as input the test_stars vignets and the PSFs vignets that were</span>
@@ -927,7 +929,7 @@
 
 
 <div class="viewcode-block" id="NoiseEstimator"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.NoiseEstimator">[docs]</a><span class="k">class</span> <span class="nc">NoiseEstimator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">""" Noise estimator.</span>
+<span class="w">    </span><span class="sd">""" Noise estimator.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -962,19 +964,19 @@
 
 <div class="viewcode-block" id="NoiseEstimator.sigma_mad"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.NoiseEstimator.sigma_mad">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">sigma_mad</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Compute an estimation of the standard deviation</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute an estimation of the standard deviation</span>
 <span class="sd">        of a Gaussian distribution using the robust</span>
 <span class="sd">        MAD (Median Absolute Deviation) estimator."""</span>
         <span class="k">return</span> <span class="mf">1.4826</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span></div>
 
 <div class="viewcode-block" id="NoiseEstimator.estimate_noise"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.NoiseEstimator.estimate_noise">[docs]</a>    <span class="k">def</span> <span class="nf">estimate_noise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Estimate the noise level of the image."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Estimate the noise level of the image."""</span>
 
         <span class="c1"># Calculate noise std dev</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma_mad</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">])</span></div></div>
 </code></pre>
 </main>
-<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 08 Mar, 2022. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 17 Feb, 2023. Made with <a href="https://www.sphinx-doc.org">Sphinx 4.3.1</a></footer>
 </div>
 <div class="sticky bottom-0 md:hidden print:hidden bg-white">
 <div class="flex justify-center items-center">
@@ -1003,13 +1005,11 @@
 </div>
 <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js">
 </script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
 <script src="../../_static/jquery.js"></script>
 <script src="../../_static/underscore.js"></script>
 <script src="../../_static/doctools.js"></script>
-<script src="../../_static/language_data.js"></script>
 <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-<script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
 <script defer="" src="../../_static/theme.js"></script>
 </body>
 </html>

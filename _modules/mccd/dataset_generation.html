@@ -7,8 +7,10 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta charset="utf-8"/>
 <title>
-      mccd.dataset_generation | mccd v1.2.3
+      mccd.dataset_generation | mccd v1.2.4
     </title>
+<link href="../../_static/pygments.css" rel="stylesheet"/>
+<link href="../../_static/theme.css" rel="stylesheet"/>
 <link href="../../_static/pygments.css" rel="stylesheet"/>
 <link href="../../_static/theme.css" rel="stylesheet"/>
 <link href="../../search.html" rel="search" title="Search"/>
@@ -17,7 +19,7 @@
 <body class="text-gray-900 antialiased min-h-screen md:h-screen flex flex-col">
 <a class="block text-xl bg-white px-8 py-4 z-20 absolute top-0 left-0 transform -translate-x-full focus:translate-x-0 transition-transform duration-75" href="#mccd-dataset-generation" title="Skip navigation links">Skip to content</a>
 <header class="md:sticky top-0 bg-gray-900 shadow-md flex md:flex-row justify-between items-center z-10"><a aria-label="Back to homepage" class="hover:bg-gray-700 focus:bg-gray-700 tooltipped tooltipped-se" href="../../index.html">
-<h2 class="text-xl text-gray-100 mx-5 py-4">mccd v1.2.3</h2>
+<h2 class="text-xl text-gray-100 mx-5 py-4">mccd v1.2.4</h2>
 </a><form action="../../search.html" class="hidden md:flex my-auto mx-5 justify-between items-center print:hidden" id="searchbox" method="get">
 <input aria-label="Search the docs" class="p-2 flex-1 focus:bg-yellow-200" id="search-input" name="q" placeholder="Search the docs" style="width: 300px;" type="search"/>
 <button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
@@ -26,14 +28,14 @@
 </form>
 </header>
 <div class="md:overflow-hidden flex flex-col md:flex-row flex-1"><nav class="h-full fixed md:relative inset-y-0 left-0 z-20 md:z-0 bg-white text-gray-700 border-r overflow-x-hidden pt-16 print:hidden flex flex-col" data-menu="closed" role="navigation" style="width: 270px;">
-<div class="nav-toc"><p class="caption">Getting Started</p>
+<div class="nav-toc"><p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../about.html">About</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../installation.html">Installation</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../quickstart.html">Quickstart Tutorial</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../changelog.html">Changelog</a></div></li>
 </ul>
-<p class="caption">API Documentation</p>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><div class="nav-link"><svg aria-hidden="true" class="expand" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" href="../../mccd.html">mccd</a></div><ul>
 <li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.auxiliary_fun.html">mccd.auxiliary_fun</a></div></li>
@@ -48,7 +50,7 @@
 </li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../z_ref.html">References</a></div></li>
 </ul>
-<p class="caption">Guidelines</p>
+<p class="caption" role="heading"><span class="caption-text">Guidelines</span></p>
 <ul>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../contributing.html">Contributing</a></div></li>
 <li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../citing.html">Citing this Package</a></div></li>
@@ -86,7 +88,7 @@
 
 
 <div class="viewcode-block" id="GenerateRealisticDataset"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.GenerateRealisticDataset">[docs]</a><span class="k">class</span> <span class="nc">GenerateRealisticDataset</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Generate realistic dataset for training and validating PSF models.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Generate realistic dataset for training and validating PSF models.</span>
 
 <span class="sd">    **General considerations**:</span>
 
@@ -146,7 +148,8 @@
 <span class="sd">        e2_path=e2_path,</span>
 <span class="sd">        size_path=fwhm_path,</span>
 <span class="sd">        output_path=output_path,</span>
-<span class="sd">        catalog_id=cat_id)</span>
+<span class="sd">        catalog_id=cat_id</span>
+<span class="sd">    )</span>
 <span class="sd">    sim_dataset_gen.generate_train_data()</span>
 <span class="sd">    sim_dataset_gen.generate_test_data()</span>
 
@@ -254,7 +257,7 @@
                               <span class="n">e2_kwargs</span><span class="o">=</span><span class="n">e2_kwargs</span><span class="p">)</span>
 
 <div class="viewcode-block" id="GenerateRealisticDataset.init_random_positions"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.GenerateRealisticDataset.init_random_positions">[docs]</a>    <span class="k">def</span> <span class="nf">init_random_positions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Initialise random positions."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Initialise random positions."""</span>
 
         <span class="c1"># Draw a random mean star quantity per ccd</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mean_star_qt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span>
@@ -299,7 +302,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span> <span class="o">=</span> <span class="n">current_ccd</span></div>
 
 <div class="viewcode-block" id="GenerateRealisticDataset.init_grid_positions"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.GenerateRealisticDataset.init_grid_positions">[docs]</a>    <span class="k">def</span> <span class="nf">init_grid_positions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_grid</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">y_grid</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Initialise positions in a regular grid."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Initialise positions in a regular grid."""</span>
         <span class="c1"># Re-initialise values</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">positions</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span> <span class="o">=</span> <span class="kc">None</span>
@@ -340,7 +343,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">ccd_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="GenerateRealisticDataset.scale_fwhms"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.GenerateRealisticDataset.scale_fwhms">[docs]</a>    <span class="k">def</span> <span class="nf">scale_fwhms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fwhms</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Scale the FWHM values so that they are in the desired range."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Scale the FWHM values so that they are in the desired range."""</span>
         <span class="c1"># Substract the mean</span>
         <span class="n">scaled_fwhms</span> <span class="o">=</span> <span class="n">fwhms</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">exposure_sim</span><span class="o">.</span><span class="n">mean_fwhm</span>
         <span class="c1"># Divide the total range</span>
@@ -352,7 +355,7 @@
         <span class="k">return</span> <span class="n">scaled_fwhms</span></div>
 
 <div class="viewcode-block" id="GenerateRealisticDataset.generate_train_data"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.GenerateRealisticDataset.generate_train_data">[docs]</a>    <span class="k">def</span> <span class="nf">generate_train_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Generate the training dataset and saves it in fits format.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Generate the training dataset and saves it in fits format.</span>
 
 <span class="sd">        The positions are drawn randomly.</span>
 <span class="sd">        """</span>
@@ -428,7 +431,7 @@
             <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">save_str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exposure_sim</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="GenerateRealisticDataset.generate_test_data"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.GenerateRealisticDataset.generate_test_data">[docs]</a>    <span class="k">def</span> <span class="nf">generate_test_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_pos_bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">x_grid</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">y_grid</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Generate the test dataset and save it into a fits file.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Generate the test dataset and save it into a fits file.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -500,7 +503,7 @@
 
 <div class="viewcode-block" id="GenerateRealisticDataset.handle_SExtractor_mask"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.GenerateRealisticDataset.handle_SExtractor_mask">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">handle_SExtractor_mask</span><span class="p">(</span><span class="n">stars</span><span class="p">,</span> <span class="n">thresh</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Handle SExtractor masks.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Handle SExtractor masks.</span>
 <span class="sd">        Reads SExtracted star stamps, generates MCCD-compatible masks</span>
 <span class="sd">        (that is, binary weights), and replaces bad pixels with 0s - they will</span>
 <span class="sd">        not be used by MCCD, but the ridiculous numerical values can</span>
@@ -513,7 +516,7 @@
 
 
 <div class="viewcode-block" id="MomentInterpolator"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.MomentInterpolator">[docs]</a><span class="k">class</span> <span class="nc">MomentInterpolator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Allow to interpolate moments from a bin image.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Allow to interpolate moments from a bin image.</span>
 
 <span class="sd">    Bin image like the one from the MeanShapes function.</span>
 
@@ -528,7 +531,7 @@
         <span class="n">rbf_function</span><span class="o">=</span><span class="s1">'thin_plate'</span><span class="p">,</span>
         <span class="n">loc2glob</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
         <span class="c1"># Save variables</span>
         <span class="k">if</span> <span class="n">loc2glob</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd</span><span class="o">.</span><span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
@@ -585,7 +588,7 @@
             <span class="p">)</span>
 
 <div class="viewcode-block" id="MomentInterpolator.interpolate_position"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.MomentInterpolator.interpolate_position">[docs]</a>    <span class="k">def</span> <span class="nf">interpolate_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Interpolate positions."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Interpolate positions."""</span>
         <span class="c1"># Calculate distances</span>
         <span class="n">res_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_pos</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="o">-</span> <span class="n">target_x</span>
         <span class="n">res_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_pos</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="o">-</span> <span class="n">target_y</span>
@@ -608,7 +611,7 @@
 
 
 <div class="viewcode-block" id="AtmosphereGenerator"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.AtmosphereGenerator">[docs]</a><span class="k">class</span> <span class="nc">AtmosphereGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">""" Generate atmospheric variations.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">""" Generate atmospheric variations.</span>
 
 <span class="sd">    This class generates a random atmospheric contributition in terms of</span>
 <span class="sd">    elloipticity and size.</span>
@@ -674,7 +677,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">init_powerspectrum</span><span class="p">()</span>
 
 <div class="viewcode-block" id="AtmosphereGenerator.power_fun"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.AtmosphereGenerator.power_fun">[docs]</a>    <span class="k">def</span> <span class="nf">power_fun</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">freq</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Von Karman power function.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Von Karman power function.</span>
 
 <span class="sd">        Parameters should be in arcsec.</span>
 <span class="sd">        Heymans' parameter for the CFHT telescope is in the range</span>
@@ -686,7 +689,7 @@
             <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">freq</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">r_trunc</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="AtmosphereGenerator.init_powerspectrum"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.AtmosphereGenerator.init_powerspectrum">[docs]</a>    <span class="k">def</span> <span class="nf">init_powerspectrum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Initialise the powerspectrum. """</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Initialise the powerspectrum. """</span>
         <span class="c1"># We need to have the hole area of the focal plane expressed in arcsec.</span>
         <span class="c1"># Get the maximum values for the global positions (in pixels])</span>
         <span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_coord_range</span><span class="p">()</span>
@@ -717,11 +720,11 @@
                                             <span class="n">variance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">map_std</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="AtmosphereGenerator.regenerate_atmosphere"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.AtmosphereGenerator.regenerate_atmosphere">[docs]</a>    <span class="k">def</span> <span class="nf">regenerate_atmosphere</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Generate a new random atmosphere."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Generate a new random atmosphere."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">init_powerspectrum</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="AtmosphereGenerator.interpolate_position"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.AtmosphereGenerator.interpolate_position">[docs]</a>    <span class="k">def</span> <span class="nf">interpolate_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Get the ellipticity and size factor for a target position.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Get the ellipticity and size factor for a target position.</span>
 
 <span class="sd">        It is recommended to calculate with 1D arrays as it is much faster.</span>
 
@@ -755,7 +758,7 @@
 
 <div class="viewcode-block" id="AtmosphereGenerator.plot_realisation"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.AtmosphereGenerator.plot_realisation">[docs]</a>    <span class="k">def</span> <span class="nf">plot_realisation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_corner</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">save_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                          <span class="n">save_fig</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Plot atmospheric realisation.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Plot atmospheric realisation.</span>
 
 <span class="sd">        Plot the entire focal plane and the dimensions of a CCD.</span>
 <span class="sd">        """</span>
@@ -825,7 +828,7 @@
 
 <div class="viewcode-block" id="AtmosphereGenerator.plot_correlation"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.AtmosphereGenerator.plot_correlation">[docs]</a>    <span class="k">def</span> <span class="nf">plot_correlation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">save_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_points</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">kmin_factor</span><span class="o">=</span><span class="mf">10.</span><span class="p">,</span>
                          <span class="n">kmax_factor</span><span class="o">=</span><span class="mf">10.</span><span class="p">,</span> <span class="n">save_fig</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Plot correlation functions. """</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Plot correlation functions. """</span>
         <span class="k">if</span> <span class="n">save_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">save_path</span> <span class="o">=</span> <span class="s1">'./'</span>
 
@@ -863,7 +866,7 @@
 
 
 <div class="viewcode-block" id="ExposureSimulation"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.ExposureSimulation">[docs]</a><span class="k">class</span> <span class="nc">ExposureSimulation</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">""" Simulate one exposure.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">""" Simulate one exposure.</span>
 
 <span class="sd">    Generate a random exposure and the give the ellipticities and size</span>
 <span class="sd">    of the PSF for any position in the focal plane.</span>
@@ -934,7 +937,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">init_exposure</span><span class="p">()</span>
 
 <div class="viewcode-block" id="ExposureSimulation.init_exposure"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.ExposureSimulation.init_exposure">[docs]</a>    <span class="k">def</span> <span class="nf">init_exposure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Initialise exposure variables. """</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Initialise exposure variables. """</span>
         <span class="c1"># Generate atmosphere</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">atmosphere</span> <span class="o">=</span> <span class="n">mccd</span><span class="o">.</span><span class="n">dataset_generation</span><span class="o">.</span><span class="n">AtmosphereGenerator</span><span class="p">(</span>
             <span class="n">loc2glob</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="p">,</span>
@@ -967,7 +970,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">mean_fwhm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fwhm_dist</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="ExposureSimulation.regenerate_exposure"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.ExposureSimulation.regenerate_exposure">[docs]</a>    <span class="k">def</span> <span class="nf">regenerate_exposure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Regenerate a random exposure. """</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Regenerate a random exposure. """</span>
         <span class="c1"># Regenerate atmosphere</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">atmosphere</span><span class="o">.</span><span class="n">regenerate_atmosphere</span><span class="p">()</span>
         <span class="c1"># Regenerate mean size</span>
@@ -979,7 +982,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">mean_fwhm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fwhm_dist</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="ExposureSimulation.interpolate_values"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.ExposureSimulation.interpolate_values">[docs]</a>    <span class="k">def</span> <span class="nf">interpolate_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">""" Interpolate exposure values.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Interpolate exposure values.</span>
 
 <span class="sd">        For some target positions interpolate the values (e1, e2, fwhm).</span>
 <span class="sd">        The input positions are in global MCCD coordinates.</span>
@@ -1033,7 +1036,7 @@
 
 
 <div class="viewcode-block" id="GenerateSimDataset"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.GenerateSimDataset">[docs]</a><span class="k">class</span> <span class="nc">GenerateSimDataset</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Generate simulated dataset for training and validating PSF models.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Generate simulated dataset for training and validating PSF models.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1061,7 +1064,7 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_pos_path</span><span class="p">,</span> <span class="n">input_ccd_path</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span>
                  <span class="n">e1_analytic_fun</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">e2_analytic_fun</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Initialize the class."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize the class."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_pos_path</span> <span class="o">=</span> <span class="n">input_pos_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_ccd_path</span> <span class="o">=</span> <span class="n">input_ccd_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_path</span> <span class="o">=</span> <span class="n">output_path</span>
@@ -1088,7 +1091,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">e2_analytic_fun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">e2_catalog_fun</span>
 
 <div class="viewcode-block" id="GenerateSimDataset.load_data"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.GenerateSimDataset.load_data">[docs]</a>    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Load data from input paths."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Load data from input paths."""</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_pos_path</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ccd_id</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_ccd_path</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1099,7 +1102,7 @@
 <div class="viewcode-block" id="GenerateSimDataset.generate_train_data"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.GenerateSimDataset.generate_train_data">[docs]</a>    <span class="k">def</span> <span class="nf">generate_train_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span> <span class="n">psf_flux</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
                             <span class="n">beta_psf</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span> <span class="n">pix_scale</span><span class="o">=</span><span class="mf">0.187</span><span class="p">,</span>
                             <span class="n">desired_SNR</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">catalog_id</span><span class="o">=</span><span class="mi">2086592</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Generate the training dataset and saves it in fits format.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Generate the training dataset and saves it in fits format.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1200,7 +1203,7 @@
                                   <span class="n">output_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">output_path</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="GenerateSimDataset.generate_test_data"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.GenerateSimDataset.generate_test_data">[docs]</a>    <span class="k">def</span> <span class="nf">generate_test_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_grid</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">y_grid</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_ccd</span><span class="o">=</span><span class="mi">40</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Generate the test dataset and save it into a fits file.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Generate the test dataset and save it into a fits file.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1311,7 +1314,7 @@
 
 <div class="viewcode-block" id="GenerateSimDataset.e1_catalog_fun"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.GenerateSimDataset.e1_catalog_fun">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">e1_catalog_fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Define an e1 ellipticity per position.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Define an e1 ellipticity per position.</span>
 
 <span class="sd">        Analytic function for defining the e1 ellipticity as a function</span>
 <span class="sd">        of the global position (MegaCam).</span>
@@ -1340,7 +1343,7 @@
 
 <div class="viewcode-block" id="GenerateSimDataset.e2_catalog_fun"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.GenerateSimDataset.e2_catalog_fun">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">e2_catalog_fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Define an e2 ellipticity per position.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Define an e2 ellipticity per position.</span>
 
 <span class="sd">        Analytic function for defining the e2 ellipticity as a function</span>
 <span class="sd">        of the global position (MegaCam).</span>
@@ -1360,7 +1363,7 @@
 
 <div class="viewcode-block" id="GenerateSimDataset.scale_coordinates"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.GenerateSimDataset.scale_coordinates">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">scale_coordinates</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">coor_min</span><span class="p">,</span> <span class="n">coor_max</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Scale global coordinates."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Scale global coordinates."""</span>
         <span class="c1"># Set the max and min values for the coordinate system</span>
         <span class="n">loc2glob</span> <span class="o">=</span> <span class="n">mccd</span><span class="o">.</span><span class="n">mccd_utils</span><span class="o">.</span><span class="n">Loc2Glob</span><span class="p">()</span>
         <span class="n">grid_xmin</span> <span class="o">=</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span>
@@ -1384,7 +1387,7 @@
     <span class="k">def</span> <span class="nf">bessel_generator</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">coor_min</span><span class="p">,</span> <span class="n">coor_max</span><span class="p">,</span> <span class="n">max_order</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span>
                          <span class="n">circular_symetry</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                          <span class="n">exp_decay_alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Generate a type of Bessel function response."""</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Generate a type of Bessel function response."""</span>
         <span class="c1"># Scale coordinates</span>
         <span class="n">scaled_x</span><span class="p">,</span> <span class="n">scaled_y</span> <span class="o">=</span> <span class="n">GenerateSimDataset</span><span class="o">.</span><span class="n">scale_coordinates</span><span class="p">(</span>
             <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">coor_min</span><span class="p">,</span> <span class="n">coor_max</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
@@ -1416,7 +1419,7 @@
 
 <div class="viewcode-block" id="GenerateSimDataset.handle_SExtractor_mask"><a class="viewcode-back" href="../../mccd.dataset_generation.html#mccd.dataset_generation.GenerateSimDataset.handle_SExtractor_mask">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">handle_SExtractor_mask</span><span class="p">(</span><span class="n">stars</span><span class="p">,</span> <span class="n">thresh</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">"""Handle SExtractor masks.</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Handle SExtractor masks.</span>
 
 <span class="sd">        Reads SExtracted star stamps, generates MCCD-compatible masks</span>
 <span class="sd">        (that is, binary weights), and replaces bad pixels with 0s - they will</span>
@@ -1429,7 +1432,7 @@
         <span class="k">return</span> <span class="n">mask</span></div></div>
 </code></pre>
 </main>
-<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 08 Mar, 2022. Made with <a href="https://www.sphinx-doc.org">Sphinx 3.3.1</a></footer>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 17 Feb, 2023. Made with <a href="https://www.sphinx-doc.org">Sphinx 4.3.1</a></footer>
 </div>
 <div class="sticky bottom-0 md:hidden print:hidden bg-white">
 <div class="flex justify-center items-center">
@@ -1458,13 +1461,11 @@
 </div>
 <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js">
 </script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
 <script src="../../_static/jquery.js"></script>
 <script src="../../_static/underscore.js"></script>
 <script src="../../_static/doctools.js"></script>
-<script src="../../_static/language_data.js"></script>
 <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-<script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
 <script defer="" src="../../_static/theme.js"></script>
 </body>
 </html>
