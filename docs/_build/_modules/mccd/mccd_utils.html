@@ -1,0 +1,1429 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<title>
+      mccd.mccd_utils | mccd v1.2.4
+    </title>
+<link href="../../_static/pygments.css" rel="stylesheet"/>
+<link href="../../_static/theme.css" rel="stylesheet"/>
+<link href="../../_static/pygments.css" rel="stylesheet"/>
+<link href="../../_static/theme.css" rel="stylesheet"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+</head>
+<body class="text-gray-900 antialiased min-h-screen md:h-screen flex flex-col">
+<a class="block text-xl bg-white px-8 py-4 z-20 absolute top-0 left-0 transform -translate-x-full focus:translate-x-0 transition-transform duration-75" href="#mccd-mccd-utils" title="Skip navigation links">Skip to content</a>
+<header class="md:sticky top-0 bg-gray-900 shadow-md flex md:flex-row justify-between items-center z-10"><a aria-label="Back to homepage" class="hover:bg-gray-700 focus:bg-gray-700 tooltipped tooltipped-se" href="../../index.html">
+<h2 class="text-xl text-gray-100 mx-5 py-4">mccd v1.2.4</h2>
+</a><form action="../../search.html" class="hidden md:flex my-auto mx-5 justify-between items-center print:hidden" id="searchbox" method="get">
+<input aria-label="Search the docs" class="p-2 flex-1 focus:bg-yellow-200" id="search-input" name="q" placeholder="Search the docs" style="width: 300px;" type="search"/>
+<button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+</button>
+</form>
+</header>
+<div class="md:overflow-hidden flex flex-col md:flex-row flex-1"><nav class="h-full fixed md:relative inset-y-0 left-0 z-20 md:z-0 bg-white text-gray-700 border-r overflow-x-hidden pt-16 print:hidden flex flex-col" data-menu="closed" role="navigation" style="width: 270px;">
+<div class="nav-toc"><p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../about.html">About</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../installation.html">Installation</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../quickstart.html">Quickstart Tutorial</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../changelog.html">Changelog</a></div></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><svg aria-hidden="true" class="expand" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" href="../../mccd.html">mccd</a></div><ul>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.auxiliary_fun.html">mccd.auxiliary_fun</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.dataset_generation.html">mccd.dataset_generation</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.grads.html">mccd.grads</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.info.html">mccd.info</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.mccd.html">mccd.mccd</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.mccd_utils.html">mccd.mccd_utils</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.proxs.html">mccd.proxs</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.utils.html">mccd.utils</a></div></li>
+</ul>
+</li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../z_ref.html">References</a></div></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guidelines</span></p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../contributing.html">Contributing</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../citing.html">Citing this Package</a></div></li>
+</ul>
+</div>
+<button aria-label="Close menu" class="text-4xl text-gray-800 p-4 bottom-0 hover:text-pink-500 md:hidden focus:text-pink-500 self-center" id="closeNavBtn" title="Close menu">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="overflow-y-auto md:w-full flex flex-col flex-1" id="main-wrapper">
+<main class="px-5 md:ml-fluid flex-1" role="main">
+<h1>Source code for mccd.mccd_utils</h1><pre>
+<code><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sa">r</span><span class="sd">"""MCCD UTILS.</span>
+
+<span class="sd">These functions include several functions needed by the MCCD.</span>
+
+<span class="sd">:Authors:   Tobias Liaudat &lt;tobias.liaudat@cea.fr&gt;</span>
+<span class="sd">            Samuel Farrens &lt;samuel.farrens@cea.fr&gt;</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">I added two functions from Pysap astro plugin and from ModOpt.signal.wavelet</span>
+<span class="sd">so that I could replicate the functionv ``get_mr_transform()`` from ModOpt</span>
+<span class="sd">without the need of having sparse2d installed as an exectubale by using</span>
+<span class="sd">Pysap python bindings of the aforementioned C++ package.</span>
+<span class="sd">Thanks Samuel Farrens (main developer of ModOpt and Pysap) for the help.</span>
+
+<span class="sd">"""</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">from</span> <span class="nn">astropy.io</span> <span class="kn">import</span> <span class="n">fits</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">Rbf</span>
+<span class="kn">import</span> <span class="nn">galsim.hsm</span> <span class="k">as</span> <span class="nn">hsm</span>
+<span class="kn">from</span> <span class="nn">galsim</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">mccd.utils</span> <span class="k">as</span> <span class="nn">utils</span>
+<span class="kn">from</span> <span class="nn">pysap</span> <span class="kn">import</span> <span class="n">load_transform</span>
+
+
+<div class="viewcode-block" id="find_ccd_idx"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.find_ccd_idx">[docs]</a><span class="k">def</span> <span class="nf">find_ccd_idx</span><span class="p">(</span><span class="n">ccd_id</span><span class="p">,</span> <span class="n">ccd_list</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Find the index of an element in a list."""</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ccd_id</span> <span class="o">==</span> <span class="n">ccd_i</span> <span class="k">for</span> <span class="n">ccd_i</span> <span class="ow">in</span> <span class="n">ccd_list</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">idx</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Loc2Glob"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob">[docs]</a><span class="k">class</span> <span class="nc">Loc2Glob</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Change from local to global coordinates.</span>
+
+<span class="sd">    Class to pass from local coordinates to global coordinates under</span>
+<span class="sd">    CFIS (CFHT) MegaCam instrument. The geometrical informcation of the</span>
+<span class="sd">    instrument is encoded in this function.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x_gap: int</span>
+<span class="sd">        Gap between the CCDs on the horizontal direction.</span>
+<span class="sd">        Default to ``70`` (CFIS value).</span>
+<span class="sd">    y_gap: int</span>
+<span class="sd">        Gap between the CCDs on the vertical direction.</span>
+<span class="sd">        Default to ``425`` (CFIS value).</span>
+<span class="sd">    x_npix: int</span>
+<span class="sd">        Number of pixels on one CCD on the horizontal direction.</span>
+<span class="sd">        Default to ``2048`` (CFIS value).</span>
+<span class="sd">    y_npix: int</span>
+<span class="sd">        Number of pixels on one CCD on the vertical direction.</span>
+<span class="sd">        Default to ``4612`` (CFIS value).</span>
+<span class="sd">    ccd_tot: int</span>
+<span class="sd">        Total number of CCDs.</span>
+<span class="sd">        Default to ``40`` (CFIS value).</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    MegaCams geometry. Watch out with the conventions ba,ab that means where</span>
+<span class="sd">    is the local coordinate system origin for each CCD.</span>
+<span class="sd">    For more info look MegaCam's instrument webpage.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; 'COMMENT (North on top, East to the left)',</span>
+<span class="sd">        'COMMENT    --------------------------',</span>
+<span class="sd">        'COMMENT    ba ba ba ba ba ba ba ba ba',</span>
+<span class="sd">        'COMMENT    00 01 02 03 04 05 06 07 08',</span>
+<span class="sd">        'COMMENT --------------------------------',</span>
+<span class="sd">        'COMMENT ba ba ba ba ba ba ba ba ba ba ba',</span>
+<span class="sd">        'COMMENT 36 09 10 11 12 13 14 15 16 17 37',</span>
+<span class="sd">        'COMMENT --------------*-----------------',</span>
+<span class="sd">        'COMMENT 38 18 19 20 21 22 23 24 25 26 39',</span>
+<span class="sd">        'COMMENT ab ab ab ab ab ab ab ab ab ab ab',</span>
+<span class="sd">        'COMMENT --------------------------------',</span>
+<span class="sd">        'COMMENT    27 28 29 30 31 32 33 34 35',</span>
+<span class="sd">        'COMMENT    ab ab ab ab ab ab ab ab ab',</span>
+<span class="sd">        'COMMENT    __________________________'</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">x_gap</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span>
+        <span class="n">y_gap</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span>
+        <span class="n">x_npix</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span>
+        <span class="n">y_npix</span><span class="o">=</span><span class="mi">4612</span><span class="p">,</span>
+        <span class="n">ccd_tot</span><span class="o">=</span><span class="mi">40</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize with instrument geometry."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">=</span> <span class="n">x_gap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">=</span> <span class="n">y_gap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">=</span> <span class="n">x_npix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">=</span> <span class="n">y_npix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ccd_tot</span> <span class="o">=</span> <span class="n">ccd_tot</span>
+
+<div class="viewcode-block" id="Loc2Glob.loc2glob_img_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob.loc2glob_img_coord">[docs]</a>    <span class="k">def</span> <span class="nf">loc2glob_img_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Go from the local to the global img (pixel) coordinate system.</span>
+
+<span class="sd">        Global system with (0,0) in the intersection of ccds [12,13,21,22].</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ccd_n: int</span>
+<span class="sd">            CCD number of the considered positions.</span>
+<span class="sd">        x_coor: float</span>
+<span class="sd">            Local coordinate system hotizontal value.</span>
+<span class="sd">        y_coor: float</span>
+<span class="sd">            Local coordinate system vertical value.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        glob_x_coor: float</span>
+<span class="sd">            Horizontal position in global coordinate system.</span>
+<span class="sd">        glob_y_coor: float</span>
+<span class="sd">            Vertical position in global coordinate system.</span>
+
+<span class="sd">        """</span>
+        <span class="c1"># Flip axes</span>
+        <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flip_coord</span><span class="p">(</span><span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">)</span>
+
+        <span class="c1"># Calculate the shift</span>
+        <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_coord</span><span class="p">(</span><span class="n">ccd_n</span><span class="p">)</span>
+
+        <span class="c1"># Return new coordinates</span>
+        <span class="k">return</span> <span class="n">x_coor</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_coor</span> <span class="o">+</span> <span class="n">y_shift</span></div>
+
+<div class="viewcode-block" id="Loc2Glob.flip_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob.flip_coord">[docs]</a>    <span class="k">def</span> <span class="nf">flip_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Change of coordinate convention.</span>
+
+<span class="sd">        So that all of them are coherent on the global coordinate system.</span>
+<span class="sd">        So that the origin is on the south-west corner.</span>
+<span class="sd">        Positive: South to North ; West to East.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">ccd_n</span> <span class="o">&lt;</span> <span class="mi">18</span> <span class="ow">or</span> <span class="n">ccd_n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">36</span><span class="p">,</span> <span class="mi">37</span><span class="p">]:</span>
+            <span class="n">x_coor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">-</span> <span class="n">x_coor</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">y_coor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">-</span> <span class="n">y_coor</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">return</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span></div>
+
+<div class="viewcode-block" id="Loc2Glob.x_coord_range"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob.x_coord_range">[docs]</a>    <span class="k">def</span> <span class="nf">x_coord_range</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Return range of the x coordinate.</span>
+<span class="sd">        """</span>
+        <span class="n">max_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="mi">5</span>
+        <span class="n">min_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span></div>
+
+<div class="viewcode-block" id="Loc2Glob.y_coord_range"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob.y_coord_range">[docs]</a>    <span class="k">def</span> <span class="nf">y_coord_range</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Return range of the y coordinate.</span>
+<span class="sd">        """</span>
+        <span class="n">max_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="mi">1</span>
+        <span class="n">min_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span></div>
+
+<div class="viewcode-block" id="Loc2Glob.shift_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob.shift_coord">[docs]</a>    <span class="k">def</span> <span class="nf">shift_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Provide the shifting.</span>
+
+<span class="sd">        It is needed to go from the local coordinate</span>
+<span class="sd">        system origin to the global coordinate system origin.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">ccd_n</span> <span class="o">&lt;</span> <span class="mi">9</span><span class="p">:</span>
+            <span class="c1"># first row</span>
+            <span class="n">x_shift</span> <span class="o">=</span> <span class="p">(</span><span class="n">ccd_n</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span><span class="p">)</span>
+            <span class="n">y_shift</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span>
+            <span class="k">return</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span>
+
+        <span class="k">elif</span> <span class="n">ccd_n</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">:</span>
+            <span class="c1"># second row, non-ears</span>
+            <span class="n">x_shift</span> <span class="o">=</span> <span class="p">(</span><span class="n">ccd_n</span> <span class="o">-</span> <span class="mi">13</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span><span class="p">)</span>
+            <span class="n">y_shift</span> <span class="o">=</span> <span class="mf">0.</span>
+            <span class="k">return</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span>
+
+        <span class="k">elif</span> <span class="n">ccd_n</span> <span class="o">&lt;</span> <span class="mi">27</span><span class="p">:</span>
+            <span class="c1"># third row non-ears</span>
+            <span class="n">x_shift</span> <span class="o">=</span> <span class="p">(</span><span class="n">ccd_n</span> <span class="o">-</span> <span class="mi">22</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span><span class="p">)</span>
+            <span class="n">y_shift</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span>
+
+        <span class="k">elif</span> <span class="n">ccd_n</span> <span class="o">&lt;</span> <span class="mi">36</span><span class="p">:</span>
+            <span class="c1"># fourth row</span>
+            <span class="n">x_shift</span> <span class="o">=</span> <span class="p">(</span><span class="n">ccd_n</span> <span class="o">-</span> <span class="mi">31</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span><span class="p">)</span>
+            <span class="n">y_shift</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span>
+
+        <span class="k">elif</span> <span class="n">ccd_n</span> <span class="o">&lt;</span> <span class="mi">37</span><span class="p">:</span>
+            <span class="c1"># ccd= 36 ears, second row</span>
+            <span class="n">x_shift</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span><span class="p">)</span>
+            <span class="n">y_shift</span> <span class="o">=</span> <span class="mf">0.</span>
+            <span class="k">return</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span>
+
+        <span class="k">elif</span> <span class="n">ccd_n</span> <span class="o">&lt;</span> <span class="mi">38</span><span class="p">:</span>
+            <span class="c1"># ccd= 37 ears, second row</span>
+            <span class="n">x_shift</span> <span class="o">=</span> <span class="mf">5.</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span><span class="p">)</span>
+            <span class="n">y_shift</span> <span class="o">=</span> <span class="mf">0.</span>
+            <span class="k">return</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span>
+
+        <span class="k">elif</span> <span class="n">ccd_n</span> <span class="o">&lt;</span> <span class="mi">39</span><span class="p">:</span>
+            <span class="c1"># ccd= 38 ears, third row</span>
+            <span class="n">x_shift</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span><span class="p">)</span>
+            <span class="n">y_shift</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span>
+
+        <span class="k">elif</span> <span class="n">ccd_n</span> <span class="o">&lt;</span> <span class="mi">40</span><span class="p">:</span>
+            <span class="c1"># ccd= 39 ears, third row</span>
+            <span class="n">x_shift</span> <span class="o">=</span> <span class="mf">5.</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span><span class="p">)</span>
+            <span class="n">y_shift</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span></div></div>
+
+
+<div class="viewcode-block" id="Loc2Glob_EUCLID_sim"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim">[docs]</a><span class="k">class</span> <span class="nc">Loc2Glob_EUCLID_sim</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Change from local to global coordinates.</span>
+
+<span class="sd">    Class to pass from local coordinates to global coordinates under</span>
+<span class="sd">    a simulation of Euclid's VIS instrument.</span>
+<span class="sd">    The geometrical informcation of the instrument is encoded in this</span>
+<span class="sd">    function.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x_gap: int</span>
+<span class="sd">        Gap between the CCDs on the horizontal direction.</span>
+<span class="sd">    y_gap: int</span>
+<span class="sd">        Gap between the CCDs on the vertical direction.</span>
+<span class="sd">    x_npix: int (float)</span>
+<span class="sd">        Number of pixels on one CCD on the horizontal direction.</span>
+<span class="sd">    y_npix: int (float)</span>
+<span class="sd">        Number of pixels on one CCD on the vertical direction.</span>
+<span class="sd">    ccd_tot: int</span>
+<span class="sd">        Total number of CCDs.</span>
+<span class="sd">        Default to ``36`` (Euclid value).</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The global origin is in the middle of the focal plane. This is the</span>
+<span class="sd">    bottom left corner of the CCD 15.</span>
+
+<span class="sd">    Example of Euclid's VIS instrument geometry.</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; 'COMMENT   ------------------------',</span>
+<span class="sd">        'COMMENT    00  01  02  03  04  05 ',</span>
+<span class="sd">        'COMMENT   ------------------------',</span>
+<span class="sd">        'COMMENT    06  07  08  09  10  11 ',</span>
+<span class="sd">        'COMMENT   ------------^-----------',</span>
+<span class="sd">        'COMMENT    12  13  14 |15  16  17 ',</span>
+<span class="sd">        'COMMENT   ------------*-&gt;---------',</span>
+<span class="sd">        'COMMENT    18  19  20  21  22  23 ',</span>
+<span class="sd">        'COMMENT   ------------------------',</span>
+<span class="sd">        'COMMENT    24  25  26  27  28  29 ',</span>
+<span class="sd">        'COMMENT   ------------------------',</span>
+<span class="sd">        'COMMENT    30  31  32  33  34  35 ',</span>
+<span class="sd">        'COMMENT   ________________________'</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_gap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_gap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_npix</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">y_npix</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">ccd_tot</span><span class="o">=</span><span class="mi">36</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize with instrument geometry."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">=</span> <span class="n">x_gap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">=</span> <span class="n">y_gap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">=</span> <span class="n">x_npix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">=</span> <span class="n">y_npix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ccd_tot</span> <span class="o">=</span> <span class="n">ccd_tot</span>
+
+<div class="viewcode-block" id="Loc2Glob_EUCLID_sim.loc2glob_img_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.loc2glob_img_coord">[docs]</a>    <span class="k">def</span> <span class="nf">loc2glob_img_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Go from the local to the global img (pixel) coordinate system.</span>
+
+<span class="sd">        Global system with (0,0) in the bottom left corner of the CCD 15.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ccd_n: int</span>
+<span class="sd">            CCD number of the considered positions.</span>
+<span class="sd">        x_coor: float</span>
+<span class="sd">            Local coordinate system hotizontal value.</span>
+<span class="sd">        y_coor: float</span>
+<span class="sd">            Local coordinate system vertical value.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        glob_x_coor: float</span>
+<span class="sd">            Horizontal position in global coordinate system.</span>
+<span class="sd">        glob_y_coor: float</span>
+<span class="sd">            Vertical position in global coordinate system.</span>
+
+<span class="sd">        """</span>
+        <span class="c1"># Flip axes</span>
+        <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flip_coord</span><span class="p">(</span><span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">)</span>
+
+        <span class="c1"># Calculate the shift</span>
+        <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_coord</span><span class="p">(</span><span class="n">ccd_n</span><span class="p">)</span>
+
+        <span class="c1"># Return new coordinates</span>
+        <span class="k">return</span> <span class="n">x_coor</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_coor</span> <span class="o">+</span> <span class="n">y_shift</span></div>
+
+<div class="viewcode-block" id="Loc2Glob_EUCLID_sim.glob2loc_img_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.glob2loc_img_coord">[docs]</a>    <span class="k">def</span> <span class="nf">glob2loc_img_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Go from global to local coordinates.</span>
+<span class="sd">        """</span>
+        <span class="c1"># Determine the CCD</span>
+        <span class="n">ccd_n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">y_coor</span> <span class="o">//</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="p">(</span>
+                <span class="n">x_coor</span> <span class="o">//</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span><span class="p">)</span>
+            <span class="p">)</span> <span class="o">+</span> <span class="mi">3</span>
+        <span class="p">)</span>
+        <span class="c1"># Calculate shifts</span>
+        <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_coord</span><span class="p">(</span><span class="n">ccd_n</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span> <span class="o">-</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_coor</span> <span class="o">-</span> <span class="n">y_shift</span></div>
+
+<div class="viewcode-block" id="Loc2Glob_EUCLID_sim.flip_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.flip_coord">[docs]</a>    <span class="k">def</span> <span class="nf">flip_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">,</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Change of coordinate convention.</span>
+
+<span class="sd">        There is no fliping for Euclid.</span>
+<span class="sd">        """</span>
+
+        <span class="k">return</span> <span class="n">x_coor</span><span class="p">,</span> <span class="n">y_coor</span></div>
+
+<div class="viewcode-block" id="Loc2Glob_EUCLID_sim.x_coord_range"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.x_coord_range">[docs]</a>    <span class="k">def</span> <span class="nf">x_coord_range</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Return range of the x coordinate.</span>
+<span class="sd">        """</span>
+        <span class="n">max_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="mi">2</span>
+        <span class="n">min_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span></div>
+
+<div class="viewcode-block" id="Loc2Glob_EUCLID_sim.y_coord_range"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.y_coord_range">[docs]</a>    <span class="k">def</span> <span class="nf">y_coord_range</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">""" Return range of the y coordinate.</span>
+<span class="sd">        """</span>
+        <span class="n">max_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="mi">2</span>
+        <span class="n">min_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span></div>
+
+<div class="viewcode-block" id="Loc2Glob_EUCLID_sim.shift_coord"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Loc2Glob_EUCLID_sim.shift_coord">[docs]</a>    <span class="k">def</span> <span class="nf">shift_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Provide the shifting.</span>
+
+<span class="sd">        It is needed to go from the local coordinate</span>
+<span class="sd">        system origin to the global coordinate system origin.</span>
+<span class="sd">        """</span>
+        <span class="n">x_shift</span> <span class="o">=</span> <span class="p">(</span><span class="n">ccd_n</span> <span class="o">-</span> <span class="mf">3.</span> <span class="o">-</span> <span class="p">(</span><span class="n">ccd_n</span> <span class="o">//</span> <span class="mi">6</span><span class="p">)</span> <span class="o">*</span> <span class="mi">6</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_npix</span><span class="p">)</span>
+        <span class="n">y_shift</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">-</span> <span class="p">(</span><span class="n">ccd_n</span> <span class="o">//</span> <span class="mi">6</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_npix</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y_shift</span></div></div>
+
+
+<div class="viewcode-block" id="Glob2CCD"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Glob2CCD">[docs]</a><span class="k">class</span> <span class="nc">Glob2CCD</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">""" Get the CCD ID number from the global coordinate position.</span>
+
+<span class="sd">    The Loc2Glob() object as input is the one that defines the instrument's</span>
+<span class="sd">    geometry.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    loc2glob: Loc2Glob object</span>
+<span class="sd">        Object with the desired focal plane geometry.</span>
+<span class="sd">    with_gaps: bool</span>
+<span class="sd">        If add the gaps to the CCD area.</span>
+<span class="sd">    """</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loc2glob</span><span class="p">,</span> <span class="n">with_gaps</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="c1"># Save loc2glob object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">loc2glob</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">with_gaps</span> <span class="o">=</span> <span class="n">with_gaps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">ccd_tot</span><span class="p">)</span>
+        <span class="c1"># Init edges defininf the CCDs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">edge_x_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_y_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_all_edges</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Glob2CCD.build_all_edges"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Glob2CCD.build_all_edges">[docs]</a>    <span class="k">def</span> <span class="nf">build_all_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">""" Build the edges for all the CCDs in the focal plane.</span>
+<span class="sd">        """</span>
+        <span class="n">edge_x_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">build_edge</span><span class="p">(</span><span class="n">ccd_n</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">ccd_n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span>
+        <span class="p">])</span>
+        <span class="n">edge_y_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">build_edge</span><span class="p">(</span><span class="n">ccd_n</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">ccd_n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span>
+        <span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">edge_x_list</span><span class="p">,</span> <span class="n">edge_y_list</span></div>
+
+<div class="viewcode-block" id="Glob2CCD.build_edge"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Glob2CCD.build_edge">[docs]</a>    <span class="k">def</span> <span class="nf">build_edge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ccd_n</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">""" Build the edges of the `ccd_n` in global coordinates.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_gaps</span><span class="p">:</span>
+            <span class="n">corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                <span class="p">[</span>
+                    <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="p">],</span>
+                <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="p">],</span>
+                <span class="p">[</span>
+                    <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="p">],</span>
+                <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_gap</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_gap</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span><span class="p">],</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">x_npix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">y_npix</span><span class="p">],</span>
+            <span class="p">])</span>
+
+        <span class="n">glob_corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">loc2glob_img_coord</span><span class="p">(</span><span class="n">ccd_n</span><span class="p">,</span> <span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">corners</span>
+        <span class="p">])</span>
+
+        <span class="n">edge_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">glob_corners</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">glob_corners</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="p">])</span>
+        <span class="n">edge_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">glob_corners</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">glob_corners</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">edge_x</span><span class="p">,</span> <span class="n">edge_y</span></div>
+
+<div class="viewcode-block" id="Glob2CCD.is_inside"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Glob2CCD.is_inside">[docs]</a>    <span class="k">def</span> <span class="nf">is_inside</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">edge_x</span><span class="p">,</span> <span class="n">edge_y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">""" Is the position inside the edges.</span>
+
+<span class="sd">        Return True if the position is within the rectangle</span>
+<span class="sd">        defined by the edges.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x: float</span>
+<span class="sd">            Horizontal position in global coordinate system.</span>
+<span class="sd">        y: float</span>
+<span class="sd">            Vertical position in global coordinate system.</span>
+<span class="sd">        edge_x: np.ndarray</span>
+<span class="sd">            Edge defined as `np.array([min_x, max_x])`.</span>
+<span class="sd">        edge_y: np.ndarray</span>
+<span class="sd">            Edge defined as `np.array([min_y, max_y])`.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">edge_x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">edge_x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">and</span> \
+           <span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">edge_y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;</span> <span class="n">edge_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Glob2CCD.get_ccd_n"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.Glob2CCD.get_ccd_n">[docs]</a>    <span class="k">def</span> <span class="nf">get_ccd_n</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">""" Returns the CCD number from the position `(x, y)`.</span>
+
+<span class="sd">        Returns `None` if the position is not found.</span>
+<span class="sd">        """</span>
+        <span class="n">bool_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_inside</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">edge_x</span><span class="p">,</span> <span class="n">edge_y</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">edge_x</span><span class="p">,</span> <span class="n">edge_y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_x_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_y_list</span><span class="p">)</span>
+        <span class="p">])</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span><span class="p">[</span><span class="n">bool_list</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div></div>
+
+
+<div class="viewcode-block" id="MccdInputs"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs">[docs]</a><span class="k">class</span> <span class="nc">MccdInputs</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Handle inputs for the MCCD algorithm.</span>
+
+<span class="sd">    This method was set up to work with a catalog outputed by SExtractor but</span>
+<span class="sd">    it should not be restricted to that.</span>
+<span class="sd">    The input files are generally created one per exposure per CCD.</span>
+<span class="sd">    Methods like PSFEx that build one model per exposure per CCD do not have</span>
+<span class="sd">    any preprocessing to do.</span>
+<span class="sd">    The MCCD method that uses all the stars in one exposure to build the</span>
+<span class="sd">    model needs to have only one file that will contain all the information</span>
+<span class="sd">    gathered in one exposure.</span>
+<span class="sd">    This is the main reason of this class, to be able to handle the</span>
+<span class="sd">    different CCD files from a particular exposure and integrate them in a</span>
+<span class="sd">    single file following the MCCD conventions, ie changing the local</span>
+<span class="sd">    coordinate system to the global one.</span>
+<span class="sd">    The expected files are in fits format.</span>
+<span class="sd">    An filename example would be: ``star_selection-1234567-04.fits``</span>
+<span class="sd">    Where the exposure ID is: ``1234567``</span>
+<span class="sd">    Where the CCD ID is: ``04``</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    separator: str</span>
+<span class="sd">        String separating the file names. Between the file pattern,</span>
+<span class="sd">        the exposure ID and the CCD ID.</span>
+<span class="sd">        Default is ``'-'``.</span>
+<span class="sd">    coord_x_descriptor: str</span>
+<span class="sd">        Name of the fits column to be used as the horizontal</span>
+<span class="sd">        position coordinate.</span>
+<span class="sd">        Default is ``'XWIN_IMAGE'``.</span>
+<span class="sd">    coord_y_descriptor: str</span>
+<span class="sd">        Name of the fits column to be used as the vertical position coordinate.</span>
+<span class="sd">        Default is ``'YWIN_IMAGE'``.</span>
+<span class="sd">    mask_thresh: float</span>
+<span class="sd">        Threshold to be used when constructing the masks.</span>
+<span class="sd">        SExtractor has the particular way of masking pixels by setting</span>
+<span class="sd">        pixels to the value -1e30.</span>
+<span class="sd">        Values beneath the threshold will be considered masked.</span>
+<span class="sd">        Default is ``-1e5``.</span>
+<span class="sd">    loc2glob: object</span>
+<span class="sd">        The object that allows to do the coordinate conversion from local to</span>
+<span class="sd">        global. It is specific for each instrument's focal plane geometry.</span>
+<span class="sd">        If is ``None`` it defaults to the CFIS MegaCam instrument.</span>
+<span class="sd">    fits_tb_pos: int</span>
+<span class="sd">        Position in the fits file of the useful table.</span>
+<span class="sd">        Default is ``2`` that's the case for the CFIS data.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="s1">'-'</span><span class="p">,</span> <span class="n">coord_x_descriptor</span><span class="o">=</span><span class="s1">'XWIN_IMAGE'</span><span class="p">,</span>
+                 <span class="n">coord_y_descriptor</span><span class="o">=</span><span class="s1">'YWIN_IMAGE'</span><span class="p">,</span> <span class="n">mask_thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">,</span>
+                 <span class="n">loc2glob</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fits_tb_pos</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">separator</span> <span class="o">=</span> <span class="n">separator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coord_x_descriptor</span> <span class="o">=</span> <span class="n">coord_x_descriptor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coord_y_descriptor</span> <span class="o">=</span> <span class="n">coord_y_descriptor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_thresh</span> <span class="o">=</span> <span class="n">mask_thresh</span>
+        <span class="k">if</span> <span class="n">loc2glob</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">Loc2Glob</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span> <span class="o">=</span> <span class="n">loc2glob</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fits_tb_pos</span> <span class="o">=</span> <span class="n">fits_tb_pos</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">SNR_list</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">star_list</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position_list</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_list</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">RA_list</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DEC_list</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_catalogs</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">catalog_ids</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">starcat_list</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="MccdInputs.handle_mask"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.handle_mask">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">handle_mask</span><span class="p">(</span><span class="n">stars</span><span class="p">,</span> <span class="n">thresh</span><span class="p">,</span> <span class="n">apply_to_stars</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Handle and generate masks.</span>
+
+<span class="sd">        Reads SExtracted star stamps, generates MCCD-compatible masks</span>
+<span class="sd">        (that is, binary weights), and replaces bad pixels with 0s -</span>
+<span class="sd">        they will not be used by MCCD, but the ridiculous numerical</span>
+<span class="sd">        values can otherwise still lead to problems because of convolutions.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        stars: numpy.ndarray</span>
+<span class="sd">            Stars to be masked.</span>
+<span class="sd">        thresh: float</span>
+<span class="sd">            Threshold that will define the mask.</span>
+<span class="sd">            Values below the threhsold will be considered masked.</span>
+<span class="sd">            Default is -1e5.</span>
+<span class="sd">        apply_to_stars: bool</span>
+<span class="sd">            Boolean to define if the stars should be thresholded</span>
+<span class="sd">            with ``thresh`` on top of the mask construction.</span>
+<span class="sd">        """</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">stars</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">mask</span><span class="p">[</span><span class="n">stars</span> <span class="o">&lt;</span> <span class="n">thresh</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">apply_to_stars</span><span class="p">:</span>
+            <span class="n">stars</span><span class="p">[</span><span class="n">stars</span> <span class="o">&lt;</span> <span class="n">thresh</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">mask</span></div>
+
+<div class="viewcode-block" id="MccdInputs.parse_path"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.parse_path">[docs]</a>    <span class="k">def</span> <span class="nf">parse_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Parse one path and extract info.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        path: str</span>
+<span class="sd">            Path to the file to be parsed in order to extract the</span>
+<span class="sd">            exposure ID and the CCD ID.</span>
+
+<span class="sd">        """</span>
+        <span class="c1"># Remove the .fits or the extension</span>
+        <span class="n">my_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="c1"># split the path to get the info</span>
+        <span class="n">splitted_str</span> <span class="o">=</span> <span class="n">my_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">separator</span><span class="p">)</span>
+
+        <span class="c1"># Extract info</span>
+        <span class="n">ccd_n</span> <span class="o">=</span> <span class="n">splitted_str</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">starcat_id</span> <span class="o">=</span> <span class="n">splitted_str</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">starcat_id</span><span class="p">,</span> <span class="n">ccd_n</span></div>
+
+<div class="viewcode-block" id="MccdInputs.parse_folder"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.parse_folder">[docs]</a>    <span class="k">def</span> <span class="nf">parse_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder_path</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Parse a folder that match a specfic ``pattern``.</span>
+
+<span class="sd">        Separate into a list of np.array each one for each starcat_id</span>
+<span class="sd">        present in the folder.</span>
+<span class="sd">        Each np.array in the list contains (starcat_id, ccd_n, path).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        folder_path: str</span>
+<span class="sd">            Path to the folder to be preprocessed.</span>
+<span class="sd">        pattern: str</span>
+<span class="sd">            ``pattern`` to match on the files found in ``folder_path``.</span>
+
+<span class="sd">        """</span>
+        <span class="n">file_paths</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">folder_path</span> <span class="o">+</span> <span class="n">pattern</span><span class="p">)</span>
+        <span class="n">file_paths</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+        <span class="n">complete_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">path</span><span class="p">]</span>
+             <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">file_paths</span><span class="p">])</span>
+
+        <span class="n">starcat_unique_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">complete_list</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># Create  list for each star catalog including all the CCDs</span>
+        <span class="n">starcat_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">starcat_unique_ids</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">st_id</span> <span class="o">=</span> <span class="n">starcat_unique_ids</span><span class="p">[</span><span class="n">it</span><span class="p">]</span>
+
+            <span class="n">indexes</span> <span class="o">=</span> <span class="p">(</span><span class="n">complete_list</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">st_id</span><span class="p">))</span>
+            <span class="n">starcat_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">complete_list</span><span class="p">[</span><span class="n">indexes</span><span class="p">,</span> <span class="p">:])</span>
+
+        <span class="c1"># Save the ids</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_catalogs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">starcat_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">catalog_ids</span> <span class="o">=</span> <span class="n">starcat_unique_ids</span>
+
+        <span class="c1"># Save the complete list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">starcat_list</span> <span class="o">=</span> <span class="n">starcat_list</span></div>
+
+<div class="viewcode-block" id="MccdInputs.parse_pipeline_input_list"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.parse_pipeline_input_list">[docs]</a>    <span class="k">def</span> <span class="nf">parse_pipeline_input_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_list</span><span class="p">,</span> <span class="n">element_position</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Parse a pipeline input file list.</span>
+
+<span class="sd">        Separate into a list of np.array for each starcat_id</span>
+<span class="sd">        present in the folder.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        input_list: list of str</span>
+<span class="sd">            List containing the path to all the files to be processed.</span>
+<span class="sd">        element_position:</span>
+<span class="sd">            The element to consider on the input list.</span>
+<span class="sd">            If there are multiple elements that share the name pattern and</span>
+<span class="sd">            the CCD ID, ie train/test, the element_position determines</span>
+<span class="sd">            which one will be used.</span>
+<span class="sd">            If there is only one element it should be 0.</span>
+<span class="sd">            Default is 0.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        The ``starcat_list`` that is saved contains in each</span>
+<span class="sd">        element (starcat_id, ccd_n, path).</span>
+
+<span class="sd">        """</span>
+        <span class="n">complete_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="n">element_position</span><span class="p">])[</span><span class="mi">0</span><span class="p">],</span>
+                                   <span class="bp">self</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="n">element_position</span><span class="p">])[</span><span class="mi">1</span><span class="p">],</span>
+                                   <span class="n">path</span><span class="p">[</span><span class="n">element_position</span><span class="p">]]</span>
+                                  <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">input_list</span><span class="p">])</span>
+        <span class="n">starcat_unique_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">complete_list</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># Create  list for each star catalog including all the CCDs</span>
+        <span class="n">starcat_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">starcat_unique_ids</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">st_id</span> <span class="o">=</span> <span class="n">starcat_unique_ids</span><span class="p">[</span><span class="n">it</span><span class="p">]</span>
+
+            <span class="n">indexes</span> <span class="o">=</span> <span class="p">(</span><span class="n">complete_list</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">st_id</span><span class="p">))</span>
+            <span class="n">starcat_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">complete_list</span><span class="p">[</span><span class="n">indexes</span><span class="p">,</span> <span class="p">:])</span>
+
+        <span class="c1"># Save the ids</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_catalogs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">starcat_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">catalog_ids</span> <span class="o">=</span> <span class="n">starcat_unique_ids</span>
+
+        <span class="c1"># Save the complete list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">starcat_list</span> <span class="o">=</span> <span class="n">starcat_list</span></div>
+
+<div class="viewcode-block" id="MccdInputs.prep_mccd_inputs"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.prep_mccd_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">prep_mccd_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">starcat_array</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Prepare the inputs for mccd algorithm.</span>
+
+<span class="sd">        Taks done:</span>
+
+<span class="sd">        - Translate from local to global coordinate system.</span>
+
+<span class="sd">        - Apply mask to stars.</span>
+
+<span class="sd">        - Normalize star values.</span>
+
+<span class="sd">        - Modify the star format.</span>
+
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        starcat_array: numpy.ndarray</span>
+<span class="sd">            Array with (starcat_id, ccd_n, path) for every file in one</span>
+<span class="sd">            starcat_id (exposure ID).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        star_list: list</span>
+<span class="sd">            List containing the masked star stamps.</span>
+<span class="sd">        position_list: list</span>
+<span class="sd">            List containing the positions in the global coordinate system.</span>
+<span class="sd">        mask_list: list</span>
+<span class="sd">            List containing the masks corresponding to the star stamps.</span>
+<span class="sd">        ccd_list: list</span>
+<span class="sd">            List containing the CCD ids for the stars.</span>
+<span class="sd">        SNR_list: list</span>
+<span class="sd">            List containing the estimated SNR values for the stars.</span>
+<span class="sd">            Will be None if there are no SNR values available.</span>
+<span class="sd">        RA_list: list</span>
+<span class="sd">            List containing the RA coordinate for the stars.</span>
+<span class="sd">            Will be None if there are no RA coordinates available.</span>
+<span class="sd">        DEC_list: list</span>
+<span class="sd">            List containing the DEC coordinate for the stars.</span>
+<span class="sd">            Will be None if there are no DEC coordinates available.</span>
+
+<span class="sd">        """</span>
+        <span class="n">number_ccd</span> <span class="o">=</span> <span class="n">starcat_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">star_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">position_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">mask_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">ccd_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">SNR_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">RA_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">DEC_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_ccd</span><span class="p">):</span>
+            <span class="n">starcat</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">starcat_array</span><span class="p">[</span><span class="n">it</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">memmap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">ccd</span> <span class="o">=</span> <span class="n">starcat_array</span><span class="p">[</span><span class="n">it</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'int'</span><span class="p">)</span>
+
+            <span class="n">positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">loc2glob</span><span class="o">.</span><span class="n">loc2glob_img_coord</span><span class="p">(</span><span class="n">ccd</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span>
+                <span class="nb">zip</span><span class="p">(</span>
+                     <span class="n">starcat</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_tb_pos</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">coord_x_descriptor</span><span class="p">],</span>
+                     <span class="n">starcat</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_tb_pos</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">coord_y_descriptor</span><span class="p">]</span>
+                <span class="p">)</span>
+            <span class="p">])</span>
+
+            <span class="n">stars</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rca_format</span><span class="p">(</span>
+                <span class="n">starcat</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_tb_pos</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'VIGNET'</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">masks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_mask</span><span class="p">(</span>
+                <span class="n">stars</span><span class="p">,</span>
+                <span class="n">thresh</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mask_thresh</span><span class="p">,</span>
+                <span class="n">apply_to_stars</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+            <span class="n">star_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stars</span><span class="p">)</span>
+            <span class="n">position_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
+            <span class="n">mask_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">masks</span><span class="p">)</span>
+            <span class="n">ccd_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ccd</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">SNR</span> <span class="o">=</span> <span class="n">starcat</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_tb_pos</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'SNR_WIN'</span><span class="p">]</span>
+                <span class="n">SNR_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SNR</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">SNR_list</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">RA_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">starcat</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_tb_pos</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'XWIN_WORLD'</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="n">DEC_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">starcat</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_tb_pos</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'YWIN_WORLD'</span><span class="p">]</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">RA_list</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">DEC_list</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">SNR_list</span> <span class="o">=</span> <span class="n">SNR_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">star_list</span> <span class="o">=</span> <span class="n">star_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position_list</span> <span class="o">=</span> <span class="n">position_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_list</span> <span class="o">=</span> <span class="n">mask_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ccd_list</span> <span class="o">=</span> <span class="n">ccd_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">RA_list</span> <span class="o">=</span> <span class="n">RA_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DEC_list</span> <span class="o">=</span> <span class="n">DEC_list</span>
+
+        <span class="k">return</span> <span class="n">star_list</span><span class="p">,</span> <span class="n">position_list</span><span class="p">,</span> <span class="n">mask_list</span><span class="p">,</span> <span class="n">ccd_list</span><span class="p">,</span> <span class="n">SNR_list</span><span class="p">,</span>\
+            <span class="n">RA_list</span><span class="p">,</span> <span class="n">DEC_list</span></div>
+
+<div class="viewcode-block" id="MccdInputs.preprocess_data"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.preprocess_data">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder_path</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Preprocess the data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        folder_path: str</span>
+<span class="sd">            Path to the folder containing the data files.</span>
+<span class="sd">        pattern: str</span>
+<span class="sd">            Pattern to match with the files in ``folder_path``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        catalog_ids: list</span>
+<span class="sd">            List of exposure IDs preprocessed.</span>
+
+<span class="sd">        """</span>
+        <span class="c1"># Parser folder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse_folder</span><span class="p">(</span><span class="n">folder_path</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">catalog_ids</span></div>
+
+<div class="viewcode-block" id="MccdInputs.proprocess_pipeline_data"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.proprocess_pipeline_data">[docs]</a>    <span class="k">def</span> <span class="nf">proprocess_pipeline_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_list</span><span class="p">,</span> <span class="n">element_position</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Preprocess Shapepipe pipeline's input file list.</span>
+
+<span class="sd">        Also return the list of ids.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        input_list: list of str</span>
+<span class="sd">            List containing the path to all the files to be processed.</span>
+<span class="sd">        element_position:</span>
+<span class="sd">            The element to consider on the input list.</span>
+<span class="sd">            If there are multiple elements that share the name</span>
+<span class="sd">            pattern and the CCD ID, ie train/test, the element_position</span>
+<span class="sd">            determines which one will be used.</span>
+<span class="sd">            If there is only one element it should be 0.</span>
+<span class="sd">            Default is 0.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        catalog_ids: list</span>
+<span class="sd">            List of exposure IDs preprocessed.</span>
+
+<span class="sd">        """</span>
+        <span class="c1"># Parser pipeline input file list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse_pipeline_input_list</span><span class="p">(</span><span class="n">input_list</span><span class="p">,</span> <span class="n">element_position</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">catalog_ids</span></div>
+
+<div class="viewcode-block" id="MccdInputs.get_inputs"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.get_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">get_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">catalog_id</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Get the MCCD inputs from a specific exposure id.</span>
+
+<span class="sd">        Returns several lists corresponding to the outputs of the</span>
+<span class="sd">        function ``prep_mccd_inputs``.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        catalog_id: int</span>
+<span class="sd">            Catalog id (exposure id) to be processed.</span>
+
+<span class="sd">        """</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'Extracting catalog_id </span><span class="si">%s</span><span class="s1"> ..'</span> <span class="o">%</span> <span class="n">catalog_id</span><span class="p">)</span>
+
+        <span class="c1"># Look for the catalog_id in the list</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">catalog_id</span> <span class="o">==</span> <span class="n">starcat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">starcat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">starcat_list</span><span class="p">])</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">idx</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Return the inputs</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">prep_mccd_inputs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">starcat_list</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="MccdInputs.get_catalog_ids"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.get_catalog_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_catalog_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Get preprocessed catalog ids."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">catalog_ids</span></div>
+
+<div class="viewcode-block" id="MccdInputs.outlier_rejection"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.MccdInputs.outlier_rejection">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">outlier_rejection</span><span class="p">(</span><span class="n">star_list</span><span class="p">,</span> <span class="n">pos_list</span><span class="p">,</span> <span class="n">mask_list</span><span class="p">,</span> <span class="n">ccd_list</span><span class="p">,</span>
+                          <span class="n">SNR_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">RA_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">DEC_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                          <span class="n">shape_std_max</span><span class="o">=</span><span class="mf">5.</span><span class="p">,</span> <span class="n">print_fun</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Outlier star rejection method.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        It is based on the measurements from Galsim's HSM adaptive moments.</span>
+<span class="sd">        The method calculates the 2nd order moments from the stars</span>
+<span class="sd">        in the exposure. If there are stars that have an aberrant value in one</span>
+<span class="sd">        of the stats, e1, e2 or R2 we discard the star.</span>
+<span class="sd">        An aberrant value is defined as a value that is more</span>
+<span class="sd">        than ``shape_std_max`` sigmas away from the mean.</span>
+
+<span class="sd">        It inputs all the lists that will be used as a method and returns</span>
+<span class="sd">        the same lists without the stars that where considered as outliers.</span>
+
+<span class="sd">        ``print_fun`` is a function that prints details about the stars</span>
+<span class="sd">        being removed.</span>
+
+<span class="sd">        """</span>
+        <span class="c1"># Define the printing function. Could be printing on a log file.</span>
+        <span class="k">if</span> <span class="n">print_fun</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">def</span> <span class="nf">print_fun</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># Reject outliers</span>
+        <span class="n">all_stars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">star_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">all_stars</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">all_stars</span><span class="p">))</span>
+        <span class="n">all_masks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">mask_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">all_masks</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">all_masks</span><span class="p">))</span>
+        <span class="c1"># hsm thinks 0 means good</span>
+        <span class="n">badpix_masks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">all_masks</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">star_moms</span> <span class="o">=</span> <span class="p">[</span><span class="n">hsm</span><span class="o">.</span><span class="n">FindAdaptiveMom</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">star</span><span class="p">),</span>
+                                         <span class="n">badpix</span><span class="o">=</span><span class="n">Image</span><span class="p">(</span><span class="n">bp</span><span class="p">),</span>
+                                         <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                     <span class="k">for</span> <span class="n">star</span><span class="p">,</span> <span class="n">bp</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">all_stars</span><span class="p">,</span> <span class="n">badpix_masks</span><span class="p">)]</span>
+        <span class="n">star_shapes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">moms</span><span class="o">.</span><span class="n">observed_shape</span><span class="o">.</span><span class="n">g1</span><span class="p">,</span>
+                                 <span class="n">moms</span><span class="o">.</span><span class="n">observed_shape</span><span class="o">.</span><span class="n">g2</span><span class="p">,</span>
+                                 <span class="mf">2.</span> <span class="o">*</span> <span class="n">moms</span><span class="o">.</span><span class="n">moments_sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span>
+                                 <span class="nb">int</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">moms</span><span class="o">.</span><span class="n">error_message</span><span class="p">))]</span>
+                                <span class="k">for</span> <span class="n">moms</span> <span class="ow">in</span> <span class="n">star_moms</span><span class="p">])</span>
+
+        <span class="c1"># Outlier rejection based on e1, e2 and R2</span>
+        <span class="n">R2_thresh</span> <span class="o">=</span> <span class="n">shape_std_max</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">star_shapes</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])</span> <span class="o">+</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">star_shapes</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])</span>
+        <span class="n">R2_bad_stars</span> <span class="o">=</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">star_shapes</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">R2_thresh</span><span class="p">)</span>
+
+        <span class="n">e2_thresh</span> <span class="o">=</span> <span class="n">shape_std_max</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">star_shapes</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">star_shapes</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">e2_bad_stars</span> <span class="o">=</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">star_shapes</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">e2_thresh</span><span class="p">)</span>
+
+        <span class="n">e1_thresh</span> <span class="o">=</span> <span class="n">shape_std_max</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">star_shapes</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">+</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">star_shapes</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">e1_bad_stars</span> <span class="o">=</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">star_shapes</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">e1_thresh</span><span class="p">)</span>
+
+        <span class="n">bad_stars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">e1_bad_stars</span><span class="p">,</span> <span class="n">e2_bad_stars</span><span class="p">)</span>
+        <span class="n">bad_stars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">bad_stars</span><span class="p">,</span> <span class="n">R2_bad_stars</span><span class="p">)</span>
+
+        <span class="n">bad_stars_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">bad_stars</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">print_fun</span><span class="p">(</span><span class="n">bad_stars_idx</span><span class="p">)</span>
+        <span class="n">print_fun</span><span class="p">(</span><span class="n">bad_stars_idx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># Create masks</span>
+        <span class="n">erase_masks</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">star_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+                       <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">star_list</span><span class="p">))]</span>
+
+        <span class="k">if</span> <span class="n">bad_stars_idx</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># We have to erase the outliers</span>
+            <span class="c1"># Create the reference ids (to match the global</span>
+            <span class="c1"># array to the list of arrays)</span>
+            <span class="n">idx_ref</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">all_stars</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">glob_id</span><span class="p">,</span> <span class="n">star_id</span><span class="p">,</span> <span class="n">ccd_id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">stars</span> <span class="ow">in</span> <span class="n">star_list</span><span class="p">:</span>
+                <span class="n">star_id</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">_star</span> <span class="ow">in</span> <span class="n">utils</span><span class="o">.</span><span class="n">reg_format</span><span class="p">(</span><span class="n">stars</span><span class="p">):</span>
+                    <span class="n">idx_ref</span><span class="p">[</span><span class="n">glob_id</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">glob_id</span>
+                    <span class="n">idx_ref</span><span class="p">[</span><span class="n">glob_id</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">star_id</span>
+                    <span class="n">idx_ref</span><span class="p">[</span><span class="n">glob_id</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">ccd_id</span>
+                    <span class="n">glob_id</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">star_id</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">ccd_id</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="c1"># select outlier stars</span>
+            <span class="k">for</span> <span class="n">bad_id</span> <span class="ow">in</span> <span class="n">bad_stars_idx</span><span class="p">:</span>
+                <span class="n">print_fun</span><span class="p">(</span><span class="s1">'Outlier: Glob_id=</span><span class="si">%d</span><span class="s1"> , star_id=</span><span class="si">%d</span><span class="s1"> , ccd_id=</span><span class="si">%d</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span>
+                    <span class="n">idx_ref</span><span class="p">[</span><span class="n">bad_id</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                    <span class="n">idx_ref</span><span class="p">[</span><span class="n">bad_id</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                    <span class="n">idx_ref</span><span class="p">[</span><span class="n">bad_id</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>
+                <span class="n">erase_masks</span><span class="p">[</span><span class="n">idx_ref</span><span class="p">[</span><span class="n">bad_id</span><span class="p">,</span> <span class="mi">2</span><span class="p">]][</span><span class="n">idx_ref</span><span class="p">[</span><span class="n">bad_id</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">for</span> <span class="n">it_star</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">star_list</span><span class="p">)):</span>
+                <span class="n">mask</span> <span class="o">=</span> <span class="o">~</span><span class="n">erase_masks</span><span class="p">[</span><span class="n">it_star</span><span class="p">]</span>
+                <span class="c1"># erase elements and overwrite</span>
+                <span class="n">star_list</span><span class="p">[</span><span class="n">it_star</span><span class="p">]</span> <span class="o">=</span> <span class="n">star_list</span><span class="p">[</span><span class="n">it_star</span><span class="p">][:,</span> <span class="p">:,</span> <span class="n">mask</span><span class="p">]</span>
+                <span class="n">mask_list</span><span class="p">[</span><span class="n">it_star</span><span class="p">]</span> <span class="o">=</span> <span class="n">mask_list</span><span class="p">[</span><span class="n">it_star</span><span class="p">][:,</span> <span class="p">:,</span> <span class="n">mask</span><span class="p">]</span>
+                <span class="n">pos_list</span><span class="p">[</span><span class="n">it_star</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos_list</span><span class="p">[</span><span class="n">it_star</span><span class="p">][</span><span class="n">mask</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="k">if</span> <span class="n">SNR_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">SNR_list</span><span class="p">[</span><span class="n">it_star</span><span class="p">]</span> <span class="o">=</span> <span class="n">SNR_list</span><span class="p">[</span><span class="n">it_star</span><span class="p">][</span><span class="n">mask</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">RA_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">RA_list</span><span class="p">[</span><span class="n">it_star</span><span class="p">]</span> <span class="o">=</span> <span class="n">RA_list</span><span class="p">[</span><span class="n">it_star</span><span class="p">][</span><span class="n">mask</span><span class="p">]</span>
+                    <span class="n">DEC_list</span><span class="p">[</span><span class="n">it_star</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEC_list</span><span class="p">[</span><span class="n">it_star</span><span class="p">][</span><span class="n">mask</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">star_list</span><span class="p">,</span> <span class="n">pos_list</span><span class="p">,</span> <span class="n">mask_list</span><span class="p">,</span> <span class="n">ccd_list</span><span class="p">,</span> <span class="n">SNR_list</span><span class="p">,</span> <span class="n">RA_list</span><span class="p">,</span>\
+            <span class="n">DEC_list</span><span class="p">,</span> <span class="n">erase_masks</span></div></div>
+
+
+<div class="viewcode-block" id="random_indexes"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.random_indexes">[docs]</a><span class="k">def</span> <span class="nf">random_indexes</span><span class="p">(</span><span class="n">n_tot</span><span class="p">,</span> <span class="n">train_per</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">min_n_train</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Generate random indexes to separate datasets.</span>
+
+<span class="sd">    Separate datasets into train and test sets following some criteria.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n_tot: int</span>
+<span class="sd">        Total number of elements.</span>
+<span class="sd">    train_per: float</span>
+<span class="sd">        Percentage of those elements to be used for train.</span>
+<span class="sd">        Default is 0.8.</span>
+<span class="sd">    min_n_train: float</span>
+<span class="sd">        Minimum number of elements that should be used for training.</span>
+<span class="sd">        Default is 20.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    train_idx: numpy.ndarray</span>
+<span class="sd">        Array of random indexes used for the training.</span>
+<span class="sd">    test_idx: numpy.ndarray</span>
+<span class="sd">        Array of random indexes used for the testing.</span>
+
+<span class="sd">    """</span>
+    <span class="c1"># Define number of stars</span>
+    <span class="n">train_star_nb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">train_per</span> <span class="o">*</span> <span class="n">n_tot</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+                            <span class="n">min_n_train</span><span class="p">])</span>
+
+    <span class="c1"># Generate the random test positions in the star field</span>
+    <span class="c1"># The positions will be maintained throughout the star sets</span>
+    <span class="n">rand_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_tot</span><span class="p">)</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>
+    <span class="n">train_idx</span> <span class="o">=</span> <span class="n">rand_seq</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">train_star_nb</span><span class="p">]</span>
+    <span class="n">test_idx</span> <span class="o">=</span> <span class="n">rand_seq</span><span class="p">[</span><span class="n">train_star_nb</span><span class="p">:]</span>
+
+    <span class="k">return</span> <span class="n">train_idx</span><span class="p">,</span> <span class="n">test_idx</span></div>
+
+
+<span class="k">def</span> <span class="nf">_get_fits_col_type</span><span class="p">(</span><span class="n">col_data_type</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">col_data_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">col_data_type</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">col_type</span> <span class="o">=</span> <span class="s1">'D'</span>
+    <span class="k">elif</span> <span class="n">col_data_type</span> <span class="ow">in</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">]:</span>
+        <span class="n">col_type</span> <span class="o">=</span> <span class="s1">'I'</span>
+    <span class="k">elif</span> <span class="n">col_data_type</span> <span class="ow">in</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">]:</span>
+        <span class="n">col_type</span> <span class="o">=</span> <span class="s1">'J'</span>
+    <span class="k">elif</span> <span class="n">col_data_type</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">]:</span>
+        <span class="n">col_type</span> <span class="o">=</span> <span class="s1">'K'</span>
+    <span class="k">elif</span> <span class="n">col_data_type</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]:</span>
+        <span class="n">col_type</span> <span class="o">=</span> <span class="s1">'D'</span>
+    <span class="k">elif</span> <span class="n">col_data_type</span> <span class="ow">is</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">col_type</span> <span class="o">=</span> <span class="s1">'L'</span>
+    <span class="k">elif</span> <span class="n">col_data_type</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">str_</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">str0</span><span class="p">]:</span>
+        <span class="n">col_type</span> <span class="o">=</span> <span class="s1">'A'</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">col_type</span> <span class="o">=</span> <span class="s1">'D'</span>
+
+    <span class="k">return</span> <span class="n">col_type</span>
+
+
+<div class="viewcode-block" id="save_to_fits"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.save_to_fits">[docs]</a><span class="k">def</span> <span class="nf">save_to_fits</span><span class="p">(</span><span class="n">dictionary</span><span class="p">,</span> <span class="n">output_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Save dictionary of numpy.ndarray into a fits file.</span>
+
+<span class="sd">    ``output_path`` should be the path + new_name to save the fits and should</span>
+<span class="sd">    include ``.fits`` extension.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dictionary: dict</span>
+<span class="sd">        Dictionary to be saved to the fits file.</span>
+<span class="sd">    output_path: str</span>
+<span class="sd">        Should be the concatenation of the path to the folder and the name</span>
+<span class="sd">        of the new fits file and should include ``.fits`` extension.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    It is important that all the numpy.ndarrays share the first dimension as</span>
+<span class="sd">    we are saving a table.</span>
+
+<span class="sd">    """</span>
+    <span class="c1"># Define the header</span>
+    <span class="n">hdr</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">Header</span><span class="p">()</span>
+    <span class="n">hdr</span><span class="p">[</span><span class="s1">'OWNER'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'MCCD package'</span>
+    <span class="n">hdr</span><span class="p">[</span><span class="s1">'COMMENT'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'Generated internally by the MCCD package.'</span>
+    <span class="n">empty_primary_hdu</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="n">hdr</span><span class="p">)</span>
+
+    <span class="c1"># Construct the table</span>
+    <span class="n">dict_keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">n_elem</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dict_keys</span><span class="p">)</span>
+    <span class="n">col_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_elem</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dict_keys</span><span class="p">[</span><span class="n">it</span><span class="p">])</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">dict_keys</span><span class="p">[</span><span class="n">it</span><span class="p">]</span>
+
+        <span class="n">data_type</span> <span class="o">=</span> <span class="n">_get_fits_col_type</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">data_shape</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">fits_dim</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">data_shape</span><span class="p">))</span>
+
+        <span class="n">mem_size</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_shape</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">data_shape</span><span class="p">:</span>
+                <span class="n">mem_size</span> <span class="o">*=</span> <span class="n">k</span>
+            <span class="n">data_format</span> <span class="o">=</span> <span class="s1">'</span><span class="si">{0}{1}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mem_size</span><span class="p">,</span> <span class="n">data_type</span><span class="p">)</span>
+            <span class="n">col_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fits</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">data_format</span><span class="p">,</span>
+                                        <span class="n">array</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">fits_dim</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">data_format</span> <span class="o">=</span> <span class="s1">'</span><span class="si">{0}{1}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mem_size</span><span class="p">,</span> <span class="n">data_type</span><span class="p">)</span>
+            <span class="n">col_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fits</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">data_format</span><span class="p">,</span>
+                                        <span class="n">array</span><span class="o">=</span><span class="n">data</span><span class="p">))</span>
+
+    <span class="n">table_hdu</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">BinTableHDU</span><span class="o">.</span><span class="n">from_columns</span><span class="p">(</span><span class="n">col_list</span><span class="p">)</span>
+    <span class="n">hdul</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">HDUList</span><span class="p">([</span><span class="n">empty_primary_hdu</span><span class="p">,</span> <span class="n">table_hdu</span><span class="p">])</span>
+    <span class="c1"># Check if file exists and in that case erase it before rewriting it</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">output_path</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
+    <span class="c1"># Write file</span>
+    <span class="n">hdul</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="save_fits"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.save_fits">[docs]</a><span class="k">def</span> <span class="nf">save_fits</span><span class="p">(</span><span class="n">dictionary</span><span class="p">,</span> <span class="n">train_bool</span><span class="p">,</span> <span class="n">cat_id</span><span class="p">,</span> <span class="n">output_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Save fits file.</span>
+
+<span class="sd">    Save a dictionary into a fits file format.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dictionary: dict</span>
+<span class="sd">        Dictionary containing the data to be saved.</span>
+<span class="sd">    train_bool: bool</span>
+<span class="sd">        Bool to determine if it will be a training catalog or a testing</span>
+<span class="sd">        catalog.</span>
+<span class="sd">        Changes the name pattern used for the file.</span>
+<span class="sd">    cat_id: int or str</span>
+<span class="sd">        Catalog id (exposure id) to be added in the file name.</span>
+<span class="sd">    output_path: str</span>
+<span class="sd">        Path to folder to save the new file.</span>
+
+<span class="sd">    """</span>
+    <span class="c1"># Save data into the FITS format extension</span>
+    <span class="n">train_pattern</span> <span class="o">=</span> <span class="s1">'train_star_selection'</span>
+    <span class="n">test_pattern</span> <span class="o">=</span> <span class="s1">'test_star_selection'</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">number_scheme</span> <span class="o">=</span> <span class="s2">"-</span><span class="si">%07d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">cat_id</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">number_scheme</span> <span class="o">=</span> <span class="s1">'-'</span> <span class="o">+</span> <span class="n">cat_id</span>
+    <span class="n">ext</span> <span class="o">=</span> <span class="s1">'.fits'</span>
+
+    <span class="k">if</span> <span class="n">train_bool</span><span class="p">:</span>
+        <span class="n">saving_path</span> <span class="o">=</span> <span class="n">output_path</span> <span class="o">+</span> <span class="n">train_pattern</span> <span class="o">+</span> <span class="n">number_scheme</span> <span class="o">+</span> <span class="n">ext</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">saving_path</span> <span class="o">=</span> <span class="n">output_path</span> <span class="o">+</span> <span class="n">test_pattern</span> <span class="o">+</span> <span class="n">number_scheme</span> <span class="o">+</span> <span class="n">ext</span>
+
+    <span class="n">save_to_fits</span><span class="p">(</span><span class="n">dictionary</span><span class="p">,</span> <span class="n">saving_path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="return_loc_neighbors"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.return_loc_neighbors">[docs]</a><span class="k">def</span> <span class="nf">return_loc_neighbors</span><span class="p">(</span><span class="n">new_pos</span><span class="p">,</span> <span class="n">obs_pos</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Find nearest neighbors locally in one CCD.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    new_pos: numpy.ndarray</span>
+<span class="sd">        Array containing the new target position (x,y).</span>
+<span class="sd">    obs_pos: numpy.ndarray</span>
+<span class="sd">        Array containing the positions of the training stars.</span>
+<span class="sd">    vals: numpy.ndarray</span>
+<span class="sd">        Values that will be used to interpolate and need to be extracted.</span>
+<span class="sd">    n_neighbors: int</span>
+<span class="sd">        Number of closest neighbors to return.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    nbs: numpy.ndarray</span>
+<span class="sd">        Values from ``vals`` of the closest ``n_neighbors`` from ``new_pos``.</span>
+<span class="sd">    pos: numpy.ndarray</span>
+<span class="sd">        Positions of the closest ``n_neighbors`` from ``new_pos``.</span>
+
+<span class="sd">    """</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">obs_pos</span> <span class="o">-</span> <span class="n">new_pos</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">nbs</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">distances</span><span class="p">)[:</span><span class="n">n_neighbors</span><span class="p">]]</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">obs_pos</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">distances</span><span class="p">)[:</span><span class="n">n_neighbors</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">nbs</span><span class="p">,</span> <span class="n">pos</span></div>
+
+
+<div class="viewcode-block" id="return_glob_neighbors"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.return_glob_neighbors">[docs]</a><span class="k">def</span> <span class="nf">return_glob_neighbors</span><span class="p">(</span><span class="n">new_pos</span><span class="p">,</span> <span class="n">obs_pos_list</span><span class="p">,</span> <span class="n">val_list</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Find nearest neighbors locally in all the available CCDs.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    new_pos: numpy.ndarray</span>
+<span class="sd">        Array containing the new target position (x,y).</span>
+<span class="sd">    obs_pos_list: list</span>
+<span class="sd">        List containing the positions of the training stars from all the CCDs.</span>
+<span class="sd">    val_list: list</span>
+<span class="sd">        List containing the values from all the CCDs that will be used to</span>
+<span class="sd">        interpolate and need to be extracted.</span>
+<span class="sd">    n_neighbors: int</span>
+<span class="sd">        Number of closest neighbors to return.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    values: numpy.ndarray</span>
+<span class="sd">        Values from ``vals`` of the closest ``n_neighbors`` from ``new_pos``.</span>
+<span class="sd">    positions: numpy.ndarray</span>
+<span class="sd">        Positions of the closest ``n_neighbors`` from ``new_pos``.</span>
+
+<span class="sd">    """</span>
+    <span class="c1"># Calculate all the distances</span>
+    <span class="n">dist_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">obs_pos</span> <span class="o">-</span> <span class="n">new_pos</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                           <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">obs_pos</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">ccd_n</span><span class="p">),</span>
+                           <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">obs_pos</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+                 <span class="k">for</span> <span class="n">obs_pos</span><span class="p">,</span> <span class="n">ccd_n</span> <span class="ow">in</span>
+                 <span class="nb">zip</span><span class="p">(</span><span class="n">obs_pos_list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">obs_pos_list</span><span class="p">)))]</span>
+    <span class="c1"># Sort the distances</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">dist_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">sort_idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])[:</span><span class="n">n_neighbors</span><span class="p">]</span>
+
+    <span class="c1"># Extract values</span>
+    <span class="n">ccd_idxs</span> <span class="o">=</span> <span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">sort_idxs</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">inter_ccd_idxs</span> <span class="o">=</span> <span class="n">distances</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">sort_idxs</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">val_list</span><span class="p">[</span><span class="n">ccd_idxs</span><span class="p">[</span><span class="n">it</span><span class="p">]]</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="n">inter_ccd_idxs</span><span class="p">[</span><span class="n">it</span><span class="p">],</span> <span class="p">:]</span>
+                       <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_neighbors</span><span class="p">)])</span>
+    <span class="n">positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">obs_pos_list</span><span class="p">[</span><span class="n">ccd_idxs</span><span class="p">[</span><span class="n">it</span><span class="p">]][</span><span class="n">inter_ccd_idxs</span><span class="p">[</span><span class="n">it</span><span class="p">],</span> <span class="p">:]</span>
+                          <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_neighbors</span><span class="p">)])</span>
+
+    <span class="k">return</span> <span class="n">values</span><span class="p">,</span> <span class="n">positions</span></div>
+
+
+<div class="viewcode-block" id="interpolation_Pi"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.interpolation_Pi">[docs]</a><span class="k">def</span> <span class="nf">interpolation_Pi</span><span class="p">(</span><span class="n">position_list</span><span class="p">,</span> <span class="n">d_comp_glob</span><span class="p">,</span> <span class="n">loc2glob</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Create polynomial interpolation Pi matrix.</span>
+
+<span class="sd">    Create a Pi matrix list that will be used for the interpolation</span>
+<span class="sd">    of the global model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    position_list: list</span>
+<span class="sd">        List containing the all the positions of the training stars.</span>
+<span class="sd">    d_comp_glob: int</span>
+<span class="sd">        Maximum polynomial degree to be used for the Pi matrix construction.</span>
+<span class="sd">    loc2glob: object</span>
+<span class="sd">        The object that allows to do the coordinate conversion from local to</span>
+<span class="sd">        global. It is specific for each instrument's focal plane geometry.</span>
+<span class="sd">        If is ``None`` it defaults to the CFIS MegaCam instrument.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    interp_Pi: list</span>
+<span class="sd">        List containing all the Pi polynomial matrices, one for each</span>
+<span class="sd">        CCD (object in the position list).</span>
+
+<span class="sd">    """</span>
+    <span class="c1"># n_comp_glob = (d_comp_glob + 1) * (d_comp_glob + 2) // 2</span>
+
+    <span class="c1"># Calculate max and min values of global coordinate system</span>
+    <span class="c1"># This configuration is specific for CFIS MegaCam configuration</span>
+
+    <span class="k">if</span> <span class="n">loc2glob</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">loc2glob</span> <span class="o">=</span> <span class="n">Loc2Glob</span><span class="p">()</span>
+
+    <span class="c1"># Calculate max and min values of global coordinate system</span>
+    <span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">x_coord_range</span><span class="p">()</span>
+    <span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span> <span class="o">=</span> <span class="n">loc2glob</span><span class="o">.</span><span class="n">y_coord_range</span><span class="p">()</span>
+
+    <span class="n">interp_Pi</span> <span class="o">=</span> <span class="p">[</span><span class="n">utils</span><span class="o">.</span><span class="n">poly_pos</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">interp_pos</span><span class="p">,</span> <span class="n">max_degree</span><span class="o">=</span><span class="n">d_comp_glob</span><span class="p">,</span>
+                                <span class="n">center_normalice</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                <span class="n">x_lims</span><span class="o">=</span><span class="p">[</span><span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span><span class="p">],</span> <span class="n">y_lims</span><span class="o">=</span><span class="p">[</span><span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span><span class="p">],</span>
+                                <span class="n">normalice_Pi</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                 <span class="k">for</span> <span class="n">interp_pos</span> <span class="ow">in</span> <span class="n">position_list</span><span class="p">]</span>
+
+    <span class="c1"># Global position model normalisation</span>
+    <span class="c1"># Start with the list Pi</span>
+    <span class="n">conc_Pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">interp_Pi</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">Pi_norms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">conc_Pi</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">interp_Pi</span> <span class="o">=</span> <span class="p">[</span><span class="n">interp_Pi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">/</span> <span class="n">Pi_norms</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">interp_Pi</span><span class="p">))]</span>
+
+    <span class="k">return</span> <span class="n">interp_Pi</span></div>
+
+
+<div class="viewcode-block" id="trim_filter"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.trim_filter">[docs]</a><span class="k">def</span> <span class="nf">trim_filter</span><span class="p">(</span><span class="n">filter_array</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Trim the filters to the minimal size.</span>
+
+<span class="sd">    This method will get rid of the extra zero coefficients in the filter.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filter_array: numpy.ndarray</span>
+<span class="sd">        The filter to be trimmed</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        Trimmed filter</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Function copied from ModOpt.signal.wavelet as we need it to</span>
+<span class="sd">    replicate ModOpt's ``get_mr_filters()`` but</span>
+<span class="sd">    using the wavelet transforms from Pysap.</span>
+
+<span class="sd">    """</span>
+    <span class="n">non_zero_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">filter_array</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">min_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">non_zero_indices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">max_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">non_zero_indices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">filter_array</span><span class="p">[</span><span class="n">min_idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">max_idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">min_idx</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">max_idx</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="get_mr_filters"><a class="viewcode-back" href="../../mccd.mccd_utils.html#mccd.mccd_utils.get_mr_filters">[docs]</a><span class="k">def</span> <span class="nf">get_mr_filters</span><span class="p">(</span><span class="n">data_shape</span><span class="p">,</span> <span class="n">opt</span><span class="p">,</span> <span class="n">n_scales</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">coarse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Get transform filters.</span>
+
+<span class="sd">    This method obtains wavelet filters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data_shape : tuple</span>
+<span class="sd">        2D data shape</span>
+<span class="sd">    opt : str</span>
+<span class="sd">        Name of wavelet transform (in Pysap convention, see Notes)</span>
+<span class="sd">    n_scales : int, optional</span>
+<span class="sd">        Number of transform scales.</span>
+<span class="sd">        Default is ``4``.</span>
+<span class="sd">    coarse : bool, optional</span>
+<span class="sd">        Option to keep coarse scale.</span>
+<span class="sd">        Default is ``False``.</span>
+<span class="sd">    trim: bool, optional</span>
+<span class="sd">        Option to trim the filters down to their minimal size</span>
+<span class="sd">        Default is ``False``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray 3D array of wavelet filters.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Function copied from Pysap package's astro plugin.</span>
+<span class="sd">    Added the trim_filter() functionality from the ModOpt package.</span>
+<span class="sd">    The name of the wavelet transform must be in Pysap convention that</span>
+<span class="sd">    differs from the sparse2d input arguments.</span>
+<span class="sd">    To see the available transforms in Pysap, you need to import the</span>
+<span class="sd">    python module (``import pysap``) and then call</span>
+<span class="sd">    ``pysap.AVAILABLE_TRANSFORMS``.</span>
+
+<span class="sd">    """</span>
+    <span class="c1"># Adjust the shape of the input data.</span>
+    <span class="n">data_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_shape</span><span class="p">)</span>
+    <span class="n">data_shape</span> <span class="o">+=</span> <span class="n">data_shape</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="c1"># Create fake data.</span>
+    <span class="n">fake_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data_shape</span><span class="p">)</span>
+    <span class="n">fake_data</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">data_shape</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))]</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1"># Transform fake data</span>
+    <span class="n">wavelet_transform</span> <span class="o">=</span> <span class="p">(</span><span class="n">load_transform</span><span class="p">(</span><span class="n">opt</span><span class="p">)(</span><span class="n">nb_scale</span><span class="o">=</span><span class="n">n_scales</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="n">wavelet_transform</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">fake_data</span>
+    <span class="n">wavelet_transform</span><span class="o">.</span><span class="n">analysis</span><span class="p">()</span>
+    <span class="n">filters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">wavelet_transform</span><span class="o">.</span><span class="n">analysis_data</span><span class="p">)</span>
+
+    <span class="c1"># Added function to replicate ModOpt's get_mr_transform()</span>
+    <span class="k">if</span> <span class="n">trim</span><span class="p">:</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">trim_filter</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">])</span>
+
+    <span class="c1"># Return filters</span>
+    <span class="k">if</span> <span class="n">coarse</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">filters</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">filters</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+</code></pre>
+</main>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 17 Feb, 2023. Made with <a href="https://www.sphinx-doc.org">Sphinx 4.3.1</a></footer>
+</div>
+<div class="sticky bottom-0 md:hidden print:hidden bg-white">
+<div class="flex justify-center items-center">
+<button aria-labelledby="menuLabel" class="text-3xl p-4 flex items-center focus:bg-gray-200" id="openNavBtn">
+<svg aria-hidden="true" class="fill-current h-8 w-8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+<span class="pl-2 text-sm font-medium uppercase tracking-wide text-gray-700" id="menuLabel">Menu</span>
+</button><button aria-labelledby="searchLabel" class="text-3xl p-4 flex items-center focus:bg-gray-200" id="openSearchBtn">
+<svg aria-hidden="true" class="fill-current h-8 w-8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+<span class="pl-2 text-sm font-medium uppercase tracking-wide text-gray-700" id="searchLabel">Search</span>
+</button>
+</div>
+</div>
+<div class="w-full fixed bottom-0 left-0 z-10 bg-gray-900 overflow-x-hidden pt-10 flex flex-col items-center md:hidden" data-menu="closed" id="search-pane">
+<h4 class="text-xl text-white mb-4" id="search-label">Enter search term</h4><form action="../../search.html" class="flex w-full justify-between items-center max-w-sm px-12" id="searchbox" method="get">
+<input aria-labelledby="search-label" class="p-2 flex-1" name="q" placeholder="Search the docs" type="search"/>
+<button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+</button>
+</form>
+<button aria-label="Close menu" class="text-4xl text-gray-200 p-4 bottom-0 hover:text-pink-500 md:hidden focus:text-pink-500 self-center" id="closeSearchBtn" title="Close menu">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</div>
+<div class="fixed bottom-0 right-0 opacity-0 p-4 m-4 rounded bg-gray-900 text-gray-100 transition transform duration-500 translate-y-full" id="snackbar"></div>
+<div class="fixed inset-0 bg-black bg-opacity-50" id="screen" style="display: none;"></div>
+</div>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js">
+</script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script>
+<script src="../../_static/underscore.js"></script>
+<script src="../../_static/doctools.js"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<script defer="" src="../../_static/theme.js"></script>
+</body>
+</html>

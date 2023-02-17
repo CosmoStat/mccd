@@ -1,0 +1,477 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
+<title>
+      mccd.mccd | mccd v1.2.4
+    </title>
+<link href="_static/pygments.css" rel="stylesheet"/>
+<link href="_static/theme.css" rel="stylesheet"/>
+<link href="_static/pygments.css" rel="stylesheet"/>
+<link href="_static/theme.css" rel="stylesheet"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="mccd.mccd_utils.html" rel="next" title="mccd.mccd_utils"/>
+<link href="mccd.info.html" rel="prev" title="mccd.info"/>
+</head>
+<body class="text-gray-900 antialiased min-h-screen md:h-screen flex flex-col">
+<a class="block text-xl bg-white px-8 py-4 z-20 absolute top-0 left-0 transform -translate-x-full focus:translate-x-0 transition-transform duration-75" href="#mccd-mccd" title="Skip navigation links">Skip to content</a>
+<header class="md:sticky top-0 bg-gray-900 shadow-md flex md:flex-row justify-between items-center z-10"><a aria-label="Back to homepage" class="hover:bg-gray-700 focus:bg-gray-700 tooltipped tooltipped-se" href="index.html">
+<h2 class="text-xl text-gray-100 mx-5 py-4">mccd v1.2.4</h2>
+</a><form action="search.html" class="hidden md:flex my-auto mx-5 justify-between items-center print:hidden" id="searchbox" method="get">
+<input aria-label="Search the docs" class="p-2 flex-1 focus:bg-yellow-200" id="search-input" name="q" placeholder="Search the docs" style="width: 300px;" type="search"/>
+<button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+</button>
+</form>
+</header>
+<div class="md:overflow-hidden flex flex-col md:flex-row flex-1"><nav class="h-full fixed md:relative inset-y-0 left-0 z-20 md:z-0 bg-white text-gray-700 border-r overflow-x-hidden pt-16 print:hidden flex flex-col" data-menu="closed" role="navigation" style="width: 270px;">
+<div class="nav-toc"><p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="about.html">About</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="installation.html">Installation</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="quickstart.html">Quickstart Tutorial</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="changelog.html">Changelog</a></div></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current expanded"><div class="nav-link"><svg aria-hidden="true" class="expand" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" href="mccd.html">mccd</a></div><ul class="current">
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.auxiliary_fun.html">mccd.auxiliary_fun</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.dataset_generation.html">mccd.dataset_generation</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.grads.html">mccd.grads</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.info.html">mccd.info</a></div></li>
+<li class="toctree-l2 current expanded"><div class="nav-link"><a class="current reference internal" href="#">mccd.mccd</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.mccd_utils.html">mccd.mccd_utils</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.proxs.html">mccd.proxs</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.utils.html">mccd.utils</a></div></li>
+</ul>
+</li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="z_ref.html">References</a></div></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guidelines</span></p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="contributing.html">Contributing</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="citing.html">Citing this Package</a></div></li>
+</ul>
+</div>
+<button aria-label="Close menu" class="text-4xl text-gray-800 p-4 bottom-0 hover:text-pink-500 md:hidden focus:text-pink-500 self-center" id="closeNavBtn" title="Close menu">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="overflow-y-auto md:w-full flex flex-col flex-1" id="main-wrapper">
+<main class="px-5 md:ml-fluid flex-1" role="main">
+<section id="module-mccd.mccd">
+<span id="mccd-mccd"></span><h1>mccd.mccd<a aria-label="Copy link to section: mccd.mccd." class="headerlink tooltipped tooltipped-ne" href="#module-mccd.mccd" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>MCCD CLASS.</p>
+<p>This module contains the main MCCD class.</p>
+<dl class="field-list">
+<dt class="field-odd">Authors</dt>
+<dd class="field-odd"><p>Tobias Liaudat &lt;<a class="reference external" href="mailto:tobias.liaudat%40cea.fr">tobias<span>.</span>liaudat<span>@</span>cea<span>.</span>fr<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>&gt;</p>
+<p>Jerome Bonnin &lt;<a class="reference external" href="https://github.com/jerome-bonnin">https://github.com/jerome-bonnin<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>&gt;</p>
+<p>Morgan Schmitz &lt;<a class="reference external" href="https://github.com/MorganSchmitz">https://github.com/MorganSchmitz<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>&gt;</p>
+</dd>
+</dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd.mccd_quickload">
+<span class="sig-name descname">mccd_quickload</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd.html#mccd_quickload"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd.mccd_quickload" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Load pre-fitted MCCD model.</p>
+<p>(saved with <code class="xref py py-func docutils literal notranslate">mccd.quicksave()</code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Path to the npy file containing the saved MCCD model.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>loaded_model</strong> – The MCCD model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>MCCD class</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py class code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd.MCCD">
+<em class="property">class<span class="w"> </span></em><span class="sig-name descname">MCCD</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_comp_loc</span></em>, <em class="sig-param"><span class="n">d_comp_glob</span></em>, <em class="sig-param"><span class="n">d_hyb_loc</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">min_d_comp_glob</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">upfact</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">ksig_loc</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">ksig_glob</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">rmse_thresh</span><span class="o">=</span><span class="default_value">1.25</span></em>, <em class="sig-param"><span class="n">ccd_star_thresh</span><span class="o">=</span><span class="default_value">0.15</span></em>, <em class="sig-param"><span class="n">n_scales</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">ksig_init</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">filters</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">fp_geometry</span><span class="o">=</span><span class="default_value">'CFIS'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd.html#MCCD"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd.MCCD" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate">object</code><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+<p>Multi-CCD Resolved Components Analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_comp_loc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of components to learn for each CCD.
+The interpretation may depend on the <code class="docutils literal notranslate">loc_model</code>
+parameter of the <a class="reference internal" href="#mccd.mccd.MCCD.fit" title="mccd.mccd.MCCD.fit"><code class="xref py py-func docutils literal notranslate">fit()</code></a> function.</p></li>
+<li><p><strong>d_comp_glob</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Degree of polynomial components for the global model.</p></li>
+<li><p><strong>d_hyb_loc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Degree of the polynomial component for the local part in case the
+local model used is <code class="docutils literal notranslate">hybrid</code>.
+Default is <code class="docutils literal notranslate">2</code>.</p></li>
+<li><p><strong>min_d_comp_glob</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><em>None</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – The minimum degree of the polynomial for the global component.
+For example, if the paramter is set to 1, the polynomials of degree
+0 and 1 will be excluded from the global polynomial variations.
+<code class="docutils literal notranslate">None</code> means that we are not excluding any degree.
+Default is <code class="docutils literal notranslate">None</code>.</p></li>
+<li><p><strong>upfact</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Upsampling factor. Default is 1 (no superresolution).</p></li>
+<li><p><strong>ksig_loc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Value of <span class="math notranslate nohighlight">\(K_{\sigma}^{Loc}\)</span> for the thresholding in
+wavelet (Starlet by default) domain (taken to be
+<span class="math notranslate nohighlight">\(K\sigma\)</span>, where <span class="math notranslate nohighlight">\(\sigma\)</span> is the estimated noise standard
+deviation.). It is used for the thresholding of the
+local eigenPSF <span class="math notranslate nohighlight">\(S_{K}\)</span> update.
+Default is <code class="docutils literal notranslate">1</code>.</p></li>
+<li><p><strong>ksig_glob</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Value of <span class="math notranslate nohighlight">\(K_{\sigma}^{Glob}\)</span> for the thresholding in Starlet
+domain (taken to be <span class="math notranslate nohighlight">\(k\sigma\)</span>, where <span class="math notranslate nohighlight">\(\sigma\)</span> is the
+estimated noise standard deviation.).
+It is used for the thresholding of the
+global eigenPSF <span class="math notranslate nohighlight">\(\tilde{S}\)</span> update.
+Default is <code class="docutils literal notranslate">1</code>.</p></li>
+<li><p><strong>rmse_thresh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Parameter concerning the CCD outlier rejection. Once the PSF model is
+calculated we perform an outlier check on the training stars.
+We divide each star in two parts with a given circle. The inner part
+corresponds to the most of the PSF/star energy while the outer part
+corresponds to the observation background. The outer part is used to
+calculate the noise level and the inner part to calculate the model
+residual (star observation - PSF model reconstruction). If the RMSE
+error of the residual divided by the noise level is over the
+<code class="docutils literal notranslate">rmse_thresh</code> the star will be considered an outlier.
+A perfect reconstruction would have <code class="docutils literal notranslate">rmse_thresh</code> equal to 1.
+Default is <code class="docutils literal notranslate">1.25</code>.</p></li>
+<li><p><strong>ccd_star_thresh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Parameter concerning the CCD outlier rejection. If the percentage
+of outlier stars in a single CCD is bigger than <code class="docutils literal notranslate">ccd_star_thresh</code>,
+the CCD is considered to be an outlier. In this case, the CCD is
+rejected from the PSF model. A value lower than 0 means that no
+outlier rejection will be done.
+Default is <code class="docutils literal notranslate">0.15</code>.</p></li>
+<li><p><strong>n_scales</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of wavelet (Default Starlet) scales to use for the
+sparsity constraint.
+Default is <code class="docutils literal notranslate">3</code>. Unused if <code class="docutils literal notranslate">filters</code> are provided.</p></li>
+<li><p><strong>ksig_init</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Similar to <code class="docutils literal notranslate">ksig</code>, for use when estimating shifts and noise levels,
+as it might be desirable to have it set higher than <code class="docutils literal notranslate">ksig</code>.
+Unused if <code class="docutils literal notranslate">shifts</code> are provided when running <code class="xref py py-func docutils literal notranslate">RCA.fit()</code>.
+Default is <code class="docutils literal notranslate">5</code>.</p></li>
+<li><p><strong>filters</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Optional filters to the transform domain wherein eigenPSFs are
+assumed to be sparse; convolution by them should amount to
+applying <span class="math notranslate nohighlight">\(\Phi\)</span>. Optional; if not provided, the
+Starlet transform with <cite>n_scales</cite> scales will be used.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – If True, will only output RCA-specific lines to stdout.
+If verbose is set to 2, will run ModOpt’s optimization
+algorithms in verbose mode.
+Default to <code class="docutils literal notranslate">2</code>.</p></li>
+<li><p><strong>fp_geometry</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Geometry of the focal plane. It defines the transformations to use
+to go from local to global coordinates.
+Default is <code class="docutils literal notranslate">CFIS</code>.
+Available options are <code class="docutils literal notranslate">CFIS</code>, <code class="docutils literal notranslate">EUCLID</code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd.MCCD.quicksave">
+<span class="sig-name descname">quicksave</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd.html#MCCD.quicksave"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd.MCCD.quicksave" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Save fitted model.</p>
+<p>Save fitted MCCD model for later use. Ideally, you would probably
+want to store the whole MCCD instance, though this might mean
+storing a lot of data you are not likely to use if you do not alter
+the fit that was already performed.
+Stored models can be loaded with <code class="xref py py-func docutils literal notranslate">mccd.mccd_quickload()</code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Path to where the fitted MCCDF model should be saved.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd.MCCD.fit">
+<span class="sig-name descname">fit</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">obs_data</span></em>, <em class="sig-param"><span class="n">obs_pos</span></em>, <em class="sig-param"><span class="n">ccd_list</span></em>, <em class="sig-param"><span class="n">obs_weights</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">SNR_weight_list</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">S</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">VT</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">Pi</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">shifts</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sigs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">psf_size</span><span class="o">=</span><span class="default_value">6</span></em>, <em class="sig-param"><span class="n">psf_size_type</span><span class="o">=</span><span class="default_value">'R2'</span></em>, <em class="sig-param"><span class="n">flux</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">nb_iter</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">nb_iter_glob</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">nb_iter_loc</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">nb_subiter_S_loc</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">nb_reweight</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">nb_subiter_A_loc</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">nb_subiter_S_glob</span><span class="o">=</span><span class="default_value">30</span></em>, <em class="sig-param"><span class="n">nb_subiter_A_glob</span><span class="o">=</span><span class="default_value">200</span></em>, <em class="sig-param"><span class="n">n_eigenvects</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">loc_model</span><span class="o">=</span><span class="default_value">'hybrid'</span></em>, <em class="sig-param"><span class="n">pi_degree</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">graph_kwargs</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd.html#MCCD.fit"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd.MCCD.fit" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Fits MCCD to observed star field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obs_data</strong> (<em>list of numpy.ndarray</em>) – Observed data (each element of the list being one CCD).</p></li>
+<li><p><strong>obs_pos</strong> (<em>list of numpy.ndarray</em>) – Corresponding positions (global coordinate system).</p></li>
+<li><p><strong>ccd_list</strong> (<em>list of numpy.ndarray</em>) – List containing the ccd_ids of each set of observations,
+positions and weights.
+It is of utmost importance that the ccd_list contains the ccd_id
+in the same order as in the other lists.
+Ex:  obs_data[0] is the data from the ccd ccd_list[0].</p></li>
+<li><p><strong>obs_weights</strong> (<em>list of numpy.ndarray</em>) – Corresponding weights. Can be either one per observed star,
+or contain pixel-wise values. Masks can be handled via binary
+weights. Default is None (in which case no weights are applied).
+Note if fluxes and shifts are not provided, weights will be ignored
+for their estimation. Noise level estimation only removes
+bad pixels (with weight strictly equal to 0) and otherwise
+ignores weights.</p></li>
+<li><p><strong>SNR_weight_list</strong> (<em>list of floats</em>) – List of weights to be used on each star. They can probably be based
+on a specific function of the SNR and should represent the degree
+of significance we give to a specific star.
+The values should be around 1.
+Default is <code class="docutils literal notranslate">None</code> meaning that no weights will be used.</p></li>
+<li><p><strong>S</strong> (<em>list of numpy.ndarray</em>) – First guess (or warm start) eigenPSFs <span class="math notranslate nohighlight">\(S\)</span>
+(last matrix is global). Default is <code class="docutils literal notranslate">None</code>.</p></li>
+<li><p><strong>VT</strong> (<em>list of numpy.ndarray</em>) – Matrices of concatenated eigenvectors of the different
+graph Laplacians. Default is <code class="docutils literal notranslate">None</code>.</p></li>
+<li><p><strong>Pi</strong> (<em>list of numpy.ndarray</em>) – Matrices of polynomials in positions. Default is <code class="docutils literal notranslate">None</code>.</p></li>
+<li><p><strong>alpha</strong> (<em>list numpy.ndarray</em>) – First guess (or warm start) weights <span class="math notranslate nohighlight">\(\alpha\)</span>,
+after factorization by <code class="docutils literal notranslate">VT</code> (last matrix is global).
+Default is <code class="docutils literal notranslate">None</code>.</p></li>
+<li><p><strong>shifts</strong> (<em>list of numpy.ndarray</em>) – Corresponding sub-pixel shifts. Default is <code class="docutils literal notranslate">None</code>;
+will be estimated from observed data if not provided.</p></li>
+<li><p><strong>sigs</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Estimated noise levels. Default is <code class="docutils literal notranslate">None</code>;
+will be estimated from data if not provided.</p></li>
+<li><p><strong>psf_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Approximate expected PSF size in <code class="docutils literal notranslate">psf_size_type</code>;
+will be used for the size of the Gaussian window for centroid
+estimation.
+<code class="docutils literal notranslate">psf_size_type</code> determines the convention used for
+this size (default is FWHM).
+Ignored if <code class="docutils literal notranslate">shifts</code> are provided.
+Default is <code class="docutils literal notranslate">'R2'</code> of <code class="docutils literal notranslate">6</code>.</p></li>
+<li><p><strong>psf_size_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Can be any of <code class="docutils literal notranslate">'R2'</code>, <code class="docutils literal notranslate">'fwhm'</code> or <code class="docutils literal notranslate">'sigma'</code>, for the size
+defined from quadrupole moments, full width at half maximum
+(e.g. from SExtractor) or 1-sigma width of the best matching
+2D Gaussian. <code class="docutils literal notranslate">'sigma'</code> is the value outputed from Galsim’s
+HSM adaptive moment estimator.
+Default is <code class="docutils literal notranslate">'R2'</code>.</p></li>
+<li><p><strong>flux</strong> (<em>list of numpy.ndarray</em>) – Flux levels. Default is <code class="docutils literal notranslate">None</code>;
+will be estimated from data if not provided.</p></li>
+<li><p><strong>nb_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of overall iterations (i.e. of alternations).
+Note the weights and global components do not
+get updated the last time around, so they actually get
+<code class="docutils literal notranslate">nb_iter-1</code> updates.
+Paramter <span class="math notranslate nohighlight">\(l_{max}\)</span> on the MCCD article pseudo-algorithm.
+Default is <code class="docutils literal notranslate">1</code>.</p></li>
+<li><p><strong>nb_iter_glob</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of iterations on the global model estimation.
+The times we go trough the global <span class="math notranslate nohighlight">\(S,A\)</span> updates.
+Paramter <span class="math notranslate nohighlight">\(n_G\)</span> on the MCCD article pseudo-algorithm.
+Default value is <code class="docutils literal notranslate">2</code>.</p></li>
+<li><p><strong>nb_iter_loc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of iterations on the local model estimation.
+The times we go trough the local <span class="math notranslate nohighlight">\(S,A\)</span> updates.
+Paramter <span class="math notranslate nohighlight">\(n_L\)</span> on the MCCD article pseudo-algorithm.
+Default value is <code class="docutils literal notranslate">2</code>.</p></li>
+<li><p><strong>nb_subiter_S_loc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of iterations when solving the optimization problem (III)
+concerning the local eigenPSFs <span class="math notranslate nohighlight">\(S_{k}\)</span>.
+Default is <code class="docutils literal notranslate">100</code>.</p></li>
+<li><p><strong>nb_subiter_A_loc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of iterations when solving the optimization problem (IV)
+concerning the local weights <span class="math notranslate nohighlight">\(\alpha_{k}\)</span>.
+Default is <code class="docutils literal notranslate">500</code>.</p></li>
+<li><p><strong>nb_subiter_S_glob</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of iterations when solving the optimization problem (I)
+concerning the global eigenPSFs <span class="math notranslate nohighlight">\(\tilde{S}\)</span>.
+Default is <code class="docutils literal notranslate">30</code>.</p></li>
+<li><p><strong>nb_subiter_A_glob</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of iterations when solving the optimization problem (II)
+concerning the global weights <span class="math notranslate nohighlight">\(\tilde{\alpha}\)</span>.
+Default is <code class="docutils literal notranslate">200</code>.</p></li>
+<li><p><strong>nb_reweight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of reweightings to apply during <span class="math notranslate nohighlight">\(S\)</span> updates.
+See equation (33) in RCA paper.
+Default is <code class="docutils literal notranslate">0</code>.</p></li>
+<li><p><strong>n_eigenvects</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Maximum number of eigenvectors to consider per <span class="math notranslate nohighlight">\((e,a)\)</span>
+couple. Default is <code class="docutils literal notranslate">None</code>;
+if not provided, <em>all</em> eigenvectors will be considered,
+which can lead to a poor selection of graphs, especially when data
+is undersampled. Ignored if <code class="docutils literal notranslate">VT</code> and <code class="docutils literal notranslate">alpha</code> are provided.</p></li>
+<li><p><strong>loc_model</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Defines the type of local model to use, it can be:
+<code class="docutils literal notranslate">'rca'</code>, <code class="docutils literal notranslate">'poly'</code> or <code class="docutils literal notranslate">'hybrid'</code>.
+Thus defining the MCCD-RCA, MCCD-POL and MCCD-HYB.
+When MCCD-POL is used, <code class="docutils literal notranslate">n_comp_loc</code> should be used
+as the <code class="docutils literal notranslate">d_comp_glob</code> (max degree of the polynomial)
+for the local model.
+When MCCD-HYB is used, <code class="docutils literal notranslate">n_comp_loc</code> should be used
+as in MCCD-RCA, the number of graph-based eigenPSFs.
+The max local polynomial degree is set to <code class="docutils literal notranslate">2</code>.</p></li>
+<li><p><strong>pi_degree</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Maximum degree of polynomials in Pi. Default is <code class="docutils literal notranslate">2</code>.
+Ignored if Pi is provided.</p></li>
+<li><p><strong>graph_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – List of optional kwargs to be passed on
+to the <code class="xref py py-func docutils literal notranslate">utils.GraphBuilder()</code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd.MCCD.remove_ccd_from_model">
+<span class="sig-name descname">remove_ccd_from_model</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">ccd_idx</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd.html#MCCD.remove_ccd_from_model"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd.MCCD.remove_ccd_from_model" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Remove ccd from the trained model.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd.MCCD.remove_outlier_ccds">
+<span class="sig-name descname">remove_outlier_ccds</span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd.html#MCCD.remove_outlier_ccds"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd.MCCD.remove_outlier_ccds" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Remove all CCDs with outliers.</p>
+<p>Reminder: the outlier rejection is done on the train stars.
+We will reject a CCD if the percentage of outlier stars in
+a single CCD is bigger than <code class="docutils literal notranslate">ccd_star_thresh</code>.</p>
+<p>They outlier threshold is based in <code class="docutils literal notranslate">rmse_thresh</code>.
+A perfect reconstruction would have <code class="docutils literal notranslate">rmse_thresh</code> equal to 1.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd.MCCD.interpolate_psf_pipeline">
+<span class="sig-name descname">interpolate_psf_pipeline</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">test_pos</span></em>, <em class="sig-param"><span class="n">ccd_n</span></em>, <em class="sig-param"><span class="n">centroid</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd.html#MCCD.interpolate_psf_pipeline"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd.MCCD.interpolate_psf_pipeline" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Estimate PSF at desired position with the required centroid.</p>
+<p>This function is a consequence of following the requirements
+needed to use the MCCD model in a pipeline.
+(ShapePipe now but could be adapted)</p>
+<p>The returned PSFs should be normalized with unitary flux and with
+the required centroid.</p>
+<p>Please note the differences between the pixel conventions between
+this package and Galsim. In the first one the position of a pixel is
+in its lower left corner and the indexing starts at zero (numpy style).
+Galsim’s convention is that the position is in the center of the pixel
+and the indexation starts at one.</p>
+<p>Returns the model in “regular” format, (n_stars, n_pixels, n_pixels).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>test_pos</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Positions where the PSF should be estimated.
+Should be in the same format (coordinate system, units, etc.) as
+the <code class="docutils literal notranslate">obs_pos</code> fed to <a class="reference internal" href="#mccd.mccd.MCCD.fit" title="mccd.mccd.MCCD.fit"><code class="xref py py-func docutils literal notranslate">MCCD.fit()</code></a>.</p></li>
+<li><p><strong>ccd_n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – <code class="docutils literal notranslate">ccd_id</code> of the positions to be tested.</p></li>
+<li><p><strong>centroid</strong> (<em>list of floats</em><em>, </em><em>[</em><em>xc</em><em>, </em><em>yc</em><em>]</em>) – Required centroid for the output PSF. It has to be specified
+following the MCCD pixel convention.
+Default will be the vignet centroid.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>PSFs</strong> – Returns the interpolated PSFs in regular format.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)">numpy.ndarray<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd.MCCD.estimate_psf">
+<span class="sig-name descname">estimate_psf</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">test_pos</span></em>, <em class="sig-param"><span class="n">ccd_n</span></em>, <em class="sig-param"><span class="n">n_loc_neighbors</span><span class="o">=</span><span class="default_value">15</span></em>, <em class="sig-param"><span class="n">n_glob_neighbors</span><span class="o">=</span><span class="default_value">15</span></em>, <em class="sig-param"><span class="n">rbf_function</span><span class="o">=</span><span class="default_value">'thin_plate'</span></em>, <em class="sig-param"><span class="n">apply_degradation</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">shifts</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">flux</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sigmas</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">upfact</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mccd_debug</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">global_pol_interp</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd.html#MCCD.estimate_psf"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd.MCCD.estimate_psf" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Estimate and return PSF at desired positions.</p>
+<p>Returns the model in “regular” format, (n_stars, n_pixels, n_pixels).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>test_pos</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Positions where the PSF should be estimated.
+Should be in the same format (coordinate system, units, etc.) as
+the <code class="docutils literal notranslate">obs_pos</code> fed to <a class="reference internal" href="#mccd.mccd.MCCD.fit" title="mccd.mccd.MCCD.fit"><code class="xref py py-func docutils literal notranslate">MCCD.fit()</code></a>.</p></li>
+<li><p><strong>ccd_n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – <code class="docutils literal notranslate">ccd_id</code> of the positions to be tested.</p></li>
+<li><p><strong>n_loc_neighbors</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of neighbors for the local model to use for RBF
+interpolation. Default is 15.</p></li>
+<li><p><strong>n_glob_neighbors</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of neighbors for the global model to use for RBF
+interpolation. Default is 15.</p></li>
+<li><p><strong>rbf_function</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Type of RBF kernel to use. Default is <code class="docutils literal notranslate">'thin_plate'</code>.
+Check scipy RBF documentation for more models.</p></li>
+<li><p><strong>apply_degradation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Whether PSF model should be degraded (shifted and
+resampled on coarse grid), for instance for comparison with stars.
+If True, expects shifts to be provided.
+Needed if pixel validation against stars will be required.
+Default is False.</p></li>
+<li><p><strong>shifts</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Intra-pixel shifts to apply if <code class="docutils literal notranslate">apply_degradation</code> is set
+to True.
+Needed to match the observed stars in case of pixel validation.</p></li>
+<li><p><strong>flux</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Flux levels by which reconstructed PSF will be multiplied if
+provided. For pixel validation with stars if <code class="docutils literal notranslate">apply_degradation</code>
+is set to True.</p></li>
+<li><p><strong>sigmas</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Sigmas (shapes) are used to have a better estimate of the size
+of the lanczos interpolant that will be used when performing the
+intra-pixel shift.
+Default is None, where a predefined value is used for the
+interpolant size.</p></li>
+<li><p><strong>upfact</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Upsampling factor; default is None, in which case that of the
+MCCD instance will be used.</p></li>
+<li><p><strong>mccd_debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Debug option. It returns the model plus the local and the global
+reconstruction components.
+Default is False.</p></li>
+<li><p><strong>global_pol_interp</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – If is None, the global interpolation is done with th RBF
+interpolation as in the local model.
+If is not None, the global interpolation is done directly using
+position polynomials.
+In this case, <code class="docutils literal notranslate">global_pol_interp</code> should be the normalized Pi
+interpolation matrix.
+Default is None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>PSFs</strong> – Returns the interpolated PSFs in regular format.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)">numpy.ndarray<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd.MCCD.validation_stars">
+<span class="sig-name descname">validation_stars</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">test_stars</span></em>, <em class="sig-param"><span class="n">test_pos</span></em>, <em class="sig-param"><span class="n">test_masks</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ccd_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mccd_debug</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">response_flag</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">global_pol_interp</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd.html#MCCD.validation_stars"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd.MCCD.validation_stars" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Match PSF model to stars.</p>
+<p>The match is done in flux, shift and pixel sampling -
+for validation tests.
+Returns the matched PSFs’ stamps.
+Returned matched PSFs will be None if there is no model on that
+specific CCD due to the lack of training stars.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>test_stars</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Star stamps to be used for comparison with the PSF model.
+Should be in “rca” format,
+i.e. with axises (n_pixels, n_pixels, n_stars).</p></li>
+<li><p><strong>test_pos</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Their corresponding positions in global coordinate system.</p></li>
+<li><p><strong>test_masks</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Masks to be used on the star stamps.
+If None, all the pixels will be used.
+Default is None.</p></li>
+<li><p><strong>ccd_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – The corresponding ccd_id
+(ie ccd number corresponding to the megacam geometry).
+Do not mistake for ccd_idx (index).</p></li>
+<li><p><strong>mccd_debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Debug option. It returns the local and the global
+reconstruction components.</p></li>
+<li><p><strong>response_flag</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Response option. True if in response mode.</p></li>
+<li><p><strong>global_pol_interp</strong> (<em>Position pols of numpy.ndarray</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><em>None</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – If is None, the global interpolation is done with th RBF
+interpolation as in the local model.
+If is not None, the global interpolation is done directly
+using position polynomials.
+In this case, it should be the normalized Pi interpolation matrix.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+</section>
+</main>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 17 Feb, 2023. Made with <a href="https://www.sphinx-doc.org">Sphinx 4.3.1</a></footer>
+</div>
+<div class="sticky bottom-0 md:hidden print:hidden bg-white">
+<div class="flex justify-center items-center">
+<button aria-labelledby="menuLabel" class="text-3xl p-4 flex items-center focus:bg-gray-200" id="openNavBtn">
+<svg aria-hidden="true" class="fill-current h-8 w-8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+<span class="pl-2 text-sm font-medium uppercase tracking-wide text-gray-700" id="menuLabel">Menu</span>
+</button><button aria-labelledby="searchLabel" class="text-3xl p-4 flex items-center focus:bg-gray-200" id="openSearchBtn">
+<svg aria-hidden="true" class="fill-current h-8 w-8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+<span class="pl-2 text-sm font-medium uppercase tracking-wide text-gray-700" id="searchLabel">Search</span>
+</button>
+</div>
+</div>
+<div class="w-full fixed bottom-0 left-0 z-10 bg-gray-900 overflow-x-hidden pt-10 flex flex-col items-center md:hidden" data-menu="closed" id="search-pane">
+<h4 class="text-xl text-white mb-4" id="search-label">Enter search term</h4><form action="search.html" class="flex w-full justify-between items-center max-w-sm px-12" id="searchbox" method="get">
+<input aria-labelledby="search-label" class="p-2 flex-1" name="q" placeholder="Search the docs" type="search"/>
+<button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+</button>
+</form>
+<button aria-label="Close menu" class="text-4xl text-gray-200 p-4 bottom-0 hover:text-pink-500 md:hidden focus:text-pink-500 self-center" id="closeSearchBtn" title="Close menu">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</div>
+<div class="fixed bottom-0 right-0 opacity-0 p-4 m-4 rounded bg-gray-900 text-gray-100 transition transform duration-500 translate-y-full" id="snackbar"></div>
+<div class="fixed inset-0 bg-black bg-opacity-50" id="screen" style="display: none;"></div>
+</div>
+<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
+</script>
+<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+<script src="_static/jquery.js"></script>
+<script src="_static/underscore.js"></script>
+<script src="_static/doctools.js"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+<script defer="" src="_static/theme.js"></script>
+</body>
+</html>

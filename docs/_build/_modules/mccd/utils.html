@@ -1,0 +1,1015 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<title>
+      mccd.utils | mccd v1.2.4
+    </title>
+<link href="../../_static/pygments.css" rel="stylesheet"/>
+<link href="../../_static/theme.css" rel="stylesheet"/>
+<link href="../../_static/pygments.css" rel="stylesheet"/>
+<link href="../../_static/theme.css" rel="stylesheet"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+</head>
+<body class="text-gray-900 antialiased min-h-screen md:h-screen flex flex-col">
+<a class="block text-xl bg-white px-8 py-4 z-20 absolute top-0 left-0 transform -translate-x-full focus:translate-x-0 transition-transform duration-75" href="#mccd-utils" title="Skip navigation links">Skip to content</a>
+<header class="md:sticky top-0 bg-gray-900 shadow-md flex md:flex-row justify-between items-center z-10"><a aria-label="Back to homepage" class="hover:bg-gray-700 focus:bg-gray-700 tooltipped tooltipped-se" href="../../index.html">
+<h2 class="text-xl text-gray-100 mx-5 py-4">mccd v1.2.4</h2>
+</a><form action="../../search.html" class="hidden md:flex my-auto mx-5 justify-between items-center print:hidden" id="searchbox" method="get">
+<input aria-label="Search the docs" class="p-2 flex-1 focus:bg-yellow-200" id="search-input" name="q" placeholder="Search the docs" style="width: 300px;" type="search"/>
+<button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+</button>
+</form>
+</header>
+<div class="md:overflow-hidden flex flex-col md:flex-row flex-1"><nav class="h-full fixed md:relative inset-y-0 left-0 z-20 md:z-0 bg-white text-gray-700 border-r overflow-x-hidden pt-16 print:hidden flex flex-col" data-menu="closed" role="navigation" style="width: 270px;">
+<div class="nav-toc"><p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../about.html">About</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../installation.html">Installation</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../quickstart.html">Quickstart Tutorial</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../changelog.html">Changelog</a></div></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><svg aria-hidden="true" class="expand" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" href="../../mccd.html">mccd</a></div><ul>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.auxiliary_fun.html">mccd.auxiliary_fun</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.dataset_generation.html">mccd.dataset_generation</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.grads.html">mccd.grads</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.info.html">mccd.info</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.mccd.html">mccd.mccd</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.mccd_utils.html">mccd.mccd_utils</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.proxs.html">mccd.proxs</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="../../mccd.utils.html">mccd.utils</a></div></li>
+</ul>
+</li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../z_ref.html">References</a></div></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guidelines</span></p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../contributing.html">Contributing</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="../../citing.html">Citing this Package</a></div></li>
+</ul>
+</div>
+<button aria-label="Close menu" class="text-4xl text-gray-800 p-4 bottom-0 hover:text-pink-500 md:hidden focus:text-pink-500 self-center" id="closeNavBtn" title="Close menu">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="overflow-y-auto md:w-full flex flex-col flex-1" id="main-wrapper">
+<main class="px-5 md:ml-fluid flex-1" role="main">
+<h1>Source code for mccd.utils</h1><pre>
+<code><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sa">r</span><span class="sd">"""UTILS.</span>
+
+<span class="sd">These functions include several functions needed by PSF modelling algorithms.</span>
+
+<span class="sd">:Authors:   Morgan Schmitz &lt;https://github.com/MorganSchmitz&gt;</span>
+
+<span class="sd">            Tobias Liaudat &lt;tobias.liaudat@cea.fr&gt;</span>
+
+<span class="sd">"""</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">scipy.signal</span> <span class="k">as</span> <span class="nn">scisig</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">modopt.signal.wavelet</span> <span class="kn">import</span> <span class="n">filter_convolve</span>
+<span class="kn">import</span> <span class="nn">galsim</span> <span class="k">as</span> <span class="nn">gs</span>
+
+
+<div class="viewcode-block" id="apply_transform"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.apply_transform">[docs]</a><span class="k">def</span> <span class="nf">apply_transform</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">filters</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Transform ``data`` through application of a set of filters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data: numpy.ndarray</span>
+<span class="sd">        Data to be transformed. Should be in rca_format, where the image</span>
+<span class="sd">        index is contained</span>
+<span class="sd">        on last/2nd axis, ie (n_pix,n_pix,n_images).</span>
+<span class="sd">    filters: numpy.ndarray</span>
+<span class="sd">        Set of filters. Usually the wavelet transform filters.</span>
+
+<span class="sd">    """</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">reg_format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">filter_convolve</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">filters</span><span class="p">)</span> <span class="k">for</span> <span class="n">im</span> <span class="ow">in</span> <span class="n">data</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="acc_sig_maps"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.acc_sig_maps">[docs]</a><span class="k">def</span> <span class="nf">acc_sig_maps</span><span class="p">(</span><span class="n">shap_im</span><span class="p">,</span> <span class="n">ker_stack</span><span class="p">,</span> <span class="n">sig_est</span><span class="p">,</span> <span class="n">flux_est</span><span class="p">,</span> <span class="n">flux_ref</span><span class="p">,</span> <span class="n">upfact</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span>
+                 <span class="n">sig_data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Apply acc_sig_map() several times.</span>
+
+<span class="sd">    Calls:</span>
+
+<span class="sd">    * :func:`utils.acc_sig_map`</span>
+<span class="sd">    """</span>
+    <span class="n">shap</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">map_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">shap_im</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">upfact</span><span class="p">,</span> <span class="n">shap_im</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">upfact</span><span class="p">,</span> <span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">map_out</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">acc_sig_map</span><span class="p">(</span><span class="n">shap_im</span><span class="p">,</span> <span class="n">ker_stack</span><span class="p">,</span> <span class="n">sig_est</span><span class="p">,</span>
+                                       <span class="n">flux_est</span><span class="p">,</span> <span class="n">flux_ref</span><span class="p">,</span> <span class="n">upfact</span><span class="p">,</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span>
+                                       <span class="n">sig_data</span><span class="o">=</span><span class="n">sig_data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">map_out</span></div>
+
+
+<div class="viewcode-block" id="acc_sig_map"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.acc_sig_map">[docs]</a><span class="k">def</span> <span class="nf">acc_sig_map</span><span class="p">(</span><span class="n">shap_im</span><span class="p">,</span> <span class="n">ker_stack</span><span class="p">,</span> <span class="n">sig_est</span><span class="p">,</span> <span class="n">flux_est</span><span class="p">,</span> <span class="n">flux_ref</span><span class="p">,</span> <span class="n">upfact</span><span class="p">,</span>
+                <span class="n">w</span><span class="p">,</span> <span class="n">sig_data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Estimate the simga noise maps from the observed data.</span>
+
+<span class="sd">    Computes the square root of</span>
+<span class="sd">    :math:`\mathcal{F}^{2*}(\hat\sigma^2)(A^\top\odot A^\top)`.</span>
+<span class="sd">    See equation (27) in RCA paper (Ngole et al.).</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    :math:`\mathrm{Var}(B)` has been replaced by the noise level as</span>
+<span class="sd">    estimated from the data, and here we do not have the term</span>
+<span class="sd">    :math:`\mu` (gradient step size in the paper).</span>
+<span class="sd">    """</span>
+    <span class="n">shap</span> <span class="o">=</span> <span class="n">ker_stack</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">nb_im</span> <span class="o">=</span> <span class="n">shap</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">sig_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sig_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">nb_im</span><span class="p">,))</span>
+    <span class="n">var_stack</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">shap_im</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shap_im</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">nb_im</span><span class="p">))</span>
+    <span class="n">map2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">shap_im</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">upfact</span><span class="p">,</span> <span class="n">shap_im</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">upfact</span><span class="p">))</span>
+    <span class="n">ker_stack_in</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">ker_stack</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shap</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+        <span class="n">var_stack</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">it</span><span class="p">]</span> <span class="o">*=</span> <span class="n">sig_data</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">map2</span> <span class="o">+=</span> <span class="p">((</span><span class="n">w</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="o">*</span> <span class="n">flux_est</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">sig_est</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="o">*</span> <span class="n">flux_ref</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> \
+            <span class="n">scisig</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">transpose_decim</span><span class="p">(</span><span class="n">var_stack</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">it</span><span class="p">],</span> <span class="n">upfact</span><span class="p">),</span>
+                            <span class="n">ker_stack_in</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">it</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'same'</span><span class="p">)</span>
+    <span class="n">sigmap</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">map2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sigmap</span></div>
+
+
+<div class="viewcode-block" id="return_neighbors"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.return_neighbors">[docs]</a><span class="k">def</span> <span class="nf">return_neighbors</span><span class="p">(</span><span class="n">new_pos</span><span class="p">,</span> <span class="n">obs_pos</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Find the nearest neighbors locally in one ccd."""</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">obs_pos</span> <span class="o">-</span> <span class="n">new_pos</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">nbs</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">distances</span><span class="p">)[:</span><span class="n">n_neighbors</span><span class="p">]]</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">obs_pos</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">distances</span><span class="p">)[:</span><span class="n">n_neighbors</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">nbs</span><span class="p">,</span> <span class="n">pos</span></div>
+
+
+<div class="viewcode-block" id="rca_format"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.rca_format">[docs]</a><span class="k">def</span> <span class="nf">rca_format</span><span class="p">(</span><span class="n">cube</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Switch from ``regular`` format to ``RCA`` format.</span>
+
+<span class="sd">    RCA format: image index is contained on last axis [:,:,it]</span>
+<span class="sd">    Regular format: image index is contained on first axis [it,:,:]</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">cube</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="reg_format"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.reg_format">[docs]</a><span class="k">def</span> <span class="nf">reg_format</span><span class="p">(</span><span class="n">rca_cube</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Switch from ``RCA`` format to ``regular`` format.</span>
+
+<span class="sd">    RCA format: image index is contained on last axis [:,:,it]</span>
+<span class="sd">    Regular format: image index is contained on first axis [it,:,:]</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">rca_cube</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="decim"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.decim">[docs]</a><span class="k">def</span> <span class="nf">decim</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">av_en</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fft</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Decimate image to lower resolution."""</span>
+    <span class="n">im_filt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+    <span class="n">im_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">av_en</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">siz</span> <span class="o">=</span> <span class="n">d</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">d</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">siz</span><span class="p">,</span> <span class="n">siz</span><span class="p">))</span> <span class="o">/</span> <span class="n">siz</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="k">if</span> <span class="n">fft</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">im_filt</span> <span class="o">=</span> <span class="n">scisig</span><span class="o">.</span><span class="n">fftconvolve</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'same'</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">im_filt</span> <span class="o">=</span> <span class="n">scisig</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'same'</span><span class="p">)</span>
+        <span class="n">n1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">d</span><span class="p">))</span>
+        <span class="n">n2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">d</span><span class="p">))</span>
+        <span class="n">im_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">))</span>
+        <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n2</span><span class="p">):</span>
+                <span class="n">im_d</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">im</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">d</span><span class="p">,</span> <span class="n">j</span> <span class="o">*</span> <span class="n">d</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">av_en</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">im_filt</span><span class="p">,</span> <span class="n">im_d</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">im_d</span></div>
+
+
+<div class="viewcode-block" id="pairwise_distances"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.pairwise_distances">[docs]</a><span class="k">def</span> <span class="nf">pairwise_distances</span><span class="p">(</span><span class="n">obs_pos</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Compute pairwise distances."""</span>
+    <span class="n">ones</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">obs_pos</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">out0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">obs_pos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">ones</span><span class="p">)</span>
+    <span class="n">out1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">obs_pos</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">ones</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">out0</span> <span class="o">-</span> <span class="n">out0</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">out1</span> <span class="o">-</span> <span class="n">out1</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="transpose_decim"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.transpose_decim">[docs]</a><span class="k">def</span> <span class="nf">transpose_decim</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">decim_fact</span><span class="p">,</span> <span class="n">av_en</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Apply the transpose of the decimation matrix."""</span>
+    <span class="n">shap</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">im_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">decim_fact</span><span class="p">,</span> <span class="n">shap</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">decim_fact</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shap</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">im_out</span><span class="p">[</span><span class="n">decim_fact</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="n">decim_fact</span> <span class="o">*</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">im</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">av_en</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">siz</span> <span class="o">=</span> <span class="n">decim_fact</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">decim_fact</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">siz</span><span class="p">,</span> <span class="n">siz</span><span class="p">))</span> <span class="o">/</span> <span class="n">siz</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">im_out</span> <span class="o">=</span> <span class="n">scisig</span><span class="o">.</span><span class="n">fftconvolve</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'same'</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">im_out</span></div>
+
+
+<div class="viewcode-block" id="SoftThresholding"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.SoftThresholding">[docs]</a><span class="k">def</span> <span class="nf">SoftThresholding</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">thresh</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Perform element-wise soft thresholding."""</span>
+    <span class="n">thresh_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">belowmask</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">thresh</span><span class="p">)</span>
+    <span class="n">abovemask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">belowmask</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="n">thresh_data</span><span class="p">[</span><span class="n">belowmask</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="n">thresh_data</span><span class="p">[</span><span class="n">abovemask</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="n">thresh</span><span class="p">)[</span><span class="n">abovemask</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">thresh_data</span></div>
+
+
+<div class="viewcode-block" id="HardThresholding"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.HardThresholding">[docs]</a><span class="k">def</span> <span class="nf">HardThresholding</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">thresh</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Perform element-wise hard thresholding."""</span>
+    <span class="n">thresh_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">thresh_data</span><span class="p">[</span><span class="n">thresh_data</span> <span class="o">&lt;</span> <span class="n">thresh</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="k">return</span> <span class="n">thresh_data</span></div>
+
+
+<div class="viewcode-block" id="kthresholding"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.kthresholding">[docs]</a><span class="k">def</span> <span class="nf">kthresholding</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Apply k-thresholding.</span>
+
+<span class="sd">    Keep only ``k`` highest values and set the rest to 0.</span>
+<span class="sd">    """</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Warning: wrong k value for k-thresholding"</span><span class="p">)</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">xout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="mi">0</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">xout</span><span class="p">[</span><span class="n">ind</span><span class="p">[</span><span class="o">-</span><span class="n">k</span><span class="p">:]]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="p">[</span><span class="o">-</span><span class="n">k</span><span class="p">:]]</span>
+        <span class="k">return</span> <span class="n">xout</span></div>
+
+
+<div class="viewcode-block" id="lineskthresholding"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.lineskthresholding">[docs]</a><span class="k">def</span> <span class="nf">lineskthresholding</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Apply k-thresholding to each line of input matrix.</span>
+
+<span class="sd">    Calls:</span>
+
+<span class="sd">    * :func:`utils.kthresholding`</span>
+<span class="sd">    """</span>
+    <span class="n">mat_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+    <span class="n">shap</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">mat_out</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">kthresholding</span><span class="p">(</span><span class="n">mat</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="p">:],</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mat_out</span></div>
+
+
+<div class="viewcode-block" id="mad"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.mad">[docs]</a><span class="k">def</span> <span class="nf">mad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Compute MAD (Median Absolute Deviation)."""</span>
+    <span class="k">if</span> <span class="n">weight</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">valid_pixels</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">weight</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">valid_pixels</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">valid_pixels</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">valid_pixels</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="transform_mask"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.transform_mask">[docs]</a><span class="k">def</span> <span class="nf">transform_mask</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">filt</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Propagate bad pixels to 1st wavelet scale and mask all pixels affected.</span>
+
+<span class="sd">    Bad pixels are the ones with weight 0.</span>
+<span class="sd">    """</span>
+    <span class="n">stamp_size</span> <span class="o">=</span> <span class="n">weights</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">antimask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">antimask</span><span class="p">[</span><span class="n">weights</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">filt</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">filt_radius</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span>
+    <span class="n">bad_pix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">antimask</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">pixx</span><span class="p">,</span> <span class="n">pixy</span><span class="p">,</span> <span class="n">flagged_idx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">bad_pix</span><span class="p">):</span>
+        <span class="n">lx</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pixx</span> <span class="o">-</span> <span class="n">filt_radius</span><span class="p">)</span>
+        <span class="n">ly</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pixy</span> <span class="o">-</span> <span class="n">filt_radius</span><span class="p">)</span>
+        <span class="n">rx</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">pixx</span> <span class="o">+</span> <span class="n">filt_radius</span><span class="p">,</span> <span class="n">stamp_size</span><span class="p">)</span>
+        <span class="n">ry</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">pixy</span> <span class="o">+</span> <span class="n">filt_radius</span><span class="p">,</span> <span class="n">stamp_size</span><span class="p">)</span>
+        <span class="n">antimask</span><span class="p">[</span><span class="n">lx</span><span class="p">:</span><span class="n">rx</span><span class="p">,</span> <span class="n">ly</span><span class="p">:</span><span class="n">ry</span><span class="p">,</span> <span class="n">flagged_idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">antimask</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mask</span></div>
+
+
+<div class="viewcode-block" id="lanczos"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.lanczos">[docs]</a><span class="k">def</span> <span class="nf">lanczos</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n2</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Generate Lanczos kernel for a given shift."""</span>
+    <span class="k">if</span> <span class="n">n2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">n2</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="n">siz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">U</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">siz</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">U_in</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">U</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">U</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">U_in</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">U_in</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">U</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">U_in</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">U</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">n2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">U_in</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">U_in</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">H</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">n2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">n2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="n">H</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sinc</span><span class="p">(</span><span class="n">U_in</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">n</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sinc</span><span class="p">(</span>
+                        <span class="p">(</span><span class="n">U_in</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">n</span><span class="p">))</span> <span class="o">/</span> <span class="n">n</span>
+                    <span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sinc</span><span class="p">(</span><span class="n">U_in</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">n</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sinc</span><span class="p">(</span>
+                        <span class="p">(</span><span class="n">U_in</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">n</span><span class="p">))</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">H</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sinc</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">U</span> <span class="o">-</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">n</span><span class="p">)))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sinc</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">U</span> <span class="o">-</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">n</span><span class="p">))</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">H</span></div>
+
+
+<div class="viewcode-block" id="flux_estimate"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.flux_estimate">[docs]</a><span class="k">def</span> <span class="nf">flux_estimate</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">cent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Estimate flux for one image.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    im: numpy.ndarray</span>
+<span class="sd">        Image stamp containing the star.</span>
+<span class="sd">    cent: numpy.ndarray</span>
+<span class="sd">        Centroid of the star. If not provided, the centroid is calculated.</span>
+<span class="sd">        Default is None.</span>
+<span class="sd">    sigma: float</span>
+<span class="sd">        Size of the star in sigma that will be used to calculate the flux and</span>
+<span class="sd">        possibly the centroid too.</span>
+<span class="sd">        Default is 4.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    flux: float</span>
+<span class="sd">        Photometric flux value of the star.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    See SPRITE paper (Ngole et al.), section 3.4.1.,</span>
+<span class="sd">    subsection 'Photometric flux'.</span>
+<span class="sd">    """</span>
+    <span class="n">flux</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="mf">3.</span> <span class="o">*</span> <span class="n">sigma</span>
+    <span class="k">if</span> <span class="n">cent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">CE</span> <span class="o">=</span> <span class="n">CentroidEstimator</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">sig</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+        <span class="n">CE</span><span class="o">.</span><span class="n">estimate</span><span class="p">()</span>
+        <span class="n">cent</span> <span class="o">=</span> <span class="p">[</span><span class="n">CE</span><span class="o">.</span><span class="n">xc</span><span class="p">,</span> <span class="n">CE</span><span class="o">.</span><span class="n">yc</span><span class="p">]</span>
+    <span class="n">shap</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shap</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">i</span> <span class="o">-</span> <span class="n">cent</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">cent</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">rad</span><span class="p">:</span>
+                <span class="n">flux</span> <span class="o">=</span> <span class="n">flux</span> <span class="o">+</span> <span class="n">im</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">flux</span></div>
+
+
+<div class="viewcode-block" id="flux_estimate_stack"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.flux_estimate_stack">[docs]</a><span class="k">def</span> <span class="nf">flux_estimate_stack</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">cent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="mf">2.</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Estimate flux for a bunch of images.</span>
+
+<span class="sd">    Calls:</span>
+
+<span class="sd">    * :func:`utils.flux_estimate`</span>
+<span class="sd">    """</span>
+    <span class="n">shap</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">flux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">shap</span><span class="p">[</span><span class="mi">2</span><span class="p">],))</span>
+
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">sigmas</span><span class="p">):</span>
+        <span class="n">sigmas</span> <span class="o">=</span> <span class="n">sigmas</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">shap</span><span class="p">[</span><span class="mi">2</span><span class="p">],))</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shap</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">cent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">flux</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">flux_estimate</span><span class="p">(</span><span class="n">stack</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">cent</span><span class="o">=</span><span class="n">cent</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span>
+                                    <span class="n">sigma</span><span class="o">=</span><span class="n">sigmas</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">flux</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">flux_estimate</span><span class="p">(</span><span class="n">stack</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigmas</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">flux</span></div>
+
+
+<div class="viewcode-block" id="shift_ker_stack"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.shift_ker_stack">[docs]</a><span class="k">def</span> <span class="nf">shift_ker_stack</span><span class="p">(</span><span class="n">shifts</span><span class="p">,</span> <span class="n">upfact</span><span class="p">,</span> <span class="n">lanc_rad</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Generate shifting kernels and rotated shifting kernels.</span>
+
+<span class="sd">    Calls:</span>
+
+<span class="sd">    * :func:`utils.lanczos`</span>
+<span class="sd">    """</span>
+    <span class="c1"># lanc_rad = np.ceil(np.max(3*sigmas)).astype(int)</span>
+    <span class="n">shap</span> <span class="o">=</span> <span class="n">shifts</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">var_shift_ker_stack</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+        <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">lanc_rad</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">lanc_rad</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">var_shift_ker_stack_adj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+        <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">lanc_rad</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">lanc_rad</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">uin</span> <span class="o">=</span> <span class="n">shifts</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">upfact</span>
+        <span class="n">var_shift_ker_stack</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lanczos</span><span class="p">(</span><span class="n">uin</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">lanc_rad</span><span class="p">)</span>
+        <span class="n">var_shift_ker_stack_adj</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span>
+            <span class="n">var_shift_ker_stack</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">i</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">var_shift_ker_stack</span><span class="p">,</span> <span class="n">var_shift_ker_stack_adj</span></div>
+
+
+<div class="viewcode-block" id="gen_Pea"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.gen_Pea">[docs]</a><span class="k">def</span> <span class="nf">gen_Pea</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Compute the graph Laplacian for a given set of parameters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    distances: numpy.ndarray</span>
+<span class="sd">        Array of pairwise distances</span>
+<span class="sd">    e: float</span>
+<span class="sd">        Exponent to which the pairwise distances should be raised.</span>
+<span class="sd">    a: float</span>
+<span class="sd">        Constant multiplier along Laplacian's diagonal.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Pea: numpy.ndarray</span>
+<span class="sd">        Graph laplacian.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Computes :math:`P_{e,a}` matrix for given ``e``, ``a`` couple.</span>
+<span class="sd">    See Equations (16-17) in RCA paper (Ngole et al.).</span>
+<span class="sd">    Watch out with the ``e`` parameter as it plays a vital role in the graph</span>
+<span class="sd">    definition as it is a parameter of the distance that defines the</span>
+<span class="sd">    graph's weights.</span>
+
+<span class="sd">    """</span>
+    <span class="n">Pea</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">distances</span> <span class="o">**</span> <span class="n">e</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">Pea</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+    <span class="n">Pea</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">Pea</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Pea</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">Pea</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span> <span class="o">*</span> <span class="n">Pea</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Pea</span></div>
+
+
+<div class="viewcode-block" id="select_vstar"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.select_vstar">[docs]</a><span class="k">def</span> <span class="nf">select_vstar</span><span class="p">(</span><span class="n">eigenvects</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Pick best eigenvector from a set of :math:`(e,a)`.</span>
+
+<span class="sd">    i.e., solve (35) from RCA paper (Ngole et al.).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    eigenvects: numpy.ndarray</span>
+<span class="sd">        Array of eigenvects to be tested over.</span>
+<span class="sd">    R: numpy.ndarray</span>
+<span class="sd">        :math:`R_i` matrix.</span>
+<span class="sd">    weights: numpy.ndarray</span>
+<span class="sd">        Entry-wise weights for :math:`R_i`.</span>
+<span class="sd">    """</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">weights</span> <span class="o">*</span> <span class="n">R</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">Pea_eigenvects</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">eigenvects</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">vect</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Pea_eigenvects</span><span class="p">):</span>
+            <span class="n">colvect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">vect</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">current_loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">weights</span> <span class="o">*</span> <span class="n">R</span> <span class="o">-</span> <span class="n">colvect</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">colvect</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span> <span class="o">*</span> <span class="n">R</span><span class="p">)))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">current_loss</span> <span class="o">&lt;</span> <span class="n">loss</span><span class="p">:</span>
+                <span class="n">loss</span> <span class="o">=</span> <span class="n">current_loss</span>
+                <span class="n">eigen_idx</span> <span class="o">=</span> <span class="n">j</span>
+                <span class="n">ea_idx</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="n">best_VT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">Pea_eigenvects</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ea_idx</span><span class="p">,</span> <span class="n">eigen_idx</span><span class="p">,</span> <span class="n">best_VT</span></div>
+
+
+<div class="viewcode-block" id="GraphBuilder"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.GraphBuilder">[docs]</a><span class="k">class</span> <span class="nc">GraphBuilder</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""GraphBuilder class.</span>
+
+<span class="sd">    This class computes the necessary quantities for RCA's graph constraint.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    obs_data: numpy.ndarray</span>
+<span class="sd">        Observed data.</span>
+<span class="sd">    obs_pos: numpy.ndarray</span>
+<span class="sd">        Corresponding positions.</span>
+<span class="sd">    obs_weights: numpy.ndarray</span>
+<span class="sd">        Corresponding per-pixel weights.</span>
+<span class="sd">    n_comp: int</span>
+<span class="sd">        Number of RCA components.</span>
+<span class="sd">    n_eigenvects: int</span>
+<span class="sd">        Maximum number of eigenvectors to consider per :math:`(e,a)` couple.</span>
+<span class="sd">        Default is ``None``;</span>
+<span class="sd">        if not provided, *all* eigenvectors will be considered,</span>
+<span class="sd">        which can lead to a poor selection of graphs, especially when data</span>
+<span class="sd">        is undersampled.</span>
+<span class="sd">        Ignored if ``VT`` and ``alpha`` are provided.</span>
+<span class="sd">    n_iter: int</span>
+<span class="sd">        How many alternations should there be when optimizing over</span>
+<span class="sd">        :math:`e` and :math:`a`. Default is 3.</span>
+<span class="sd">    ea_gridsize: int</span>
+<span class="sd">        How fine should the logscale grid of :math:`(e,a)` values be.</span>
+<span class="sd">        Default is 10.</span>
+<span class="sd">    distances: numpy.ndarray</span>
+<span class="sd">        Pairwise distances for all positions. Default is ``None``;</span>
+<span class="sd">        if not provided, will be computed from given positions.</span>
+<span class="sd">    auto_run: bool</span>
+<span class="sd">        Whether to immediately build the graph quantities.</span>
+<span class="sd">        Default is ``True``.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs_data</span><span class="p">,</span> <span class="n">obs_pos</span><span class="p">,</span> <span class="n">obs_weights</span><span class="p">,</span> <span class="n">n_comp</span><span class="p">,</span>
+                 <span class="n">n_eigenvects</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                 <span class="n">ea_gridsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">distances</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">auto_run</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span> <span class="o">=</span> <span class="n">obs_data</span>
+        <span class="n">shap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="o">.</span><span class="n">shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span> <span class="o">=</span> <span class="n">obs_pos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">=</span> <span class="n">obs_weights</span>
+        <span class="c1"># change to same format as that we will use for</span>
+        <span class="c1"># residual matrix R later on</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">shap</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shap</span><span class="p">[</span><span class="mi">2</span><span class="p">])))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_comp</span> <span class="o">=</span> <span class="n">n_comp</span>
+        <span class="k">if</span> <span class="n">n_eigenvects</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_eigenvects</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_eigenvects</span> <span class="o">=</span> <span class="n">n_eigenvects</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_iter</span> <span class="o">=</span> <span class="n">n_iter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ea_gridsize</span> <span class="o">=</span> <span class="n">ea_gridsize</span>
+        <span class="k">if</span> <span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">distances</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">distances</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_pos</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">distances</span> <span class="o">=</span> <span class="n">distances</span>
+        <span class="k">if</span> <span class="n">auto_run</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_build_graphs</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_build_graphs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute graph-constraint related values.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        See RCA paper (Ngole et al.) sections 5.2 and (especially) 5.5.3.</span>
+<span class="sd">        """</span>
+        <span class="n">shap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">e_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pick_emax</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">" &gt; power max = "</span><span class="p">,</span> <span class="n">e_max</span><span class="p">)</span>
+
+        <span class="c1"># [TL] Modif min from 0.01 to 0.001</span>
+        <span class="n">a_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">1.99</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ea_gridsize</span><span class="p">)</span>
+        <span class="n">e_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">e_max</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ea_gridsize</span><span class="p">)</span>
+
+        <span class="c1"># initialize R matrix with observations</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_data</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">shap</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">shap</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shap</span><span class="p">[</span><span class="mi">2</span><span class="p">]))))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sel_a</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sel_e</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">list_eigenvects</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_comp</span><span class="p">):</span>
+            <span class="n">e</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">best_VT</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_params</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">e_range</span><span class="p">,</span> <span class="n">a_range</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sel_e</span> <span class="o">+=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sel_a</span> <span class="o">+=</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+            <span class="n">idx</span> <span class="o">+=</span> <span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">list_eigenvects</span> <span class="o">+=</span> <span class="p">[</span><span class="n">best_VT</span><span class="p">]</span>
+            <span class="n">vect</span> <span class="o">=</span> <span class="n">best_VT</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">R</span> <span class="o">-=</span> <span class="n">vect</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vect</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">R</span><span class="p">))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">" &gt; selected e: </span><span class="si">{}</span><span class="se">\t</span><span class="s2">selected a:"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">+</span>
+                    <span class="s2">"</span><span class="si">{}</span><span class="se">\t</span><span class="s2"> chosen index: </span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_eigenvects</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">VT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">eigenvect</span> <span class="k">for</span> <span class="n">eigenvect</span> <span class="ow">in</span> <span class="n">list_eigenvects</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">n_comp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_comp</span><span class="p">):</span>
+            <span class="c1"># Check column range (case with low number of observations)</span>
+            <span class="n">col_n</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_eigenvects</span> <span class="o">+</span> <span class="n">idx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">col_n</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="c1"># Randomly init the column position</span>
+                <span class="n">col_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">col_n</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<div class="viewcode-block" id="GraphBuilder.pick_emax"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.GraphBuilder.pick_emax">[docs]</a>    <span class="k">def</span> <span class="nf">pick_emax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-15</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Pick maximum value for ``e`` parameter.</span>
+
+<span class="sd">        From now, we fix the maximum :math:`e` to 1 and ignore the old</span>
+<span class="sd">        procedure that was giving values that were too big.</span>
+
+<span class="sd">        Old procedure:</span>
+<span class="sd">        Select maximum value of :math:`e` for the greedy search over set of</span>
+<span class="sd">        :math:`(e,a)` couples, so that the graph is still fully connected.</span>
+<span class="sd">        """</span>
+        <span class="c1"># nodiag = np.copy(self.distances)</span>
+        <span class="c1"># nodiag[nodiag==0] = 1e20</span>
+        <span class="c1"># dist_ratios = np.min(nodiag,axis=1) / np.max(self.distances, axis=1)</span>
+        <span class="c1"># r_med = np.min(dist_ratios**2)</span>
+        <span class="c1"># return np.log(epsilon)/np.log(r_med)</span>
+
+        <span class="k">return</span> <span class="mf">1.</span></div>
+
+<div class="viewcode-block" id="GraphBuilder.select_params"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.GraphBuilder.select_params">[docs]</a>    <span class="k">def</span> <span class="nf">select_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">e_range</span><span class="p">,</span> <span class="n">a_range</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Select best graph parameters.</span>
+
+<span class="sd">        Select :math:`(e,a)` parameters and best eigenvector</span>
+<span class="sd">        for current :math:`R_i` matrix.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        R: numpy.ndarray</span>
+<span class="sd">            Current :math:`R_i` matrix</span>
+<span class="sd">            (as defined in RCA paper (Ngole et al.), sect. 5.5.3.)</span>
+<span class="sd">        e_range: numpy.ndarray</span>
+<span class="sd">            List of :math:`e` values to be tested.</span>
+<span class="sd">        a_range: numpy.ndarray</span>
+<span class="sd">            List of :math:`a` values to be tested.</span>
+<span class="sd">        """</span>
+        <span class="n">current_a</span> <span class="o">=</span> <span class="mf">0.5</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iter</span><span class="p">):</span>
+            <span class="c1"># optimize over e</span>
+            <span class="n">Peas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">gen_Pea</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">distances</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">current_a</span><span class="p">)</span>
+                             <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">e_range</span><span class="p">])</span>
+            <span class="n">all_eigenvects</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">gen_eigenvects</span><span class="p">(</span><span class="n">Pea</span><span class="p">)</span> <span class="k">for</span> <span class="n">Pea</span> <span class="ow">in</span> <span class="n">Peas</span><span class="p">])</span>
+            <span class="n">ea_idx</span><span class="p">,</span> <span class="n">eigen_idx</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">select_vstar</span><span class="p">(</span><span class="n">all_eigenvects</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span><span class="p">)</span>
+            <span class="n">current_e</span> <span class="o">=</span> <span class="n">e_range</span><span class="p">[</span><span class="n">ea_idx</span><span class="p">]</span>
+
+            <span class="c1"># optimize over a</span>
+            <span class="n">Peas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">gen_Pea</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">distances</span><span class="p">,</span> <span class="n">current_e</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+                             <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">a_range</span><span class="p">])</span>
+            <span class="n">all_eigenvects</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">gen_eigenvects</span><span class="p">(</span><span class="n">Pea</span><span class="p">)</span> <span class="k">for</span> <span class="n">Pea</span> <span class="ow">in</span> <span class="n">Peas</span><span class="p">])</span>
+            <span class="n">ea_idx</span><span class="p">,</span> <span class="n">eigen_idx</span><span class="p">,</span> <span class="n">best_VT</span> <span class="o">=</span> <span class="n">select_vstar</span><span class="p">(</span><span class="n">all_eigenvects</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span>
+                                                      <span class="bp">self</span><span class="o">.</span><span class="n">obs_weights</span><span class="p">)</span>
+            <span class="n">current_a</span> <span class="o">=</span> <span class="n">a_range</span><span class="p">[</span><span class="n">ea_idx</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">current_e</span><span class="p">,</span> <span class="n">current_a</span><span class="p">,</span> <span class="n">eigen_idx</span><span class="p">,</span> <span class="n">best_VT</span></div>
+
+<div class="viewcode-block" id="GraphBuilder.gen_eigenvects"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.GraphBuilder.gen_eigenvects">[docs]</a>    <span class="k">def</span> <span class="nf">gen_eigenvects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mat</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute input matrix's eigenvectors.</span>
+
+<span class="sd">        Keep only the ``n_eigenvects`` associated</span>
+<span class="sd">        with the smallest eigenvalues.</span>
+<span class="sd">        """</span>
+        <span class="n">U</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">vT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">vT</span> <span class="o">=</span> <span class="n">vT</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_eigenvects</span><span class="p">:]</span>
+        <span class="k">return</span> <span class="n">vT</span></div></div>
+
+
+<div class="viewcode-block" id="poly_pos"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.poly_pos">[docs]</a><span class="k">def</span> <span class="nf">poly_pos</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">max_degree</span><span class="p">,</span> <span class="n">center_normalice</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+             <span class="n">x_lims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y_lims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">normalice_Pi</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_degree</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Construct polynomial matrix.</span>
+
+<span class="sd">    Return a matrix Pi containing polynomials of stars</span>
+<span class="sd">    positions up to ``max_degree``.</span>
+
+<span class="sd">    Defaulting to CFIS CCD limits.</span>
+
+<span class="sd">    New method:</span>
+<span class="sd">    The positions are scaled to the [-0.5, 0.5]x[-0.5, 0.5].</span>
+<span class="sd">    Then the polynomials are constructed with the normalized positions.</span>
+
+<span class="sd">    Old method:</span>
+<span class="sd">    Positions are centred, the polynomials are constructed.</span>
+<span class="sd">    Then the polynomials are normalized.</span>
+
+<span class="sd">    """</span>
+    <span class="n">n_mono</span> <span class="o">=</span> <span class="p">(</span><span class="n">max_degree</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_degree</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">Pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_mono</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">x_lims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">x_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">_pos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">x_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">_pos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">x_lims</span> <span class="o">=</span> <span class="p">[</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">y_lims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">y_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">_pos</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">y_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">_pos</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">y_lims</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">]</span>
+
+    <span class="c1"># Center and normalise positions</span>
+    <span class="k">if</span> <span class="n">center_normalice</span><span class="p">:</span>
+        <span class="n">_pos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">_pos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_lims</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">x_lims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_lims</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mf">0.5</span>
+        <span class="n">_pos</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">_pos</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_lims</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">y_lims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_lims</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mf">0.5</span>
+
+    <span class="c1"># Build position polynomials</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_degree</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">row_idx</span> <span class="o">=</span> <span class="n">d</span> <span class="o">*</span> <span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">Pi</span><span class="p">[</span><span class="n">row_idx</span> <span class="o">+</span> <span class="n">p</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">_pos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="p">(</span><span class="n">d</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="n">_pos</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="n">p</span>
+
+    <span class="k">if</span> <span class="n">min_degree</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Erase the polynomial degrees up to `min_degree`</span>
+        <span class="c1"># Monomials to erase</span>
+        <span class="n">del_n_mono</span> <span class="o">=</span> <span class="p">(</span><span class="n">min_degree</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">min_degree</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">Pi</span> <span class="o">=</span> <span class="n">Pi</span><span class="p">[</span><span class="n">del_n_mono</span><span class="p">:,</span> <span class="p">:]</span>
+
+    <span class="k">if</span> <span class="n">normalice_Pi</span><span class="p">:</span>
+        <span class="c1"># Normalize polynomial lines</span>
+        <span class="n">Pi_norms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Pi</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">Pi</span> <span class="o">/=</span> <span class="n">Pi_norms</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Pi</span></div>
+
+
+<div class="viewcode-block" id="CentroidEstimator"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.CentroidEstimator">[docs]</a><span class="k">class</span> <span class="nc">CentroidEstimator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Estimate intra-pixel shifts.</span>
+
+<span class="sd">    It calculates the centroid of the image and compare it with the stamp</span>
+<span class="sd">    centroid and returns the proper shift.</span>
+<span class="sd">    The star centroid is calculated following an iterative procedure where a</span>
+<span class="sd">    matched elliptical gaussian is used to calculate the moments.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    im: numpy.ndarray</span>
+<span class="sd">        Star image stamp.</span>
+<span class="sd">    sig: float</span>
+<span class="sd">        Estimated shape of the star in sigma.</span>
+<span class="sd">        Default is 7.5.</span>
+<span class="sd">    n_iter: int</span>
+<span class="sd">        Max iteration number for the iterative estimation procedure.</span>
+<span class="sd">        Default is 5.</span>
+<span class="sd">    auto_run: bool</span>
+<span class="sd">        Auto run the intra-pixel shif calculation in the initialization</span>
+<span class="sd">        of the class.</span>
+<span class="sd">        Default is True.</span>
+<span class="sd">    xc: float</span>
+<span class="sd">        First guess of the ``x`` component of the star centroid. (optional)</span>
+<span class="sd">        Default is None.</span>
+<span class="sd">    yc: float</span>
+<span class="sd">        First guess of the ``y`` component of the star centroid. (optional)</span>
+<span class="sd">        Default is None.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">sig</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">auto_run</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">xc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">yc</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Initialize class attributes."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">im</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stamp_size</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ranges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stamp_size</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sig</span> <span class="o">=</span> <span class="n">sig</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_iter</span> <span class="o">=</span> <span class="n">n_iter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xc0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yc0</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stamp_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stamp_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xx</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yy</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">xc</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">yc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xc0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">yc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">yc0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="n">xc</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">yc</span> <span class="o">=</span> <span class="n">yc</span>
+        <span class="k">if</span> <span class="n">auto_run</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">estimate</span><span class="p">()</span>
+
+<div class="viewcode-block" id="CentroidEstimator.UpdateGrid"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.CentroidEstimator.UpdateGrid">[docs]</a>    <span class="k">def</span> <span class="nf">UpdateGrid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Update the grid where the star stamp is defined."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ranges</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">xc</span><span class="p">,</span>
+                           <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stamp_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stamp_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">ranges</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">yc</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CentroidEstimator.EllipticalGaussian"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.CentroidEstimator.EllipticalGaussian">[docs]</a>    <span class="k">def</span> <span class="nf">EllipticalGaussian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">e2</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute an elliptical 2D gaussian with arbitrary centroid."""</span>
+        <span class="c1"># Shear it</span>
+        <span class="n">gxx</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">e1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">xx</span> <span class="o">-</span> <span class="n">e2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">yy</span>
+        <span class="n">gyy</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">e1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">yy</span> <span class="o">-</span> <span class="n">e2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">xx</span>
+        <span class="c1"># compute elliptical gaussian</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">gxx</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">gyy</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">sig</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="CentroidEstimator.ComputeMoments"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.CentroidEstimator.ComputeMoments">[docs]</a>    <span class="k">def</span> <span class="nf">ComputeMoments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute the star moments.</span>
+
+<span class="sd">        Compute the star image normalized first order moments with</span>
+<span class="sd">        the current window function.</span>
+<span class="sd">        """</span>
+        <span class="n">Q0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span>
+        <span class="n">Q1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ranges</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)])</span>
+        <span class="c1"># Q2 = np.array([np.sum(</span>
+        <span class="c1">#     self.im*self.window * self.xx**(2-i) * self.yy**i)</span>
+        <span class="c1">#     for i in range(3)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="n">Q1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">Q0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yc</span> <span class="o">=</span> <span class="n">Q1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">Q0</span></div>
+
+<div class="viewcode-block" id="CentroidEstimator.estimate"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.CentroidEstimator.estimate">[docs]</a>    <span class="k">def</span> <span class="nf">estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Estimate the star image centroid iteratively."""</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iter</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">UpdateGrid</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EllipticalGaussian</span><span class="p">()</span>
+            <span class="c1"># Calculate weighted moments.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ComputeMoments</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">xc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yc</span></div>
+
+<div class="viewcode-block" id="CentroidEstimator.return_shifts"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.CentroidEstimator.return_shifts">[docs]</a>    <span class="k">def</span> <span class="nf">return_shifts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Return intra-pixel shifts.</span>
+
+<span class="sd">        Intra-pixel shifts are the difference between</span>
+<span class="sd">        the estimated centroid and the center of the stamp (or pixel grid).</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">xc</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">xc0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yc</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">yc0</span><span class="p">]</span></div></div>
+
+
+<div class="viewcode-block" id="adjoint_degradation_op"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.adjoint_degradation_op">[docs]</a><span class="k">def</span> <span class="nf">adjoint_degradation_op</span><span class="p">(</span><span class="n">x_i</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Apply adjoint of the degradation operator ``degradation_op``."""</span>
+    <span class="k">return</span> <span class="n">scisig</span><span class="o">.</span><span class="n">fftconvolve</span><span class="p">(</span><span class="n">transpose_decim</span><span class="p">(</span><span class="n">x_i</span><span class="p">,</span> <span class="n">D</span><span class="p">),</span>
+                              <span class="n">shift_ker</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'same'</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="degradation_op"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.degradation_op">[docs]</a><span class="k">def</span> <span class="nf">degradation_op</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Shift and decimate fine-grid image."""</span>
+    <span class="k">return</span> <span class="n">decim</span><span class="p">(</span><span class="n">scisig</span><span class="o">.</span><span class="n">fftconvolve</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">shift_ker</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'same'</span><span class="p">),</span>
+                 <span class="n">D</span><span class="p">,</span> <span class="n">av_en</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="handle_SExtractor_mask"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.handle_SExtractor_mask">[docs]</a><span class="k">def</span> <span class="nf">handle_SExtractor_mask</span><span class="p">(</span><span class="n">stars</span><span class="p">,</span> <span class="n">thresh</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Handle Sextractor masks.</span>
+
+<span class="sd">    Reads SExtracted star stamps, generates MCCD-compatible masks</span>
+<span class="sd">    (that is, binary weights), and replaces bad pixels with 0s -</span>
+<span class="sd">    they will not be used by MCCD, but the ridiculous numerical</span>
+<span class="sd">    values can otherwise still lead to problems because of convolutions.</span>
+<span class="sd">    """</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">stars</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">mask</span><span class="p">[</span><span class="n">stars</span> <span class="o">&lt;</span> <span class="n">thresh</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">stars</span><span class="p">[</span><span class="n">stars</span> <span class="o">&lt;</span> <span class="n">thresh</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">mask</span></div>
+
+
+<div class="viewcode-block" id="match_psfs"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.match_psfs">[docs]</a><span class="k">def</span> <span class="nf">match_psfs</span><span class="p">(</span><span class="n">test_stars</span><span class="p">,</span> <span class="n">PSFs</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Match psfs.DEPRECATED.</span>
+
+<span class="sd">    See ``MCCD.validation_stars`` instead.</span>
+<span class="sd">    Takes as input the test_stars vignets and the PSFs vignets that were</span>
+<span class="sd">    outputs from the psf modelling method. The function outputs the PSFs</span>
+<span class="sd">    matching the corresponding test stars.</span>
+<span class="sd">    This allows to compute the pixel RMSE. Intended to be used with PSFEx</span>
+<span class="sd">    validation functions.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    test_stars: numpy.ndarray</span>
+<span class="sd">        reg format (n_stars,n_pix,n_pix)</span>
+<span class="sd">    PSFs: numpy.ndarray</span>
+<span class="sd">        reg format (n_stars,n_pix,n_pix)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    deg_PSFs: numpy.ndarray</span>
+<span class="sd">        reg format (n_stars,n_pix,n_pix)</span>
+<span class="sd">    """</span>
+    <span class="n">test_masks</span> <span class="o">=</span> <span class="n">handle_SExtractor_mask</span><span class="p">(</span><span class="n">test_stars</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=-</span><span class="mf">1e5</span><span class="p">)</span>
+    <span class="n">psf_size_R2</span> <span class="o">=</span> <span class="mf">6.</span>
+    <span class="n">psf_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">psf_size_R2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">test_stars</span> <span class="o">=</span> <span class="n">rca_format</span><span class="p">(</span><span class="n">test_stars</span><span class="p">)</span>
+    <span class="n">test_masks</span> <span class="o">=</span> <span class="n">rca_format</span><span class="p">(</span><span class="n">test_masks</span><span class="p">)</span>
+    <span class="n">PSFs</span> <span class="o">=</span> <span class="n">rca_format</span><span class="p">(</span><span class="n">PSFs</span><span class="p">)</span>
+
+    <span class="c1"># Star calculation</span>
+    <span class="n">star_moms</span> <span class="o">=</span> <span class="p">[</span><span class="n">gs</span><span class="o">.</span><span class="n">hsm</span><span class="o">.</span><span class="n">FindAdaptiveMom</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">star</span><span class="p">),</span> <span class="n">badpix</span><span class="o">=</span><span class="n">gs</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">badpix</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))),</span>
+                                        <span class="n">guess_sig</span><span class="o">=</span><span class="n">psf_size</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">for</span>
+                 <span class="n">star</span><span class="p">,</span> <span class="n">badpix</span> <span class="ow">in</span>
+                 <span class="nb">zip</span><span class="p">(</span><span class="n">reg_format</span><span class="p">(</span><span class="n">test_stars</span><span class="p">),</span> <span class="n">reg_format</span><span class="p">(</span><span class="n">test_masks</span><span class="p">))]</span>
+    <span class="n">sigmas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">moms</span><span class="o">.</span><span class="n">moments_sigma</span> <span class="k">for</span> <span class="n">moms</span> <span class="ow">in</span> <span class="n">star_moms</span><span class="p">])</span>
+    <span class="n">cents</span> <span class="o">=</span> <span class="p">[</span><span class="n">CentroidEstimator</span><span class="p">(</span><span class="n">test_stars</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">it</span><span class="p">],</span> <span class="n">sig</span><span class="o">=</span><span class="n">sigmas</span><span class="p">[</span><span class="n">it</span><span class="p">])</span> <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span>
+             <span class="nb">range</span><span class="p">(</span><span class="n">test_stars</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])]</span>
+    <span class="n">test_shifts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ce</span><span class="o">.</span><span class="n">return_shifts</span><span class="p">()</span> <span class="k">for</span> <span class="n">ce</span> <span class="ow">in</span> <span class="n">cents</span><span class="p">])</span>
+
+    <span class="c1"># PSF calculation</span>
+    <span class="n">check_psf_moms</span> <span class="o">=</span> <span class="p">[</span><span class="n">gs</span><span class="o">.</span><span class="n">hsm</span><span class="o">.</span><span class="n">FindAdaptiveMom</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">star</span><span class="p">),</span>
+                                             <span class="n">guess_sig</span><span class="o">=</span><span class="n">psf_size</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                      <span class="k">for</span> <span class="n">star</span> <span class="ow">in</span> <span class="n">reg_format</span><span class="p">(</span><span class="n">PSFs</span><span class="p">)]</span>
+    <span class="n">check_psf_sigmas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">moms</span><span class="o">.</span><span class="n">moments_sigma</span> <span class="k">for</span> <span class="n">moms</span> <span class="ow">in</span> <span class="n">check_psf_moms</span><span class="p">])</span>
+    <span class="n">check_psf_cents</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">CentroidEstimator</span><span class="p">(</span><span class="n">PSFs</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">it</span><span class="p">],</span> <span class="n">sig</span><span class="o">=</span><span class="n">check_psf_sigmas</span><span class="p">[</span><span class="n">it</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">PSFs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])]</span>
+    <span class="n">check_psf_test_shifts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">ce</span><span class="o">.</span><span class="n">return_shifts</span><span class="p">()</span> <span class="k">for</span> <span class="n">ce</span> <span class="ow">in</span> <span class="n">check_psf_cents</span><span class="p">])</span>
+
+    <span class="c1"># Final calculation</span>
+    <span class="n">test_shifts</span> <span class="o">=</span> <span class="n">test_shifts</span> <span class="o">-</span> <span class="n">check_psf_test_shifts</span>
+    <span class="n">lanc_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="mf">3.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">sigmas</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">upfact</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">ntest</span> <span class="o">=</span> <span class="n">test_stars</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="n">shift_kernels</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">shift_ker_stack</span><span class="p">(</span><span class="n">test_shifts</span><span class="p">,</span> <span class="n">upfact</span><span class="p">,</span> <span class="n">lanc_rad</span><span class="o">=</span><span class="n">lanc_rad</span><span class="p">)</span>
+
+    <span class="n">deg_PSFs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">degradation_op</span><span class="p">(</span><span class="n">PSFs</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">shift_kernels</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">upfact</span><span class="p">)</span>
+         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ntest</span><span class="p">)])</span>
+
+    <span class="n">test_stars</span> <span class="o">=</span> <span class="n">reg_format</span><span class="p">(</span><span class="n">test_stars</span><span class="p">)</span>
+
+    <span class="c1"># Optimize flux matching</span>
+    <span class="c1"># (Changing the way the flux are defined for PSFEx) Instead of:</span>
+    <span class="c1"># deg_PSFs *= test_fluxes.reshape(-1,1,1)</span>
+    <span class="c1"># We will use:</span>
+    <span class="n">norm_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">_star</span> <span class="o">*</span> <span class="n">_psf</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">_psf</span> <span class="o">*</span> <span class="n">_psf</span><span class="p">)</span> <span class="k">for</span> <span class="n">_star</span><span class="p">,</span> <span class="n">_psf</span> <span class="ow">in</span>
+         <span class="nb">zip</span><span class="p">(</span><span class="n">test_stars</span><span class="p">,</span> <span class="n">deg_PSFs</span><span class="p">)])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">deg_PSFs</span> <span class="o">*=</span> <span class="n">norm_factor</span>
+
+    <span class="k">return</span> <span class="n">deg_PSFs</span></div>
+
+
+<div class="viewcode-block" id="NoiseEstimator"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.NoiseEstimator">[docs]</a><span class="k">class</span> <span class="nc">NoiseEstimator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">""" Noise estimator.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    img_dim: tuple of int</span>
+<span class="sd">        Image size</span>
+<span class="sd">    win_rad: int</span>
+<span class="sd">        window radius in pixels</span>
+
+<span class="sd">    """</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img_dim</span><span class="p">,</span> <span class="n">win_rad</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img_dim</span> <span class="o">=</span> <span class="n">img_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">win_rad</span> <span class="o">=</span> <span class="n">win_rad</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_window</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_init_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Calculate window function for estimating the noise</span>
+        <span class="c1"># We couldn't use Galsim to estimate the moments, so we chose to work</span>
+        <span class="c1"># with the real center of the image (25.5,25.5)</span>
+        <span class="c1"># instead of using the real centroid. Also, we use 13 instead of</span>
+        <span class="c1"># 5 * obs_sigma, so that we are sure to cut all the flux from the star</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_dim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+
+        <span class="n">mid_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_dim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">mid_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="k">for</span> <span class="n">_x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_dim</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">for</span> <span class="n">_y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">_x</span> <span class="o">-</span> <span class="n">mid_x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">_y</span> <span class="o">-</span> <span class="n">mid_y</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">win_rad</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">[</span><span class="n">_x</span><span class="p">,</span> <span class="n">_y</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="NoiseEstimator.sigma_mad"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.NoiseEstimator.sigma_mad">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">sigma_mad</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Compute an estimation of the standard deviation</span>
+<span class="sd">        of a Gaussian distribution using the robust</span>
+<span class="sd">        MAD (Median Absolute Deviation) estimator."""</span>
+        <span class="k">return</span> <span class="mf">1.4826</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span></div>
+
+<div class="viewcode-block" id="NoiseEstimator.estimate_noise"><a class="viewcode-back" href="../../mccd.utils.html#mccd.utils.NoiseEstimator.estimate_noise">[docs]</a>    <span class="k">def</span> <span class="nf">estimate_noise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Estimate the noise level of the image."""</span>
+
+        <span class="c1"># Calculate noise std dev</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma_mad</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">])</span></div></div>
+</code></pre>
+</main>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 17 Feb, 2023. Made with <a href="https://www.sphinx-doc.org">Sphinx 4.3.1</a></footer>
+</div>
+<div class="sticky bottom-0 md:hidden print:hidden bg-white">
+<div class="flex justify-center items-center">
+<button aria-labelledby="menuLabel" class="text-3xl p-4 flex items-center focus:bg-gray-200" id="openNavBtn">
+<svg aria-hidden="true" class="fill-current h-8 w-8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+<span class="pl-2 text-sm font-medium uppercase tracking-wide text-gray-700" id="menuLabel">Menu</span>
+</button><button aria-labelledby="searchLabel" class="text-3xl p-4 flex items-center focus:bg-gray-200" id="openSearchBtn">
+<svg aria-hidden="true" class="fill-current h-8 w-8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+<span class="pl-2 text-sm font-medium uppercase tracking-wide text-gray-700" id="searchLabel">Search</span>
+</button>
+</div>
+</div>
+<div class="w-full fixed bottom-0 left-0 z-10 bg-gray-900 overflow-x-hidden pt-10 flex flex-col items-center md:hidden" data-menu="closed" id="search-pane">
+<h4 class="text-xl text-white mb-4" id="search-label">Enter search term</h4><form action="../../search.html" class="flex w-full justify-between items-center max-w-sm px-12" id="searchbox" method="get">
+<input aria-labelledby="search-label" class="p-2 flex-1" name="q" placeholder="Search the docs" type="search"/>
+<button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+</button>
+</form>
+<button aria-label="Close menu" class="text-4xl text-gray-200 p-4 bottom-0 hover:text-pink-500 md:hidden focus:text-pink-500 self-center" id="closeSearchBtn" title="Close menu">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</div>
+<div class="fixed bottom-0 right-0 opacity-0 p-4 m-4 rounded bg-gray-900 text-gray-100 transition transform duration-500 translate-y-full" id="snackbar"></div>
+<div class="fixed inset-0 bg-black bg-opacity-50" id="screen" style="display: none;"></div>
+</div>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js">
+</script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script>
+<script src="../../_static/underscore.js"></script>
+<script src="../../_static/doctools.js"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<script defer="" src="../../_static/theme.js"></script>
+</body>
+</html>

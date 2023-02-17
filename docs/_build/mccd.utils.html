@@ -1,0 +1,559 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
+<title>
+      mccd.utils | mccd v1.2.4
+    </title>
+<link href="_static/pygments.css" rel="stylesheet"/>
+<link href="_static/theme.css" rel="stylesheet"/>
+<link href="_static/pygments.css" rel="stylesheet"/>
+<link href="_static/theme.css" rel="stylesheet"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="z_ref.html" rel="next" title="References"/>
+<link href="mccd.proxs.html" rel="prev" title="mccd.proxs"/>
+</head>
+<body class="text-gray-900 antialiased min-h-screen md:h-screen flex flex-col">
+<a class="block text-xl bg-white px-8 py-4 z-20 absolute top-0 left-0 transform -translate-x-full focus:translate-x-0 transition-transform duration-75" href="#mccd-utils" title="Skip navigation links">Skip to content</a>
+<header class="md:sticky top-0 bg-gray-900 shadow-md flex md:flex-row justify-between items-center z-10"><a aria-label="Back to homepage" class="hover:bg-gray-700 focus:bg-gray-700 tooltipped tooltipped-se" href="index.html">
+<h2 class="text-xl text-gray-100 mx-5 py-4">mccd v1.2.4</h2>
+</a><form action="search.html" class="hidden md:flex my-auto mx-5 justify-between items-center print:hidden" id="searchbox" method="get">
+<input aria-label="Search the docs" class="p-2 flex-1 focus:bg-yellow-200" id="search-input" name="q" placeholder="Search the docs" style="width: 300px;" type="search"/>
+<button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+</button>
+</form>
+</header>
+<div class="md:overflow-hidden flex flex-col md:flex-row flex-1"><nav class="h-full fixed md:relative inset-y-0 left-0 z-20 md:z-0 bg-white text-gray-700 border-r overflow-x-hidden pt-16 print:hidden flex flex-col" data-menu="closed" role="navigation" style="width: 270px;">
+<div class="nav-toc"><p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="about.html">About</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="installation.html">Installation</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="quickstart.html">Quickstart Tutorial</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="changelog.html">Changelog</a></div></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current expanded"><div class="nav-link"><svg aria-hidden="true" class="expand" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" href="mccd.html">mccd</a></div><ul class="current">
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.auxiliary_fun.html">mccd.auxiliary_fun</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.dataset_generation.html">mccd.dataset_generation</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.grads.html">mccd.grads</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.info.html">mccd.info</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.mccd.html">mccd.mccd</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.mccd_utils.html">mccd.mccd_utils</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.proxs.html">mccd.proxs</a></div></li>
+<li class="toctree-l2 current expanded"><div class="nav-link"><a class="current reference internal" href="#">mccd.utils</a></div></li>
+</ul>
+</li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="z_ref.html">References</a></div></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guidelines</span></p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="contributing.html">Contributing</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="citing.html">Citing this Package</a></div></li>
+</ul>
+</div>
+<button aria-label="Close menu" class="text-4xl text-gray-800 p-4 bottom-0 hover:text-pink-500 md:hidden focus:text-pink-500 self-center" id="closeNavBtn" title="Close menu">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="overflow-y-auto md:w-full flex flex-col flex-1" id="main-wrapper">
+<main class="px-5 md:ml-fluid flex-1" role="main">
+<section id="module-mccd.utils">
+<span id="mccd-utils"></span><h1>mccd.utils<a aria-label="Copy link to section: mccd.utils." class="headerlink tooltipped tooltipped-ne" href="#module-mccd.utils" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>UTILS.</p>
+<p>These functions include several functions needed by PSF modelling algorithms.</p>
+<dl class="field-list">
+<dt class="field-odd">Authors</dt>
+<dd class="field-odd"><p>Morgan Schmitz &lt;<a class="reference external" href="https://github.com/MorganSchmitz">https://github.com/MorganSchmitz<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>&gt;</p>
+<p>Tobias Liaudat &lt;<a class="reference external" href="mailto:tobias.liaudat%40cea.fr">tobias<span>.</span>liaudat<span>@</span>cea<span>.</span>fr<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>&gt;</p>
+</dd>
+</dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.apply_transform">
+<span class="sig-name descname">apply_transform</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">filters</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#apply_transform"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.apply_transform" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Transform <code class="docutils literal notranslate">data</code> through application of a set of filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Data to be transformed. Should be in rca_format, where the image
+index is contained
+on last/2nd axis, ie (n_pix,n_pix,n_images).</p></li>
+<li><p><strong>filters</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Set of filters. Usually the wavelet transform filters.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.acc_sig_maps">
+<span class="sig-name descname">acc_sig_maps</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">shap_im</span></em>, <em class="sig-param"><span class="n">ker_stack</span></em>, <em class="sig-param"><span class="n">sig_est</span></em>, <em class="sig-param"><span class="n">flux_est</span></em>, <em class="sig-param"><span class="n">flux_ref</span></em>, <em class="sig-param"><span class="n">upfact</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">sig_data</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#acc_sig_maps"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.acc_sig_maps" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Apply acc_sig_map() several times.</p>
+<p>Calls:</p>
+<ul class="simple">
+<li><p><code class="xref py py-func docutils literal notranslate">utils.acc_sig_map()</code></p></li>
+</ul>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.acc_sig_map">
+<span class="sig-name descname">acc_sig_map</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">shap_im</span></em>, <em class="sig-param"><span class="n">ker_stack</span></em>, <em class="sig-param"><span class="n">sig_est</span></em>, <em class="sig-param"><span class="n">flux_est</span></em>, <em class="sig-param"><span class="n">flux_ref</span></em>, <em class="sig-param"><span class="n">upfact</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">sig_data</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#acc_sig_map"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.acc_sig_map" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Estimate the simga noise maps from the observed data.</p>
+<p>Computes the square root of
+<span class="math notranslate nohighlight">\(\mathcal{F}^{2*}(\hat\sigma^2)(A^\top\odot A^\top)\)</span>.
+See equation (27) in RCA paper (Ngole et al.).</p>
+<p class="rubric">Notes</p>
+<p><span class="math notranslate nohighlight">\(\mathrm{Var}(B)\)</span> has been replaced by the noise level as
+estimated from the data, and here we do not have the term
+<span class="math notranslate nohighlight">\(\mu\)</span> (gradient step size in the paper).</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.return_neighbors">
+<span class="sig-name descname">return_neighbors</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_pos</span></em>, <em class="sig-param"><span class="n">obs_pos</span></em>, <em class="sig-param"><span class="n">vals</span></em>, <em class="sig-param"><span class="n">n_neighbors</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#return_neighbors"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.return_neighbors" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Find the nearest neighbors locally in one ccd.</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.rca_format">
+<span class="sig-name descname">rca_format</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">cube</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#rca_format"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.rca_format" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Switch from <code class="docutils literal notranslate">regular</code> format to <code class="docutils literal notranslate">RCA</code> format.</p>
+<p>RCA format: image index is contained on last axis [:,:,it]
+Regular format: image index is contained on first axis [it,:,:]</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.reg_format">
+<span class="sig-name descname">reg_format</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">rca_cube</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#reg_format"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.reg_format" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Switch from <code class="docutils literal notranslate">RCA</code> format to <code class="docutils literal notranslate">regular</code> format.</p>
+<p>RCA format: image index is contained on last axis [:,:,it]
+Regular format: image index is contained on first axis [it,:,:]</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.decim">
+<span class="sig-name descname">decim</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">im</span></em>, <em class="sig-param"><span class="n">d</span></em>, <em class="sig-param"><span class="n">av_en</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">fft</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#decim"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.decim" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Decimate image to lower resolution.</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.pairwise_distances">
+<span class="sig-name descname">pairwise_distances</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">obs_pos</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#pairwise_distances"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.pairwise_distances" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Compute pairwise distances.</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.transpose_decim">
+<span class="sig-name descname">transpose_decim</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">im</span></em>, <em class="sig-param"><span class="n">decim_fact</span></em>, <em class="sig-param"><span class="n">av_en</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#transpose_decim"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.transpose_decim" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Apply the transpose of the decimation matrix.</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.SoftThresholding">
+<span class="sig-name descname">SoftThresholding</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">thresh</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#SoftThresholding"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.SoftThresholding" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Perform element-wise soft thresholding.</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.HardThresholding">
+<span class="sig-name descname">HardThresholding</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">thresh</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#HardThresholding"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.HardThresholding" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Perform element-wise hard thresholding.</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.kthresholding">
+<span class="sig-name descname">kthresholding</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">k</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#kthresholding"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.kthresholding" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Apply k-thresholding.</p>
+<p>Keep only <code class="docutils literal notranslate">k</code> highest values and set the rest to 0.</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.lineskthresholding">
+<span class="sig-name descname">lineskthresholding</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">mat</span></em>, <em class="sig-param"><span class="n">k</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#lineskthresholding"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.lineskthresholding" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Apply k-thresholding to each line of input matrix.</p>
+<p>Calls:</p>
+<ul class="simple">
+<li><p><code class="xref py py-func docutils literal notranslate">utils.kthresholding()</code></p></li>
+</ul>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.mad">
+<span class="sig-name descname">mad</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">weight</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#mad"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.mad" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Compute MAD (Median Absolute Deviation).</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.transform_mask">
+<span class="sig-name descname">transform_mask</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">weights</span></em>, <em class="sig-param"><span class="n">filt</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#transform_mask"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.transform_mask" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Propagate bad pixels to 1st wavelet scale and mask all pixels affected.</p>
+<p>Bad pixels are the ones with weight 0.</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.lanczos">
+<span class="sig-name descname">lanczos</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">U</span></em>, <em class="sig-param"><span class="n">n</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">n2</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#lanczos"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.lanczos" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Generate Lanczos kernel for a given shift.</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.flux_estimate">
+<span class="sig-name descname">flux_estimate</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">im</span></em>, <em class="sig-param"><span class="n">cent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sigma</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#flux_estimate"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.flux_estimate" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Estimate flux for one image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>im</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Image stamp containing the star.</p></li>
+<li><p><strong>cent</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Centroid of the star. If not provided, the centroid is calculated.
+Default is None.</p></li>
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Size of the star in sigma that will be used to calculate the flux and
+possibly the centroid too.
+Default is 4.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>flux</strong> – Photometric flux value of the star.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>See SPRITE paper (Ngole et al.), section 3.4.1.,
+subsection ‘Photometric flux’.</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.flux_estimate_stack">
+<span class="sig-name descname">flux_estimate_stack</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">stack</span></em>, <em class="sig-param"><span class="n">cent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sigmas</span><span class="o">=</span><span class="default_value">2.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#flux_estimate_stack"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.flux_estimate_stack" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Estimate flux for a bunch of images.</p>
+<p>Calls:</p>
+<ul class="simple">
+<li><p><code class="xref py py-func docutils literal notranslate">utils.flux_estimate()</code></p></li>
+</ul>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.shift_ker_stack">
+<span class="sig-name descname">shift_ker_stack</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">shifts</span></em>, <em class="sig-param"><span class="n">upfact</span></em>, <em class="sig-param"><span class="n">lanc_rad</span><span class="o">=</span><span class="default_value">8</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#shift_ker_stack"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.shift_ker_stack" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Generate shifting kernels and rotated shifting kernels.</p>
+<p>Calls:</p>
+<ul class="simple">
+<li><p><code class="xref py py-func docutils literal notranslate">utils.lanczos()</code></p></li>
+</ul>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.gen_Pea">
+<span class="sig-name descname">gen_Pea</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">distances</span></em>, <em class="sig-param"><span class="n">e</span></em>, <em class="sig-param"><span class="n">a</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#gen_Pea"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.gen_Pea" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Compute the graph Laplacian for a given set of parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>distances</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Array of pairwise distances</p></li>
+<li><p><strong>e</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Exponent to which the pairwise distances should be raised.</p></li>
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Constant multiplier along Laplacian’s diagonal.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>Pea</strong> – Graph laplacian.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)">numpy.ndarray<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Computes <span class="math notranslate nohighlight">\(P_{e,a}\)</span> matrix for given <code class="docutils literal notranslate">e</code>, <code class="docutils literal notranslate">a</code> couple.
+See Equations (16-17) in RCA paper (Ngole et al.).
+Watch out with the <code class="docutils literal notranslate">e</code> parameter as it plays a vital role in the graph
+definition as it is a parameter of the distance that defines the
+graph’s weights.</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.select_vstar">
+<span class="sig-name descname">select_vstar</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">eigenvects</span></em>, <em class="sig-param"><span class="n">R</span></em>, <em class="sig-param"><span class="n">weights</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#select_vstar"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.select_vstar" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Pick best eigenvector from a set of <span class="math notranslate nohighlight">\((e,a)\)</span>.</p>
+<p>i.e., solve (35) from RCA paper (Ngole et al.).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eigenvects</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Array of eigenvects to be tested over.</p></li>
+<li><p><strong>R</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – <span class="math notranslate nohighlight">\(R_i\)</span> matrix.</p></li>
+<li><p><strong>weights</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Entry-wise weights for <span class="math notranslate nohighlight">\(R_i\)</span>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py class code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.GraphBuilder">
+<em class="property">class<span class="w"> </span></em><span class="sig-name descname">GraphBuilder</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">obs_data</span></em>, <em class="sig-param"><span class="n">obs_pos</span></em>, <em class="sig-param"><span class="n">obs_weights</span></em>, <em class="sig-param"><span class="n">n_comp</span></em>, <em class="sig-param"><span class="n">n_eigenvects</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">ea_gridsize</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">distances</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">auto_run</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">2</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#GraphBuilder"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.GraphBuilder" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate">object</code><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+<p>GraphBuilder class.</p>
+<p>This class computes the necessary quantities for RCA’s graph constraint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obs_data</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Observed data.</p></li>
+<li><p><strong>obs_pos</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Corresponding positions.</p></li>
+<li><p><strong>obs_weights</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Corresponding per-pixel weights.</p></li>
+<li><p><strong>n_comp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of RCA components.</p></li>
+<li><p><strong>n_eigenvects</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Maximum number of eigenvectors to consider per <span class="math notranslate nohighlight">\((e,a)\)</span> couple.
+Default is <code class="docutils literal notranslate">None</code>;
+if not provided, <em>all</em> eigenvectors will be considered,
+which can lead to a poor selection of graphs, especially when data
+is undersampled.
+Ignored if <code class="docutils literal notranslate">VT</code> and <code class="docutils literal notranslate">alpha</code> are provided.</p></li>
+<li><p><strong>n_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – How many alternations should there be when optimizing over
+<span class="math notranslate nohighlight">\(e\)</span> and <span class="math notranslate nohighlight">\(a\)</span>. Default is 3.</p></li>
+<li><p><strong>ea_gridsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – How fine should the logscale grid of <span class="math notranslate nohighlight">\((e,a)\)</span> values be.
+Default is 10.</p></li>
+<li><p><strong>distances</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Pairwise distances for all positions. Default is <code class="docutils literal notranslate">None</code>;
+if not provided, will be computed from given positions.</p></li>
+<li><p><strong>auto_run</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Whether to immediately build the graph quantities.
+Default is <code class="docutils literal notranslate">True</code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.GraphBuilder.pick_emax">
+<span class="sig-name descname">pick_emax</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">epsilon</span><span class="o">=</span><span class="default_value">1e-15</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#GraphBuilder.pick_emax"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.GraphBuilder.pick_emax" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Pick maximum value for <code class="docutils literal notranslate">e</code> parameter.</p>
+<p>From now, we fix the maximum <span class="math notranslate nohighlight">\(e\)</span> to 1 and ignore the old
+procedure that was giving values that were too big.</p>
+<p>Old procedure:
+Select maximum value of <span class="math notranslate nohighlight">\(e\)</span> for the greedy search over set of
+<span class="math notranslate nohighlight">\((e,a)\)</span> couples, so that the graph is still fully connected.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.GraphBuilder.select_params">
+<span class="sig-name descname">select_params</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">R</span></em>, <em class="sig-param"><span class="n">e_range</span></em>, <em class="sig-param"><span class="n">a_range</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#GraphBuilder.select_params"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.GraphBuilder.select_params" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Select best graph parameters.</p>
+<p>Select <span class="math notranslate nohighlight">\((e,a)\)</span> parameters and best eigenvector
+for current <span class="math notranslate nohighlight">\(R_i\)</span> matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>R</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Current <span class="math notranslate nohighlight">\(R_i\)</span> matrix
+(as defined in RCA paper (Ngole et al.), sect. 5.5.3.)</p></li>
+<li><p><strong>e_range</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – List of <span class="math notranslate nohighlight">\(e\)</span> values to be tested.</p></li>
+<li><p><strong>a_range</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – List of <span class="math notranslate nohighlight">\(a\)</span> values to be tested.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.GraphBuilder.gen_eigenvects">
+<span class="sig-name descname">gen_eigenvects</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">mat</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#GraphBuilder.gen_eigenvects"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.GraphBuilder.gen_eigenvects" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Compute input matrix’s eigenvectors.</p>
+<p>Keep only the <code class="docutils literal notranslate">n_eigenvects</code> associated
+with the smallest eigenvalues.</p>
+</dd></dl>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.poly_pos">
+<span class="sig-name descname">poly_pos</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">pos</span></em>, <em class="sig-param"><span class="n">max_degree</span></em>, <em class="sig-param"><span class="n">center_normalice</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">x_lims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">y_lims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">normalice_Pi</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">min_degree</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#poly_pos"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.poly_pos" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Construct polynomial matrix.</p>
+<p>Return a matrix Pi containing polynomials of stars
+positions up to <code class="docutils literal notranslate">max_degree</code>.</p>
+<p>Defaulting to CFIS CCD limits.</p>
+<p>New method:
+The positions are scaled to the [-0.5, 0.5]x[-0.5, 0.5].
+Then the polynomials are constructed with the normalized positions.</p>
+<p>Old method:
+Positions are centred, the polynomials are constructed.
+Then the polynomials are normalized.</p>
+</dd></dl>
+<dl class="py class code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.CentroidEstimator">
+<em class="property">class<span class="w"> </span></em><span class="sig-name descname">CentroidEstimator</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">im</span></em>, <em class="sig-param"><span class="n">sig</span><span class="o">=</span><span class="default_value">7.5</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">auto_run</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">xc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">yc</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#CentroidEstimator"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.CentroidEstimator" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate">object</code><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+<p>Estimate intra-pixel shifts.</p>
+<p>It calculates the centroid of the image and compare it with the stamp
+centroid and returns the proper shift.
+The star centroid is calculated following an iterative procedure where a
+matched elliptical gaussian is used to calculate the moments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>im</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Star image stamp.</p></li>
+<li><p><strong>sig</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Estimated shape of the star in sigma.
+Default is 7.5.</p></li>
+<li><p><strong>n_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Max iteration number for the iterative estimation procedure.
+Default is 5.</p></li>
+<li><p><strong>auto_run</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Auto run the intra-pixel shif calculation in the initialization
+of the class.
+Default is True.</p></li>
+<li><p><strong>xc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – First guess of the <code class="docutils literal notranslate">x</code> component of the star centroid. (optional)
+Default is None.</p></li>
+<li><p><strong>yc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – First guess of the <code class="docutils literal notranslate">y</code> component of the star centroid. (optional)
+Default is None.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.CentroidEstimator.UpdateGrid">
+<span class="sig-name descname">UpdateGrid</span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#CentroidEstimator.UpdateGrid"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.CentroidEstimator.UpdateGrid" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Update the grid where the star stamp is defined.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.CentroidEstimator.EllipticalGaussian">
+<span class="sig-name descname">EllipticalGaussian</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">e1</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">e2</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#CentroidEstimator.EllipticalGaussian"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.CentroidEstimator.EllipticalGaussian" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Compute an elliptical 2D gaussian with arbitrary centroid.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.CentroidEstimator.ComputeMoments">
+<span class="sig-name descname">ComputeMoments</span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#CentroidEstimator.ComputeMoments"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.CentroidEstimator.ComputeMoments" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Compute the star moments.</p>
+<p>Compute the star image normalized first order moments with
+the current window function.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.CentroidEstimator.estimate">
+<span class="sig-name descname">estimate</span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#CentroidEstimator.estimate"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.CentroidEstimator.estimate" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Estimate the star image centroid iteratively.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.CentroidEstimator.return_shifts">
+<span class="sig-name descname">return_shifts</span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#CentroidEstimator.return_shifts"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.CentroidEstimator.return_shifts" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Return intra-pixel shifts.</p>
+<p>Intra-pixel shifts are the difference between
+the estimated centroid and the center of the stamp (or pixel grid).</p>
+</dd></dl>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.adjoint_degradation_op">
+<span class="sig-name descname">adjoint_degradation_op</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">x_i</span></em>, <em class="sig-param"><span class="n">shift_ker</span></em>, <em class="sig-param"><span class="n">D</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#adjoint_degradation_op"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.adjoint_degradation_op" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Apply adjoint of the degradation operator <code class="docutils literal notranslate">degradation_op</code>.</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.degradation_op">
+<span class="sig-name descname">degradation_op</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">shift_ker</span></em>, <em class="sig-param"><span class="n">D</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#degradation_op"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.degradation_op" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Shift and decimate fine-grid image.</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.handle_SExtractor_mask">
+<span class="sig-name descname">handle_SExtractor_mask</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">stars</span></em>, <em class="sig-param"><span class="n">thresh</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#handle_SExtractor_mask"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.handle_SExtractor_mask" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Handle Sextractor masks.</p>
+<p>Reads SExtracted star stamps, generates MCCD-compatible masks
+(that is, binary weights), and replaces bad pixels with 0s -
+they will not be used by MCCD, but the ridiculous numerical
+values can otherwise still lead to problems because of convolutions.</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.match_psfs">
+<span class="sig-name descname">match_psfs</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">test_stars</span></em>, <em class="sig-param"><span class="n">PSFs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#match_psfs"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.match_psfs" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Match psfs.DEPRECATED.</p>
+<p>See <code class="docutils literal notranslate">MCCD.validation_stars</code> instead.
+Takes as input the test_stars vignets and the PSFs vignets that were
+outputs from the psf modelling method. The function outputs the PSFs
+matching the corresponding test stars.
+This allows to compute the pixel RMSE. Intended to be used with PSFEx
+validation functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>test_stars</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – reg format (n_stars,n_pix,n_pix)</p></li>
+<li><p><strong>PSFs</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – reg format (n_stars,n_pix,n_pix)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>deg_PSFs</strong> – reg format (n_stars,n_pix,n_pix)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)">numpy.ndarray<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py class code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.NoiseEstimator">
+<em class="property">class<span class="w"> </span></em><span class="sig-name descname">NoiseEstimator</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_dim</span></em>, <em class="sig-param"><span class="n">win_rad</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#NoiseEstimator"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.NoiseEstimator" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate">object</code><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+<p>Noise estimator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img_dim</strong> (<em>tuple of int</em>) – Image size</p></li>
+<li><p><strong>win_rad</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – window radius in pixels</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.NoiseEstimator.sigma_mad">
+<em class="property">static<span class="w"> </span></em><span class="sig-name descname">sigma_mad</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#NoiseEstimator.sigma_mad"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.NoiseEstimator.sigma_mad" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Compute an estimation of the standard deviation
+of a Gaussian distribution using the robust
+MAD (Median Absolute Deviation) estimator.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.utils.NoiseEstimator.estimate_noise">
+<span class="sig-name descname">estimate_noise</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/utils.html#NoiseEstimator.estimate_noise"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.utils.NoiseEstimator.estimate_noise" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Estimate the noise level of the image.</p>
+</dd></dl>
+</dd></dl>
+</section>
+</main>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 17 Feb, 2023. Made with <a href="https://www.sphinx-doc.org">Sphinx 4.3.1</a></footer>
+</div>
+<div class="sticky bottom-0 md:hidden print:hidden bg-white">
+<div class="flex justify-center items-center">
+<button aria-labelledby="menuLabel" class="text-3xl p-4 flex items-center focus:bg-gray-200" id="openNavBtn">
+<svg aria-hidden="true" class="fill-current h-8 w-8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+<span class="pl-2 text-sm font-medium uppercase tracking-wide text-gray-700" id="menuLabel">Menu</span>
+</button><button aria-labelledby="searchLabel" class="text-3xl p-4 flex items-center focus:bg-gray-200" id="openSearchBtn">
+<svg aria-hidden="true" class="fill-current h-8 w-8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+<span class="pl-2 text-sm font-medium uppercase tracking-wide text-gray-700" id="searchLabel">Search</span>
+</button>
+</div>
+</div>
+<div class="w-full fixed bottom-0 left-0 z-10 bg-gray-900 overflow-x-hidden pt-10 flex flex-col items-center md:hidden" data-menu="closed" id="search-pane">
+<h4 class="text-xl text-white mb-4" id="search-label">Enter search term</h4><form action="search.html" class="flex w-full justify-between items-center max-w-sm px-12" id="searchbox" method="get">
+<input aria-labelledby="search-label" class="p-2 flex-1" name="q" placeholder="Search the docs" type="search"/>
+<button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+</button>
+</form>
+<button aria-label="Close menu" class="text-4xl text-gray-200 p-4 bottom-0 hover:text-pink-500 md:hidden focus:text-pink-500 self-center" id="closeSearchBtn" title="Close menu">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</div>
+<div class="fixed bottom-0 right-0 opacity-0 p-4 m-4 rounded bg-gray-900 text-gray-100 transition transform duration-500 translate-y-full" id="snackbar"></div>
+<div class="fixed inset-0 bg-black bg-opacity-50" id="screen" style="display: none;"></div>
+</div>
+<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
+</script>
+<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+<script src="_static/jquery.js"></script>
+<script src="_static/underscore.js"></script>
+<script src="_static/doctools.js"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+<script defer="" src="_static/theme.js"></script>
+</body>
+</html>

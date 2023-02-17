@@ -1,0 +1,817 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
+<title>
+      mccd.mccd_utils | mccd v1.2.4
+    </title>
+<link href="_static/pygments.css" rel="stylesheet"/>
+<link href="_static/theme.css" rel="stylesheet"/>
+<link href="_static/pygments.css" rel="stylesheet"/>
+<link href="_static/theme.css" rel="stylesheet"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="mccd.proxs.html" rel="next" title="mccd.proxs"/>
+<link href="mccd.mccd.html" rel="prev" title="mccd.mccd"/>
+</head>
+<body class="text-gray-900 antialiased min-h-screen md:h-screen flex flex-col">
+<a class="block text-xl bg-white px-8 py-4 z-20 absolute top-0 left-0 transform -translate-x-full focus:translate-x-0 transition-transform duration-75" href="#mccd-mccd-utils" title="Skip navigation links">Skip to content</a>
+<header class="md:sticky top-0 bg-gray-900 shadow-md flex md:flex-row justify-between items-center z-10"><a aria-label="Back to homepage" class="hover:bg-gray-700 focus:bg-gray-700 tooltipped tooltipped-se" href="index.html">
+<h2 class="text-xl text-gray-100 mx-5 py-4">mccd v1.2.4</h2>
+</a><form action="search.html" class="hidden md:flex my-auto mx-5 justify-between items-center print:hidden" id="searchbox" method="get">
+<input aria-label="Search the docs" class="p-2 flex-1 focus:bg-yellow-200" id="search-input" name="q" placeholder="Search the docs" style="width: 300px;" type="search"/>
+<button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+</button>
+</form>
+</header>
+<div class="md:overflow-hidden flex flex-col md:flex-row flex-1"><nav class="h-full fixed md:relative inset-y-0 left-0 z-20 md:z-0 bg-white text-gray-700 border-r overflow-x-hidden pt-16 print:hidden flex flex-col" data-menu="closed" role="navigation" style="width: 270px;">
+<div class="nav-toc"><p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="about.html">About</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="installation.html">Installation</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="quickstart.html">Quickstart Tutorial</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="changelog.html">Changelog</a></div></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current expanded"><div class="nav-link"><svg aria-hidden="true" class="expand" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" href="mccd.html">mccd</a></div><ul class="current">
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.auxiliary_fun.html">mccd.auxiliary_fun</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.dataset_generation.html">mccd.dataset_generation</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.grads.html">mccd.grads</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.info.html">mccd.info</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.mccd.html">mccd.mccd</a></div></li>
+<li class="toctree-l2 current expanded"><div class="nav-link"><a class="current reference internal" href="#">mccd.mccd_utils</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.proxs.html">mccd.proxs</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" href="mccd.utils.html">mccd.utils</a></div></li>
+</ul>
+</li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="z_ref.html">References</a></div></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guidelines</span></p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="contributing.html">Contributing</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" href="citing.html">Citing this Package</a></div></li>
+</ul>
+</div>
+<button aria-label="Close menu" class="text-4xl text-gray-800 p-4 bottom-0 hover:text-pink-500 md:hidden focus:text-pink-500 self-center" id="closeNavBtn" title="Close menu">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="overflow-y-auto md:w-full flex flex-col flex-1" id="main-wrapper">
+<main class="px-5 md:ml-fluid flex-1" role="main">
+<section id="module-mccd.mccd_utils">
+<span id="mccd-mccd-utils"></span><h1>mccd.mccd_utils<a aria-label="Copy link to section: mccd.mccd_utils." class="headerlink tooltipped tooltipped-ne" href="#module-mccd.mccd_utils" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>MCCD UTILS.</p>
+<p>These functions include several functions needed by the MCCD.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Authors</dt>
+<dd class="field-odd"><p>Tobias Liaudat &lt;<a class="reference external" href="mailto:tobias.liaudat%40cea.fr">tobias<span>.</span>liaudat<span>@</span>cea<span>.</span>fr<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>&gt;
+Samuel Farrens &lt;<a class="reference external" href="mailto:samuel.farrens%40cea.fr">samuel<span>.</span>farrens<span>@</span>cea<span>.</span>fr<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>&gt;</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>I added two functions from Pysap astro plugin and from ModOpt.signal.wavelet
+so that I could replicate the functionv <code class="docutils literal notranslate">get_mr_transform()</code> from ModOpt
+without the need of having sparse2d installed as an exectubale by using
+Pysap python bindings of the aforementioned C++ package.
+Thanks Samuel Farrens (main developer of ModOpt and Pysap) for the help.</p>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.find_ccd_idx">
+<span class="sig-name descname">find_ccd_idx</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">ccd_id</span></em>, <em class="sig-param"><span class="n">ccd_list</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#find_ccd_idx"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.find_ccd_idx" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Find the index of an element in a list.</p>
+</dd></dl>
+<dl class="py class code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Loc2Glob">
+<em class="property">class<span class="w"> </span></em><span class="sig-name descname">Loc2Glob</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">x_gap</span><span class="o">=</span><span class="default_value">70</span></em>, <em class="sig-param"><span class="n">y_gap</span><span class="o">=</span><span class="default_value">425</span></em>, <em class="sig-param"><span class="n">x_npix</span><span class="o">=</span><span class="default_value">2048</span></em>, <em class="sig-param"><span class="n">y_npix</span><span class="o">=</span><span class="default_value">4612</span></em>, <em class="sig-param"><span class="n">ccd_tot</span><span class="o">=</span><span class="default_value">40</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Loc2Glob"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Loc2Glob" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate">object</code><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+<p>Change from local to global coordinates.</p>
+<p>Class to pass from local coordinates to global coordinates under
+CFIS (CFHT) MegaCam instrument. The geometrical informcation of the
+instrument is encoded in this function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_gap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Gap between the CCDs on the horizontal direction.
+Default to <code class="docutils literal notranslate">70</code> (CFIS value).</p></li>
+<li><p><strong>y_gap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Gap between the CCDs on the vertical direction.
+Default to <code class="docutils literal notranslate">425</code> (CFIS value).</p></li>
+<li><p><strong>x_npix</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of pixels on one CCD on the horizontal direction.
+Default to <code class="docutils literal notranslate">2048</code> (CFIS value).</p></li>
+<li><p><strong>y_npix</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of pixels on one CCD on the vertical direction.
+Default to <code class="docutils literal notranslate">4612</code> (CFIS value).</p></li>
+<li><p><strong>ccd_tot</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Total number of CCDs.
+Default to <code class="docutils literal notranslate">40</code> (CFIS value).</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>MegaCams geometry. Watch out with the conventions ba,ab that means where
+is the local coordinate system origin for each CCD.
+For more info look MegaCam’s instrument webpage.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight">
+<div class="code-header">
+<span class="code-lang">python</span>
+<button aria-label="Copy this code" class="copy tooltipped tooltipped-nw"><svg aria-hidden="true" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/xvg"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg></button>
+</div>
+<pre><code><span class="gp">&gt;&gt;&gt; </span><span class="s1">'COMMENT (North on top, East to the left)'</span><span class="p">,</span>
+<span class="go">    'COMMENT    --------------------------',</span>
+<span class="go">    'COMMENT    ba ba ba ba ba ba ba ba ba',</span>
+<span class="go">    'COMMENT    00 01 02 03 04 05 06 07 08',</span>
+<span class="go">    'COMMENT --------------------------------',</span>
+<span class="go">    'COMMENT ba ba ba ba ba ba ba ba ba ba ba',</span>
+<span class="go">    'COMMENT 36 09 10 11 12 13 14 15 16 17 37',</span>
+<span class="go">    'COMMENT --------------*-----------------',</span>
+<span class="go">    'COMMENT 38 18 19 20 21 22 23 24 25 26 39',</span>
+<span class="go">    'COMMENT ab ab ab ab ab ab ab ab ab ab ab',</span>
+<span class="go">    'COMMENT --------------------------------',</span>
+<span class="go">    'COMMENT    27 28 29 30 31 32 33 34 35',</span>
+<span class="go">    'COMMENT    ab ab ab ab ab ab ab ab ab',</span>
+<span class="go">    'COMMENT    __________________________'</span>
+</code></pre></div>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Loc2Glob.loc2glob_img_coord">
+<span class="sig-name descname">loc2glob_img_coord</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">ccd_n</span></em>, <em class="sig-param"><span class="n">x_coor</span></em>, <em class="sig-param"><span class="n">y_coor</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Loc2Glob.loc2glob_img_coord"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Loc2Glob.loc2glob_img_coord" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Go from the local to the global img (pixel) coordinate system.</p>
+<p>Global system with (0,0) in the intersection of ccds [12,13,21,22].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ccd_n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – CCD number of the considered positions.</p></li>
+<li><p><strong>x_coor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Local coordinate system hotizontal value.</p></li>
+<li><p><strong>y_coor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Local coordinate system vertical value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>glob_x_coor</strong> (<em>float</em>) – Horizontal position in global coordinate system.</p></li>
+<li><p><strong>glob_y_coor</strong> (<em>float</em>) – Vertical position in global coordinate system.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Loc2Glob.flip_coord">
+<span class="sig-name descname">flip_coord</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">ccd_n</span></em>, <em class="sig-param"><span class="n">x_coor</span></em>, <em class="sig-param"><span class="n">y_coor</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Loc2Glob.flip_coord"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Loc2Glob.flip_coord" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Change of coordinate convention.</p>
+<p>So that all of them are coherent on the global coordinate system.
+So that the origin is on the south-west corner.
+Positive: South to North ; West to East.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Loc2Glob.x_coord_range">
+<span class="sig-name descname">x_coord_range</span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Loc2Glob.x_coord_range"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Loc2Glob.x_coord_range" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Return range of the x coordinate.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Loc2Glob.y_coord_range">
+<span class="sig-name descname">y_coord_range</span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Loc2Glob.y_coord_range"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Loc2Glob.y_coord_range" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Return range of the y coordinate.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Loc2Glob.shift_coord">
+<span class="sig-name descname">shift_coord</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">ccd_n</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Loc2Glob.shift_coord"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Loc2Glob.shift_coord" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Provide the shifting.</p>
+<p>It is needed to go from the local coordinate
+system origin to the global coordinate system origin.</p>
+</dd></dl>
+</dd></dl>
+<dl class="py class code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Loc2Glob_EUCLID_sim">
+<em class="property">class<span class="w"> </span></em><span class="sig-name descname">Loc2Glob_EUCLID_sim</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">x_gap</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">y_gap</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">x_npix</span><span class="o">=</span><span class="default_value">4096</span></em>, <em class="sig-param"><span class="n">y_npix</span><span class="o">=</span><span class="default_value">4096</span></em>, <em class="sig-param"><span class="n">ccd_tot</span><span class="o">=</span><span class="default_value">36</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Loc2Glob_EUCLID_sim"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Loc2Glob_EUCLID_sim" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate">object</code><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+<p>Change from local to global coordinates.</p>
+<p>Class to pass from local coordinates to global coordinates under
+a simulation of Euclid’s VIS instrument.
+The geometrical informcation of the instrument is encoded in this
+function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_gap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Gap between the CCDs on the horizontal direction.</p></li>
+<li><p><strong>y_gap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Gap between the CCDs on the vertical direction.</p></li>
+<li><p><strong>x_npix</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a><em>)</em>) – Number of pixels on one CCD on the horizontal direction.</p></li>
+<li><p><strong>y_npix</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a><em>)</em>) – Number of pixels on one CCD on the vertical direction.</p></li>
+<li><p><strong>ccd_tot</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Total number of CCDs.
+Default to <code class="docutils literal notranslate">36</code> (Euclid value).</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The global origin is in the middle of the focal plane. This is the
+bottom left corner of the CCD 15.</p>
+<div class="doctest highlight">
+<div class="code-header">
+<span class="code-lang">python</span>
+<button aria-label="Copy this code" class="copy tooltipped tooltipped-nw"><svg aria-hidden="true" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/xvg"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg></button>
+</div>
+<pre><code><span class="gp">&gt;&gt;&gt; </span><span class="s1">'COMMENT   ------------------------'</span><span class="p">,</span>
+<span class="go">    'COMMENT    00  01  02  03  04  05 ',</span>
+<span class="go">    'COMMENT   ------------------------',</span>
+<span class="go">    'COMMENT    06  07  08  09  10  11 ',</span>
+<span class="go">    'COMMENT   ------------^-----------',</span>
+<span class="go">    'COMMENT    12  13  14 |15  16  17 ',</span>
+<span class="go">    'COMMENT   ------------*-&gt;---------',</span>
+<span class="go">    'COMMENT    18  19  20  21  22  23 ',</span>
+<span class="go">    'COMMENT   ------------------------',</span>
+<span class="go">    'COMMENT    24  25  26  27  28  29 ',</span>
+<span class="go">    'COMMENT   ------------------------',</span>
+<span class="go">    'COMMENT    30  31  32  33  34  35 ',</span>
+<span class="go">    'COMMENT   ________________________'</span>
+</code></pre></div>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Loc2Glob_EUCLID_sim.loc2glob_img_coord">
+<span class="sig-name descname">loc2glob_img_coord</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">ccd_n</span></em>, <em class="sig-param"><span class="n">x_coor</span></em>, <em class="sig-param"><span class="n">y_coor</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Loc2Glob_EUCLID_sim.loc2glob_img_coord"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Loc2Glob_EUCLID_sim.loc2glob_img_coord" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Go from the local to the global img (pixel) coordinate system.</p>
+<p>Global system with (0,0) in the bottom left corner of the CCD 15.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ccd_n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – CCD number of the considered positions.</p></li>
+<li><p><strong>x_coor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Local coordinate system hotizontal value.</p></li>
+<li><p><strong>y_coor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Local coordinate system vertical value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>glob_x_coor</strong> (<em>float</em>) – Horizontal position in global coordinate system.</p></li>
+<li><p><strong>glob_y_coor</strong> (<em>float</em>) – Vertical position in global coordinate system.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Loc2Glob_EUCLID_sim.glob2loc_img_coord">
+<span class="sig-name descname">glob2loc_img_coord</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">x_coor</span></em>, <em class="sig-param"><span class="n">y_coor</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Loc2Glob_EUCLID_sim.glob2loc_img_coord"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Loc2Glob_EUCLID_sim.glob2loc_img_coord" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Go from global to local coordinates.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Loc2Glob_EUCLID_sim.flip_coord">
+<span class="sig-name descname">flip_coord</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">ccd_n</span></em>, <em class="sig-param"><span class="n">x_coor</span></em>, <em class="sig-param"><span class="n">y_coor</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Loc2Glob_EUCLID_sim.flip_coord"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Loc2Glob_EUCLID_sim.flip_coord" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Change of coordinate convention.</p>
+<p>There is no fliping for Euclid.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Loc2Glob_EUCLID_sim.x_coord_range">
+<span class="sig-name descname">x_coord_range</span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Loc2Glob_EUCLID_sim.x_coord_range"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Loc2Glob_EUCLID_sim.x_coord_range" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Return range of the x coordinate.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Loc2Glob_EUCLID_sim.y_coord_range">
+<span class="sig-name descname">y_coord_range</span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Loc2Glob_EUCLID_sim.y_coord_range"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Loc2Glob_EUCLID_sim.y_coord_range" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Return range of the y coordinate.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Loc2Glob_EUCLID_sim.shift_coord">
+<span class="sig-name descname">shift_coord</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">ccd_n</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Loc2Glob_EUCLID_sim.shift_coord"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Loc2Glob_EUCLID_sim.shift_coord" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Provide the shifting.</p>
+<p>It is needed to go from the local coordinate
+system origin to the global coordinate system origin.</p>
+</dd></dl>
+</dd></dl>
+<dl class="py class code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Glob2CCD">
+<em class="property">class<span class="w"> </span></em><span class="sig-name descname">Glob2CCD</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">loc2glob</span></em>, <em class="sig-param"><span class="n">with_gaps</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Glob2CCD"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Glob2CCD" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate">object</code><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+<p>Get the CCD ID number from the global coordinate position.</p>
+<p>The Loc2Glob() object as input is the one that defines the instrument’s
+geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>loc2glob</strong> (<em>Loc2Glob object</em>) – Object with the desired focal plane geometry.</p></li>
+<li><p><strong>with_gaps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – If add the gaps to the CCD area.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Glob2CCD.build_all_edges">
+<span class="sig-name descname">build_all_edges</span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Glob2CCD.build_all_edges"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Glob2CCD.build_all_edges" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Build the edges for all the CCDs in the focal plane.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Glob2CCD.build_edge">
+<span class="sig-name descname">build_edge</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">ccd_n</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Glob2CCD.build_edge"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Glob2CCD.build_edge" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Build the edges of the <cite>ccd_n</cite> in global coordinates.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Glob2CCD.is_inside">
+<span class="sig-name descname">is_inside</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">edge_x</span></em>, <em class="sig-param"><span class="n">edge_y</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Glob2CCD.is_inside"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Glob2CCD.is_inside" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Is the position inside the edges.</p>
+<p>Return True if the position is within the rectangle
+defined by the edges.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Horizontal position in global coordinate system.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Vertical position in global coordinate system.</p></li>
+<li><p><strong>edge_x</strong> (<em>np.ndarray</em>) – Edge defined as <cite>np.array([min_x, max_x])</cite>.</p></li>
+<li><p><strong>edge_y</strong> (<em>np.ndarray</em>) – Edge defined as <cite>np.array([min_y, max_y])</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.Glob2CCD.get_ccd_n">
+<span class="sig-name descname">get_ccd_n</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#Glob2CCD.get_ccd_n"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.Glob2CCD.get_ccd_n" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Returns the CCD number from the position <cite>(x, y)</cite>.</p>
+<p>Returns <cite>None</cite> if the position is not found.</p>
+</dd></dl>
+</dd></dl>
+<dl class="py class code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.MccdInputs">
+<em class="property">class<span class="w"> </span></em><span class="sig-name descname">MccdInputs</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">separator</span><span class="o">=</span><span class="default_value">'-'</span></em>, <em class="sig-param"><span class="n">coord_x_descriptor</span><span class="o">=</span><span class="default_value">'XWIN_IMAGE'</span></em>, <em class="sig-param"><span class="n">coord_y_descriptor</span><span class="o">=</span><span class="default_value">'YWIN_IMAGE'</span></em>, <em class="sig-param"><span class="n">mask_thresh</span><span class="o">=</span><span class="default_value">- 100000.0</span></em>, <em class="sig-param"><span class="n">loc2glob</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fits_tb_pos</span><span class="o">=</span><span class="default_value">2</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#MccdInputs"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.MccdInputs" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate">object</code><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+<p>Handle inputs for the MCCD algorithm.</p>
+<p>This method was set up to work with a catalog outputed by SExtractor but
+it should not be restricted to that.
+The input files are generally created one per exposure per CCD.
+Methods like PSFEx that build one model per exposure per CCD do not have
+any preprocessing to do.
+The MCCD method that uses all the stars in one exposure to build the
+model needs to have only one file that will contain all the information
+gathered in one exposure.
+This is the main reason of this class, to be able to handle the
+different CCD files from a particular exposure and integrate them in a
+single file following the MCCD conventions, ie changing the local
+coordinate system to the global one.
+The expected files are in fits format.
+An filename example would be: <code class="docutils literal notranslate">star_selection-1234567-04.fits</code>
+Where the exposure ID is: <code class="docutils literal notranslate">1234567</code>
+Where the CCD ID is: <code class="docutils literal notranslate">04</code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>separator</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – String separating the file names. Between the file pattern,
+the exposure ID and the CCD ID.
+Default is <code class="docutils literal notranslate">'-'</code>.</p></li>
+<li><p><strong>coord_x_descriptor</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Name of the fits column to be used as the horizontal
+position coordinate.
+Default is <code class="docutils literal notranslate">'XWIN_IMAGE'</code>.</p></li>
+<li><p><strong>coord_y_descriptor</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Name of the fits column to be used as the vertical position coordinate.
+Default is <code class="docutils literal notranslate">'YWIN_IMAGE'</code>.</p></li>
+<li><p><strong>mask_thresh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Threshold to be used when constructing the masks.
+SExtractor has the particular way of masking pixels by setting
+pixels to the value -1e30.
+Values beneath the threshold will be considered masked.
+Default is <code class="docutils literal notranslate">-1e5</code>.</p></li>
+<li><p><strong>loc2glob</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – The object that allows to do the coordinate conversion from local to
+global. It is specific for each instrument’s focal plane geometry.
+If is <code class="docutils literal notranslate">None</code> it defaults to the CFIS MegaCam instrument.</p></li>
+<li><p><strong>fits_tb_pos</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Position in the fits file of the useful table.
+Default is <code class="docutils literal notranslate">2</code> that’s the case for the CFIS data.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.MccdInputs.handle_mask">
+<em class="property">static<span class="w"> </span></em><span class="sig-name descname">handle_mask</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">stars</span></em>, <em class="sig-param"><span class="n">thresh</span></em>, <em class="sig-param"><span class="n">apply_to_stars</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#MccdInputs.handle_mask"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.MccdInputs.handle_mask" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Handle and generate masks.</p>
+<p>Reads SExtracted star stamps, generates MCCD-compatible masks
+(that is, binary weights), and replaces bad pixels with 0s -
+they will not be used by MCCD, but the ridiculous numerical
+values can otherwise still lead to problems because of convolutions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stars</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Stars to be masked.</p></li>
+<li><p><strong>thresh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Threshold that will define the mask.
+Values below the threhsold will be considered masked.
+Default is -1e5.</p></li>
+<li><p><strong>apply_to_stars</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Boolean to define if the stars should be thresholded
+with <code class="docutils literal notranslate">thresh</code> on top of the mask construction.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.MccdInputs.parse_path">
+<span class="sig-name descname">parse_path</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#MccdInputs.parse_path"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.MccdInputs.parse_path" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Parse one path and extract info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Path to the file to be parsed in order to extract the
+exposure ID and the CCD ID.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.MccdInputs.parse_folder">
+<span class="sig-name descname">parse_folder</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder_path</span></em>, <em class="sig-param"><span class="n">pattern</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#MccdInputs.parse_folder"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.MccdInputs.parse_folder" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Parse a folder that match a specfic <code class="docutils literal notranslate">pattern</code>.</p>
+<p>Separate into a list of np.array each one for each starcat_id
+present in the folder.
+Each np.array in the list contains (starcat_id, ccd_n, path).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>folder_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Path to the folder to be preprocessed.</p></li>
+<li><p><strong>pattern</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – <code class="docutils literal notranslate">pattern</code> to match on the files found in <code class="docutils literal notranslate">folder_path</code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.MccdInputs.parse_pipeline_input_list">
+<span class="sig-name descname">parse_pipeline_input_list</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_list</span></em>, <em class="sig-param"><span class="n">element_position</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#MccdInputs.parse_pipeline_input_list"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.MccdInputs.parse_pipeline_input_list" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Parse a pipeline input file list.</p>
+<p>Separate into a list of np.array for each starcat_id
+present in the folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_list</strong> (<em>list of str</em>) – List containing the path to all the files to be processed.</p></li>
+<li><p><strong>element_position</strong> – The element to consider on the input list.
+If there are multiple elements that share the name pattern and
+the CCD ID, ie train/test, the element_position determines
+which one will be used.
+If there is only one element it should be 0.
+Default is 0.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The <code class="docutils literal notranslate">starcat_list</code> that is saved contains in each
+element (starcat_id, ccd_n, path).</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.MccdInputs.prep_mccd_inputs">
+<span class="sig-name descname">prep_mccd_inputs</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">starcat_array</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#MccdInputs.prep_mccd_inputs"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.MccdInputs.prep_mccd_inputs" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Prepare the inputs for mccd algorithm.</p>
+<p>Taks done:</p>
+<ul class="simple">
+<li><p>Translate from local to global coordinate system.</p></li>
+<li><p>Apply mask to stars.</p></li>
+<li><p>Normalize star values.</p></li>
+<li><p>Modify the star format.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>starcat_array</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Array with (starcat_id, ccd_n, path) for every file in one
+starcat_id (exposure ID).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>star_list</strong> (<em>list</em>) – List containing the masked star stamps.</p></li>
+<li><p><strong>position_list</strong> (<em>list</em>) – List containing the positions in the global coordinate system.</p></li>
+<li><p><strong>mask_list</strong> (<em>list</em>) – List containing the masks corresponding to the star stamps.</p></li>
+<li><p><strong>ccd_list</strong> (<em>list</em>) – List containing the CCD ids for the stars.</p></li>
+<li><p><strong>SNR_list</strong> (<em>list</em>) – List containing the estimated SNR values for the stars.
+Will be None if there are no SNR values available.</p></li>
+<li><p><strong>RA_list</strong> (<em>list</em>) – List containing the RA coordinate for the stars.
+Will be None if there are no RA coordinates available.</p></li>
+<li><p><strong>DEC_list</strong> (<em>list</em>) – List containing the DEC coordinate for the stars.
+Will be None if there are no DEC coordinates available.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.MccdInputs.preprocess_data">
+<span class="sig-name descname">preprocess_data</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder_path</span></em>, <em class="sig-param"><span class="n">pattern</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#MccdInputs.preprocess_data"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.MccdInputs.preprocess_data" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Preprocess the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>folder_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Path to the folder containing the data files.</p></li>
+<li><p><strong>pattern</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Pattern to match with the files in <code class="docutils literal notranslate">folder_path</code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>catalog_ids</strong> – List of exposure IDs preprocessed.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.MccdInputs.proprocess_pipeline_data">
+<span class="sig-name descname">proprocess_pipeline_data</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_list</span></em>, <em class="sig-param"><span class="n">element_position</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#MccdInputs.proprocess_pipeline_data"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.MccdInputs.proprocess_pipeline_data" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Preprocess Shapepipe pipeline’s input file list.</p>
+<p>Also return the list of ids.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_list</strong> (<em>list of str</em>) – List containing the path to all the files to be processed.</p></li>
+<li><p><strong>element_position</strong> – The element to consider on the input list.
+If there are multiple elements that share the name
+pattern and the CCD ID, ie train/test, the element_position
+determines which one will be used.
+If there is only one element it should be 0.
+Default is 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>catalog_ids</strong> – List of exposure IDs preprocessed.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.MccdInputs.get_inputs">
+<span class="sig-name descname">get_inputs</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">catalog_id</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#MccdInputs.get_inputs"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.MccdInputs.get_inputs" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Get the MCCD inputs from a specific exposure id.</p>
+<p>Returns several lists corresponding to the outputs of the
+function <code class="docutils literal notranslate">prep_mccd_inputs</code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>catalog_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Catalog id (exposure id) to be processed.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.MccdInputs.get_catalog_ids">
+<span class="sig-name descname">get_catalog_ids</span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#MccdInputs.get_catalog_ids"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.MccdInputs.get_catalog_ids" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Get preprocessed catalog ids.</p>
+</dd></dl>
+<dl class="py method code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.MccdInputs.outlier_rejection">
+<em class="property">static<span class="w"> </span></em><span class="sig-name descname">outlier_rejection</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">star_list</span></em>, <em class="sig-param"><span class="n">pos_list</span></em>, <em class="sig-param"><span class="n">mask_list</span></em>, <em class="sig-param"><span class="n">ccd_list</span></em>, <em class="sig-param"><span class="n">SNR_list</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">RA_list</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">DEC_list</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">shape_std_max</span><span class="o">=</span><span class="default_value">5.0</span></em>, <em class="sig-param"><span class="n">print_fun</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#MccdInputs.outlier_rejection"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.MccdInputs.outlier_rejection" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Outlier star rejection method.</p>
+<p class="rubric">Notes</p>
+<p>It is based on the measurements from Galsim’s HSM adaptive moments.
+The method calculates the 2nd order moments from the stars
+in the exposure. If there are stars that have an aberrant value in one
+of the stats, e1, e2 or R2 we discard the star.
+An aberrant value is defined as a value that is more
+than <code class="docutils literal notranslate">shape_std_max</code> sigmas away from the mean.</p>
+<p>It inputs all the lists that will be used as a method and returns
+the same lists without the stars that where considered as outliers.</p>
+<p><code class="docutils literal notranslate">print_fun</code> is a function that prints details about the stars
+being removed.</p>
+</dd></dl>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.random_indexes">
+<span class="sig-name descname">random_indexes</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_tot</span></em>, <em class="sig-param"><span class="n">train_per</span><span class="o">=</span><span class="default_value">0.8</span></em>, <em class="sig-param"><span class="n">min_n_train</span><span class="o">=</span><span class="default_value">20</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#random_indexes"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.random_indexes" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Generate random indexes to separate datasets.</p>
+<p>Separate datasets into train and test sets following some criteria.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_tot</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Total number of elements.</p></li>
+<li><p><strong>train_per</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Percentage of those elements to be used for train.
+Default is 0.8.</p></li>
+<li><p><strong>min_n_train</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Minimum number of elements that should be used for training.
+Default is 20.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>train_idx</strong> (<em>numpy.ndarray</em>) – Array of random indexes used for the training.</p></li>
+<li><p><strong>test_idx</strong> (<em>numpy.ndarray</em>) – Array of random indexes used for the testing.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.save_to_fits">
+<span class="sig-name descname">save_to_fits</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em>, <em class="sig-param"><span class="n">output_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#save_to_fits"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.save_to_fits" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Save dictionary of numpy.ndarray into a fits file.</p>
+<p><code class="docutils literal notranslate">output_path</code> should be the path + new_name to save the fits and should
+include <code class="docutils literal notranslate">.fits</code> extension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dictionary</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Dictionary to be saved to the fits file.</p></li>
+<li><p><strong>output_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Should be the concatenation of the path to the folder and the name
+of the new fits file and should include <code class="docutils literal notranslate">.fits</code> extension.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>It is important that all the numpy.ndarrays share the first dimension as
+we are saving a table.</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.save_fits">
+<span class="sig-name descname">save_fits</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em>, <em class="sig-param"><span class="n">train_bool</span></em>, <em class="sig-param"><span class="n">cat_id</span></em>, <em class="sig-param"><span class="n">output_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#save_fits"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.save_fits" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Save fits file.</p>
+<p>Save a dictionary into a fits file format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dictionary</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Dictionary containing the data to be saved.</p></li>
+<li><p><strong>train_bool</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Bool to determine if it will be a training catalog or a testing
+catalog.
+Changes the name pattern used for the file.</p></li>
+<li><p><strong>cat_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Catalog id (exposure id) to be added in the file name.</p></li>
+<li><p><strong>output_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Path to folder to save the new file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.return_loc_neighbors">
+<span class="sig-name descname">return_loc_neighbors</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_pos</span></em>, <em class="sig-param"><span class="n">obs_pos</span></em>, <em class="sig-param"><span class="n">vals</span></em>, <em class="sig-param"><span class="n">n_neighbors</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#return_loc_neighbors"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.return_loc_neighbors" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Find nearest neighbors locally in one CCD.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>new_pos</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Array containing the new target position (x,y).</p></li>
+<li><p><strong>obs_pos</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Array containing the positions of the training stars.</p></li>
+<li><p><strong>vals</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Values that will be used to interpolate and need to be extracted.</p></li>
+<li><p><strong>n_neighbors</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of closest neighbors to return.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>nbs</strong> (<em>numpy.ndarray</em>) – Values from <code class="docutils literal notranslate">vals</code> of the closest <code class="docutils literal notranslate">n_neighbors</code> from <code class="docutils literal notranslate">new_pos</code>.</p></li>
+<li><p><strong>pos</strong> (<em>numpy.ndarray</em>) – Positions of the closest <code class="docutils literal notranslate">n_neighbors</code> from <code class="docutils literal notranslate">new_pos</code>.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.return_glob_neighbors">
+<span class="sig-name descname">return_glob_neighbors</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_pos</span></em>, <em class="sig-param"><span class="n">obs_pos_list</span></em>, <em class="sig-param"><span class="n">val_list</span></em>, <em class="sig-param"><span class="n">n_neighbors</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#return_glob_neighbors"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.return_glob_neighbors" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Find nearest neighbors locally in all the available CCDs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>new_pos</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Array containing the new target position (x,y).</p></li>
+<li><p><strong>obs_pos_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – List containing the positions of the training stars from all the CCDs.</p></li>
+<li><p><strong>val_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – List containing the values from all the CCDs that will be used to
+interpolate and need to be extracted.</p></li>
+<li><p><strong>n_neighbors</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Number of closest neighbors to return.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>values</strong> (<em>numpy.ndarray</em>) – Values from <code class="docutils literal notranslate">vals</code> of the closest <code class="docutils literal notranslate">n_neighbors</code> from <code class="docutils literal notranslate">new_pos</code>.</p></li>
+<li><p><strong>positions</strong> (<em>numpy.ndarray</em>) – Positions of the closest <code class="docutils literal notranslate">n_neighbors</code> from <code class="docutils literal notranslate">new_pos</code>.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.interpolation_Pi">
+<span class="sig-name descname">interpolation_Pi</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">position_list</span></em>, <em class="sig-param"><span class="n">d_comp_glob</span></em>, <em class="sig-param"><span class="n">loc2glob</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#interpolation_Pi"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.interpolation_Pi" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Create polynomial interpolation Pi matrix.</p>
+<p>Create a Pi matrix list that will be used for the interpolation
+of the global model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – List containing the all the positions of the training stars.</p></li>
+<li><p><strong>d_comp_glob</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Maximum polynomial degree to be used for the Pi matrix construction.</p></li>
+<li><p><strong>loc2glob</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – The object that allows to do the coordinate conversion from local to
+global. It is specific for each instrument’s focal plane geometry.
+If is <code class="docutils literal notranslate">None</code> it defaults to the CFIS MegaCam instrument.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>interp_Pi</strong> – List containing all the Pi polynomial matrices, one for each
+CCD (object in the position list).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.trim_filter">
+<span class="sig-name descname">trim_filter</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">filter_array</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#trim_filter"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.trim_filter" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Trim the filters to the minimal size.</p>
+<p>This method will get rid of the extra zero coefficients in the filter.
+:param filter_array: The filter to be trimmed
+:type filter_array: numpy.ndarray</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Trimmed filter</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)">numpy.ndarray<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Function copied from ModOpt.signal.wavelet as we need it to
+replicate ModOpt’s <code class="docutils literal notranslate">get_mr_filters()</code> but
+using the wavelet transforms from Pysap.</p>
+</dd></dl>
+<dl class="py function code-definition">
+<dt class="sig sig-object py accordion" id="mccd.mccd_utils.get_mr_filters">
+<span class="sig-name descname">get_mr_filters</span><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_shape</span></em>, <em class="sig-param"><span class="n">opt</span></em>, <em class="sig-param"><span class="n">n_scales</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">coarse</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">trim</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mccd/mccd_utils.html#get_mr_filters"><span class="viewcode-link">[source]</span></a><a aria-label="Copy link to this definition." class="headerlink tooltipped tooltipped-ne" href="#mccd.mccd_utils.get_mr_filters" role="button"><svg pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a><button aria-expanded="false" aria-label="Expand this section" class="expand-more tooltipped tooltipped-nw"><svg aria-hidden="true" pointer-events="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></button></dt>
+<dd class="panel">
+<p>Get transform filters.</p>
+<p>This method obtains wavelet filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – 2D data shape</p></li>
+<li><p><strong>opt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>) – Name of wavelet transform (in Pysap convention, see Notes)</p></li>
+<li><p><strong>n_scales</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a><em>, </em><em>optional</em>) – Number of transform scales.
+Default is <code class="docutils literal notranslate">4</code>.</p></li>
+<li><p><strong>coarse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a><em>, </em><em>optional</em>) – Option to keep coarse scale.
+Default is <code class="docutils literal notranslate">False</code>.</p></li>
+<li><p><strong>trim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em><svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a><em>, </em><em>optional</em>) – Option to trim the filters down to their minimal size
+Default is <code class="docutils literal notranslate">False</code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray 3D array of wavelet filters.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Function copied from Pysap package’s astro plugin.
+Added the trim_filter() functionality from the ModOpt package.
+The name of the wavelet transform must be in Pysap convention that
+differs from the sparse2d input arguments.
+To see the available transforms in Pysap, you need to import the
+python module (<code class="docutils literal notranslate">import pysap</code>) and then call
+<code class="docutils literal notranslate">pysap.AVAILABLE_TRANSFORMS</code>.</p>
+</dd></dl>
+</section>
+</main>
+<footer class="mt-20 px-5 md:ml-fluid mb-4 flex-shrink-0 text-sm text-gray-700" role="contentinfo">© Copyright configure_year, Tobias Liaudat Last updated: 17 Feb, 2023. Made with <a href="https://www.sphinx-doc.org">Sphinx 4.3.1</a></footer>
+</div>
+<div class="sticky bottom-0 md:hidden print:hidden bg-white">
+<div class="flex justify-center items-center">
+<button aria-labelledby="menuLabel" class="text-3xl p-4 flex items-center focus:bg-gray-200" id="openNavBtn">
+<svg aria-hidden="true" class="fill-current h-8 w-8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+<span class="pl-2 text-sm font-medium uppercase tracking-wide text-gray-700" id="menuLabel">Menu</span>
+</button><button aria-labelledby="searchLabel" class="text-3xl p-4 flex items-center focus:bg-gray-200" id="openSearchBtn">
+<svg aria-hidden="true" class="fill-current h-8 w-8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+<span class="pl-2 text-sm font-medium uppercase tracking-wide text-gray-700" id="searchLabel">Search</span>
+</button>
+</div>
+</div>
+<div class="w-full fixed bottom-0 left-0 z-10 bg-gray-900 overflow-x-hidden pt-10 flex flex-col items-center md:hidden" data-menu="closed" id="search-pane">
+<h4 class="text-xl text-white mb-4" id="search-label">Enter search term</h4><form action="search.html" class="flex w-full justify-between items-center max-w-sm px-12" id="searchbox" method="get">
+<input aria-labelledby="search-label" class="p-2 flex-1" name="q" placeholder="Search the docs" type="search"/>
+<button aria-label="Get search results" class="p-2 text-white bg-gray-700 hover:bg-gray-200 hover:text-pink-500 focus:bg-gray-200 focus:text-pink-500 tooltipped tooltipped-sw">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+</button>
+</form>
+<button aria-label="Close menu" class="text-4xl text-gray-200 p-4 bottom-0 hover:text-pink-500 md:hidden focus:text-pink-500 self-center" id="closeSearchBtn" title="Close menu">
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</div>
+<div class="fixed bottom-0 right-0 opacity-0 p-4 m-4 rounded bg-gray-900 text-gray-100 transition transform duration-500 translate-y-full" id="snackbar"></div>
+<div class="fixed inset-0 bg-black bg-opacity-50" id="screen" style="display: none;"></div>
+</div>
+<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
+</script>
+<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+<script src="_static/jquery.js"></script>
+<script src="_static/underscore.js"></script>
+<script src="_static/doctools.js"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<script defer="" src="_static/theme.js"></script>
+</body>
+</html>
