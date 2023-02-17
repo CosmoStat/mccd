@@ -57,6 +57,12 @@ class CoeffLocGrad(GradParent, PowerMethod):
     data_type: str
         Data type to be used.
         Default is ``float``.
+    input_data_writeable: bool
+        Option to make the observed data writeable.
+        Default is ``False``. See ModOpt for more info.
+    verbose : bool
+        Option for verbose output.
+        Default is ``True``. See ModOpt for more info.
     """
 
     def __init__(self, data, weights, S, VT, H_glob, flux, sig, ker,
@@ -207,6 +213,12 @@ class CoeffGlobGrad(GradParent, PowerMethod):
     data_type: str
         Data type to be used.
         Default is ``float``.
+    input_data_writeable: bool
+        Option to make the observed data writeable.
+        Default is ``False``. See ModOpt for more info.
+    verbose : bool
+        Option for verbose output.
+        Default is ``True``. See ModOpt for more info.
     """
 
     def __init__(self, data, weights, S, Pi, H_loc, flux, sig, ker,
@@ -353,6 +365,12 @@ class SourceLocGrad(GradParent, PowerMethod):
     data_type: str
         Data type to be used.
         Default is ``float``.
+    input_data_writeable: bool
+        Option to make the observed data writeable.
+        Default is ``False``. See ModOpt for more info.
+    verbose : bool
+        Option for verbose output.
+        Default is ``True``. See ModOpt for more info.
     """
 
     def __init__(self, data, weights, A, H_glob, flux, sig, ker, ker_rot,
@@ -503,6 +521,12 @@ class SourceGlobGrad(GradParent, PowerMethod):
     data_type: str
         Data type to be used.
         Default is ``float``.
+    input_data_writeable: bool
+        Option to make the observed data writeable.
+        Default is ``False``. See ModOpt for more info.
+    verbose : bool
+        Option for verbose output.
+        Default is ``True``. See ModOpt for more info.
     """
 
     def __init__(self, data, weights, A, H_loc, flux, sig,
