@@ -60,7 +60,6 @@ jobs:
 
   api:
     name: Deploy API Documentation
-    needs: coverage
     runs-on: ubuntu-latest
 
     steps:
@@ -82,6 +81,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install pandoc
+          python -m pip install PyQt5
           python -m pip install pyqtgraph
           python -m pip install git+https://github.com/CEA-COSMIC/pysap.git@2e26a71024b5a0419b27d4b3fc5cdee77bd3919b
           python -m pip install -r docs/requirements.txt
