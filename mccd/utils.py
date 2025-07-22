@@ -542,7 +542,7 @@ class GraphBuilder(object):
                     " > selected e: {}\tselected a:".format(e)
                     + "{}\t chosen index: {}/{}".format(a, j, self.n_eigenvects)
                 )
-        self.VT = np.vstack((eigenvect for eigenvect in list_eigenvects))
+        self.VT = np.vstack([eigenvect for eigenvect in list_eigenvects])
         self.alpha = np.zeros((self.n_comp, self.VT.shape[0]))
         for i in range(self.n_comp):
             # Check column range (case with low number of observations)
