@@ -46,8 +46,12 @@ class LinRecombine(ProximityParent):
 
     def recombine(self, transf_S):
         r"""Recombine new S and return it."""
-        S = np.array([filter_convolve(transf_Sj, self.filters, filter_rot=True)
-                      for transf_Sj in transf_S])
+        S = np.array(
+            [
+                filter_convolve(transf_Sj, self.filters, filter_rot=True)
+                for transf_Sj in transf_S
+            ]
+        )
         return utils.rca_format(S).dot(self.A)
 
     def adj_rec(self, Y):
@@ -88,8 +92,7 @@ class KThreshold(ProximityParent):
         r"""Return input data after thresholding."""
         self.iter += 1
 
-        return utils.lineskthresholding(data, self.iter_func(self.iter,
-                                                             data.shape[1]))
+        return utils.lineskthresholding(data, self.iter_func(self.iter, data.shape[1]))
 
     def cost(self, x):
         r"""Return cost.
@@ -111,7 +114,7 @@ class StarletThreshold(ProximityParent):
         Default is ``'soft'``.
     """
 
-    def __init__(self, threshold, thresh_type='soft'):
+    def __init__(self, threshold, thresh_type="soft"):
         r"""Initialize class attributes."""
         self.threshold = threshold
         self._thresh_type = thresh_type
@@ -119,14 +122,15 @@ class StarletThreshold(ProximityParent):
     def update_threshold(self, new_threshold, new_thresh_type=None):
         r"""Update starlet threshold."""
         self.threshold = new_threshold
-        if new_thresh_type in ['soft', 'hard']:
+        if new_thresh_type in ["soft", "hard"]:
             self._thresh_type = new_thresh_type
 
     def op(self, transf_data, **kwargs):
         r"""Apply wavelet transform and perform thresholding."""
         # Threshold all scales but the coarse
-        transf_data[:, :-1] = utils.SoftThresholding(transf_data[:, :-1],
-                                                     self.threshold[:, :-1])
+        transf_data[:, :-1] = utils.SoftThresholding(
+            transf_data[:, :-1], self.threshold[:, :-1]
+        )
         return transf_data
 
     def cost(self, x, y):
@@ -144,7 +148,7 @@ class proxNormalization(ProximityParent):
         Default is ``columns``.
     """
 
-    def __init__(self, type='columns'):
+    def __init__(self, type="columns"):
         r"""Initialize class attributes."""
         self.op = self.normalize
         self.type = type
@@ -185,10 +189,10 @@ class PositityOff(ProximityParent):
     def off_positive_part(self, x, extra_factor=1.0):
         r"""Perform the projection accounting for the offset."""
         prox_x = np.zeros(x.shape)
-        pos_idx = (x > - self.offset)
+        pos_idx = x > -self.offset
         neg_idx = np.array(1 - pos_idx).astype(bool)
         prox_x[pos_idx] = x[pos_idx]
-        prox_x[neg_idx] = - self.offset[neg_idx]
+        prox_x[neg_idx] = -self.offset[neg_idx]
         return prox_x
 
     def cost(self, x):
@@ -259,8 +263,7 @@ class GMCAlikeProxL1(ProximityParent):
         for j in range(0, shap[0]):
             # GMCA-like threshold calculation
             line = mat_out[j, :]
-            idx = np.floor(
-                len(line) * np.max([0.9 - (k / kmax) * 3, 0.2])).astype(int)
+            idx = np.floor(len(line) * np.max([0.9 - (k / kmax) * 3, 0.2])).astype(int)
             idx_thr = np.argsort(abs(line))[idx]
             thresh = abs(line[idx_thr])
 
@@ -273,7 +276,7 @@ class GMCAlikeProxL1(ProximityParent):
     @staticmethod
     def HardThresholding(data, thresh):
         r"""Perform element-wise hard thresholding."""
-        data[data < thresh] = 0.
+        data[data < thresh] = 0.0
         return data
 
     def cost(self, x):
@@ -328,7 +331,7 @@ class ClassicProxL2(ProximityParent):
         :math:`=> x_i = y_i /(1 + lambda w_i)`
         The operator can be used for the whole data matrix at once.
         """
-        dividing_weight = 1. + self.beta_param
+        dividing_weight = 1.0 + self.beta_param
 
         return data / dividing_weight
 

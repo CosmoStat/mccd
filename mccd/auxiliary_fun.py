@@ -61,7 +61,7 @@ class GenerateSimDataset(object):
         input_ccd_path,
         output_path,
         e1_analytic_fun=None,
-        e2_analytic_fun=None
+        e2_analytic_fun=None,
     ):
         r"""Initialize the class."""
         self.input_pos_path = input_pos_path
@@ -95,18 +95,18 @@ class GenerateSimDataset(object):
             self.positions = np.load(self.input_pos_path, allow_pickle=True)
             self.ccd_id = np.load(self.input_ccd_path, allow_pickle=True)
         except FileNotFoundError:
-            print('The positions or ccd path was not found. Check the paths.')
+            print("The positions or ccd path was not found. Check the paths.")
             raise FileNotFoundError
 
     def generate_train_data(
         self,
         sigma=1.6,
         image_size=51,
-        psf_flux=1.,
+        psf_flux=1.0,
         beta_psf=4.8,
         pix_scale=0.187,
         desired_SNR=30,
-        catalog_id=2086592
+        catalog_id=2086592,
     ):
         r"""Generate the training dataset and saves it in fits format.
 
@@ -146,14 +146,18 @@ class GenerateSimDataset(object):
         self.catalog_id = catalog_id
 
         # Define the ellipticities for each stars
-        e1s = np.array([
-            self.e1_catalog_fun(position[0], position[1])
-            for position in self.positions
-        ])
-        e2s = np.array([
-            self.e2_catalog_fun(position[0], position[1])
-            for position in self.positions
-        ])
+        e1s = np.array(
+            [
+                self.e1_catalog_fun(position[0], position[1])
+                for position in self.positions
+            ]
+        )
+        e2s = np.array(
+            [
+                self.e2_catalog_fun(position[0], position[1])
+                for position in self.positions
+            ]
+        )
 
         # Define the constant shape of the stars (before the shearing)
         fwhm_psf = (2 * np.sqrt(2 * np.log(2))) * sigma
@@ -176,16 +180,10 @@ class GenerateSimDataset(object):
             noisy_image_epsf = gs.ImageF(image_size, image_size)
             # Define intrapixel shift (uniform distribution in [-0.5,0.5])
             rand_shift = np.random.rand(2) - 0.5
-            psf.drawImage(
-                image=noisy_image_epsf,
-                offset=rand_shift,
-                scale=pix_scale
-            )
+            psf.drawImage(image=noisy_image_epsf, offset=rand_shift, scale=pix_scale)
 
             sigma_noise = np.sqrt(
-                (
-                    np.sum(noisy_image_epsf.array ** 2)
-                ) / (desired_SNR * image_size ** 2)
+                (np.sum(noisy_image_epsf.array**2)) / (desired_SNR * image_size**2)
             )
             # Generate Gaussian noise for the PSF
             gaussian_noise = gs.GaussianNoise(sigma=sigma_noise)
@@ -205,29 +203,21 @@ class GenerateSimDataset(object):
 
         # Build the dictionary
         train_dic = {
-            'VIGNET_LIST': new_vignets,
-            'GLOB_POSITION_IMG_LIST': self.positions,
-            'MASK_LIST': new_masks,
-            'CCD_ID_LIST': self.ccd_id,
-            'TRUE_E1_HSM': new_e1_HSM,
-            'TRUE_E2_HSM': new_e2_HSM,
-            'TRUE_SIG_HSM': new_sig_HSM
+            "VIGNET_LIST": new_vignets,
+            "GLOB_POSITION_IMG_LIST": self.positions,
+            "MASK_LIST": new_masks,
+            "CCD_ID_LIST": self.ccd_id,
+            "TRUE_E1_HSM": new_e1_HSM,
+            "TRUE_E2_HSM": new_e2_HSM,
+            "TRUE_SIG_HSM": new_sig_HSM,
         }
 
         # Save the fits file
         mccd_utils.save_fits(
-            train_dic,
-            train_bool=True,
-            cat_id=catalog_id,
-            output_path=self.output_path
+            train_dic, train_bool=True, cat_id=catalog_id, output_path=self.output_path
         )
 
-    def generate_test_data(
-        self,
-        x_grid=5,
-        y_grid=10,
-        n_ccd=40
-    ):
+    def generate_test_data(self, x_grid=5, y_grid=10, n_ccd=40):
         r"""Generate the test dataset and save it into a fits file.
 
         Parameters
@@ -260,12 +250,12 @@ class GenerateSimDataset(object):
         x_lin = np.linspace(
             start=self.image_size,
             stop=loc2glob.x_npix - self.image_size,
-            num=self.test_grid_xy[0]
+            num=self.test_grid_xy[0],
         )
         y_lin = np.linspace(
             start=self.image_size,
             stop=loc2glob.y_npix - self.image_size,
-            num=self.test_grid_xy[1]
+            num=self.test_grid_xy[1],
         )
         xv, yv = np.meshgrid(x_lin, y_lin)
         x_coor = xv.flatten()
@@ -278,14 +268,11 @@ class GenerateSimDataset(object):
             x_glob, y_glob = loc2glob.loc2glob_img_coord(
                 ccd_n=ccd_unique_list[it],
                 x_coor=np.copy(x_coor),
-                y_coor=np.copy(y_coor)
+                y_coor=np.copy(y_coor),
             )
             position_list.append(np.array([x_glob, y_glob]).T)
-            ccd_list.append((
-                np.ones(
-                    len(x_glob),
-                    dtype=int
-                ) * ccd_unique_list[it]).astype(int)
+            ccd_list.append(
+                (np.ones(len(x_glob), dtype=int) * ccd_unique_list[it]).astype(int)
             )
 
         # Obtain final positions and ccd_id list
@@ -293,32 +280,31 @@ class GenerateSimDataset(object):
         test_ccd_id = np.concatenate(ccd_list, axis=0)
 
         # Calculate the ellipticities on the testing positions
-        test_e1s = np.array([
-            self.e1_catalog_fun(position[0], position[1])
-            for position in test_positions
-        ])
-        test_e2s = np.array([
-            self.e2_catalog_fun(position[0], position[1])
-            for position in test_positions
-        ])
+        test_e1s = np.array(
+            [
+                self.e1_catalog_fun(position[0], position[1])
+                for position in test_positions
+            ]
+        )
+        test_e2s = np.array(
+            [
+                self.e2_catalog_fun(position[0], position[1])
+                for position in test_positions
+            ]
+        )
 
         fwhm_psf = (2 * np.sqrt(2 * np.log(2))) * self.sigma
         # Arround 5. and 6. in sigma
         test_fwhms = np.ones(test_e1s.shape) * fwhm_psf
 
         # Generate the vignets
-        test_vignets = np.zeros(
-            (test_e1s.shape[0], self.image_size, self.image_size)
-        )
+        test_vignets = np.zeros((test_e1s.shape[0], self.image_size, self.image_size))
         test_e1_HSM = np.zeros(test_e1s.shape)
         test_e2_HSM = np.zeros(test_e1s.shape)
         test_sig_HSM = np.zeros(test_e1s.shape)
         for it in range(test_e1s.shape[0]):
             # PSF generation. Define size
-            psf = gs.Moffat(
-                fwhm=test_fwhms[it] * self.pix_scale,
-                beta=self.beta_psf
-            )
+            psf = gs.Moffat(fwhm=test_fwhms[it] * self.pix_scale, beta=self.beta_psf)
             # Define the Flux
             psf = psf.withFlux(self.psf_flux)
             # Define the shear
@@ -340,13 +326,13 @@ class GenerateSimDataset(object):
 
         # Build the dictionary
         test_dic = {
-            'VIGNET_LIST': test_vignets,
-            'GLOB_POSITION_IMG_LIST': test_positions,
-            'MASK_LIST': test_masks,
-            'CCD_ID_LIST': test_ccd_id,
-            'TRUE_E1_HSM': test_e1_HSM,
-            'TRUE_E2_HSM': test_e2_HSM,
-            'TRUE_SIG_HSM': test_sig_HSM
+            "VIGNET_LIST": test_vignets,
+            "GLOB_POSITION_IMG_LIST": test_positions,
+            "MASK_LIST": test_masks,
+            "CCD_ID_LIST": test_ccd_id,
+            "TRUE_E1_HSM": test_e1_HSM,
+            "TRUE_E2_HSM": test_e2_HSM,
+            "TRUE_SIG_HSM": test_sig_HSM,
         }
 
         # Save the fits file
@@ -354,7 +340,7 @@ class GenerateSimDataset(object):
             test_dic,
             train_bool=False,
             cat_id=self.catalog_id,
-            output_path=self.output_path
+            output_path=self.output_path,
         )
 
     @staticmethod
@@ -374,12 +360,9 @@ class GenerateSimDataset(object):
         exp_decay_alpha = None
 
         scaled_x, scaled_y = GenerateSimDataset.scale_coordinates(
-            x,
-            y,
-            coor_min,
-            coor_max
+            x, y, coor_min, coor_max
         )
-        scaled_d = np.sqrt(scaled_x ** 2 + scaled_y ** 2)
+        scaled_d = np.sqrt(scaled_x**2 + scaled_y**2)
 
         vals_x = np.sinc(scaled_d)
 
@@ -415,7 +398,7 @@ class GenerateSimDataset(object):
             max_order,
             scale_factor,
             circular_symetry=True,
-            exp_decay_alpha=exp_decay_alpha
+            exp_decay_alpha=exp_decay_alpha,
         )
 
     @staticmethod
@@ -423,22 +406,18 @@ class GenerateSimDataset(object):
         r"""Scale global coordinates."""
         # Set the max and min values for the coordinate system
         loc2glob = mccd_utils.Loc2Glob()
-        grid_xmin = - 5 * loc2glob.x_npix - 5 * loc2glob.x_gap
+        grid_xmin = -5 * loc2glob.x_npix - 5 * loc2glob.x_gap
         grid_xmax = 6 * loc2glob.x_npix + 5 * loc2glob.x_gap
         grid_ymin = -2 * loc2glob.y_npix - 2 * loc2glob.y_gap
         grid_ymax = 2 * loc2glob.y_npix + 1 * loc2glob.y_gap
 
         # Scale the input coordinates
-        scaled_x = (
-            ((x - grid_xmin) / (grid_xmax - grid_xmin)) * (
-                coor_max - coor_min
-            ) + coor_min
-        )
-        scaled_y = (
-            ((y - grid_ymin) / (grid_ymax - grid_ymin)) * (
-                coor_max - coor_min
-            ) + coor_min
-        )
+        scaled_x = ((x - grid_xmin) / (grid_xmax - grid_xmin)) * (
+            coor_max - coor_min
+        ) + coor_min
+        scaled_y = ((y - grid_ymin) / (grid_ymax - grid_ymin)) * (
+            coor_max - coor_min
+        ) + coor_min
 
         if offset is not None:
             scaled_x += offset[0]
@@ -456,16 +435,12 @@ class GenerateSimDataset(object):
         scale_factor,
         circular_symetry=False,
         exp_decay_alpha=None,
-        offset=None
+        offset=None,
     ):
         r"""Generate a type of Bessel function response."""
         # Scale coordinates
         scaled_x, scaled_y = GenerateSimDataset.scale_coordinates(
-            x,
-            y,
-            coor_min,
-            coor_max,
-            offset=offset
+            x, y, coor_min, coor_max, offset=offset
         )
 
         # Calculate the function
@@ -482,14 +457,14 @@ class GenerateSimDataset(object):
             return vals_x * vals_y * scale_factor
         else:
 
-            scaled_d = np.sqrt(scaled_x ** 2 + scaled_y ** 2)
+            scaled_d = np.sqrt(scaled_x**2 + scaled_y**2)
             for it in range(max_order):
                 vals_x += sp.special.jv(it, scaled_d)
 
             if exp_decay_alpha is not None:
-                exp_weight = np.exp(-(
-                    scaled_d - ((coor_max + coor_min) / 2)
-                ) / exp_decay_alpha)
+                exp_weight = np.exp(
+                    -(scaled_d - ((coor_max + coor_min) / 2)) / exp_decay_alpha
+                )
                 scale_factor *= exp_weight
 
             return vals_x * scale_factor
@@ -513,12 +488,12 @@ def mccd_fit(
     starcat,
     mccd_inst_kw,
     mccd_fit_kw,
-    output_dir='./',
+    output_dir="./",
     catalog_id=1234567,
     sex_thresh=-1e5,
     use_SNR_weight=False,
     verbose=False,
-    saving_name='fitted_model'
+    saving_name="fitted_model",
 ):
     r"""Fits (train) the MCCD model.
 
@@ -561,11 +536,11 @@ def mccd_fit(
     """
     # Extract the catalog and build the list with each ccd data
     # Stars are already masked and masks are provided
-    ccds = np.copy(starcat.data['CCD_ID_LIST']).astype(int)
-    ccds_unique = np.unique(np.copy(starcat.data['CCD_ID_LIST'])).astype(int)
-    positions = np.copy(starcat.data['GLOB_POSITION_IMG_LIST'])
-    stars = np.copy(starcat.data['VIGNET_LIST'])
-    masks = np.copy(starcat.data['MASK_LIST'])
+    ccds = np.copy(starcat.data["CCD_ID_LIST"]).astype(int)
+    ccds_unique = np.unique(np.copy(starcat.data["CCD_ID_LIST"])).astype(int)
+    positions = np.copy(starcat.data["GLOB_POSITION_IMG_LIST"])
+    stars = np.copy(starcat.data["VIGNET_LIST"])
+    masks = np.copy(starcat.data["MASK_LIST"])
 
     # If masks are not provided they have to be calculated
     if np.sum(masks) == 0:
@@ -574,7 +549,7 @@ def mccd_fit(
     # SNR weight calculation
     try:
         if use_SNR_weight:
-            SNRs = np.copy(starcat.data['SNR_WIN_LIST'])
+            SNRs = np.copy(starcat.data["SNR_WIN_LIST"])
             # SNR strategy N6
             max_snr_w = 2.0
             min_snr_w = 0.25
@@ -583,9 +558,7 @@ def mccd_fit(
             SNR_weights *= max_snr_w
             SNR_weights[SNR_weights < min_snr_w] = min_snr_w
 
-            SNR_weight_list = [
-                SNR_weights[ccds == ccd] for ccd in ccds_unique
-            ]
+            SNR_weight_list = [SNR_weights[ccds == ccd] for ccd in ccds_unique]
         else:
             # If no SNR should be use we go to the no-SNR case
             # with the exception
@@ -593,34 +566,19 @@ def mccd_fit(
     except ValueError:
         SNR_weight_list = None
         if verbose:
-            print('No SNR weights are being used.')
+            print("No SNR weights are being used.")
 
-    pos_list = [
-        positions[ccds == ccd] for ccd in ccds_unique
-    ]
-    star_list = [
-        utils.rca_format(stars[ccds == ccd]) for ccd in ccds_unique
-    ]
-    mask_list = [
-        utils.rca_format(masks[ccds == ccd]) for ccd in ccds_unique
-    ]
-    ccd_list = [
-        ccds[ccds == ccd].astype(int) for ccd in ccds_unique
-    ]
-    ccd_list = [
-        np.unique(_list)[0].astype(int) for _list in ccd_list
-    ]
+    pos_list = [positions[ccds == ccd] for ccd in ccds_unique]
+    star_list = [utils.rca_format(stars[ccds == ccd]) for ccd in ccds_unique]
+    mask_list = [utils.rca_format(masks[ccds == ccd]) for ccd in ccds_unique]
+    ccd_list = [ccds[ccds == ccd].astype(int) for ccd in ccds_unique]
+    ccd_list = [np.unique(_list)[0].astype(int) for _list in ccd_list]
 
     # Instantiate the method
     mccd_instance = mccd.MCCD(**mccd_inst_kw, verbose=verbose)
     # Launch the training
     _, _, _, _, _ = mccd_instance.fit(
-        star_list,
-        pos_list,
-        ccd_list,
-        mask_list,
-        SNR_weight_list,
-        **mccd_fit_kw
+        star_list, pos_list, ccd_list, mask_list, SNR_weight_list, **mccd_fit_kw
     )
 
     if isinstance(catalog_id, int):
@@ -643,7 +601,7 @@ def mccd_validation(
     mccd_debug=False,
     global_pol_interp=False,
     sex_thresh=-1e5,
-    loc2glob=None
+    loc2glob=None,
 ):
     r"""Validate a MCCD model.
 
@@ -705,14 +663,14 @@ def mccd_validation(
     star_dict = {}
 
     # Extract data
-    ccds = np.copy(testcat.data['CCD_ID_LIST']).astype(int)
-    ccds_unique = np.unique(np.copy(testcat.data['CCD_ID_LIST'])).astype(int)
-    positions = np.copy(testcat.data['GLOB_POSITION_IMG_LIST'])
-    stars = np.copy(testcat.data['VIGNET_LIST'])
-    masks = np.copy(testcat.data['MASK_LIST'])
+    ccds = np.copy(testcat.data["CCD_ID_LIST"]).astype(int)
+    ccds_unique = np.unique(np.copy(testcat.data["CCD_ID_LIST"])).astype(int)
+    positions = np.copy(testcat.data["GLOB_POSITION_IMG_LIST"])
+    stars = np.copy(testcat.data["VIGNET_LIST"])
+    masks = np.copy(testcat.data["MASK_LIST"])
     try:
-        RA_pos = np.copy(testcat.data['RA_LIST'])
-        DEC_pos = np.copy(testcat.data['DEC_LIST'])
+        RA_pos = np.copy(testcat.data["RA_LIST"])
+        DEC_pos = np.copy(testcat.data["DEC_LIST"])
     except KeyError:
         RA_pos = None
         DEC_pos = None
@@ -724,33 +682,19 @@ def mccd_validation(
 
     # Prepare data in ccd-list format
     if RA_pos is not None:
-        val_RA_list = [
-            RA_pos[ccds == ccd] for ccd in ccds_unique
-        ]
-        val_DEC_list = [
-            DEC_pos[ccds == ccd] for ccd in ccds_unique
-        ]
+        val_RA_list = [RA_pos[ccds == ccd] for ccd in ccds_unique]
+        val_DEC_list = [DEC_pos[ccds == ccd] for ccd in ccds_unique]
     else:
         val_RA_list, val_DEC_list = None, None
 
-    val_pos_list = [
-        positions[ccds == ccd] for ccd in ccds_unique
-    ]
-    val_star_list = [
-        utils.rca_format(stars[ccds == ccd]) for ccd in ccds_unique
-    ]
-    val_mask_list = [
-        utils.rca_format(masks[ccds == ccd]) for ccd in ccds_unique
-    ]
-    val_ccd_list = [
-        ccds[ccds == ccd].astype(int) for ccd in ccds_unique
-    ]
+    val_pos_list = [positions[ccds == ccd] for ccd in ccds_unique]
+    val_star_list = [utils.rca_format(stars[ccds == ccd]) for ccd in ccds_unique]
+    val_mask_list = [utils.rca_format(masks[ccds == ccd]) for ccd in ccds_unique]
+    val_ccd_list = [ccds[ccds == ccd].astype(int) for ccd in ccds_unique]
     val_ccd_list_to_save = [
         np.copy(ccds[ccds == ccd].astype(int)) for ccd in ccds_unique
     ]
-    val_ccd_list = [
-        np.unique(_list)[0].astype(int) for _list in val_ccd_list
-    ]
+    val_ccd_list = [np.unique(_list)[0].astype(int) for _list in val_ccd_list]
 
     if apply_degradation:
         if mccd_debug:
@@ -758,29 +702,30 @@ def mccd_validation(
             PSF_glob_list = []
             PSF_loc_list = []
             if global_pol_interp:
-                print('''The polynomial interpolation for the global model is
-                not available in mccd_debug mode.''')
+                print(
+                    """The polynomial interpolation for the global model is
+                not available in mccd_debug mode."""
+                )
 
             for it in range(len(val_star_list)):
 
-                deg_PSFs, deg_PSFs_glob, deg_PSFs_loc = \
-                    mccd_model.validation_stars(
-                        val_star_list[it],
-                        val_pos_list[it],
-                        val_mask_list[it],
-                        val_ccd_list[it],
-                        mccd_debug=mccd_debug
-                    )
+                deg_PSFs, deg_PSFs_glob, deg_PSFs_loc = mccd_model.validation_stars(
+                    val_star_list[it],
+                    val_pos_list[it],
+                    val_mask_list[it],
+                    val_ccd_list[it],
+                    mccd_debug=mccd_debug,
+                )
 
                 PSF_list.append(deg_PSFs)
                 if deg_PSFs_glob is not None:
                     PSF_glob_list.append(deg_PSFs_glob)
                     PSF_loc_list.append(deg_PSFs_loc)
 
-            star_dict['PSF_GLOB_VIGNET_LIST'] = np.copy(
+            star_dict["PSF_GLOB_VIGNET_LIST"] = np.copy(
                 np.concatenate(PSF_glob_list, axis=0)
             )
-            star_dict['PSF_LOC_VIGNET_LIST'] = np.copy(
+            star_dict["PSF_LOC_VIGNET_LIST"] = np.copy(
                 np.concatenate(PSF_loc_list, axis=0)
             )
         else:
@@ -789,9 +734,7 @@ def mccd_validation(
 
             if global_pol_interp:
                 interp_Pi = mccd_utils.interpolation_Pi(
-                    val_pos_list,
-                    mccd_model.d_comp_glob,
-                    loc2glob
+                    val_pos_list, mccd_model.d_comp_glob, loc2glob
                 )
 
                 PSF_list = [
@@ -801,32 +744,23 @@ def mccd_validation(
                         _mask,
                         _ccd_id,
                         mccd_debug=mccd_debug,
-                        global_pol_interp=_iterp_Pi
+                        global_pol_interp=_iterp_Pi,
                     )
-                    for _star, _pos, _mask, _ccd_id, _iterp_Pi in
-                    zip(
+                    for _star, _pos, _mask, _ccd_id, _iterp_Pi in zip(
                         val_star_list,
                         val_pos_list,
                         val_mask_list,
                         val_ccd_list,
-                        interp_Pi
+                        interp_Pi,
                     )
                 ]
             else:
                 PSF_list = [
                     mccd_model.validation_stars(
-                        _star,
-                        _pos,
-                        _mask,
-                        _ccd_id,
-                        mccd_debug=mccd_debug
+                        _star, _pos, _mask, _ccd_id, mccd_debug=mccd_debug
                     )
-                    for _star, _pos, _mask, _ccd_id in
-                    zip(
-                        val_star_list,
-                        val_pos_list,
-                        val_mask_list,
-                        val_ccd_list
+                    for _star, _pos, _mask, _ccd_id in zip(
+                        val_star_list, val_pos_list, val_mask_list, val_ccd_list
                     )
                 ]
 
@@ -869,37 +803,38 @@ def mccd_validation(
 
         # Stars
         star_moms = [
-            gs.hsm.FindAdaptiveMom(
-                gs.Image(star),
-                badpix=gs.Image(bp),
-                strict=False
+            gs.hsm.FindAdaptiveMom(gs.Image(star), badpix=gs.Image(bp), strict=False)
+            for star, bp in zip(
+                utils.reg_format(test_stars), utils.reg_format(badpix_mask)
             )
-            for star, bp in
-            zip(utils.reg_format(test_stars), utils.reg_format(badpix_mask))
         ]
-        star_shapes = np.array([
+        star_shapes = np.array(
             [
-                moms.observed_shape.g1,
-                moms.observed_shape.g2,
-                moms.moments_sigma,
-                int(bool(moms.error_message))
+                [
+                    moms.observed_shape.g1,
+                    moms.observed_shape.g2,
+                    moms.moments_sigma,
+                    int(bool(moms.error_message)),
+                ]
+                for moms in star_moms
             ]
-            for moms in star_moms
-        ])
+        )
         # PSFs
         psf_moms = [
             gs.hsm.FindAdaptiveMom(gs.Image(psf), strict=False)
             for psf in utils.reg_format(matched_psfs)
         ]
-        psf_shapes = np.array([
+        psf_shapes = np.array(
             [
-                moms.observed_shape.g1,
-                moms.observed_shape.g2,
-                moms.moments_sigma,
-                int(bool(moms.error_message))
+                [
+                    moms.observed_shape.g1,
+                    moms.observed_shape.g2,
+                    moms.moments_sigma,
+                    int(bool(moms.error_message)),
+                ]
+                for moms in psf_moms
             ]
-            for moms in psf_moms
-        ])
+        )
 
         star_shapes_list.append(star_shapes)
         psf_shapes_list.append(psf_shapes)
@@ -926,16 +861,16 @@ def mccd_validation(
         DEC_ordered = np.concatenate(DEC_list, axis=0)
 
     # Save the results and the psfs
-    star_dict['PSF_VIGNET_LIST'] = np.copy(psf_vignets)
-    star_dict['PSF_MOM_LIST'] = np.copy(psf_shapes)
-    star_dict['STAR_MOM_LIST'] = np.copy(star_shapes)
-    star_dict['GLOB_POSITION_IMG_LIST'] = np.copy(pos_ordered)
-    star_dict['VIGNET_LIST'] = np.copy(star_ordered)
-    star_dict['MASK_LIST'] = np.copy(mask_ordered)
-    star_dict['CCD_ID_LIST'] = np.copy(ccd_ordered)
+    star_dict["PSF_VIGNET_LIST"] = np.copy(psf_vignets)
+    star_dict["PSF_MOM_LIST"] = np.copy(psf_shapes)
+    star_dict["STAR_MOM_LIST"] = np.copy(star_shapes)
+    star_dict["GLOB_POSITION_IMG_LIST"] = np.copy(pos_ordered)
+    star_dict["VIGNET_LIST"] = np.copy(star_ordered)
+    star_dict["MASK_LIST"] = np.copy(mask_ordered)
+    star_dict["CCD_ID_LIST"] = np.copy(ccd_ordered)
     if val_RA_list is not None:
-        star_dict['RA_LIST'] = np.copy(RA_ordered)
-        star_dict['DEC_LIST'] = np.copy(DEC_ordered)
+        star_dict["RA_LIST"] = np.copy(RA_ordered)
+        star_dict["DEC_LIST"] = np.copy(DEC_ordered)
 
     # Memory management
     del mccd_model
@@ -948,16 +883,16 @@ def mccd_preprocessing(
     input_folder_path,
     output_path,
     min_n_stars=20,
-    file_pattern='sexcat-*-*.fits',
-    separator='-',
+    file_pattern="sexcat-*-*.fits",
+    separator="-",
     CCD_id_filter_list=None,
-    outlier_std_max=100.,
+    outlier_std_max=100.0,
     save_masks=True,
-    save_name='train_star_selection',
-    save_extension='.fits',
+    save_name="train_star_selection",
+    save_extension=".fits",
     verbose=True,
     loc2glob=None,
-    fits_tb_pos=2
+    fits_tb_pos=2,
 ):
     r"""Preprocess input catalog.
 
@@ -1025,22 +960,22 @@ def mccd_preprocessing(
         CCD_id_filter_list = np.array(CCD_id_filter_list)
 
     if verbose:
+
         def print_fun(x):
             print(x)
+
     else:
+
         def print_fun(x):
             pass
 
     # Preprocess
     mccd_inputs = mccd_utils.MccdInputs(
-        separator=separator,
-        loc2glob=loc2glob,
-        fits_tb_pos=fits_tb_pos
+        separator=separator, loc2glob=loc2glob, fits_tb_pos=fits_tb_pos
     )
-    print_fun('Processing dataset..')
+    print_fun("Processing dataset..")
     catalog_ids = mccd_inputs.preprocess_data(
-        folder_path=input_folder_path,
-        pattern=file_pattern
+        folder_path=input_folder_path, pattern=file_pattern
     )
 
     # Loop over the catalogs
@@ -1066,7 +1001,7 @@ def mccd_preprocessing(
                 RA_list,
                 DEC_list,
                 shape_std_max=outlier_std_max,
-                print_fun=print_fun
+                print_fun=print_fun,
             )
             star_list = output[0]
             pos_list = output[1]
@@ -1101,28 +1036,32 @@ def mccd_preprocessing(
                             mccd_RA_list.append(RA_list[j])
                             mccd_DEC_list.append(DEC_list[j])
                     else:
-                        msg = '''Not enough stars in catalog_id %s
-                            ,ccd %d. Total stars = %d''' % (
-                            catalog_id, ccd_list[j], n_stars)
+                        msg = """Not enough stars in catalog_id %s
+                            ,ccd %d. Total stars = %d""" % (
+                            catalog_id,
+                            ccd_list[j],
+                            n_stars,
+                        )
                         print_fun(msg)
 
                 except Exception:
-                    msg = '''Warning! Problem detected in
-                        catalog_id %s ,ccd %d''' % (catalog_id, ccd_list[j])
+                    msg = """Warning! Problem detected in
+                        catalog_id %s ,ccd %d""" % (
+                        catalog_id,
+                        ccd_list[j],
+                    )
                     print_fun(msg)
 
         if mccd_pos_list:
             # If the list is not empty
             # Concatenate, as fits can't handle list of numpy arrays and
             # turn into reg format
-            mccd_stars = utils.reg_format(
-                np.concatenate(mccd_star_list, axis=2))
+            mccd_stars = utils.reg_format(np.concatenate(mccd_star_list, axis=2))
             mccd_poss = np.concatenate(mccd_pos_list, axis=0)
             mccd_ccds = np.concatenate(mccd_ccd_list, axis=0)
 
             if save_masks is True:
-                mccd_masks = utils.reg_format(
-                    np.concatenate(mccd_mask_list, axis=2))
+                mccd_masks = utils.reg_format(np.concatenate(mccd_mask_list, axis=2))
             else:
                 # Send an array of False (None cannot be used in .fits)
                 mccd_masks = np.zeros((mccd_poss.shape[0]), dtype=bool)
@@ -1144,21 +1083,22 @@ def mccd_preprocessing(
 
             # Save the fits file
             train_dic = {
-                'VIGNET_LIST': mccd_stars,
-                'GLOB_POSITION_IMG_LIST': mccd_poss,
-                'MASK_LIST': mccd_masks,
-                'CCD_ID_LIST': mccd_ccds,
-                'SNR_WIN_LIST': mccd_SNRs,
-                'RA_LIST': mccd_RAs,
-                'DEC_LIST': mccd_DECs
+                "VIGNET_LIST": mccd_stars,
+                "GLOB_POSITION_IMG_LIST": mccd_poss,
+                "MASK_LIST": mccd_masks,
+                "CCD_ID_LIST": mccd_ccds,
+                "SNR_WIN_LIST": mccd_SNRs,
+                "RA_LIST": mccd_RAs,
+                "DEC_LIST": mccd_DECs,
             }
 
-            saving_path = output_path + save_name + separator \
-                + catalog_id + save_extension
+            saving_path = (
+                output_path + save_name + separator + catalog_id + save_extension
+            )
             mccd_utils.save_to_fits(train_dic, saving_path)
 
-    print_fun('Finished the training dataset processing.')
-    print_fun('Total stars processed = %d' % mccd_star_nb)
+    print_fun("Finished the training dataset processing.")
+    print_fun("Total stars processed = %d" % mccd_star_nb)
 
     return mccd_inputs
 
@@ -1183,8 +1123,7 @@ class MCCDParamsParser(object):
     def __init__(self, file_path):
         r"""Initialize class."""
         if not os.path.exists(file_path):
-            raise IOError('Configuration file {} does not exist.'.format(
-                file_path))
+            raise IOError("Configuration file {} does not exist.".format(file_path))
 
         self.file_name = file_path
         self.config = ConfigParser()
@@ -1215,36 +1154,43 @@ class MCCDParamsParser(object):
             For non-existent output directory
 
         """
-        if not self.config.has_option('INPUTS', 'OUTPUT_DIR'):
-            raise RuntimeError('Not output directory specified.')
-        elif not os.path.isdir(self.config['INPUTS']['OUTPUT_DIR']):
-            raise OSError('Directory {} not found.'.format(
-                self.config.has_option('INPUTS', 'OUTPUT_DIR')))
+        if not self.config.has_option("INPUTS", "OUTPUT_DIR"):
+            raise RuntimeError("Not output directory specified.")
+        elif not os.path.isdir(self.config["INPUTS"]["OUTPUT_DIR"]):
+            raise OSError(
+                "Directory {} not found.".format(
+                    self.config.has_option("INPUTS", "OUTPUT_DIR")
+                )
+            )
 
-        if not self.config.has_option('INPUTS', 'PREPROCESSED_OUTPUT_DIR'):
-            raise RuntimeError('Not preprocessed output directory specified.')
-        elif not os.path.isdir(
-                self.config['INPUTS']['PREPROCESSED_OUTPUT_DIR']):
-            raise OSError('Directory {} not found.'.format(
-                self.config.has_option('INPUTS', 'PREPROCESSED_OUTPUT_DIR')))
+        if not self.config.has_option("INPUTS", "PREPROCESSED_OUTPUT_DIR"):
+            raise RuntimeError("Not preprocessed output directory specified.")
+        elif not os.path.isdir(self.config["INPUTS"]["PREPROCESSED_OUTPUT_DIR"]):
+            raise OSError(
+                "Directory {} not found.".format(
+                    self.config.has_option("INPUTS", "PREPROCESSED_OUTPUT_DIR")
+                )
+            )
 
-        if not self.config.has_option('INPUTS', 'INPUT_DIR'):
-            raise RuntimeError('Not output directory specified.')
-        elif not os.path.isdir(self.config['INPUTS']['INPUT_DIR']):
-            raise OSError('Directory {} not found.'.format(
-                self.config.has_option('INPUTS', 'INPUT_DIR')))
+        if not self.config.has_option("INPUTS", "INPUT_DIR"):
+            raise RuntimeError("Not output directory specified.")
+        elif not os.path.isdir(self.config["INPUTS"]["INPUT_DIR"]):
+            raise OSError(
+                "Directory {} not found.".format(
+                    self.config.has_option("INPUTS", "INPUT_DIR")
+                )
+            )
 
-        if not self.config.has_option('INPUTS', 'INPUT_REGEX_FILE_PATTERN'):
-            self.config.set('INPUTS', 'INPUT_REGEX_FILE_PATTERN',
-                            'sexcat-*-*.fits')
-        if not self.config.has_option('INPUTS', 'INPUT_SEPARATOR'):
-            self.config.set('INPUTS', 'INPUT_SEPARATOR', '-')
-        if not self.config.has_option('INPUTS', 'MIN_N_STARS'):
-            self.config.set('INPUTS', 'MIN_N_STARS', '20')
-        if not self.config.has_option('INPUTS', 'OUTLIER_STD_MAX'):
-            self.config.set('INPUTS', 'OUTLIER_STD_MAX', '100.')
-        if not self.config.has_option('INPUTS', 'USE_SNR_WEIGHTS'):
-            self.config.set('INPUTS', 'USE_SNR_WEIGHTS', 'False')
+        if not self.config.has_option("INPUTS", "INPUT_REGEX_FILE_PATTERN"):
+            self.config.set("INPUTS", "INPUT_REGEX_FILE_PATTERN", "sexcat-*-*.fits")
+        if not self.config.has_option("INPUTS", "INPUT_SEPARATOR"):
+            self.config.set("INPUTS", "INPUT_SEPARATOR", "-")
+        if not self.config.has_option("INPUTS", "MIN_N_STARS"):
+            self.config.set("INPUTS", "MIN_N_STARS", "20")
+        if not self.config.has_option("INPUTS", "OUTLIER_STD_MAX"):
+            self.config.set("INPUTS", "OUTLIER_STD_MAX", "100.")
+        if not self.config.has_option("INPUTS", "USE_SNR_WEIGHTS"):
+            self.config.set("INPUTS", "USE_SNR_WEIGHTS", "False")
 
     def _set_instance_options(self):
         """Set Instance Options.
@@ -1252,35 +1198,35 @@ class MCCDParamsParser(object):
         This method checks the ``INSTANCE`` options in the configuration file.
 
         """
-        if not self.config.has_option('INSTANCE', 'N_COMP_LOC'):
-            self.config.set('INSTANCE', 'N_COMP_LOC', '6')
+        if not self.config.has_option("INSTANCE", "N_COMP_LOC"):
+            self.config.set("INSTANCE", "N_COMP_LOC", "6")
 
-        if not self.config.has_option('INSTANCE', 'D_COMP_GLOB'):
-            self.config.set('INSTANCE', 'D_COMP_GLOB', '8')
+        if not self.config.has_option("INSTANCE", "D_COMP_GLOB"):
+            self.config.set("INSTANCE", "D_COMP_GLOB", "8")
 
-        if not self.config.has_option('INSTANCE', 'KSIG_LOC'):
-            self.config.set('INSTANCE', 'KSIG_LOC', '0.0')
+        if not self.config.has_option("INSTANCE", "KSIG_LOC"):
+            self.config.set("INSTANCE", "KSIG_LOC", "0.0")
 
-        if not self.config.has_option('INSTANCE', 'KSIG_GLOB'):
-            self.config.set('INSTANCE', 'KSIG_GLOB', '0.0')
+        if not self.config.has_option("INSTANCE", "KSIG_GLOB"):
+            self.config.set("INSTANCE", "KSIG_GLOB", "0.0")
 
-        if not self.config.has_option('INSTANCE', 'FILTER_PATH'):
-            self.config.set('INSTANCE', 'FILTER_PATH', 'None')
+        if not self.config.has_option("INSTANCE", "FILTER_PATH"):
+            self.config.set("INSTANCE", "FILTER_PATH", "None")
 
-        if not self.config.has_option('INSTANCE', 'D_HYB_LOC'):
-            self.config.set('INSTANCE', 'D_HYB_LOC', '2')
+        if not self.config.has_option("INSTANCE", "D_HYB_LOC"):
+            self.config.set("INSTANCE", "D_HYB_LOC", "2")
 
-        if not self.config.has_option('INSTANCE', 'MIN_D_COMP_GLOB'):
-            self.config.set('INSTANCE', 'MIN_D_COMP_GLOB', 'None')
+        if not self.config.has_option("INSTANCE", "MIN_D_COMP_GLOB"):
+            self.config.set("INSTANCE", "MIN_D_COMP_GLOB", "None")
 
-        if not self.config.has_option('INSTANCE', 'CCD_STAR_THRESH'):
-            self.config.set('INSTANCE', 'CCD_STAR_THRESH', '0.15')
+        if not self.config.has_option("INSTANCE", "CCD_STAR_THRESH"):
+            self.config.set("INSTANCE", "CCD_STAR_THRESH", "0.15")
 
-        if not self.config.has_option('INSTANCE', 'RMSE_THRESH'):
-            self.config.set('INSTANCE', 'RMSE_THRESH', '1.25')
+        if not self.config.has_option("INSTANCE", "RMSE_THRESH"):
+            self.config.set("INSTANCE", "RMSE_THRESH", "1.25")
 
-        if not self.config.has_option('INSTANCE', 'FP_GEOMETRY'):
-            self.config.set('INSTANCE', 'FP_GEOMETRY', 'CFIS')
+        if not self.config.has_option("INSTANCE", "FP_GEOMETRY"):
+            self.config.set("INSTANCE", "FP_GEOMETRY", "CFIS")
 
     def _set_fit_options(self):
         """Set Fit Options.
@@ -1288,38 +1234,38 @@ class MCCDParamsParser(object):
         This method checks the ``FIT`` options in the configuration file.
 
         """
-        if not self.config.has_option('FIT', 'PSF_SIZE'):
-            self.config.set('FIT', 'PSF_SIZE', '6.15')
+        if not self.config.has_option("FIT", "PSF_SIZE"):
+            self.config.set("FIT", "PSF_SIZE", "6.15")
 
-        if not self.config.has_option('FIT', 'PSF_SIZE_TYPE'):
-            self.config.set('FIT', 'PSF_SIZE_TYPE', 'R2')
+        if not self.config.has_option("FIT", "PSF_SIZE_TYPE"):
+            self.config.set("FIT", "PSF_SIZE_TYPE", "R2")
 
-        if not self.config.has_option('FIT', 'N_EIGENVECTS'):
-            self.config.set('FIT', 'N_EIGENVECTS', '5')
+        if not self.config.has_option("FIT", "N_EIGENVECTS"):
+            self.config.set("FIT", "N_EIGENVECTS", "5")
 
-        if not self.config.has_option('FIT', 'N_ITER_RCA'):
-            self.config.set('FIT', 'N_ITER_RCA', '1')
+        if not self.config.has_option("FIT", "N_ITER_RCA"):
+            self.config.set("FIT", "N_ITER_RCA", "1")
 
-        if not self.config.has_option('FIT', 'N_ITER_GLOB'):
-            self.config.set('FIT', 'N_ITER_GLOB', '2')
+        if not self.config.has_option("FIT", "N_ITER_GLOB"):
+            self.config.set("FIT", "N_ITER_GLOB", "2")
 
-        if not self.config.has_option('FIT', 'N_ITER_LOC'):
-            self.config.set('FIT', 'N_ITER_LOC', '2')
+        if not self.config.has_option("FIT", "N_ITER_LOC"):
+            self.config.set("FIT", "N_ITER_LOC", "2")
 
-        if not self.config.has_option('FIT', 'NB_SUBITER_S_LOC'):
-            self.config.set('FIT', 'NB_SUBITER_S_LOC', '100')
+        if not self.config.has_option("FIT", "NB_SUBITER_S_LOC"):
+            self.config.set("FIT", "NB_SUBITER_S_LOC", "100")
 
-        if not self.config.has_option('FIT', 'NB_SUBITER_A_LOC'):
-            self.config.set('FIT', 'NB_SUBITER_A_LOC', '500')
+        if not self.config.has_option("FIT", "NB_SUBITER_A_LOC"):
+            self.config.set("FIT", "NB_SUBITER_A_LOC", "500")
 
-        if not self.config.has_option('FIT', 'NB_SUBITER_S_GLOB'):
-            self.config.set('FIT', 'NB_SUBITER_S_GLOB', '30')
+        if not self.config.has_option("FIT", "NB_SUBITER_S_GLOB"):
+            self.config.set("FIT", "NB_SUBITER_S_GLOB", "30")
 
-        if not self.config.has_option('FIT', 'NB_SUBITER_A_GLOB'):
-            self.config.set('FIT', 'NB_SUBITER_A_GLOB', '200')
+        if not self.config.has_option("FIT", "NB_SUBITER_A_GLOB"):
+            self.config.set("FIT", "NB_SUBITER_A_GLOB", "200")
 
-        if not self.config.has_option('FIT', 'LOC_MODEL'):
-            self.config.set('FIT', 'LOC_MODEL', 'hybrid')
+        if not self.config.has_option("FIT", "LOC_MODEL"):
+            self.config.set("FIT", "LOC_MODEL", "hybrid")
 
     def _set_val_options(self):
         """Set Validation Options.
@@ -1338,51 +1284,63 @@ class MCCDParamsParser(object):
             For non-existent output directory
 
         """
-        if not self.config.has_option('VALIDATION', 'VAL_MODEL_INPUT_DIR'):
-            raise RuntimeError('Not input model directory specified.')
-        elif not os.path.isdir(self.config['VALIDATION'][
-                                   'VAL_MODEL_INPUT_DIR']):
-            raise OSError('Directory {} not found.'.format(
-                self.config.has_option('VALIDATION', 'VAL_MODEL_INPUT_DIR')))
+        if not self.config.has_option("VALIDATION", "VAL_MODEL_INPUT_DIR"):
+            raise RuntimeError("Not input model directory specified.")
+        elif not os.path.isdir(self.config["VALIDATION"]["VAL_MODEL_INPUT_DIR"]):
+            raise OSError(
+                "Directory {} not found.".format(
+                    self.config.has_option("VALIDATION", "VAL_MODEL_INPUT_DIR")
+                )
+            )
 
-        if not self.config.has_option('VALIDATION', 'VAL_DATA_INPUT_DIR'):
-            raise RuntimeError('Not input dataset directory specified.')
+        if not self.config.has_option("VALIDATION", "VAL_DATA_INPUT_DIR"):
+            raise RuntimeError("Not input dataset directory specified.")
+        elif not os.path.isdir(self.config["VALIDATION"]["VAL_DATA_INPUT_DIR"]):
+            raise OSError(
+                "Directory {} not found.".format(
+                    self.config.has_option("VALIDATION", "VAL_DATA_INPUT_DIR")
+                )
+            )
+
+        if not self.config.has_option("VALIDATION", "VAL_OUTPUT_DIR"):
+            raise RuntimeError("Not validation output directory specified.")
+        elif not os.path.isdir(self.config["VALIDATION"]["VAL_OUTPUT_DIR"]):
+            raise OSError(
+                "Directory {} not found.".format(
+                    self.config.has_option("VALIDATION", "VAL_OUTPUT_DIR")
+                )
+            )
+
+        if not self.config.has_option("VALIDATION", "VAL_PREPROCESSED_OUTPUT_DIR"):
+            raise RuntimeError(
+                """Not validation preprocessing output
+            directory specified."""
+            )
         elif not os.path.isdir(
-                self.config['VALIDATION']['VAL_DATA_INPUT_DIR']):
-            raise OSError('Directory {} not found.'.format(
-                self.config.has_option('VALIDATION', 'VAL_DATA_INPUT_DIR')))
+            self.config["VALIDATION"]["VAL_PREPROCESSED_OUTPUT_DIR"]
+        ):
+            raise OSError(
+                "Directory {} not found.".format(
+                    self.config.has_option("VALIDATION", "VAL_PREPROCESSED_OUTPUT_DIR")
+                )
+            )
 
-        if not self.config.has_option('VALIDATION', 'VAL_OUTPUT_DIR'):
-            raise RuntimeError('Not validation output directory specified.')
-        elif not os.path.isdir(self.config['VALIDATION']['VAL_OUTPUT_DIR']):
-            raise OSError('Directory {} not found.'.format(
-                self.config.has_option('VALIDATION', 'VAL_OUTPUT_DIR')))
+        if not self.config.has_option("INPUTS", "VAL_REGEX_FILE_PATTERN"):
+            self.config.set(
+                "INPUTS", "VAL_REGEX_FILE_PATTERN", "test-star_selection-*-*.fits"
+            )
 
-        if not self.config.has_option('VALIDATION',
-                                      'VAL_PREPROCESSED_OUTPUT_DIR'):
-            raise RuntimeError('''Not validation preprocessing output
-            directory specified.''')
-        elif not os.path.isdir(self.config['VALIDATION'][
-                                   'VAL_PREPROCESSED_OUTPUT_DIR']):
-            raise OSError('Directory {} not found.'.format(
-                self.config.has_option('VALIDATION',
-                                       'VAL_PREPROCESSED_OUTPUT_DIR')))
+        if not self.config.has_option("INPUTS", "VAL_SEPARATOR"):
+            self.config.set("INPUTS", "VAL_SEPARATOR", "-")
 
-        if not self.config.has_option('INPUTS', 'VAL_REGEX_FILE_PATTERN'):
-            self.config.set('INPUTS', 'VAL_REGEX_FILE_PATTERN',
-                            'test-star_selection-*-*.fits')
+        if not self.config.has_option("INPUTS", "APPLY_DEGRADATION"):
+            self.config.set("INPUTS", "APPLY_DEGRADATION", "True")
 
-        if not self.config.has_option('INPUTS', 'VAL_SEPARATOR'):
-            self.config.set('INPUTS', 'VAL_SEPARATOR', '-')
+        if not self.config.has_option("INPUTS", "MCCD_DEBUG"):
+            self.config.set("INPUTS", "MCCD_DEBUG", "False")
 
-        if not self.config.has_option('INPUTS', 'APPLY_DEGRADATION'):
-            self.config.set('INPUTS', 'APPLY_DEGRADATION', 'True')
-
-        if not self.config.has_option('INPUTS', 'MCCD_DEBUG'):
-            self.config.set('INPUTS', 'MCCD_DEBUG', 'False')
-
-        if not self.config.has_option('INPUTS', 'GLOBAL_POL_INTERP'):
-            self.config.set('INPUTS', 'GLOBAL_POL_INTERP', 'False')
+        if not self.config.has_option("INPUTS", "GLOBAL_POL_INTERP"):
+            self.config.set("INPUTS", "GLOBAL_POL_INTERP", "False")
 
     def parse_document(self):
         r"""Parse config file."""
@@ -1400,38 +1358,36 @@ class MCCDParamsParser(object):
             self.parse_document()
 
         if self.mccd_inst_kw is None:
-            n_comp_loc = int(self.config['INSTANCE'].get('N_COMP_LOC'))
-            d_comp_glob = int(self.config['INSTANCE'].get('D_COMP_GLOB'))
-            ksig_loc = float(self.config['INSTANCE'].get('KSIG_LOC'))
-            ksig_glob = float(self.config['INSTANCE'].get('KSIG_GLOB'))
-            if self.config['INSTANCE'].get('FILTER_PATH') == 'None':
+            n_comp_loc = int(self.config["INSTANCE"].get("N_COMP_LOC"))
+            d_comp_glob = int(self.config["INSTANCE"].get("D_COMP_GLOB"))
+            ksig_loc = float(self.config["INSTANCE"].get("KSIG_LOC"))
+            ksig_glob = float(self.config["INSTANCE"].get("KSIG_GLOB"))
+            if self.config["INSTANCE"].get("FILTER_PATH") == "None":
                 filters = None
             else:
-                filters = self.config['INSTANCE'].get('FILTER_PATH')
-            d_hyb_loc = int(self.config['INSTANCE'].get('D_HYB_LOC'))
-            ccd_star_thresh = float(
-                self.config['INSTANCE'].get('CCD_STAR_THRESH'))
-            rmse_thresh = float(self.config['INSTANCE'].get('RMSE_THRESH'))
-            if self.config['INSTANCE'].get('MIN_D_COMP_GLOB') == 'None':
+                filters = self.config["INSTANCE"].get("FILTER_PATH")
+            d_hyb_loc = int(self.config["INSTANCE"].get("D_HYB_LOC"))
+            ccd_star_thresh = float(self.config["INSTANCE"].get("CCD_STAR_THRESH"))
+            rmse_thresh = float(self.config["INSTANCE"].get("RMSE_THRESH"))
+            if self.config["INSTANCE"].get("MIN_D_COMP_GLOB") == "None":
                 min_d_comp_glob = None
             else:
-                min_d_comp_glob = int(
-                    self.config['INSTANCE'].get('MIN_D_COMP_GLOB'))
+                min_d_comp_glob = int(self.config["INSTANCE"].get("MIN_D_COMP_GLOB"))
 
-            fp_geometry = self.config['INSTANCE'].get('FP_GEOMETRY')
+            fp_geometry = self.config["INSTANCE"].get("FP_GEOMETRY")
 
             # Build the parameter dictionaries
             self.mccd_inst_kw = {
-                'n_comp_loc': n_comp_loc,
-                'd_comp_glob': d_comp_glob,
-                'd_hyb_loc': d_hyb_loc,
-                'min_d_comp_glob': min_d_comp_glob,
-                'filters': filters,
-                'ksig_loc': ksig_loc,
-                'ksig_glob': ksig_glob,
-                'rmse_thresh': rmse_thresh,
-                'ccd_star_thresh': ccd_star_thresh,
-                'fp_geometry': fp_geometry
+                "n_comp_loc": n_comp_loc,
+                "d_comp_glob": d_comp_glob,
+                "d_hyb_loc": d_hyb_loc,
+                "min_d_comp_glob": min_d_comp_glob,
+                "filters": filters,
+                "ksig_loc": ksig_loc,
+                "ksig_glob": ksig_glob,
+                "rmse_thresh": rmse_thresh,
+                "ccd_star_thresh": ccd_star_thresh,
+                "fp_geometry": fp_geometry,
             }
 
     def _build_fit_kw(self):
@@ -1440,31 +1396,31 @@ class MCCDParamsParser(object):
             self.parse_document()
 
         if self.mccd_fit_kw is None:
-            psf_size = float(self.config['FIT'].get('PSF_SIZE'))
-            psf_size_type = self.config['FIT'].get('PSF_SIZE_TYPE')
-            n_eigenvects = int(self.config['FIT'].get('N_EIGENVECTS'))
-            n_iter_rca = int(self.config['FIT'].get('N_ITER_RCA'))
-            nb_iter_glob = int(self.config['FIT'].get('N_ITER_GLOB'))
-            nb_iter_loc = int(self.config['FIT'].get('N_ITER_LOC'))
-            nb_subit_S_loc = int(self.config['FIT'].get('NB_SUBITER_S_LOC'))
-            nb_subit_A_loc = int(self.config['FIT'].get('NB_SUBITER_A_LOC'))
-            nb_subit_S_glob = int(self.config['FIT'].get('NB_SUBITER_S_GLOB'))
-            nb_subit_A_glob = int(self.config['FIT'].get('NB_SUBITER_A_GLOB'))
-            loc_model = self.config['FIT'].get('LOC_MODEL')
+            psf_size = float(self.config["FIT"].get("PSF_SIZE"))
+            psf_size_type = self.config["FIT"].get("PSF_SIZE_TYPE")
+            n_eigenvects = int(self.config["FIT"].get("N_EIGENVECTS"))
+            n_iter_rca = int(self.config["FIT"].get("N_ITER_RCA"))
+            nb_iter_glob = int(self.config["FIT"].get("N_ITER_GLOB"))
+            nb_iter_loc = int(self.config["FIT"].get("N_ITER_LOC"))
+            nb_subit_S_loc = int(self.config["FIT"].get("NB_SUBITER_S_LOC"))
+            nb_subit_A_loc = int(self.config["FIT"].get("NB_SUBITER_A_LOC"))
+            nb_subit_S_glob = int(self.config["FIT"].get("NB_SUBITER_S_GLOB"))
+            nb_subit_A_glob = int(self.config["FIT"].get("NB_SUBITER_A_GLOB"))
+            loc_model = self.config["FIT"].get("LOC_MODEL")
 
             # Build the parameter dictionaries
             self.mccd_fit_kw = {
-                'psf_size': psf_size,
-                'psf_size_type': psf_size_type,
-                'n_eigenvects': n_eigenvects,
-                'nb_iter': n_iter_rca,
-                'nb_iter_glob': nb_iter_glob,
-                'nb_iter_loc': nb_iter_loc,
-                'nb_subiter_S_loc': nb_subit_S_loc,
-                'nb_subiter_A_loc': nb_subit_A_loc,
-                'nb_subiter_S_glob': nb_subit_S_glob,
-                'nb_subiter_A_glob': nb_subit_A_glob,
-                'loc_model': loc_model
+                "psf_size": psf_size,
+                "psf_size_type": psf_size_type,
+                "n_eigenvects": n_eigenvects,
+                "nb_iter": n_iter_rca,
+                "nb_iter_glob": nb_iter_glob,
+                "nb_iter_loc": nb_iter_loc,
+                "nb_subiter_S_loc": nb_subit_S_loc,
+                "nb_subiter_A_loc": nb_subit_A_loc,
+                "nb_subiter_S_glob": nb_subit_S_glob,
+                "nb_subiter_A_glob": nb_subit_A_glob,
+                "loc_model": loc_model,
             }
 
     def _build_inputs_kw(self):
@@ -1473,35 +1429,32 @@ class MCCDParamsParser(object):
             self.parse_document()
 
         if self.mccd_inputs_kw is None:
-            input_folder_path = self.config['INPUTS'].get('INPUT_DIR')
-            output_path = self.config['INPUTS'].get('PREPROCESSED_OUTPUT_DIR')
-            min_n_stars = int(self.config['INPUTS'].get('MIN_N_STARS'))
-            file_pattern = self.config['INPUTS'].get(
-                'INPUT_REGEX_FILE_PATTERN')
-            separator = self.config['INPUTS'].get('INPUT_SEPARATOR')
-            outlier_std_max = float(self.config['INPUTS'].get(
-                'OUTLIER_STD_MAX'))
-            if self.config['INPUTS'].get('USE_SNR_WEIGHTS') == 'True':
+            input_folder_path = self.config["INPUTS"].get("INPUT_DIR")
+            output_path = self.config["INPUTS"].get("PREPROCESSED_OUTPUT_DIR")
+            min_n_stars = int(self.config["INPUTS"].get("MIN_N_STARS"))
+            file_pattern = self.config["INPUTS"].get("INPUT_REGEX_FILE_PATTERN")
+            separator = self.config["INPUTS"].get("INPUT_SEPARATOR")
+            outlier_std_max = float(self.config["INPUTS"].get("OUTLIER_STD_MAX"))
+            if self.config["INPUTS"].get("USE_SNR_WEIGHTS") == "True":
                 use_SNR_weight = True
-            elif self.config['INPUTS'].get('USE_SNR_WEIGHTS') == 'False':
+            elif self.config["INPUTS"].get("USE_SNR_WEIGHTS") == "False":
                 use_SNR_weight = False
             else:
-                raise RuntimeError('USE_SNR_WEIGHTS should be True or False.')
+                raise RuntimeError("USE_SNR_WEIGHTS should be True or False.")
 
             self.mccd_inputs_kw = {
-                'input_folder_path': input_folder_path,
-                'output_path': output_path,
-                'min_n_stars': min_n_stars,
-                'file_pattern': file_pattern,
-                'separator': separator,
-                'outlier_std_max': outlier_std_max,
-                'save_name': 'train_star_selection',
-                'save_extension': '.fits'
+                "input_folder_path": input_folder_path,
+                "output_path": output_path,
+                "min_n_stars": min_n_stars,
+                "file_pattern": file_pattern,
+                "separator": separator,
+                "outlier_std_max": outlier_std_max,
+                "save_name": "train_star_selection",
+                "save_extension": ".fits",
             }
 
-            self.mccd_extra_kw['use_SNR_weight'] = use_SNR_weight
-            self.mccd_extra_kw['output_dir'] = self.config['INPUTS'].get(
-                'OUTPUT_DIR')
+            self.mccd_extra_kw["use_SNR_weight"] = use_SNR_weight
+            self.mccd_extra_kw["output_dir"] = self.config["INPUTS"].get("OUTPUT_DIR")
 
     def _build_val_kw(self):
         r"""Build ``VALIDATION`` parameter dictionary."""
@@ -1509,58 +1462,60 @@ class MCCDParamsParser(object):
             self.parse_document()
 
         if self.mccd_val_kw is None:
-            if self.config['VALIDATION'].get('APPLY_DEGRADATION') == 'True':
+            if self.config["VALIDATION"].get("APPLY_DEGRADATION") == "True":
                 apply_degradation = True
-            elif self.config['VALIDATION'].get('APPLY_DEGRADATION') == 'False':
+            elif self.config["VALIDATION"].get("APPLY_DEGRADATION") == "False":
                 apply_degradation = False
             else:
-                raise RuntimeError('APPLY_DEGRADATION must be True or False.')
+                raise RuntimeError("APPLY_DEGRADATION must be True or False.")
 
-            if self.config['VALIDATION'].get('MCCD_DEBUG') == 'True':
+            if self.config["VALIDATION"].get("MCCD_DEBUG") == "True":
                 mccd_debug = True
-            elif self.config['VALIDATION'].get('MCCD_DEBUG') == 'False':
+            elif self.config["VALIDATION"].get("MCCD_DEBUG") == "False":
                 mccd_debug = False
             else:
-                raise RuntimeError('MCCD_DEBUG must be True or False.')
+                raise RuntimeError("MCCD_DEBUG must be True or False.")
 
-            if self.config['VALIDATION'].get('GLOBAL_POL_INTERP') == 'True':
+            if self.config["VALIDATION"].get("GLOBAL_POL_INTERP") == "True":
                 global_pol_interp = True
-            elif self.config['VALIDATION'].get('GLOBAL_POL_INTERP') == 'False':
+            elif self.config["VALIDATION"].get("GLOBAL_POL_INTERP") == "False":
                 global_pol_interp = False
             else:
-                raise RuntimeError('GLOBAL_POL_INTERP must be True or False.')
+                raise RuntimeError("GLOBAL_POL_INTERP must be True or False.")
 
             # Build the parameter dictionaries
-            self.mccd_val_kw = {'apply_degradation': apply_degradation,
-                                'mccd_debug': mccd_debug,
-                                'global_pol_interp': global_pol_interp}
+            self.mccd_val_kw = {
+                "apply_degradation": apply_degradation,
+                "mccd_debug": mccd_debug,
+                "global_pol_interp": global_pol_interp,
+            }
 
-            val_input_folder_path = self.config['VALIDATION'].get(
-                'VAL_DATA_INPUT_DIR')
-            val_output_path = self.config['VALIDATION'].get(
-                'VAL_PREPROCESSED_OUTPUT_DIR')
-            val_file_pattern = self.config['VALIDATION'].get(
-                'VAL_REGEX_FILE_PATTERN')
-            val_separator = self.config['VALIDATION'].get('VAL_SEPARATOR')
-            outlier_std_max = float(self.config['INPUTS'].get(
-                'OUTLIER_STD_MAX'))
+            val_input_folder_path = self.config["VALIDATION"].get("VAL_DATA_INPUT_DIR")
+            val_output_path = self.config["VALIDATION"].get(
+                "VAL_PREPROCESSED_OUTPUT_DIR"
+            )
+            val_file_pattern = self.config["VALIDATION"].get("VAL_REGEX_FILE_PATTERN")
+            val_separator = self.config["VALIDATION"].get("VAL_SEPARATOR")
+            outlier_std_max = float(self.config["INPUTS"].get("OUTLIER_STD_MAX"))
 
             # Build the preprocessing validatoin parameter dictionaries
             self.mccd_val_prepro_kw = {
-                'input_folder_path': val_input_folder_path,
-                'output_path': val_output_path,
-                'min_n_stars': 1,
-                'file_pattern': val_file_pattern,
-                'separator': val_separator,
-                'outlier_std_max': outlier_std_max,
-                'save_name': 'test_star_selection',
-                'save_extension': '.fits'
+                "input_folder_path": val_input_folder_path,
+                "output_path": val_output_path,
+                "min_n_stars": 1,
+                "file_pattern": val_file_pattern,
+                "separator": val_separator,
+                "outlier_std_max": outlier_std_max,
+                "save_name": "test_star_selection",
+                "save_extension": ".fits",
             }
 
-            self.mccd_extra_kw['val_model_input_dir'] = self.config[
-                'VALIDATION'].get('VAL_MODEL_INPUT_DIR')
-            self.mccd_extra_kw['val_model_input_dir'] = self.config[
-                'VALIDATION'].get('VAL_OUTPUT_DIR')
+            self.mccd_extra_kw["val_model_input_dir"] = self.config["VALIDATION"].get(
+                "VAL_MODEL_INPUT_DIR"
+            )
+            self.mccd_extra_kw["val_model_input_dir"] = self.config["VALIDATION"].get(
+                "VAL_OUTPUT_DIR"
+            )
 
     def get_extra_kw(self, param_name):
         r"""Get parameter from extra arguments.
@@ -1670,12 +1625,7 @@ class RunMCCD(object):
 
     """
 
-    def __init__(
-        self,
-        config_file_path,
-        fits_table_pos=1,
-        verbose=True
-    ):
+    def __init__(self, config_file_path, fits_table_pos=1, verbose=True):
         r"""Initialize class."""
         self.config_file_path = config_file_path
 
@@ -1691,14 +1641,14 @@ class RunMCCD(object):
         self.val_catalog_ids = None
         self.catalog_ids = None
 
-        self.preprocess_name = 'train_star_selection'
-        self.file_extension = '.fits'
+        self.preprocess_name = "train_star_selection"
+        self.file_extension = ".fits"
         self.fits_table_pos = fits_table_pos
         self.separator = None
 
-        self.fitting_model_saving_name = 'fitted_model'
+        self.fitting_model_saving_name = "fitted_model"
 
-        self.val_saving_name = 'validation_psf'
+        self.val_saving_name = "validation_psf"
 
         self.use_SNR_weight = None
         self.fit_output_dir = None
@@ -1711,9 +1661,9 @@ class RunMCCD(object):
         self.parse_config_file()
 
         # Define geometry
-        if self.mccd_inst_kw['fp_geometry'] == 'CFIS':
+        if self.mccd_inst_kw["fp_geometry"] == "CFIS":
             self.loc2glob = mccd_utils.Loc2Glob()
-        elif self.mccd_inst_kw['fp_geometry'] == 'EUCLID':
+        elif self.mccd_inst_kw["fp_geometry"] == "EUCLID":
             self.loc2glob = mccd_utils.Loc2Glob_EUCLID_sim()
         else:
             raise NotImplementedError
@@ -1728,10 +1678,9 @@ class RunMCCD(object):
             self.mccd_val_prepro_kw = self.param_parser.get_val_prepro_kw()
             self.mccd_val_kw = self.param_parser.get_val_kw()
 
-            self.separator = self.mccd_inputs_kw['separator']
-            self.use_SNR_weight = self.param_parser.get_extra_kw(
-                'use_SNR_weight')
-            self.fit_output_dir = self.param_parser.get_extra_kw('output_dir')
+            self.separator = self.mccd_inputs_kw["separator"]
+            self.use_SNR_weight = self.param_parser.get_extra_kw("use_SNR_weight")
+            self.fit_output_dir = self.param_parser.get_extra_kw("output_dir")
 
             self.parsed_parameters = True
 
@@ -1740,8 +1689,7 @@ class RunMCCD(object):
         if not self.parsed_parameters:
             self.parse_config_file()
         self.mccd_inputs = mccd_preprocessing(
-            **self.mccd_inputs_kw,
-            fits_tb_pos=self.fits_table_pos
+            **self.mccd_inputs_kw, fits_tb_pos=self.fits_table_pos
         )
         self.catalog_ids = self.mccd_inputs.get_catalog_ids()
 
@@ -1750,8 +1698,7 @@ class RunMCCD(object):
         if not self.parsed_parameters:
             self.parse_config_file()
         self.val_mccd_inputs = mccd_preprocessing(
-            **self.mccd_val_prepro_kw,
-            fits_tb_pos=self.fits_table_pos
+            **self.mccd_val_prepro_kw, fits_tb_pos=self.fits_table_pos
         )
         self.val_catalog_ids = self.val_mccd_inputs.get_catalog_ids()
 
@@ -1762,17 +1709,22 @@ class RunMCCD(object):
         if self.mccd_inputs is None:
             self.preprocess_inputs()
 
-        input_dir = self.mccd_inputs_kw['output_path']
+        input_dir = self.mccd_inputs_kw["output_path"]
         output_dir = self.fit_output_dir
 
         for _cat_id in self.catalog_ids:
             if not isinstance(_cat_id, str):
-                cat_id = '%07d' % _cat_id
+                cat_id = "%07d" % _cat_id
             else:
                 cat_id = _cat_id
 
-            input_path = input_dir + self.preprocess_name + self.separator \
-                + cat_id + self.file_extension
+            input_path = (
+                input_dir
+                + self.preprocess_name
+                + self.separator
+                + cat_id
+                + self.file_extension
+            )
 
             if os.path.isfile(input_path):
                 try:
@@ -1783,7 +1735,7 @@ class RunMCCD(object):
                     # preprocessed data.
                     starcat = fits.open(input_path)[1]
             else:
-                raise OSError('File {} not found.'.format(input_path))
+                raise OSError("File {} not found.".format(input_path))
 
             mccd_fit(
                 starcat,
@@ -1794,7 +1746,7 @@ class RunMCCD(object):
                 sex_thresh=-1e5,
                 use_SNR_weight=self.use_SNR_weight,
                 verbose=self.verbose,
-                saving_name=self.fitting_model_saving_name + self.separator
+                saving_name=self.fitting_model_saving_name + self.separator,
             )
 
     def validate_models(self):
@@ -1805,33 +1757,37 @@ class RunMCCD(object):
             self.preprocess_val_inputs()
 
         # Preprocessed validation dir
-        input_dir = self.mccd_val_prepro_kw['output_path']
+        input_dir = self.mccd_val_prepro_kw["output_path"]
         # Fit model input dir
-        fit_model_input_dir = self.param_parser.get_extra_kw(
-            'val_model_input_dir')
+        fit_model_input_dir = self.param_parser.get_extra_kw("val_model_input_dir")
         # Validation output dir
-        val_output_dir = self.param_parser.get_extra_kw('val_model_input_dir')
+        val_output_dir = self.param_parser.get_extra_kw("val_model_input_dir")
 
         for _cat_id in self.val_catalog_ids:
             if not isinstance(_cat_id, str):
-                cat_id = '%07d' % _cat_id
+                cat_id = "%07d" % _cat_id
             else:
                 cat_id = _cat_id
 
             if self.verbose:
-                print('Validating catalog %s..' % cat_id)
+                print("Validating catalog %s.." % cat_id)
 
             # Check if there is the fitted model
-            fit_model_path = fit_model_input_dir + \
-                self.fitting_model_saving_name + self.separator + \
-                cat_id + '.npy'
+            fit_model_path = (
+                fit_model_input_dir
+                + self.fitting_model_saving_name
+                + self.separator
+                + cat_id
+                + ".npy"
+            )
 
             if os.path.isfile(fit_model_path):
-                prepro_name = self.mccd_val_prepro_kw['save_name']
-                separator = self.mccd_val_prepro_kw['separator']
-                save_extension = self.mccd_val_prepro_kw['save_extension']
-                input_val_path = input_dir + prepro_name + separator + \
-                    cat_id + save_extension
+                prepro_name = self.mccd_val_prepro_kw["save_name"]
+                separator = self.mccd_val_prepro_kw["separator"]
+                save_extension = self.mccd_val_prepro_kw["save_extension"]
+                input_val_path = (
+                    input_dir + prepro_name + separator + cat_id + save_extension
+                )
 
                 testcat = fits.open(input_val_path)[self.fits_table_pos]
 
@@ -1843,18 +1799,27 @@ class RunMCCD(object):
                     loc2glob=self.loc2glob
                 )
 
-                saving_path = val_output_dir + self.val_saving_name + \
-                    separator + cat_id + save_extension
+                saving_path = (
+                    val_output_dir
+                    + self.val_saving_name
+                    + separator
+                    + cat_id
+                    + save_extension
+                )
                 # Save validation dictionary to fits file
                 mccd_utils.save_to_fits(val_dict, saving_path)
                 if self.verbose:
-                    print('Validation catalog < %s > saved.' % (
-                            self.val_saving_name + separator + cat_id +
-                            save_extension))
+                    print(
+                        "Validation catalog < %s > saved."
+                        % (self.val_saving_name + separator + cat_id + save_extension)
+                    )
 
             else:
-                print('''Fitted model corresponding to catalog %d was not
-                    found.''' % cat_id)
+                print(
+                    """Fitted model corresponding to catalog %d was not
+                    found."""
+                    % cat_id
+                )
 
     def fit_MCCD_models(self):
         r"""Fit MCCD models."""
@@ -1876,13 +1841,7 @@ class RunMCCD(object):
         self.preprocess_val_inputs()
         self.validate_models()
 
-    def recover_MCCD_PSFs(
-        self,
-        mccd_model_path,
-        positions,
-        ccd_id,
-        local_pos=False
-    ):
+    def recover_MCCD_PSFs(self, mccd_model_path, positions, ccd_id, local_pos=False):
         r"""Recover MCCD PSFs at required positions.
 
         Parameters
@@ -1916,20 +1875,18 @@ class RunMCCD(object):
 
         """
         if not os.path.isfile(mccd_model_path):
-            raise OSError('Fitted model {} not found.'.format(mccd_model_path))
+            raise OSError("Fitted model {} not found.".format(mccd_model_path))
 
         if not isinstance(ccd_id, int):
-            raise ValueError('Parameter ccd_id should be an integer.')
+            raise ValueError("Parameter ccd_id should be an integer.")
 
         if local_pos:
-            glob_pos = np.array([
-                self.loc2glob.loc2glob_img_coord(
-                    ccd_id,
-                    _pos[0],
-                    _pos[1]
-                )
-                for _pos in positions
-            ])
+            glob_pos = np.array(
+                [
+                    self.loc2glob.loc2glob_img_coord(ccd_id, _pos[0], _pos[1])
+                    for _pos in positions
+                ]
+            )
         else:
             glob_pos = positions
 

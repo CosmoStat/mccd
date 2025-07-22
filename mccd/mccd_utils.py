@@ -84,14 +84,7 @@ class Loc2Glob(object):
         'COMMENT    __________________________'
     """
 
-    def __init__(
-        self,
-        x_gap=70,
-        y_gap=425,
-        x_npix=2048,
-        y_npix=4612,
-        ccd_tot=40
-    ):
+    def __init__(self, x_gap=70, y_gap=425, x_npix=2048, y_npix=4612, ccd_tot=40):
         r"""Initialize with instrument geometry."""
         self.x_gap = x_gap
         self.y_gap = y_gap
@@ -146,15 +139,13 @@ class Loc2Glob(object):
         return x_coor, y_coor
 
     def x_coord_range(self):
-        r""" Return range of the x coordinate.
-        """
+        r"""Return range of the x coordinate."""
         max_x = self.x_npix * 6 + self.x_gap * 5
         min_x = self.x_npix * (-5) + self.x_gap * (-5)
         return min_x, max_x
 
     def y_coord_range(self):
-        r""" Return range of the y coordinate.
-        """
+        r"""Return range of the y coordinate."""
         max_y = self.y_npix * 2 + self.y_gap * 1
         min_y = self.y_npix * (-2) + self.y_gap * (-2)
         return min_y, max_y
@@ -174,43 +165,43 @@ class Loc2Glob(object):
         elif ccd_n < 18:
             # second row, non-ears
             x_shift = (ccd_n - 13) * (self.x_gap + self.x_npix)
-            y_shift = 0.
+            y_shift = 0.0
             return x_shift, y_shift
 
         elif ccd_n < 27:
             # third row non-ears
             x_shift = (ccd_n - 22) * (self.x_gap + self.x_npix)
-            y_shift = -1. * (self.y_gap + self.y_npix)
+            y_shift = -1.0 * (self.y_gap + self.y_npix)
             return x_shift, y_shift
 
         elif ccd_n < 36:
             # fourth row
             x_shift = (ccd_n - 31) * (self.x_gap + self.x_npix)
-            y_shift = -2. * (self.y_gap + self.y_npix)
+            y_shift = -2.0 * (self.y_gap + self.y_npix)
             return x_shift, y_shift
 
         elif ccd_n < 37:
             # ccd= 36 ears, second row
-            x_shift = (-5.) * (self.x_gap + self.x_npix)
-            y_shift = 0.
+            x_shift = (-5.0) * (self.x_gap + self.x_npix)
+            y_shift = 0.0
             return x_shift, y_shift
 
         elif ccd_n < 38:
             # ccd= 37 ears, second row
-            x_shift = 5. * (self.x_gap + self.x_npix)
-            y_shift = 0.
+            x_shift = 5.0 * (self.x_gap + self.x_npix)
+            y_shift = 0.0
             return x_shift, y_shift
 
         elif ccd_n < 39:
             # ccd= 38 ears, third row
-            x_shift = (-5.) * (self.x_gap + self.x_npix)
-            y_shift = -1. * (self.y_gap + self.y_npix)
+            x_shift = (-5.0) * (self.x_gap + self.x_npix)
+            y_shift = -1.0 * (self.y_gap + self.y_npix)
             return x_shift, y_shift
 
         elif ccd_n < 40:
             # ccd= 39 ears, third row
-            x_shift = 5. * (self.x_gap + self.x_npix)
-            y_shift = -1. * (self.y_gap + self.y_npix)
+            x_shift = 5.0 * (self.x_gap + self.x_npix)
+            y_shift = -1.0 * (self.y_gap + self.y_npix)
             return x_shift, y_shift
 
 
@@ -298,13 +289,12 @@ class Loc2Glob_EUCLID_sim(object):
         return x_coor + x_shift, y_coor + y_shift
 
     def glob2loc_img_coord(self, x_coor, y_coor):
-        r""" Go from global to local coordinates.
-        """
+        r"""Go from global to local coordinates."""
         # Determine the CCD
         ccd_n = int(
-            (-y_coor // (self.y_npix + self.y_gap) + 3) * 6 + (
-                x_coor // (self.x_npix + self.x_gap)
-            ) + 3
+            (-y_coor // (self.y_npix + self.y_gap) + 3) * 6
+            + (x_coor // (self.x_npix + self.x_gap))
+            + 3
         )
         # Calculate shifts
         x_shift, y_shift = self.shift_coord(ccd_n)
@@ -320,15 +310,13 @@ class Loc2Glob_EUCLID_sim(object):
         return x_coor, y_coor
 
     def x_coord_range(self):
-        r""" Return range of the x coordinate.
-        """
+        r"""Return range of the x coordinate."""
         max_x = self.x_npix * 3 + self.x_gap * 2
         min_x = self.x_npix * (-3) + self.x_gap * (-3)
         return min_x, max_x
 
     def y_coord_range(self):
-        r""" Return range of the y coordinate.
-        """
+        r"""Return range of the y coordinate."""
         max_y = self.y_npix * 3 + self.y_gap * 2
         min_y = self.y_npix * (-3) + self.y_gap * (-3)
         return min_y, max_y
@@ -339,14 +327,14 @@ class Loc2Glob_EUCLID_sim(object):
         It is needed to go from the local coordinate
         system origin to the global coordinate system origin.
         """
-        x_shift = (ccd_n - 3. - (ccd_n // 6) * 6) * (self.x_gap + self.x_npix)
-        y_shift = (2. - (ccd_n // 6)) * (self.y_gap + self.y_npix)
+        x_shift = (ccd_n - 3.0 - (ccd_n // 6) * 6) * (self.x_gap + self.x_npix)
+        y_shift = (2.0 - (ccd_n // 6)) * (self.y_gap + self.y_npix)
 
         return x_shift, y_shift
 
 
 class Glob2CCD(object):
-    r""" Get the CCD ID number from the global coordinate position.
+    r"""Get the CCD ID number from the global coordinate position.
 
     The Loc2Glob() object as input is the one that defines the instrument's
     geometry.
@@ -358,6 +346,7 @@ class Glob2CCD(object):
     with_gaps: bool
         If add the gaps to the CCD area.
     """
+
     def __init__(self, loc2glob, with_gaps=True):
         # Save loc2glob object
         self.loc2glob = loc2glob
@@ -367,63 +356,53 @@ class Glob2CCD(object):
         self.edge_x_list, self.edge_y_list = self.build_all_edges()
 
     def build_all_edges(self):
-        """ Build the edges for all the CCDs in the focal plane.
-        """
-        edge_x_list = np.array([
-            self.build_edge(ccd_n)[0] for ccd_n in self.ccd_list
-        ])
-        edge_y_list = np.array([
-            self.build_edge(ccd_n)[1] for ccd_n in self.ccd_list
-        ])
+        """Build the edges for all the CCDs in the focal plane."""
+        edge_x_list = np.array([self.build_edge(ccd_n)[0] for ccd_n in self.ccd_list])
+        edge_y_list = np.array([self.build_edge(ccd_n)[1] for ccd_n in self.ccd_list])
 
         return edge_x_list, edge_y_list
 
     def build_edge(self, ccd_n):
-        """ Build the edges of the `ccd_n` in global coordinates.
-        """
+        """Build the edges of the `ccd_n` in global coordinates."""
         if self.with_gaps:
-            corners = np.array([
+            corners = np.array(
                 [
-                    -self.loc2glob.x_gap / 2,
-                    -self.loc2glob.y_gap / 2
-                ],
-                [
-                    self.loc2glob.x_npix + self.loc2glob.x_gap / 2,
-                    -self.loc2glob.y_gap / 2
-                ],
-                [
-                    -self.loc2glob.x_gap / 2,
-                    self.loc2glob.y_npix + self.loc2glob.y_gap / 2
-                ],
-                [
-                    self.loc2glob.x_npix + self.loc2glob.x_gap / 2,
-                    self.loc2glob.y_npix + self.loc2glob.y_gap / 2,
-                ],
-            ])
+                    [-self.loc2glob.x_gap / 2, -self.loc2glob.y_gap / 2],
+                    [
+                        self.loc2glob.x_npix + self.loc2glob.x_gap / 2,
+                        -self.loc2glob.y_gap / 2,
+                    ],
+                    [
+                        -self.loc2glob.x_gap / 2,
+                        self.loc2glob.y_npix + self.loc2glob.y_gap / 2,
+                    ],
+                    [
+                        self.loc2glob.x_npix + self.loc2glob.x_gap / 2,
+                        self.loc2glob.y_npix + self.loc2glob.y_gap / 2,
+                    ],
+                ]
+            )
         else:
-            corners = np.array([
-                [0, 0],
-                [self.loc2glob.x_npix, 0],
-                [0, self.loc2glob.y_npix],
-                [self.loc2glob.x_npix, self.loc2glob.y_npix],
-            ])
+            corners = np.array(
+                [
+                    [0, 0],
+                    [self.loc2glob.x_npix, 0],
+                    [0, self.loc2glob.y_npix],
+                    [self.loc2glob.x_npix, self.loc2glob.y_npix],
+                ]
+            )
 
-        glob_corners = np.array([
-            self.loc2glob.loc2glob_img_coord(ccd_n, pos[0], pos[1])
-            for pos in corners
-        ])
+        glob_corners = np.array(
+            [self.loc2glob.loc2glob_img_coord(ccd_n, pos[0], pos[1]) for pos in corners]
+        )
 
-        edge_x = np.array([
-            np.min(glob_corners[:, 0]), np.max(glob_corners[:, 0])
-        ])
-        edge_y = np.array([
-            np.min(glob_corners[:, 1]), np.max(glob_corners[:, 1])
-        ])
+        edge_x = np.array([np.min(glob_corners[:, 0]), np.max(glob_corners[:, 0])])
+        edge_y = np.array([np.min(glob_corners[:, 1]), np.max(glob_corners[:, 1])])
 
         return edge_x, edge_y
 
     def is_inside(self, x, y, edge_x, edge_y):
-        """ Is the position inside the edges.
+        """Is the position inside the edges.
 
         Return True if the position is within the rectangle
         defined by the edges.
@@ -439,21 +418,22 @@ class Glob2CCD(object):
         edge_y: np.ndarray
             Edge defined as `np.array([min_y, max_y])`.
         """
-        if (x > edge_x[0]) and (x < edge_x[1]) and \
-           (y > edge_y[0]) and (y < edge_y[1]):
+        if (x > edge_x[0]) and (x < edge_x[1]) and (y > edge_y[0]) and (y < edge_y[1]):
             return True
         else:
             return False
 
     def get_ccd_n(self, x, y):
-        """ Returns the CCD number from the position `(x, y)`.
+        """Returns the CCD number from the position `(x, y)`.
 
         Returns `None` if the position is not found.
         """
-        bool_list = np.array([
-            self.is_inside(x, y, edge_x, edge_y)
-            for edge_x, edge_y in zip(self.edge_x_list, self.edge_y_list)
-        ])
+        bool_list = np.array(
+            [
+                self.is_inside(x, y, edge_x, edge_y)
+                for edge_x, edge_y in zip(self.edge_x_list, self.edge_y_list)
+            ]
+        )
 
         try:
             return self.ccd_list[bool_list][0]
@@ -509,9 +489,15 @@ class MccdInputs(object):
         Default is ``2`` that's the case for the CFIS data.
     """
 
-    def __init__(self, separator='-', coord_x_descriptor='XWIN_IMAGE',
-                 coord_y_descriptor='YWIN_IMAGE', mask_thresh=-1e5,
-                 loc2glob=None, fits_tb_pos=2):
+    def __init__(
+        self,
+        separator="-",
+        coord_x_descriptor="XWIN_IMAGE",
+        coord_y_descriptor="YWIN_IMAGE",
+        mask_thresh=-1e5,
+        loc2glob=None,
+        fits_tb_pos=2,
+    ):
         r"""Initialize class attributes."""
         self.separator = separator
         self.coord_x_descriptor = coord_x_descriptor
@@ -574,7 +560,7 @@ class MccdInputs(object):
 
         """
         # Remove the .fits or the extension
-        my_path = path.split('.')[-2]
+        my_path = path.split(".")[-2]
 
         # split the path to get the info
         splitted_str = my_path.split(self.separator)
@@ -604,8 +590,11 @@ class MccdInputs(object):
         file_paths.sort()
 
         complete_list = np.array(
-            [[self.parse_path(path)[0], self.parse_path(path)[1], path]
-             for path in file_paths])
+            [
+                [self.parse_path(path)[0], self.parse_path(path)[1], path]
+                for path in file_paths
+            ]
+        )
 
         starcat_unique_ids = np.unique(complete_list[:, 0])
 
@@ -615,7 +604,7 @@ class MccdInputs(object):
         for it in range(starcat_unique_ids.shape[0]):
             st_id = starcat_unique_ids[it]
 
-            indexes = (complete_list[:, 0] == str(st_id))
+            indexes = complete_list[:, 0] == str(st_id)
             starcat_list.append(complete_list[indexes, :])
 
         # Save the ids
@@ -649,10 +638,16 @@ class MccdInputs(object):
         element (starcat_id, ccd_n, path).
 
         """
-        complete_list = np.array([[self.parse_path(path[element_position])[0],
-                                   self.parse_path(path[element_position])[1],
-                                   path[element_position]]
-                                  for path in input_list])
+        complete_list = np.array(
+            [
+                [
+                    self.parse_path(path[element_position])[0],
+                    self.parse_path(path[element_position])[1],
+                    path[element_position],
+                ]
+                for path in input_list
+            ]
+        )
         starcat_unique_ids = np.unique(complete_list[:, 0])
 
         # Create  list for each star catalog including all the CCDs
@@ -661,7 +656,7 @@ class MccdInputs(object):
         for it in range(starcat_unique_ids.shape[0]):
             st_id = starcat_unique_ids[it]
 
-            indexes = (complete_list[:, 0] == str(st_id))
+            indexes = complete_list[:, 0] == str(st_id)
             starcat_list.append(complete_list[indexes, :])
 
         # Save the ids
@@ -724,23 +719,21 @@ class MccdInputs(object):
 
         for it in range(number_ccd):
             starcat = fits.open(starcat_array[it, 2], memmap=False)
-            ccd = starcat_array[it, 1].astype('int')
+            ccd = starcat_array[it, 1].astype("int")
 
-            positions = np.array([
-                self.loc2glob.loc2glob_img_coord(ccd, x, y) for x, y in
-                zip(
-                     starcat[self.fits_tb_pos].data[self.coord_x_descriptor],
-                     starcat[self.fits_tb_pos].data[self.coord_y_descriptor]
-                )
-            ])
-
-            stars = utils.rca_format(
-                starcat[self.fits_tb_pos].data['VIGNET']
+            positions = np.array(
+                [
+                    self.loc2glob.loc2glob_img_coord(ccd, x, y)
+                    for x, y in zip(
+                        starcat[self.fits_tb_pos].data[self.coord_x_descriptor],
+                        starcat[self.fits_tb_pos].data[self.coord_y_descriptor],
+                    )
+                ]
             )
+
+            stars = utils.rca_format(starcat[self.fits_tb_pos].data["VIGNET"])
             masks = self.handle_mask(
-                stars,
-                thresh=self.mask_thresh,
-                apply_to_stars=True
+                stars, thresh=self.mask_thresh, apply_to_stars=True
             )
 
             star_list.append(stars)
@@ -749,18 +742,14 @@ class MccdInputs(object):
             ccd_list.append(ccd)
 
             try:
-                SNR = starcat[self.fits_tb_pos].data['SNR_WIN']
+                SNR = starcat[self.fits_tb_pos].data["SNR_WIN"]
                 SNR_list.append(SNR)
             except Exception:
                 SNR_list = None
 
             try:
-                RA_list.append(
-                    starcat[self.fits_tb_pos].data['XWIN_WORLD']
-                )
-                DEC_list.append(
-                    starcat[self.fits_tb_pos].data['YWIN_WORLD']
-                )
+                RA_list.append(starcat[self.fits_tb_pos].data["XWIN_WORLD"])
+                DEC_list.append(starcat[self.fits_tb_pos].data["YWIN_WORLD"])
             except Exception:
                 RA_list = None
                 DEC_list = None
@@ -773,8 +762,15 @@ class MccdInputs(object):
         self.RA_list = RA_list
         self.DEC_list = DEC_list
 
-        return star_list, position_list, mask_list, ccd_list, SNR_list,\
-            RA_list, DEC_list
+        return (
+            star_list,
+            position_list,
+            mask_list,
+            ccd_list,
+            SNR_list,
+            RA_list,
+            DEC_list,
+        )
 
     def preprocess_data(self, folder_path, pattern):
         r"""Preprocess the data.
@@ -837,11 +833,10 @@ class MccdInputs(object):
             Catalog id (exposure id) to be processed.
 
         """
-        print('Extracting catalog_id %s ..' % catalog_id)
+        print("Extracting catalog_id %s .." % catalog_id)
 
         # Look for the catalog_id in the list
-        idx = np.array(
-            [catalog_id == starcat[0, 0] for starcat in self.starcat_list])
+        idx = np.array([catalog_id == starcat[0, 0] for starcat in self.starcat_list])
         idx = np.argwhere(idx)[0][0]
 
         # Return the inputs
@@ -852,9 +847,17 @@ class MccdInputs(object):
         return self.catalog_ids
 
     @staticmethod
-    def outlier_rejection(star_list, pos_list, mask_list, ccd_list,
-                          SNR_list=None, RA_list=None, DEC_list=None,
-                          shape_std_max=5., print_fun=None):
+    def outlier_rejection(
+        star_list,
+        pos_list,
+        mask_list,
+        ccd_list,
+        SNR_list=None,
+        RA_list=None,
+        DEC_list=None,
+        shape_std_max=5.0,
+        print_fun=None,
+    ):
         r"""Outlier star rejection method.
 
         Notes
@@ -875,6 +878,7 @@ class MccdInputs(object):
         """
         # Define the printing function. Could be printing on a log file.
         if print_fun is None:
+
             def print_fun(msg):
                 print(msg)
 
@@ -886,28 +890,37 @@ class MccdInputs(object):
         # hsm thinks 0 means good
         badpix_masks = np.rint(np.abs(all_masks - 1))
 
-        star_moms = [hsm.FindAdaptiveMom(Image(star),
-                                         badpix=Image(bp),
-                                         strict=False)
-                     for star, bp in zip(all_stars, badpix_masks)]
-        star_shapes = np.array([[moms.observed_shape.g1,
-                                 moms.observed_shape.g2,
-                                 2. * moms.moments_sigma ** 2,
-                                 int(bool(moms.error_message))]
-                                for moms in star_moms])
+        star_moms = [
+            hsm.FindAdaptiveMom(Image(star), badpix=Image(bp), strict=False)
+            for star, bp in zip(all_stars, badpix_masks)
+        ]
+        star_shapes = np.array(
+            [
+                [
+                    moms.observed_shape.g1,
+                    moms.observed_shape.g2,
+                    2.0 * moms.moments_sigma**2,
+                    int(bool(moms.error_message)),
+                ]
+                for moms in star_moms
+            ]
+        )
 
         # Outlier rejection based on e1, e2 and R2
-        R2_thresh = shape_std_max * np.std(star_shapes[:, 2]) + \
-            np.mean(star_shapes[:, 2])
-        R2_bad_stars = (abs(star_shapes[:, 2]) > R2_thresh)
+        R2_thresh = shape_std_max * np.std(star_shapes[:, 2]) + np.mean(
+            star_shapes[:, 2]
+        )
+        R2_bad_stars = abs(star_shapes[:, 2]) > R2_thresh
 
-        e2_thresh = shape_std_max * np.std(star_shapes[:, 1]) + \
-            np.mean(star_shapes[:, 1])
-        e2_bad_stars = (abs(star_shapes[:, 1]) > e2_thresh)
+        e2_thresh = shape_std_max * np.std(star_shapes[:, 1]) + np.mean(
+            star_shapes[:, 1]
+        )
+        e2_bad_stars = abs(star_shapes[:, 1]) > e2_thresh
 
-        e1_thresh = shape_std_max * np.std(star_shapes[:, 0]) + \
-            np.mean(star_shapes[:, 0])
-        e1_bad_stars = (abs(star_shapes[:, 0]) > e1_thresh)
+        e1_thresh = shape_std_max * np.std(star_shapes[:, 0]) + np.mean(
+            star_shapes[:, 0]
+        )
+        e1_bad_stars = abs(star_shapes[:, 0]) > e1_thresh
 
         bad_stars = np.logical_or(e1_bad_stars, e2_bad_stars)
         bad_stars = np.logical_or(bad_stars, R2_bad_stars)
@@ -917,8 +930,9 @@ class MccdInputs(object):
         print_fun(bad_stars_idx.shape)
 
         # Create masks
-        erase_masks = [np.zeros(star_list[i].shape[2], dtype=bool)
-                       for i in range(len(star_list))]
+        erase_masks = [
+            np.zeros(star_list[i].shape[2], dtype=bool) for i in range(len(star_list))
+        ]
 
         if bad_stars_idx.size > 0:
             # We have to erase the outliers
@@ -938,10 +952,10 @@ class MccdInputs(object):
 
             # select outlier stars
             for bad_id in bad_stars_idx:
-                print_fun('Outlier: Glob_id=%d , star_id=%d , ccd_id=%d' % (
-                    idx_ref[bad_id, 0],
-                    idx_ref[bad_id, 1],
-                    idx_ref[bad_id, 2]))
+                print_fun(
+                    "Outlier: Glob_id=%d , star_id=%d , ccd_id=%d"
+                    % (idx_ref[bad_id, 0], idx_ref[bad_id, 1], idx_ref[bad_id, 2])
+                )
                 erase_masks[idx_ref[bad_id, 2]][idx_ref[bad_id, 1]] = True
 
             for it_star in range(len(star_list)):
@@ -956,8 +970,16 @@ class MccdInputs(object):
                     RA_list[it_star] = RA_list[it_star][mask]
                     DEC_list[it_star] = DEC_list[it_star][mask]
 
-        return star_list, pos_list, mask_list, ccd_list, SNR_list, RA_list,\
-            DEC_list, erase_masks
+        return (
+            star_list,
+            pos_list,
+            mask_list,
+            ccd_list,
+            SNR_list,
+            RA_list,
+            DEC_list,
+            erase_masks,
+        )
 
 
 def random_indexes(n_tot, train_per=0.8, min_n_train=20):
@@ -985,8 +1007,7 @@ def random_indexes(n_tot, train_per=0.8, min_n_train=20):
 
     """
     # Define number of stars
-    train_star_nb = np.max([np.floor(train_per * n_tot).astype(int),
-                            min_n_train])
+    train_star_nb = np.max([np.floor(train_per * n_tot).astype(int), min_n_train])
 
     # Generate the random test positions in the star field
     # The positions will be maintained throughout the star sets
@@ -999,21 +1020,21 @@ def random_indexes(n_tot, train_per=0.8, min_n_train=20):
 
 def _get_fits_col_type(col_data_type):
     if col_data_type is None or len(col_data_type) == 0:
-        col_type = 'D'
+        col_type = "D"
     elif col_data_type in [np.int16]:
-        col_type = 'I'
+        col_type = "I"
     elif col_data_type in [np.int32]:
-        col_type = 'J'
+        col_type = "J"
     elif col_data_type in [int, np.int64]:
-        col_type = 'K'
+        col_type = "K"
     elif col_data_type in [float, np.float16, np.float32, np.float64]:
-        col_type = 'D'
+        col_type = "D"
     elif col_data_type is bool:
-        col_type = 'L'
+        col_type = "L"
     elif col_data_type in [str, np.str, np.str_, np.str0]:
-        col_type = 'A'
+        col_type = "A"
     else:
-        col_type = 'D'
+        col_type = "D"
 
     return col_type
 
@@ -1040,8 +1061,8 @@ def save_to_fits(dictionary, output_path):
     """
     # Define the header
     hdr = fits.Header()
-    hdr['OWNER'] = 'MCCD package'
-    hdr['COMMENT'] = 'Generated internally by the MCCD package.'
+    hdr["OWNER"] = "MCCD package"
+    hdr["COMMENT"] = "Generated internally by the MCCD package."
     empty_primary_hdu = fits.PrimaryHDU(header=hdr)
 
     # Construct the table
@@ -1061,13 +1082,13 @@ def save_to_fits(dictionary, output_path):
         if len(data_shape) != 0:
             for k in data_shape:
                 mem_size *= k
-            data_format = '{0}{1}'.format(mem_size, data_type)
-            col_list.append(fits.Column(name=key, format=data_format,
-                                        array=data, dim=fits_dim))
+            data_format = "{0}{1}".format(mem_size, data_type)
+            col_list.append(
+                fits.Column(name=key, format=data_format, array=data, dim=fits_dim)
+            )
         else:
-            data_format = '{0}{1}'.format(mem_size, data_type)
-            col_list.append(fits.Column(name=key, format=data_format,
-                                        array=data))
+            data_format = "{0}{1}".format(mem_size, data_type)
+            col_list.append(fits.Column(name=key, format=data_format, array=data))
 
     table_hdu = fits.BinTableHDU.from_columns(col_list)
     hdul = fits.HDUList([empty_primary_hdu, table_hdu])
@@ -1098,13 +1119,13 @@ def save_fits(dictionary, train_bool, cat_id, output_path):
 
     """
     # Save data into the FITS format extension
-    train_pattern = 'train_star_selection'
-    test_pattern = 'test_star_selection'
+    train_pattern = "train_star_selection"
+    test_pattern = "test_star_selection"
     try:
         number_scheme = "-%07d" % cat_id
     except Exception:
-        number_scheme = '-' + cat_id
-    ext = '.fits'
+        number_scheme = "-" + cat_id
+    ext = ".fits"
 
     if train_bool:
         saving_path = output_path + train_pattern + number_scheme + ext
@@ -1166,11 +1187,16 @@ def return_glob_neighbors(new_pos, obs_pos_list, val_list, n_neighbors):
 
     """
     # Calculate all the distances
-    dist_list = [np.array([np.linalg.norm(obs_pos - new_pos, axis=1),
-                           (np.ones(obs_pos.shape[0]) * ccd_n),
-                           np.arange(obs_pos.shape[0])])
-                 for obs_pos, ccd_n in
-                 zip(obs_pos_list, np.arange(len(obs_pos_list)))]
+    dist_list = [
+        np.array(
+            [
+                np.linalg.norm(obs_pos - new_pos, axis=1),
+                (np.ones(obs_pos.shape[0]) * ccd_n),
+                np.arange(obs_pos.shape[0]),
+            ]
+        )
+        for obs_pos, ccd_n in zip(obs_pos_list, np.arange(len(obs_pos_list)))
+    ]
     # Sort the distances
     distances = np.concatenate(dist_list, axis=1)
     sort_idxs = np.argsort(distances[0, :])[:n_neighbors]
@@ -1179,10 +1205,12 @@ def return_glob_neighbors(new_pos, obs_pos_list, val_list, n_neighbors):
     ccd_idxs = distances[1, sort_idxs].astype(int)
     inter_ccd_idxs = distances[2, sort_idxs].astype(int)
 
-    values = np.array([val_list[ccd_idxs[it]].T[inter_ccd_idxs[it], :]
-                       for it in range(n_neighbors)])
-    positions = np.array([obs_pos_list[ccd_idxs[it]][inter_ccd_idxs[it], :]
-                          for it in range(n_neighbors)])
+    values = np.array(
+        [val_list[ccd_idxs[it]].T[inter_ccd_idxs[it], :] for it in range(n_neighbors)]
+    )
+    positions = np.array(
+        [obs_pos_list[ccd_idxs[it]][inter_ccd_idxs[it], :] for it in range(n_neighbors)]
+    )
 
     return values, positions
 
@@ -1223,11 +1251,17 @@ def interpolation_Pi(position_list, d_comp_glob, loc2glob=None):
     min_x, max_x = loc2glob.x_coord_range()
     min_y, max_y = loc2glob.y_coord_range()
 
-    interp_Pi = [utils.poly_pos(pos=interp_pos, max_degree=d_comp_glob,
-                                center_normalice=True,
-                                x_lims=[min_x, max_x], y_lims=[min_y, max_y],
-                                normalice_Pi=False)
-                 for interp_pos in position_list]
+    interp_Pi = [
+        utils.poly_pos(
+            pos=interp_pos,
+            max_degree=d_comp_glob,
+            center_normalice=True,
+            x_lims=[min_x, max_x],
+            y_lims=[min_y, max_y],
+            normalice_Pi=False,
+        )
+        for interp_pos in position_list
+    ]
 
     # Global position model normalisation
     # Start with the list Pi
@@ -1261,7 +1295,7 @@ def trim_filter(filter_array):
     non_zero_indices = np.array(np.where(filter_array != 0))
     min_idx = np.min(non_zero_indices, axis=-1)
     max_idx = np.max(non_zero_indices, axis=-1)
-    return filter_array[min_idx[0]:max_idx[0] + 1, min_idx[1]:max_idx[1] + 1]
+    return filter_array[min_idx[0] : max_idx[0] + 1, min_idx[1] : max_idx[1] + 1]
 
 
 def get_mr_filters(data_shape, opt, n_scales=3, coarse=False, trim=False):
@@ -1309,7 +1343,7 @@ def get_mr_filters(data_shape, opt, n_scales=3, coarse=False, trim=False):
     fake_data[tuple(zip(data_shape // 2))] = 1
 
     # Transform fake data
-    wavelet_transform = (load_transform(opt)(nb_scale=n_scales, verbose=True))
+    wavelet_transform = load_transform(opt)(nb_scale=n_scales, verbose=True)
     wavelet_transform.data = fake_data
     wavelet_transform.analysis()
     filters = np.array(wavelet_transform.analysis_data)
