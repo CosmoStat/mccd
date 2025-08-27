@@ -205,6 +205,104 @@ class Loc2Glob(object):
             return x_shift, y_shift
 
 
+class Loc2Glob_mock(object):
+    r"""Change from local to global coordinates.
+
+    Class to pass from local coordinates to global coordinates under
+    for a mock instrument.
+
+    Note: This class is useful if only one CCD is used and we want to mock the instrument,
+    but set the correct `x` and `y` coordinate limits.
+
+    Parameters
+    ----------
+    x_gap: int
+        Gap between the CCDs on the horizontal direction.
+        Default to ``70`` (CFIS value).
+    y_gap: int
+        Gap between the CCDs on the vertical direction.
+        Default to ``425`` (CFIS value).
+    x_npix: int
+        Number of pixels on one CCD on the horizontal direction.
+        Default to ``2048`` (CFIS value).
+    y_npix: int
+        Number of pixels on one CCD on the vertical direction.
+        Default to ``4612`` (CFIS value).
+    ccd_tot: int
+        Total number of CCDs.
+        Default to ``40`` (CFIS value).
+
+    """
+
+    def __init__(
+        self,
+        x_lim=[0, 1e3],
+        y_lim=[0, 1e3],
+        x_gap=0,
+        y_gap=0,
+        x_npix=0,
+        y_npix=0,
+        ccd_tot=1,
+    ):
+        r"""Initialize with instrument geometry."""
+        self.x_lim = x_lim
+        self.y_lim = y_lim
+        self.x_gap = x_gap
+        self.y_gap = y_gap
+        self.x_npix = x_npix
+        self.y_npix = y_npix
+        self.ccd_tot = ccd_tot
+
+    def loc2glob_img_coord(self, ccd_n, x_coor, y_coor):
+        r"""Go from the local to the global img (pixel) coordinate system.
+
+        Global system with (0,0) in the intersection of ccds [12,13,21,22].
+
+        Parameters
+        ----------
+        ccd_n: int
+            CCD number of the considered positions.
+        x_coor: float
+            Local coordinate system hotizontal value.
+        y_coor: float
+            Local coordinate system vertical value.
+
+        Returns
+        -------
+        glob_x_coor: float
+            Horizontal position in global coordinate system.
+        glob_y_coor: float
+            Vertical position in global coordinate system.
+
+        """
+        raise NotImplementedError
+
+    def flip_coord(self, ccd_n, x_coor, y_coor):
+        r"""Change of coordinate convention.
+
+        So that all of them are coherent on the global coordinate system.
+        So that the origin is on the south-west corner.
+        Positive: South to North ; West to East.
+        """
+        raise NotImplementedError
+
+    def x_coord_range(self):
+        r"""Return range of the x coordinate."""
+        return self.x_lim[0], self.x_lim[1]
+
+    def y_coord_range(self):
+        r"""Return range of the y coordinate."""
+        return self.y_lim[0], self.y_lim[1]
+
+    def shift_coord(self, ccd_n):
+        r"""Provide the shifting.
+
+        It is needed to go from the local coordinate
+        system origin to the global coordinate system origin.
+        """
+        raise NotImplementedError
+
+
 class Loc2Glob_EUCLID_sim(object):
     r"""Change from local to global coordinates.
 
