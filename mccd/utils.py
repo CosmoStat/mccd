@@ -642,7 +642,7 @@ def poly_pos(
     """
     n_mono = (max_degree + 1) * (max_degree + 2) // 2
     Pi = np.zeros((n_mono, pos.shape[0]))
-    _pos = np.copy(pos)
+    _pos = np.copy(pos).astype(float)
 
     if x_lims is None:
         x_min = np.min(_pos[:, 0])
