@@ -197,6 +197,8 @@ class MCCD(object):
             self.loc2glob = mccd_utils.Loc2Glob()
         elif fp_geometry == "EUCLID":
             self.loc2glob = mccd_utils.Loc2Glob_EUCLID_sim()
+        elif isinstance(fp_geometry, object):
+            self.loc2glob = fp_geometry
         else:
             raise NotImplementedError
 
